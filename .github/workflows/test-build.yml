@@ -1,8 +1,7 @@
 name: Test Unity Build
 
 on:
-    pull_request:
-    push:
+    pull_request: 
 
 jobs:
     build:
@@ -12,12 +11,8 @@ jobs:
             fail-fast: false
             matrix:
                 targetPlatform:
-                    - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
                     - StandaloneWindows64 # Build a Windows 64-bit standalone.
                     - StandaloneLinux64 # Build a Linux 64-bit standalone.
-                    - WebGL # WebGL.
-                    - iOS # Build an iOS player.
-                    - Android # Build an Android player.
         steps:
             -   uses: actions/checkout@v2
                 with:
