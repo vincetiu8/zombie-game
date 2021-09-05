@@ -1,6 +1,6 @@
 name: Acquire Unity Activation File
 on:
-    workflow_dispatch: {}
+    workflow_dispatch:
 jobs:
     activation:
         name: Request manual activation file
