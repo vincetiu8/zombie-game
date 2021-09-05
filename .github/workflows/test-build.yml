@@ -1,0 +1,48 @@
+name: Test Unity Build
+
+on:
+    pull_request:
+    push:
+
+jobs:
+    build:
+        name: Build for ${{ matrix.targetPlatform }}
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                targetPlatform:
+                    - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+                    - StandaloneWindows64 # Build a Windows 64-bit standalone.
+                    - StandaloneLinux64 # Build a Linux 64-bit standalone.
+                    - WebGL # WebGL.
+                    - iOS # Build an iOS player.
+                    - Android # Build an Android player.
+        steps:
+            -   uses: actions/checkout@v2
+                with:
+                    lfs: true
+            
+            # Cache
+            -   uses: actions/cache@v2
+                with:
+                    path: Library
+                    key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+                    restore-keys: |
+                        Library-
+            
+            # Build
+            -   name: Build project
+                uses: game-ci/unity-builder@v2
+                env:
+                    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+                with:
+                    unityVersion: 2020.3.17f1
+                    targetPlatform: ${{ matrix.targetPlatform }}
+                    githubToken: ${{ secrets.GITHUB_TOKEN }}
+            
+            # Output
+            -   uses: actions/upload-artifact@v2
+                with:
+                    name: Build
+                    path: build
