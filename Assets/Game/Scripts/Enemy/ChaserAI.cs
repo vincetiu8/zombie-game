@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Scripts
+namespace Game.Scripts.Enemy
 {
     public class ChaserAI : MonoBehaviour
     {

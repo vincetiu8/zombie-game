@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Scripts
+namespace Game.Scripts.Enemy
 {
     // This script can be expanded in the future if other tracking methods are needed
     // Make into an abstract class and make child classes for each tracking strategy
