@@ -7,11 +7,11 @@ namespace Game.Scripts.Weapons
     {
         [SerializeField] private float damage;
         [SerializeField] private float damageCooldown;
-        [SerializeField] private LayerMask playerLayerMask;
+        [SerializeField] private LayerMask layerMask;
 
         private float _cooldown;
 
-        private void Update()
+        protected virtual void Update()
         {
             if (_cooldown > 0)
             {
@@ -19,9 +19,9 @@ namespace Game.Scripts.Weapons
             }
         }
 
-        private void OnCollisionStay2D(Collision2D other)
+        protected virtual void OnCollisionStay2D(Collision2D other)
         {
-            if (_cooldown > 0 || !Utils.IsInLayerMask(playerLayerMask, other.gameObject.layer)) return;
+            if (_cooldown > 0 || !Utils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
             
             other.gameObject.GetComponent<Health>().ChangeHealth(-damage);
             _cooldown = damageCooldown;
