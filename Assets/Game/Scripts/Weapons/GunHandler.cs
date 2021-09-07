@@ -9,22 +9,6 @@ namespace Game.Scripts.Weapons
 {
     public class GunHandler : NetworkBehaviour
     {
-        protected virtual void GunStats() // use this to define your weapon's base and upgraded attributes, override when writing your own weapon scripts
-        {
-            AddWeaponTier(1, 50, 5, 1, 10); // This will be the base weapon attribute
-            AddWeaponTier(2, 100, 10, 0.5f, 8); // This will be ultimate weapon I
-            AddWeaponTier(3, 150, 15, 0.25f, 6);// This will be ultimate weapon II
-
-            currentDamage = WeaponTiers[0].damage;
-            currentMaxAmmo = WeaponTiers[0].ammo;
-            currentMagSize = WeaponTiers[0].magazineSize;
-            currentFireRate = WeaponTiers[0].fireRate;
-            currentReload = WeaponTiers[0].reload;
-
-            //Debug.Log(currentReload);
-            Debug.Log(WeaponTiers.Count);
-        }
-
         [SerializeField] private Camera camera;
         [SerializeField] private Transform playerSprite;
         [SerializeField] private Transform firepoint;
@@ -47,6 +31,20 @@ namespace Game.Scripts.Weapons
 
         private int currentTier = 0;
 
+        protected virtual void GunStats() // use this to define your weapon's base and upgraded attributes, override when writing your own weapon scripts
+        {
+            AddWeaponTier(1, 10, 5, 1, 3); // This will be the base weapon attribute
+            AddWeaponTier(2, 20, 10, 0.5f, 2); // This will be ultimate weapon I
+            AddWeaponTier(3, 30, 15, 0.25f, 1);// This will be ultimate weapon II
+
+            currentDamage = WeaponTiers[0].damage;
+            currentMaxAmmo = WeaponTiers[0].ammo;
+            currentMagSize = WeaponTiers[0].magazineSize;
+            currentFireRate = WeaponTiers[0].fireRate;
+            currentReload = WeaponTiers[0].reload;
+
+            Debug.Log("Total amount of tiers: " + WeaponTiers.Count);
+        }
 
         public class WeaponAttributes
         {
@@ -76,6 +74,8 @@ namespace Game.Scripts.Weapons
         {
             GunStats();
             WeaponTiers[0].Display();
+            leftInMag = currentMagSize;
+            totalAmmoLeft = currentMaxAmmo;
 
             //UpgrageWeapon();
         }
@@ -88,7 +88,7 @@ namespace Game.Scripts.Weapons
         {
             if (currentTier >= (WeaponTiers.Count - 1))
             {
-                Debug.Log("over");
+                Debug.Log("Already at max weapon level");
                 return;
             }
             currentTier = currentTier + 1;
@@ -116,7 +116,6 @@ namespace Game.Scripts.Weapons
 
 
 
-
         [SyncVar] private float _cooldown;
 
         // Should only be run on the server
@@ -133,16 +132,18 @@ namespace Game.Scripts.Weapons
         [Client]
         public void Fire(InputAction.CallbackContext context)
         {
+            if (leftInMag == 0) { Debug.Log("No more Ammo!"); return; }
             if (context.started) return;
-            
+
             CmdFire();
         }
         public void Reload(InputAction.CallbackContext context)
         {
-            if (leftInMag == currentMagSize) return;
+            if (leftInMag == currentMagSize) {Debug.Log("Magazine already full!"); return; }
+            if (totalAmmoLeft == 0) { Debug.Log("No more spare rounds left for reload!"); return; }
             if (context.started) return;
 
-            CmdReload();
+            StartCoroutine(CmdReload());
         }
 
         [Command]
@@ -154,17 +155,31 @@ namespace Game.Scripts.Weapons
             //CollisionDamager _collisionDamager = bulletClone.GetComponent<CollisionDamager>();
             //_collisionDamager.TransferAttributes(); Haven't written these functions yet, wanted to pass this PR first before anything
             NetworkServer.Spawn(bulletClone);
-            Debug.Log(currentFireRate);
             _cooldown = currentFireRate;
+            leftInMag = leftInMag - 1;
+            Debug.Log("Left in mag: " + leftInMag);
+
         }
 
         private IEnumerator CmdReload()
         {
+            Debug.Log("Reloading");
             _cooldown = currentReload;
             //play animation
             yield return new WaitUntil(() => _cooldown <= 0);
-            totalAmmoLeft = totalAmmoLeft - leftInMag;
-            leftInMag = currentMagSize;
+            Debug.Log("Current magazine size: " + currentMagSize);
+            if (totalAmmoLeft > currentMagSize)
+            {
+                totalAmmoLeft = totalAmmoLeft - (currentMagSize - leftInMag);
+                leftInMag = currentMagSize;
+            }
+            else
+            {
+                leftInMag = totalAmmoLeft;
+                totalAmmoLeft = 0;
+            }
+            Debug.Log("Total ammo left: " + totalAmmoLeft);
+            
         }
 
         public void FaceMouse(InputAction.CallbackContext context)
