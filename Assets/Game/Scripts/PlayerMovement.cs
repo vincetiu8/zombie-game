@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,14 +16,13 @@ namespace Game.Scripts
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             _rigidbody2D.velocity = _movementDirection * movementSpeed;
         }
 
         public void UpdateMovementDirection(InputAction.CallbackContext context)
         {
-            Debug.Log(_movementDirection);
             _movementDirection = context.ReadValue<Vector2>();
         }
     }
