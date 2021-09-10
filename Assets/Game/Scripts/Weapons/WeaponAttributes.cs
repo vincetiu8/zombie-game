@@ -7,16 +7,25 @@ namespace Game.Scripts.Weapons
     public struct WeaponAttributes
     {
         public string description;
+        public float damage;
         public int magazineSize;
         public float fireCooldown;
         public float reloadTime;
         public float bulletVelocity;
         public GameObject bulletPrefab;
 
-        public WeaponAttributes(string description, int magazineSize, float fireCooldown, float reloadTime,
-            float bulletVelocity, GameObject bulletPrefab)
+        public WeaponAttributes(
+            string description, 
+            float damage, 
+            int magazineSize, 
+            float fireCooldown,
+            float reloadTime,
+            float bulletVelocity, 
+            GameObject bulletPrefab
+            )
         {
             this.description = description;
+            this.damage = damage;
             this.magazineSize = magazineSize;
             this.fireCooldown = fireCooldown;
             this.reloadTime = reloadTime;

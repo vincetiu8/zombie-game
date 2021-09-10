@@ -8,14 +8,14 @@ using UnityEngine.InputSystem;
 
 namespace Game.Scripts.Weapons
 {
-    public class GunHandler : NetworkBehaviour
+    public class PlayerWeapon : NetworkBehaviour
     {
         [SerializeField] private Camera playerCamera;
         [SerializeField] private Transform playerSprite;
         [SerializeField] private Transform firepoint;
         [SerializeField] private GameObject bulletPrefab;
         
-        public WeaponHandler currentWeapon;
+        public Weapon currentWeapon;
 
         [Server]
         private void Update()
@@ -39,10 +39,13 @@ namespace Game.Scripts.Weapons
         {
             if (currentWeapon.fireCooldown > 0 || currentWeapon.bulletsInMagazine < 1) return;
 
+            WeaponAttributes weaponAttributes = currentWeapon.GetAttributes();
+            
             GameObject bulletClone = Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
-            Vector2 bulletVelocity = firepoint.right * currentWeapon.GetAttributes().bulletVelocity;
+            Vector2 bulletVelocity = firepoint.right * weaponAttributes.bulletVelocity;
             
             bulletClone.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
+            bulletClone.GetComponent<Bullet>().damage = weaponAttributes.damage;
             NetworkServer.Spawn(bulletClone);
             currentWeapon.Fire();
         }

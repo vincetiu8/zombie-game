@@ -1,10 +1,11 @@
+using Mirror;
 using UnityEngine;
 
 namespace Game.Scripts.Weapons
 {
     public class Bullet : CollisionDamager
     {
-        [SerializeField] private float lifetime;
+        [SyncVar] public float lifetime;
 
         private float _timeAlive;
 

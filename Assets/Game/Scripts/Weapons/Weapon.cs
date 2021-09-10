@@ -8,13 +8,13 @@ namespace Game.Scripts.Weapons
 {
     // If we ever add melee weapons, we'll have to make a parent class and have this one inherit from it.
     [Serializable]
-    public class WeaponHandler
+    public class Weapon
     {
         public string weaponName;
         public int weaponLevel;
         public int bulletsInMagazine;
         public float fireCooldown;
-        public WeaponAttributes[] weaponLevels;
+        [SerializeField] private WeaponAttributes[] weaponLevels;
 
         public void Setup()
         {
