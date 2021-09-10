@@ -42,7 +42,7 @@ namespace Game.Scripts.Weapons
             currentGunAttributes.leftInMag = WeaponTiers[currentTier].magazineSize;
             currentGunAttributes.totalAmmoLeft = WeaponTiers[currentTier].maxAmmo;
 
-            //UpgrageWeapon();
+            //UpgradeWeapon();
 
             AddWeaponTier(1, 10, 5, 1, 3); // This will be the base weapon attribute
             AddWeaponTier(2, 20, 10, 0.5f, 2); // This will be ultimate weapon I
@@ -59,7 +59,7 @@ namespace Game.Scripts.Weapons
         }
 
 
-        public void UpgrageWeapon()
+        public void UpgradeWeapon()
         {
             if (currentTier >= (WeaponTiers.Count - 1))
             {
