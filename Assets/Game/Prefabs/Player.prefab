@@ -298,8 +298,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6455594554168295160}
-        m_TargetAssemblyTypeName: Game.Scripts.Weapons.Gun, Assembly-CSharp
-        m_MethodName: Fire
+        m_TargetAssemblyTypeName: Game.Scripts.Weapons.GunHandler, Assembly-CSharp
+        m_MethodName: FireAction
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -331,7 +331,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6455594554168295160}
         m_TargetAssemblyTypeName: Game.Scripts.Weapons.GunHandler, Assembly-CSharp
-        m_MethodName: Reload
+        m_MethodName: ReloadAction
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -500,22 +500,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  camera: {fileID: 4693431101761815404}
+  playerCamera: {fileID: 4693431101761815404}
   playerSprite: {fileID: 4693431101948605444}
   firepoint: {fileID: 1940961483814088004}
   bulletPrefab: {fileID: 5597441476687873508, guid: 7b55bd1d5c1b1f758997014851f9f8c5,
     type: 3}
-  bulletSpeed: 5
-  currentDamage: 0
-  currentMaxAmmo: 0
-  currentMagSize: 0
-  currentFireRate: 0
-  currentReload: 0
-  totalAmmoLeft: 0
-  leftInMag: 0
-  effects: []
-  gunName: 
-  gunDescription: 
+  currentWeapon:
+    weaponName: 
+    weaponLevel: 0
+    bulletsInMagazine: 5
+    fireCooldown: 0
+    weaponLevels:
+    - description: 
+      magazineSize: 5
+      fireCooldown: 0
+      reloadTime: 0
+      bulletVelocity: 3
+      bulletPrefab: {fileID: 5597441476687873508, guid: 7b55bd1d5c1b1f758997014851f9f8c5,
+        type: 3}
 --- !u!114 &6817366494982298187
 MonoBehaviour:
   m_ObjectHideFlags: 0
