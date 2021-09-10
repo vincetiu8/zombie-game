@@ -23,34 +23,24 @@ namespace Game.Scripts.Weapons
         {
             [HideInInspector] public string gunName; // What name shows up when you see it in game and hold it
             [HideInInspector] public string gunDescription;// Description you read before/after you buy the gun
-            /*[HideInInspector] public float damage;
-            [HideInInspector] public float maxAmmo;
-            [HideInInspector] public float magSize;
-            [HideInInspector] public float fireRate;
-            [HideInInspector] public float reload;*/
             [HideInInspector] public float totalAmmoLeft;
             [HideInInspector] public float leftInMag;
         }
         [SerializeField] private float bulletSpeed;
 
-        Gun currentGunAttributes = new Gun();
-
-        //[SerializeField] private float fireCooldown;
+        Gun currentGunAttributes = new Gun();  
 
         //public string[] effects; Saved for a later PR
 
-        
+        public List<GunFunctions.WeaponAttributes> WeaponTiers = new List<GunFunctions.WeaponAttributes>();
 
         private int currentTier = 0;
 
-        
-        // public List<GunFunctions.WeaponAttributes> WeaponTiers = new List<GunFunctions.WeaponAttributes>();
-        void Start()
+        protected virtual void Start()
         {
-            //gunFunctions = GetComponent<GunFunctions>();
             WeaponTiers[0].Display();
             currentGunAttributes.leftInMag = WeaponTiers[currentTier].magazineSize;
-            currentGunAttributes.totalAmmoLeft = WeaponTiers[currentTier].ammo;
+            currentGunAttributes.totalAmmoLeft = WeaponTiers[currentTier].maxAmmo;
 
             //UpgrageWeapon();
 
@@ -58,20 +48,14 @@ namespace Game.Scripts.Weapons
             AddWeaponTier(2, 20, 10, 0.5f, 2); // This will be ultimate weapon I
             AddWeaponTier(3, 30, 15, 0.25f, 1);// This will be ultimate weapon II
 
-            /*currentGunAttributes.damage = WeaponTiers[0].damage;
-            currentGunAttributes.maxAmmo = WeaponTiers[0].ammo;
-            currentGunAttributes.magSize = WeaponTiers[0].magazineSize;
-            currentGunAttributes.fireRate = WeaponTiers[0].fireRate;
-            currentGunAttributes.reload = WeaponTiers[0].reload;*/
-
             Debug.Log("Total amount of tiers: " + WeaponTiers.Count);
         }
 
-        public List<GunFunctions.WeaponAttributes> WeaponTiers = new List<GunFunctions.WeaponAttributes>();
+
 
         void AddWeaponTier(float damage, float ammo, float magazineSize, float fireRate, float reload)
         {
-            WeaponTiers.Add(new WeaponAttributes(damage, ammo, magazineSize, fireRate, reload));
+            WeaponTiers.Add(new GunFunctions.WeaponAttributes(damage, ammo, magazineSize, fireRate, reload));
         }
 
 
@@ -84,13 +68,6 @@ namespace Game.Scripts.Weapons
             }
             currentTier = currentTier + 1;
 
-            //gunName = gunName + " I";
-            currentGunAttributes.damage = WeaponTiers[currentTier].damage;
-            currentGunAttributes.maxAmmo = WeaponTiers[currentTier].ammo;
-            currentGunAttributes.magSize = WeaponTiers[currentTier].magazineSize;
-            currentGunAttributes.fireRate = WeaponTiers[currentTier].fireRate;
-            currentGunAttributes.reload = WeaponTiers[currentTier].reload;
-
             MaxAmmo();
 
             WeaponTiers[currentTier].Display();
@@ -100,8 +77,8 @@ namespace Game.Scripts.Weapons
         //Perks activation section
         public void MaxAmmo()
         {
-            currentGunAttributes.totalAmmoLeft = currentGunAttributes.maxAmmo;
-            currentGunAttributes.leftInMag = currentGunAttributes.magSize;
+            currentGunAttributes.totalAmmoLeft = WeaponTiers[currentTier].maxAmmo;
+            currentGunAttributes.leftInMag = WeaponTiers[currentTier].magazineSize;
         }
 
 
@@ -144,7 +121,7 @@ namespace Game.Scripts.Weapons
             //CollisionDamager _collisionDamager = bulletClone.GetComponent<CollisionDamager>();
             //_collisionDamager.TransferAttributes(); Haven't written these functions yet, wanted to pass this PR first before anything
             NetworkServer.Spawn(bulletClone);
-            _cooldown = currentGunAttributes.fireRate;
+            _cooldown = WeaponTiers[currentTier].fireCooldown;
             currentGunAttributes.leftInMag = currentGunAttributes.leftInMag - 1;
             Debug.Log("Left in mag: " + currentGunAttributes.leftInMag);
 
@@ -152,11 +129,11 @@ namespace Game.Scripts.Weapons
 
         private IEnumerator CmdReload()
         {
-            if (currentGunAttributes.leftInMag == currentGunAttributes.magSize) { Debug.Log("Magazine already full!"); yield break; }
+            if (currentGunAttributes.leftInMag == WeaponTiers[currentTier].magazineSize) { Debug.Log("Magazine already full!"); yield break; }
             if (currentGunAttributes.totalAmmoLeft == 0) { Debug.Log("No more spare rounds left for reload!"); yield break
                     ; }
             Debug.Log("Reloading");
-            _cooldown = currentGunAttributes.reload;
+            _cooldown = WeaponTiers[currentTier].reload;
             //play animation
             while (_cooldown > 0) 
              // if you think this is still not good enough, ill move this to update, but i feel that this accomplishes the same thing.
@@ -165,11 +142,11 @@ namespace Game.Scripts.Weapons
                 yield return new WaitForSeconds(0.01f);//Done to prevent lag
             }
             //yield return new WaitUntil(() => _cooldown <= 0);
-            Debug.Log("Current magazine size: " + currentGunAttributes.magSize);
-            if (currentGunAttributes.totalAmmoLeft > currentGunAttributes.magSize)
+            Debug.Log("Current magazine size: " + WeaponTiers[currentTier].magazineSize);
+            if (currentGunAttributes.totalAmmoLeft > WeaponTiers[currentTier].magazineSize)
             {
-                currentGunAttributes.totalAmmoLeft = currentGunAttributes.totalAmmoLeft - (currentGunAttributes.magSize - currentGunAttributes.leftInMag);
-                currentGunAttributes.leftInMag = currentGunAttributes.magSize;
+                currentGunAttributes.totalAmmoLeft = currentGunAttributes.totalAmmoLeft - (WeaponTiers[currentTier].magazineSize - currentGunAttributes.leftInMag);
+                currentGunAttributes.leftInMag = WeaponTiers[currentTier].magazineSize;
             }
             else
             {
