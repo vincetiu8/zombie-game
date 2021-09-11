@@ -298,8 +298,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6455594554168295160}
-        m_TargetAssemblyTypeName: Game.Scripts.Weapons.Gun, Assembly-CSharp
-        m_MethodName: Fire
+        m_TargetAssemblyTypeName: Game.Scripts.Weapons.GunHandler, Assembly-CSharp
+        m_MethodName: FireAction
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -327,6 +327,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c30ccb0a-aa59-4db8-a8c5-9302db2225b1
     m_ActionName: Game/Mouse[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6455594554168295160}
+        m_TargetAssemblyTypeName: Game.Scripts.Weapons.GunHandler, Assembly-CSharp
+        m_MethodName: ReloadAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2c93b75c-851c-4bae-bdf1-928d018d7fee
+    m_ActionName: Game/Reload[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game
@@ -484,13 +500,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  camera: {fileID: 4693431101761815404}
+  playerCamera: {fileID: 4693431101761815404}
   playerSprite: {fileID: 4693431101948605444}
   firepoint: {fileID: 1940961483814088004}
   bulletPrefab: {fileID: 5597441476687873508, guid: 7b55bd1d5c1b1f758997014851f9f8c5,
     type: 3}
-  bulletSpeed: 5
-  fireCooldown: 0.2
+  currentWeapon:
+    weaponName: 
+    weaponLevel: 0
+    bulletsInMagazine: 5
+    fireCooldown: 0
+    weaponLevels:
+    - description: 
+      magazineSize: 5
+      fireCooldown: 0
+      reloadTime: 0
+      bulletVelocity: 3
+      bulletPrefab: {fileID: 5597441476687873508, guid: 7b55bd1d5c1b1f758997014851f9f8c5,
+        type: 3}
 --- !u!114 &6817366494982298187
 MonoBehaviour:
   m_ObjectHideFlags: 0

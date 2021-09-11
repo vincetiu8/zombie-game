@@ -1,12 +1,13 @@
 using System;
+using Mirror;
 using UnityEngine;
 
 namespace Game.Scripts.Weapons
 {
-    public class CollisionDamager : MonoBehaviour
+    public class CollisionDamager : NetworkBehaviour
     {
-        [SerializeField] private float damage;
-        [SerializeField] private float damageCooldown;
+        [SyncVar] public float damage;
+        [SyncVar] public float damageCooldown;
         [SerializeField] private LayerMask layerMask;
 
         private float _cooldown;

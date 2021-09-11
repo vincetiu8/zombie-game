@@ -64,8 +64,6 @@ namespace Game.Scripts.Enemy
                 return Vector2.zero;
             }
             
-            Debug.Log(_trackingPlayer.position - transform.position);
-            
             return (_trackingPlayer.position - transform.position).normalized;
         }
         
