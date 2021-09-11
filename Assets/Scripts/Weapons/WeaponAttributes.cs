@@ -12,11 +12,11 @@ namespace Weapons
         public float fireCooldown;
         public float reloadTime;
         public float bulletVelocity;
-        public GameObject bulletPrefab;
 
         public override string ToString()
         {
-            return $"Magazine Size: {magazineSize}\n"
+            return $"Damage: {damage}\n" 
+                   + $"Magazine Size: {magazineSize}\n"
                    + $"Fire Cooldown: {fireCooldown}\n"
                    + $"Reload Time: {reloadTime}\n"
                    + $"Bullet Velocity: {bulletVelocity}\n";
