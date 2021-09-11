@@ -7,8 +7,8 @@ using UnityEngine;
 namespace Game.Scripts.Weapons
 {
     // If we ever add melee weapons, we'll have to make a parent class and have this one inherit from it.
-    [Serializable]
-    public class Weapon
+    [CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/Weapon", order = 1)]
+    public class Weapon : ScriptableObject
     {
         public string weaponName;
         public int weaponLevel;

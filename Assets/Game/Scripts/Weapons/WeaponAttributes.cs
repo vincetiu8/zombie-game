@@ -14,25 +14,6 @@ namespace Game.Scripts.Weapons
         public float bulletVelocity;
         public GameObject bulletPrefab;
 
-        public WeaponAttributes(
-            string description, 
-            float damage, 
-            int magazineSize, 
-            float fireCooldown,
-            float reloadTime,
-            float bulletVelocity, 
-            GameObject bulletPrefab
-            )
-        {
-            this.description = description;
-            this.damage = damage;
-            this.magazineSize = magazineSize;
-            this.fireCooldown = fireCooldown;
-            this.reloadTime = reloadTime;
-            this.bulletVelocity = bulletVelocity;
-            this.bulletPrefab = bulletPrefab;
-        }
-
         public override string ToString()
         {
             return $"Magazine Size: {magazineSize}\n"
