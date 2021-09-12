@@ -57,7 +57,7 @@ namespace Levels
             //Debug.Log("repairState: " + repairState);
 
             float _checkingRepairState = repairState;
-            for (int i = 0; i < maxRepairState; i++)
+            for (int i = 0; i < maxRepairState; i++) //renders the amount of barricades to display
             {
 
                 if (_checkingRepairState > 0)
