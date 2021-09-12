@@ -6,13 +6,13 @@ namespace Levels
 {
     public class WindowController : MonoBehaviour
     {
-        [SerializeField] private GameObject barricadesGraphics;
-        [SerializeField] private GameObject windowCollider; //Will prevent the enemy from going forward.
+        public GameObject barricadesGraphics;
+        public GameObject windowCollider; //Will prevent the enemy from going forward.
 
         [SerializeField] private int maxRepairState; //Coding it in case there will be many differnt window sizes.
-        private int repairState; //Make this public if it needs to be accessed
+        [HideInInspector] public int repairState;
 
-        private float timer = 0.0f;
+        private float nextActionTime = 0.0f;
         [SerializeField] private float barricadeBreakTime;
 
         void Start()
@@ -25,12 +25,11 @@ namespace Levels
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 //Debug.Log("Enemy in window");
-                timer += Time.deltaTime;
-                if (timer > barricadeBreakTime)
+                if (Time.time > nextActionTime)
                 {
-                    timer = timer - barricadeBreakTime;
+                    //Everything in here will be called every barricadeBreakTime interval
+                    nextActionTime = Time.time + barricadeBreakTime;
                     ChangeWindowState(-1);
-                    
                 }
 
             }
@@ -39,17 +38,15 @@ namespace Levels
 
         public void ChangeWindowState(int stateChange)
         {
-            if (repairState + stateChange > maxRepairState)
-            {
-                repairState = maxRepairState;
-                Debug.Log("Window already fully fixed");
-                return;
-            }
-            else if (repairState + stateChange <= 0) //all barricades broken, enemy can go forward
+            if (repairState + stateChange <= 0) //all barricades broken, enemy can go forward
             {
                 repairState = 0;
-                windowCollider.SetActive(false); //stopped at 0 so window can be repaired back to state
-                //can't return early here otherwise the last barricade being broken won't get rendered
+                windowCollider.SetActive(false); //stopped at 0 so window can be repaired back to state 1
+            }
+            else if (repairState + stateChange > maxRepairState)
+            {
+                repairState = maxRepairState;
+                Debug.Log("Window fully fixed");
             }
             else
             {
@@ -60,7 +57,7 @@ namespace Levels
             //Debug.Log("repairState: " + repairState);
 
             float _checkingRepairState = repairState;
-            for (int i = 0; i < maxRepairState; i++) //renders the amount of barricades to display
+            for (int i = 0; i < maxRepairState; i++)
             {
 
                 if (_checkingRepairState > 0)
