@@ -64,7 +64,7 @@ it would take and experienced coder to complete. These include:
 | Small | s | 1 - 2 hours |  
 | Medium | m | 3 - 4 hours |  
 | Large | l | Half a day |  
-| Extra large | xl | 1 or more days |
+| Unsure | ? | Unsure of length |
 
 Types are used to identify whether the issue is a bug, enhancement or feature. These include:
 | Type | Description | Example |  
