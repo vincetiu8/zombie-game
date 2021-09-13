@@ -22,8 +22,7 @@ namespace Levels
             {
                 //Everything in here will be called every barricadeBreakTime interval
                 nextActionTime = Time.time + barricadeFixTime;
-                windowController.ChangeHealth(1); // can't use the time delta time cooldown method here cuz it isn't being constatly called
-                // If i can get the hold interaction working, ill switch it to the other cooldown system
+                windowController.ChangeWindowState(1);
             }
             
         }
