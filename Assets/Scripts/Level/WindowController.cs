@@ -6,11 +6,11 @@ namespace Levels
 {
     public class WindowController : MonoBehaviour
     {
-        public GameObject barricadesGraphics;
-        public GameObject windowCollider; //Will prevent the enemy from going forward.
+        [SerializeField] private GameObject barricadesGraphics;
+        [SerializeField] private GameObject windowCollider; //Will prevent the enemy from going forward.
 
         [SerializeField] private int maxRepairState; //Coding it in case there will be many differnt window sizes.
-        [HideInInspector] public int repairState;
+        private int repairState; //Make this public if it needs to be accessed
 
         private float nextActionTime = 0.0f;
         [SerializeField] private float barricadeBreakTime;
@@ -36,17 +36,19 @@ namespace Levels
         }
 
 
-        public void ChangeWindowState(int stateChange)
+        private void ChangeWindowState(int stateChange) // Make this public if it needs to be accessed
         {
-            if (repairState + stateChange <= 0) //all barricades broken, enemy can go forward
-            {
-                repairState = 0;
-                windowCollider.SetActive(false); //stopped at 0 so window can be repaired back to state 1
-            }
-            else if (repairState + stateChange > maxRepairState)
+            if (repairState + stateChange > maxRepairState)
             {
                 repairState = maxRepairState;
-                Debug.Log("Window fully fixed");
+                Debug.Log("Window already fully fixed");
+                return;
+            }
+            else if (repairState + stateChange <= 0) //all barricades broken, enemy can go forward
+            {
+                repairState = 0;
+                windowCollider.SetActive(false); //stopped at 0 so window can be repaired back to state
+                //can't return early here otherwise the last barricade being broken won't get rendered
             }
             else
             {
