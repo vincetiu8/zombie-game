@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Weapons
 {
+    public enum AmmoType : int { Primary, Heavy, Special }
+
     [Serializable]
     public struct WeaponAttributes
     {

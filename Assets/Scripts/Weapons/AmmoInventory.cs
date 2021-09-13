@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace Weapons 
 {
+    [System.Serializable]
+    public struct AmmoEntry
+    {
+        public string name;
+        //name field included for editing convenience, not essential
+        public int maxCapacity;
+        public int currentStock;
+    }
+    
     public class AmmoInventory : MonoBehaviour
     {
         [SerializeField] List<AmmoEntry> _inventory = new List<AmmoEntry>();
