@@ -12,7 +12,7 @@ namespace Levels
         [SerializeField] private int maxRepairState; //Coding it in case there will be many differnt window sizes.
         private int repairState; //Make this public if it needs to be accessed
 
-        private float nextActionTime = 0.0f;
+        private float timer = 0.0f;
         [SerializeField] private float barricadeBreakTime;
 
         void Start()
@@ -25,18 +25,19 @@ namespace Levels
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 //Debug.Log("Enemy in window");
-                if (Time.time > nextActionTime)
+                timer += Time.deltaTime;
+                if (timer > barricadeBreakTime)
                 {
-                    //Everything in here will be called every barricadeBreakTime interval
-                    nextActionTime = Time.time + barricadeBreakTime;
+                    timer = timer - barricadeBreakTime;
                     ChangeWindowState(-1);
+                    
                 }
 
             }
         }
 
 
-        private void ChangeWindowState(int stateChange) // Make this public if it needs to be accessed
+        public void ChangeWindowState(int stateChange)
         {
             if (repairState + stateChange > maxRepairState)
             {
