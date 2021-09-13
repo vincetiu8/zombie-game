@@ -5,6 +5,15 @@ namespace Weapons
 {
     public enum AmmoType : int { Primary, Heavy, Special }
 
+    [System.Serializable]
+    public struct AmmoEntry
+    {
+        public string name;
+        //name field included for editing convenience, not essential
+        public int maxCapacity;
+        public int currentStock;
+    }
+
     [Serializable]
     public struct WeaponAttributes
     {

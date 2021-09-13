@@ -110,6 +110,7 @@ MonoBehaviour:
     fireCooldown: 0.1
     reloadTime: 1
     bulletVelocity: 2
+  ammoType: 0
 --- !u!114 &8110468372728126296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventory:
   - name: Primary
-    maxCapacity: 0
+    maxCapacity: 50
     currentStock: 0
   - name: Heavy
     maxCapacity: 0

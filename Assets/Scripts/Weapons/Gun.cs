@@ -10,11 +10,13 @@ namespace Weapons
         [SerializeField] private Transform firepoint;
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private WeaponAttributes[] weaponLevels;
+        [SerializeField] private AmmoType ammoType;
         
         private int _currentLevel;
         private int _bulletsInMagazine;
         private float _fireCooldown;
         private WeaponAttributes _currentAttributes;
+        private AmmoInventory ammo;
         private Coroutine _reloadCoroutine;
 
         private void Start()
@@ -72,6 +74,9 @@ namespace Weapons
             yield return new WaitForSeconds(_currentAttributes.reloadTime);
 
             _bulletsInMagazine = _currentAttributes.magazineSize;
+            int ammoStock = ammo.getAmmoStock(ammoType);
+            ammoStock -= _currentAttributes.magazineSize;
+            ammo.setAmmoStock(ammoType, ammoStock);
         }
 
         public override string ToString()
