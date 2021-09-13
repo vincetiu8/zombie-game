@@ -11,7 +11,7 @@ namespace Weapons
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private WeaponAttributes[] weaponLevels;
         [SerializeField] private AmmoType ammoType;
-        
+        //test comment
         private int _currentLevel;
         private int _bulletsInMagazine;
         private float _fireCooldown;
