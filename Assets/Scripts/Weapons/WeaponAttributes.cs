@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace Weapons
 {
@@ -13,22 +12,19 @@ namespace Weapons
     }
 
     [Serializable]
-    public struct WeaponAttributes
+    public class WeaponAttributes
     {
         public string description;
         public float damage;
-        public int magazineSize;
         public float fireCooldown;
-        public float reloadTime;
-        public float bulletVelocity;
+        public bool fullAuto;
 
         public override string ToString()
         {
-            return $"Damage: {damage}\n" 
-                   + $"Magazine Size: {magazineSize}\n"
+            return $"Description: {description}\n"
+                   + $"Damage: {damage}\n"
                    + $"Fire Cooldown: {fireCooldown}\n"
-                   + $"Reload Time: {reloadTime}\n"
-                   + $"Bullet Velocity: {bulletVelocity}\n";
+                   + $"Full Auto: {fullAuto}\n";
         }
     }
 }

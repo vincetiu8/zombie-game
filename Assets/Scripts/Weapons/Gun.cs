@@ -1,88 +1,78 @@
-using System;
 using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 
 namespace Weapons
 {
-    public abstract class Gun : MonoBehaviourPun, IWeapon
+    public class Gun : Weapon
     {
-        [SerializeField] private string weaponName;
+        [SerializeField] protected GunAttributes[] weaponLevels;
         [SerializeField] private Transform firepoint;
         [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private WeaponAttributes[] weaponLevels;
-        [SerializeField] private AmmoType ammoType;
 
-        
-        protected int bulletsInMagazine;
-        protected float fireCooldown;
-        protected Coroutine reloadCoroutine;
-
-        private int _currentLevel;
-        private WeaponAttributes _currentAttributes;
+        private GunAttributes _currentGunAttributes;
+        private int _bulletsInMagazine;
         private Coroutine _reloadCoroutine;
-        private AmmoInventory _ammoInventory;
 
-        private void Start()
+        protected void Start()
         {
-            _currentAttributes = weaponLevels[0];
-            bulletsInMagazine = _currentAttributes.magazineSize;
+            _currentGunAttributes = weaponLevels[0];
+            currentAttributes = _currentGunAttributes;
+            _bulletsInMagazine = _currentGunAttributes.magazineSize;
         }
 
-        private void Update()
+        protected override void Fire()
         {
-            if (!photonView.IsMine) return;
+            Debug.Log("Firing from gun!");
             
-            if (fireCooldown > 0)
+            if (_bulletsInMagazine < 1) return;
+
+            if (_reloadCoroutine != null)
             {
-                fireCooldown -= Time.deltaTime;
+                StopCoroutine(_reloadCoroutine);
             }
-        }
-
-        public void Setup(AmmoInventory ammoInventory)
-        {
-            _ammoInventory = ammoInventory;
-        }
-
-        public void Upgrade()
-        {
-            if (_currentLevel + 1 <= weaponLevels.Length) return;
-
-            _currentLevel += 1;
-            _currentAttributes = weaponLevels[_currentLevel];
-        }
-
-        public abstract void ToggleFire(bool isFiring);
-
-        protected void Fire()
-        {
+            
             GameObject bulletClone = PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, firepoint.rotation);
-            Vector2 bulletVelocity = firepoint.right * _currentAttributes.bulletVelocity;
+            Vector2 bulletVelocity = firepoint.right * _currentGunAttributes.bulletVelocity;
             
             bulletClone.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
-            bulletClone.GetComponent<Bullet>().damage = _currentAttributes.damage;
+            bulletClone.GetComponent<Bullet>().damage = currentAttributes.damage;
             
 
-            bulletsInMagazine--;
+            _bulletsInMagazine--;
+            base.Fire();
         }
 
-        public void Reload()
+        public override void Reload()
         {
-            if (_reloadCoroutine != null || _ammoInventory.GetAmmo(ammoType) == 0) return;
+            if (_reloadCoroutine != null) return;
 
-            reloadCoroutine = StartCoroutine(ReloadCoroutine());
+            _reloadCoroutine = StartCoroutine(ReloadCoroutine());
         }
         
         private IEnumerator ReloadCoroutine()
         {
-            yield return new WaitForSeconds(_currentAttributes.reloadTime);
+            yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
 
-            bulletsInMagazine = _ammoInventory.WithdrawAmmo(ammoType, _currentAttributes.magazineSize);
+            _bulletsInMagazine = _currentGunAttributes.magazineSize;
         }
 
+        public override void Upgrade()
+        {
+            // Block upgrading the weapon if there are no more levels left to unlock
+            if (currentLevel > weaponLevels.Length - 2)
+            {
+                return;
+            }
+
+            currentLevel++;
+            _currentGunAttributes = weaponLevels[currentLevel];
+            currentAttributes = _currentGunAttributes;
+        }
+        
         public override string ToString()
         {
-            return $"{weaponName} Level {_currentLevel} Stats:\n{_currentAttributes}";
+            return $"{weaponName} Level {currentLevel} Stats:\n{currentAttributes}";
         }
     }
 }

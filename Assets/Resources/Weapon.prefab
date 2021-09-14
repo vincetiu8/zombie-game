@@ -98,19 +98,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10213a7e97c0496f881fedbc3b5d8c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: Gun
+  weaponName: Pistol
+  weaponLevels:
+  - description: Basic Pistol
+    damage: 0.25
+    fireCooldown: 0.1
+    fullAuto: 0
+    magazineSize: 5
+    reloadTime: 1
+    bulletVelocity: 5
   firepoint: {fileID: 6581261222417765288}
   bulletPrefab: {fileID: 5597441476687873508, guid: 7b55bd1d5c1b1f758997014851f9f8c5,
-    type: 3}
-  weaponLevels:
-  - description: Base level
-    damage: 0.2
-    magazineSize: 10
-    fireCooldown: 0.1
-    reloadTime: 1
-    bulletVelocity: 2
-  ammoType: 0
-  playerPrefab: {fileID: 5676611098347806923, guid: 22b6fc01ed2c23789bcc7aaf1683d711,
     type: 3}
 --- !u!114 &8110468372728126296
 MonoBehaviour:

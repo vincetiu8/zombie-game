@@ -6,34 +6,42 @@ using UnityEngine.InputSystem;
 
 namespace Weapons
 {
-    [RequireComponent(typeof(AmmoInventory))]
     public class WeaponsHandler : MonoBehaviourPun
     {
         [SerializeField] private Camera playerCamera;
         [SerializeField] private Transform playerSprite;
 
-        private IWeapon _currentWeapon;
-        private AmmoInventory _ammoInventory;
+        private Weapon _currentWeapon;
 
         private void Start()
         {
-            _ammoInventory = GetComponent<AmmoInventory>();
             _currentWeapon = GetComponentInChildren<Gun>();
-            
-            _currentWeapon.Setup(_ammoInventory);
         }
 
         public void FireAction(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
+            
+            // When the mouse is pressed down, two actions are sent: started and performed
+            // We'll use performed here to check for the press
+            if (context.performed)
+            {
+                _currentWeapon.ToggleFire(true);
+                return;
+            }
 
-            _currentWeapon.ToggleFire(context.performed);
+            // Cancelled indicates the mouse was released
+            // This is mainly to cancel
+            if (context.canceled)
+            {
+                _currentWeapon.ToggleFire(false);
+            }
         }
 
         public void ReloadAction(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
-            
+
             if (!context.performed) return;
 
             CmdReload();

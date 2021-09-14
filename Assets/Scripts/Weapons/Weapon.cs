@@ -1,15 +1,58 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace Weapons
 {
-    public interface IWeapon
+    public abstract class Weapon : MonoBehaviourPun
     {
-        public void Setup(AmmoInventory ammoInventory);
+        [SerializeField] protected string weaponName;
+
+        protected int currentLevel;
+        protected WeaponAttributes currentAttributes;
+
+        private bool _isFiring;
+        private float _fireCooldown;
+
+        private void Update()
+        {
+            if (!photonView.IsMine) return;
+            
+            if (_fireCooldown > 0)
+            {
+                _fireCooldown -= Time.deltaTime;
+                return;
+            }
+
+            // Check whether we can fire here again
+            if (currentAttributes.fullAuto && _isFiring)
+            {
+                Fire();
+            } 
+        }
         
-        public void ToggleFire(bool isFiring);
+        public void ToggleFire(bool toggle)
+        {
+            if (!currentAttributes.fullAuto)
+            {
+                if (toggle && _fireCooldown <= 0)
+                {
+                    Fire();
+                }
+                
+                return;
+            }
 
-        public void Reload();
+            _isFiring = toggle;
+        }
 
-        public void Upgrade();
+        protected virtual void Fire()
+        {
+            Debug.Log("Firing!");
+            _fireCooldown = currentAttributes.fireCooldown;
+        }
+
+        public virtual void Reload() { }
+
+        public abstract void Upgrade();
     }
 }
