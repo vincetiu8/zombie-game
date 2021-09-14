@@ -7,7 +7,7 @@ public class PlayerInteract : MonoBehaviour
 {
     //public GameObject interactIcon; will show an icon when an interactable object is nearby, but not implemented yet
     [SerializeField] private float interactRange = 3f;
-    public void OpenInteractableIcon()
+    public void OpenInteractableIcon()//maybe in the future, have a parameter that takes in icons to display in front of the player
     {
         //interactIcon.SetActive(true);
         Debug.Log("OpenInteractableIcon");

@@ -10,21 +10,20 @@ namespace Levels
         private WindowController windowController;
         private PlayerMovement playerMovement;
 
-        private float nextActionTime = 0.0f;
+        private float timer = 0.0f;
         [SerializeField] private float barricadeFixTime;
 
         private bool isFixing;
 
         public override void Interact()
         {
-            Debug.Log("fixing window");
-            if (Time.time > nextActionTime)
+            timer += Time.deltaTime;
+            if (timer > barricadeFixTime)
             {
-                //Everything in here will be called every barricadeBreakTime interval
-                nextActionTime = Time.time + barricadeFixTime;
-                windowController.ChangeWindowState(1);
+                timer = timer - barricadeFixTime;
+                windowController.ChangeHealth(-1);
             }
-            
+
         }
 
         // Start is called before the first frame update
