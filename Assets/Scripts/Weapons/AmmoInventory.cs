@@ -1,39 +1,57 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-namespace Weapons 
-{    
+namespace Weapons
+{
+    [Serializable]
+    public class AmmoDict : SerializableDictionary<AmmoType, AmmoEntry>
+    {
+    }
+
     public class AmmoInventory : MonoBehaviour
     {
-        [SerializeField] AmmoEntry[] _inventory = new AmmoEntry[3];
+        [SerializeField] private AmmoDict ammoInventory;
 
-        //returns current ammo stock
-        public int GetAmmoStock(AmmoType type)
+        private void Awake()
         {
-            return _inventory[(int)type].currentStock;
+            foreach (AmmoType type in Enum.GetValues(typeof(AmmoType)))
+            {
+                ammoInventory[type] = new AmmoEntry
+                {
+                    maxCapacity = 0,
+                    currentStock = 0
+                };
+            }
         }
 
-        //spend ammo, returns amount spent
-        //returns 0 if currentStock of AmmoType = 0 (i.e no stock of AmmoType)
-        public int SpendAmmo(AmmoType type, int amount)
+        public int GetAmmo(AmmoType type)
         {
-            AmmoEntry held = _inventory[(int)type];
-            int spend = Mathf.Min(amount, held.currentStock);
-            held.currentStock -= spend;
-            _inventory[(int)type] = held;
-            return spend;
+            return ammoInventory[type].currentStock;
         }
 
-        //collect ammo, returns amount collected
-        //returns 0 if currentStock = maxCapacity
-        public int CollectAmmo(AmmoType type, int amount)
+        // Deposits ammo into the player's inventory
+        // Returns the amount of ammo deposited
+        public int DepositAmmo(AmmoType type, int amount)
         {
-            AmmoEntry held = _inventory[(int)type];
-            int collect = Mathf.Min(amount, held.maxCapacity - held.currentStock);
-            held.currentStock += collect;
-            _inventory[(int)type] = held;
-            return collect;
+            AmmoEntry ammoEntry = ammoInventory[type];
+            amount = Mathf.Min(amount, ammoEntry.maxCapacity - ammoEntry.currentStock);
+            ammoEntry.currentStock += amount;
+            ammoInventory[type] = ammoEntry;
+            return amount;
+        }
+
+        // Withdraws ammo from the player's inventory
+        // Returns the amount of ammo withdrawn
+        public int WithdrawAmmo(AmmoType type, int amount)
+        {
+            AmmoEntry ammoEntry = ammoInventory[type];
+            amount = Mathf.Min(amount, ammoEntry.currentStock);
+            ammoEntry.currentStock -= amount;
+            ammoInventory[type] = ammoEntry;
+            return amount;
         }
     }
 }

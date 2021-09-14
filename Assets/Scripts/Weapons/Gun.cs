@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Photon.Pun;
 using UnityEngine;
@@ -11,20 +12,16 @@ namespace Weapons
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private WeaponAttributes[] weaponLevels;
         [SerializeField] private AmmoType ammoType;
-        //playerPrefab is needed to access AmmoEntry array
-        [SerializeField] private GameObject playerPrefab;
 
         private int _currentLevel;
         private int _bulletsInMagazine;
         private float _fireCooldown;
         private WeaponAttributes _currentAttributes;
         private Coroutine _reloadCoroutine;
-        private AmmoInventory _ammo;
+        private AmmoInventory _ammoInventory;
 
         private void Start()
         {
-            _ammo = playerPrefab.GetComponent<AmmoInventory>();
-
             _currentAttributes = weaponLevels[0];
             _bulletsInMagazine = _currentAttributes.magazineSize;
         }
@@ -37,6 +34,11 @@ namespace Weapons
             {
                 _fireCooldown -= Time.deltaTime;
             }
+        }
+
+        public void Setup(AmmoInventory ammoInventory)
+        {
+            _ammoInventory = ammoInventory;
         }
 
         public void Upgrade()
@@ -68,7 +70,7 @@ namespace Weapons
 
         public void Reload()
         {
-            if (_reloadCoroutine != null) return;
+            if (_reloadCoroutine != null || _ammoInventory.GetAmmo(ammoType) == 0) return;
 
             _reloadCoroutine = StartCoroutine(ReloadCoroutine());
         }
@@ -77,7 +79,7 @@ namespace Weapons
         {
             yield return new WaitForSeconds(_currentAttributes.reloadTime);
 
-            _bulletsInMagazine = _currentAttributes.magazineSize;
+            _bulletsInMagazine = _ammoInventory.WithdrawAmmo(ammoType, _currentAttributes.magazineSize);
         }
 
         public override string ToString()

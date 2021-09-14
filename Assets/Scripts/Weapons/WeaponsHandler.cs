@@ -6,16 +6,21 @@ using UnityEngine.InputSystem;
 
 namespace Weapons
 {
+    [RequireComponent(typeof(AmmoInventory))]
     public class WeaponsHandler : MonoBehaviourPun
     {
         [SerializeField] private Camera playerCamera;
         [SerializeField] private Transform playerSprite;
 
         private IWeapon _currentWeapon;
+        private AmmoInventory _ammoInventory;
 
         private void Start()
         {
+            _ammoInventory = GetComponent<AmmoInventory>();
             _currentWeapon = GetComponentInChildren<Gun>();
+            
+            _currentWeapon.Setup(_ammoInventory);
         }
 
         public void FireAction(InputAction.CallbackContext context)

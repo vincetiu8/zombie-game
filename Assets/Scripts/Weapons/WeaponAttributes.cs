@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public enum AmmoType : int { Primary, Heavy, Special }
+    public enum AmmoType { Primary, Heavy, Special }
 
-    [System.Serializable]
+    [Serializable]
     public struct AmmoEntry
     {
         public int maxCapacity;
-        [HideInInspector] public int currentStock;
+        public int currentStock;
     }
 
     [Serializable]
