@@ -9,7 +9,7 @@ namespace Weapons
     public struct AmmoEntry
     {
         public int maxCapacity;
-        public int currentStock;
+        [HideInInspector] public int currentStock;
     }
 
     [Serializable]

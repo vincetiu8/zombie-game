@@ -14,17 +14,20 @@ namespace Weapons
             return _inventory[(int)type].currentStock;
         }
 
-        //sets current stock of type to amount
-        public void SetAmmoStock(AmmoType type, int amount)
+        //spend ammo, returns amount spent
+        //returns 0 if currentStock of AmmoType = 0 (i.e no stock of AmmoType)
+        public int SpendAmmo(AmmoType type, int amount)
         {
             AmmoEntry held = _inventory[(int)type];
-            held.currentStock = amount;
+            int spend = Mathf.Min(amount, held.currentStock);
+            held.currentStock -= spend;
             _inventory[(int)type] = held;
+            return spend;
         }
 
         //collect ammo, returns amount collected
         //returns 0 if currentStock = maxCapacity
-        public int collectAmmo(AmmoType type, int amount)
+        public int CollectAmmo(AmmoType type, int amount)
         {
             AmmoEntry held = _inventory[(int)type];
             int collect = Mathf.Min(amount, held.maxCapacity - held.currentStock);

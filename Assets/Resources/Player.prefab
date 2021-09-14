@@ -348,11 +348,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventory:
-  - maxCapacity: 0
+  - maxCapacity: 50
     currentStock: 10
-  - maxCapacity: 0
+  - maxCapacity: 50
     currentStock: 0
-  - maxCapacity: 0
+  - maxCapacity: 50
     currentStock: 0
 --- !u!1 &5730595962619871849
 GameObject:
@@ -500,6 +500,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 5676611098347806923}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Name
