@@ -19,7 +19,7 @@ namespace Levels
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 ChangeHealth(-barricadeBreakRate * Time.deltaTime);
-                Debug.Log(_health);
+                //Debug.Log(_health);
 
             }
         }
