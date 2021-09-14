@@ -7,8 +7,10 @@ and creating something amazing!
 
 If you have access to this repo, you should already have some experience with:
 
-- Unity and C#
-- Git
+- [Unity](https://store.unity.com/download-nuo) and C#
+- [Git](https://git-scm.com/downloads)
+- [Git LFS](https://git-lfs.github.com/)
+- [Rider](https://www.jetbrains.com/rider/download/) (optional)
 
 If you haven't ever used these tools, please look at
 the [progress tracker](https://docs.google.com/spreadsheets/u/1/d/109DPBLzFU0w9QFPqDZJjNRbqHhQe1GieOeOr9Jxrs3Q/edit?usp=drive_web&ouid=106431960309338225006)
@@ -18,7 +20,7 @@ look.
 ### Where to start
 
 1. Download the repo and open it in Unity.
-2. Make sure you've pulled the latest master.
+2. **Make sure you've pulled the latest master**.
 3. Find a small issue (xs/s) and assign yourself to it.
 4. Fix the issue.
 5. Make a PR and request for review!

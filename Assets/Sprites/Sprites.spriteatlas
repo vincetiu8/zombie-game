@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: d7852b401d919a40080c658045489509, type: 3}
+    - {fileID: 2800000, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+    totalSpriteSurfaceArea: 524288
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 6678224573116389029, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: 5392482023061574897, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: -3591816703775035072, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: 7581567945428111852, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: -7512251227381167318, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: -4235250700833733492, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: 6877800292851320189, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: -538973045996018420, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: -3243485098754151253, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: 481761432532118204, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: -1668492446773993304, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: 3100359795492014026, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: -3023223936473611664, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: -4132852196101344934, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: -7624019509353110660, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: 7135824082227733362, guid: d7852b401d919a40080c658045489509, type: 3}
+  - {fileID: 1115358595779141345, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: -1031414003539726126, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: -4818650310412941511, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: -24075806118037059, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: 8147275610191718606, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: 2029603016695656400, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: 4723250963254362342, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: -8185252286816643056, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: -8797753539667543100, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: 261897327538917956, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: 4948975480665631257, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: 4419895515107148841, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: 4725566240530097611, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: 6941044494407015772, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: -2858659963971078791, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  - {fileID: 3050078739295607600, guid: 341e674f8627f2ae3a56e1951aa1c955, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ground-outside_5
+  - ground-outside_4
+  - ground-outside_7
+  - ground-outside_6
+  - ground-outside_1
+  - ground-outside_0
+  - ground-outside_3
+  - ground-outside_2
+  - ground-outside_9
+  - ground-outside_8
+  - ground-outside_14
+  - ground-outside_15
+  - ground-outside_10
+  - ground-outside_11
+  - ground-outside_12
+  - ground-outside_13
+  - walls_7
+  - walls_6
+  - walls_5
+  - walls_4
+  - walls_3
+  - walls_2
+  - walls_1
+  - walls_0
+  - walls_9
+  - walls_8
+  - walls_12
+  - walls_13
+  - walls_10
+  - walls_11
+  - walls_14
+  - walls_15
+  m_RenderDataMap: {}
+  m_Tag: Sprites
+  m_IsVariant: 0
