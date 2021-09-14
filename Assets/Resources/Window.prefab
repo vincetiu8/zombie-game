@@ -331,9 +331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d901bf0007cddd14f81db6f4a42180d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialHealth: 6
   barricadesGraphics: {fileID: 4149290357387999077}
   windowCollider: {fileID: 4149290358810432981}
-  maxRepairState: 6
   barricadeBreakTime: 2
 --- !u!61 &834110767766099061
 BoxCollider2D:
