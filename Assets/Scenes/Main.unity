@@ -8230,7 +8230,7 @@ GameObject:
   - component: {fileID: 1988996002}
   - component: {fileID: 1988996001}
   m_Layer: 0
-  m_Name: Objects
+  m_Name: Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
