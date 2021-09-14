@@ -21,6 +21,8 @@ namespace Weapons
 
         private void Start()
         {
+            ammo = GetComponent<AmmoInventory>();
+
             _currentAttributes = weaponLevels[0];
             _bulletsInMagazine = _currentAttributes.magazineSize;
         }
@@ -74,9 +76,9 @@ namespace Weapons
             yield return new WaitForSeconds(_currentAttributes.reloadTime);
 
             _bulletsInMagazine = _currentAttributes.magazineSize;
-            int ammoStock = ammo.getAmmoStock(ammoType);
+            int ammoStock = ammo.GetAmmoStock(ammoType);
             ammoStock -= _currentAttributes.magazineSize;
-            ammo.setAmmoStock(ammoType, ammoStock);
+            ammo.SetAmmoStock(ammoType, ammoStock);
         }
 
         public override string ToString()

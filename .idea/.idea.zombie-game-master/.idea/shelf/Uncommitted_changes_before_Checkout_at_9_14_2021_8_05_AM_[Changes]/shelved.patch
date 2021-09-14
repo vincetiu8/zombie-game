@@ -1,0 +1,118 @@
+Index: Assets/Scripts/Weapons/AmmoInventory.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System.Collections;\r\nusing System.Collections.Generic;\r\nusing UnityEngine;\r\n\r\nnamespace Weapons \r\n{    \r\n    public class AmmoInventory : MonoBehaviour\r\n    {\r\n        [SerializeField] List<AmmoEntry> _inventory = new List<AmmoEntry>();\r\n\r\n        //returns current ammo stock\r\n        public int getAmmoStock(Weapons.AmmoType type)\r\n        {\r\n            return _inventory[(int)type].currentStock;\r\n        }\r\n\r\n        //sets current stock of type to amount\r\n        public void setAmmoStock(Weapons.AmmoType type, int amount)\r\n        {\r\n            AmmoEntry held = _inventory[(int)type];\r\n            held.currentStock = amount;\r\n            _inventory[(int)type] = held;\r\n        }\r\n\r\n        //collect ammo, returns amount collected\r\n        //returns 0 if currentStock = maxCapacity\r\n        public int collectAmmo(Weapons.AmmoType type, int amount)\r\n        {\r\n            AmmoEntry held = _inventory[(int)type];\r\n            int collect = Mathf.Min(amount, held.maxCapacity - held.currentStock);\r\n            held.currentStock += collect;\r\n            _inventory[(int)type] = held;\r\n            return collect;\r\n        }\r\n\r\n        //Ensure _inventory always matches the AmmoType enum in case of code changes\r\n        private void Reset() { OnValidate(); }\r\n        private void OnValidate() {\r\n            var ammoNames = System.Enum.GetNames(typeof(Weapons.AmmoType));\r\n            var inventory = new List<AmmoEntry>(ammoNames.Length);        \r\n            for(int i = 0; i < ammoNames.Length; i++) {\r\n                var existing = _inventory.Find(\r\n                    (entry) => { return entry.name == ammoNames[i]; });\r\n                existing.name = ammoNames[i];\r\n                existing.currentStock = Mathf.Min(existing.currentStock, existing.maxCapacity);\r\n                inventory.Add(existing);\r\n            }\r\n            _inventory = inventory;\r\n        }\r\n    }\r\n}
+===================================================================
+diff --git a/Assets/Scripts/Weapons/AmmoInventory.cs b/Assets/Scripts/Weapons/AmmoInventory.cs
+--- a/Assets/Scripts/Weapons/AmmoInventory.cs	
++++ b/Assets/Scripts/Weapons/AmmoInventory.cs	
+@@ -9,13 +9,13 @@
+         [SerializeField] List<AmmoEntry> _inventory = new List<AmmoEntry>();
+ 
+         //returns current ammo stock
+-        public int getAmmoStock(Weapons.AmmoType type)
++        public int GetAmmoStock(Weapons.AmmoType type)
+         {
+             return _inventory[(int)type].currentStock;
+         }
+ 
+         //sets current stock of type to amount
+-        public void setAmmoStock(Weapons.AmmoType type, int amount)
++        public void SetAmmoStock(Weapons.AmmoType type, int amount)
+         {
+             AmmoEntry held = _inventory[(int)type];
+             held.currentStock = amount;
+@@ -24,7 +24,7 @@
+ 
+         //collect ammo, returns amount collected
+         //returns 0 if currentStock = maxCapacity
+-        public int collectAmmo(Weapons.AmmoType type, int amount)
++        public int CollectAmmo(Weapons.AmmoType type, int amount)
+         {
+             AmmoEntry held = _inventory[(int)type];
+             int collect = Mathf.Min(amount, held.maxCapacity - held.currentStock);
+@@ -32,20 +32,5 @@
+             _inventory[(int)type] = held;
+             return collect;
+         }
+-
+-        //Ensure _inventory always matches the AmmoType enum in case of code changes
+-        private void Reset() { OnValidate(); }
+-        private void OnValidate() {
+-            var ammoNames = System.Enum.GetNames(typeof(Weapons.AmmoType));
+-            var inventory = new List<AmmoEntry>(ammoNames.Length);        
+-            for(int i = 0; i < ammoNames.Length; i++) {
+-                var existing = _inventory.Find(
+-                    (entry) => { return entry.name == ammoNames[i]; });
+-                existing.name = ammoNames[i];
+-                existing.currentStock = Mathf.Min(existing.currentStock, existing.maxCapacity);
+-                inventory.Add(existing);
+-            }
+-            _inventory = inventory;
+-        }
+     }
+ }
+\ No newline at end of file
+Index: .idea/.idea.zombie-game-master/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"37cbe7c0-0224-4cb6-ae44-c06fdab68a70\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/Assets/Scripts/Weapons/AmmoInventory.cs\" root0=\"FORCE_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1y4Dxh1A4dPDr0LFfDUCBAX05vj\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"preferences.externalTools\" />\r\n    <property name=\"vue.rearranger.settings.migration\" value=\"true\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Attach to Unity Editor.Attach to Unity Editor\">\r\n    <configuration name=\"Attach to Unity Editor &amp; Play\" type=\"UNITY_DEBUG_RUN_CONFIGURATION\" factoryName=\"UNITY_ATTACH_AND_PLAY\" show_console_on_std_err=\"false\" show_console_on_std_out=\"false\" port=\"50000\" address=\"localhost\">\r\n      <option name=\"allowRunningInParallel\" value=\"false\" />\r\n      <option name=\"listenPortForConnections\" value=\"false\" />\r\n      <option name=\"pid\" />\r\n      <option name=\"projectPathOnTarget\" />\r\n      <option name=\"selectedOptions\">\r\n        <list />\r\n      </option>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Attach to Unity Editor\" type=\"UNITY_DEBUG_RUN_CONFIGURATION\" factoryName=\"Unity Debug\" show_console_on_std_err=\"false\" show_console_on_std_out=\"false\" port=\"50000\" address=\"localhost\">\r\n      <option name=\"allowRunningInParallel\" value=\"false\" />\r\n      <option name=\"listenPortForConnections\" value=\"false\" />\r\n      <option name=\"pid\" />\r\n      <option name=\"projectPathOnTarget\" />\r\n      <option name=\"selectedOptions\">\r\n        <list />\r\n      </option>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"37cbe7c0-0224-4cb6-ae44-c06fdab68a70\" name=\"Changes\" comment=\"\" />\r\n      <created>1631502222566</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1631502222566</updated>\r\n      <workItem from=\"1631502227513\" duration=\"4177000\" />\r\n      <workItem from=\"1631508825476\" duration=\"540000\" />\r\n      <workItem from=\"1631509438638\" duration=\"13000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"e\">\r\n      <created>1631508144160</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1631508144160</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"UnityCheckinConfiguration\" checkUnsavedScenes=\"true\" />\r\n  <component name=\"UnityProjectConfiguration\" hasMinimizedUI=\"true\" />\r\n  <component name=\"UnityUnitTestConfiguration\" currentTestLauncher=\"NUnit\" />\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"HEAD\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"Branch\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"HEAD\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"CLEAR_INITIAL_COMMIT_MESSAGE\" value=\"true\" />\r\n    <MESSAGE value=\"e\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"e\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/.idea.zombie-game-master/.idea/workspace.xml b/.idea/.idea.zombie-game-master/.idea/workspace.xml
+--- a/.idea/.idea.zombie-game-master/.idea/workspace.xml	
++++ b/.idea/.idea.zombie-game-master/.idea/workspace.xml	
+@@ -1,7 +1,12 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="37cbe7c0-0224-4cb6-ae44-c06fdab68a70" name="Changes" comment="" />
++    <list default="true" id="37cbe7c0-0224-4cb6-ae44-c06fdab68a70" name="Changes" comment="">
++      <change beforePath="$PROJECT_DIR$/Assets/Resources/Weapon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Weapon.prefab" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/AmmoInventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/AmmoInventory.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Gun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Gun.cs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponAttributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponAttributes.cs" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -67,6 +72,7 @@
+       <workItem from="1631502227513" duration="4177000" />
+       <workItem from="1631508825476" duration="540000" />
+       <workItem from="1631509438638" duration="13000" />
++      <workItem from="1631576256929" duration="740000" />
+     </task>
+     <task id="LOCAL-00001" summary="e">
+       <created>1631508144160</created>
+@@ -89,19 +95,7 @@
+       <map>
+         <entry key="MAIN">
+           <value>
+-            <State>
+-              <option name="FILTERS">
+-                <map>
+-                  <entry key="branch">
+-                    <value>
+-                      <list>
+-                        <option value="HEAD" />
+-                      </list>
+-                    </value>
+-                  </entry>
+-                </map>
+-              </option>
+-            </State>
++            <State />
+           </value>
+         </entry>
+       </map>
+@@ -111,6 +105,11 @@
+         <entry key="Branch">
+           <value>
+             <list>
++              <RecentGroup>
++                <option name="FILTER_VALUES">
++                  <option value="master" />
++                </option>
++              </RecentGroup>
+               <RecentGroup>
+                 <option name="FILTER_VALUES">
+                   <option value="HEAD" />

@@ -8,8 +8,6 @@ namespace Weapons
     [System.Serializable]
     public struct AmmoEntry
     {
-        public string name;
-        //name field included for editing convenience, not essential
         public int maxCapacity;
         public int currentStock;
     }

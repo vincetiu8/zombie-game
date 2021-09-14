@@ -9,13 +9,13 @@ namespace Weapons
         [SerializeField] List<AmmoEntry> _inventory = new List<AmmoEntry>();
 
         //returns current ammo stock
-        public int getAmmoStock(Weapons.AmmoType type)
+        public int GetAmmoStock(Weapons.AmmoType type)
         {
             return _inventory[(int)type].currentStock;
         }
 
         //sets current stock of type to amount
-        public void setAmmoStock(Weapons.AmmoType type, int amount)
+        public void SetAmmoStock(Weapons.AmmoType type, int amount)
         {
             AmmoEntry held = _inventory[(int)type];
             held.currentStock = amount;
@@ -31,21 +31,6 @@ namespace Weapons
             held.currentStock += collect;
             _inventory[(int)type] = held;
             return collect;
-        }
-
-        //Ensure _inventory always matches the AmmoType enum in case of code changes
-        private void Reset() { OnValidate(); }
-        private void OnValidate() {
-            var ammoNames = System.Enum.GetNames(typeof(Weapons.AmmoType));
-            var inventory = new List<AmmoEntry>(ammoNames.Length);        
-            for(int i = 0; i < ammoNames.Length; i++) {
-                var existing = _inventory.Find(
-                    (entry) => { return entry.name == ammoNames[i]; });
-                existing.name = ammoNames[i];
-                existing.currentStock = Mathf.Min(existing.currentStock, existing.maxCapacity);
-                inventory.Add(existing);
-            }
-            _inventory = inventory;
         }
     }
 }
