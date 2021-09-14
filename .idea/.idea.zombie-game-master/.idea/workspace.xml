@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="37cbe7c0-0224-4cb6-ae44-c06fdab68a70" name="Changes" comment="" />
+    <list default="true" id="37cbe7c0-0224-4cb6-ae44-c06fdab68a70" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_14_2021_8_05_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_14_2021_8_05_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_14_2021_8_05_AM__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_14_2021_8_05_AM__Changes_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -67,6 +74,7 @@
       <workItem from="1631502227513" duration="4177000" />
       <workItem from="1631508825476" duration="540000" />
       <workItem from="1631509438638" duration="13000" />
+      <workItem from="1631585311070" duration="466000" />
     </task>
     <task id="LOCAL-00001" summary="e">
       <created>1631508144160</created>
@@ -89,19 +97,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="HEAD" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -113,7 +109,27 @@
             <list>
               <RecentGroup>
                 <option name="FILTER_VALUES">
+                  <option value="ByteSurfers-Zombie-Game/master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
                   <option value="HEAD" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="add-ammo-types" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="ByteSurfers-Zombie-Game/add-ammo-types" />
                 </option>
               </RecentGroup>
             </list>

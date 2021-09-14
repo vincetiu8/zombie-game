@@ -11,17 +11,19 @@ namespace Weapons
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private WeaponAttributes[] weaponLevels;
         [SerializeField] private AmmoType ammoType;
-        //test comment
+        //playerPrefab is needed to access AmmoEntry array
+        [SerializeField] private GameObject playerPrefab;
+
         private int _currentLevel;
         private int _bulletsInMagazine;
         private float _fireCooldown;
         private WeaponAttributes _currentAttributes;
-        private AmmoInventory ammo;
         private Coroutine _reloadCoroutine;
+        private AmmoInventory _ammo;
 
         private void Start()
         {
-            ammo = GetComponent<AmmoInventory>();
+            _ammo = playerPrefab.GetComponent<AmmoInventory>();
 
             _currentAttributes = weaponLevels[0];
             _bulletsInMagazine = _currentAttributes.magazineSize;
@@ -76,9 +78,6 @@ namespace Weapons
             yield return new WaitForSeconds(_currentAttributes.reloadTime);
 
             _bulletsInMagazine = _currentAttributes.magazineSize;
-            int ammoStock = ammo.GetAmmoStock(ammoType);
-            ammoStock -= _currentAttributes.magazineSize;
-            ammo.SetAmmoStock(ammoType, ammoStock);
         }
 
         public override string ToString()
