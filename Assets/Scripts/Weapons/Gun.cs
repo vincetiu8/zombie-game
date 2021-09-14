@@ -14,9 +14,11 @@ namespace Weapons
         private int _bulletsInMagazine;
         private Coroutine _reloadCoroutine;
 
-        protected void Start()
+        protected override void Start()
         {
-            _currentGunAttributes = weaponLevels[0];
+            base.Start();
+            maxLevel = weaponLevels.Length;
+            _currentGunAttributes = weaponLevels[currentLevel];
             currentAttributes = _currentGunAttributes;
             _bulletsInMagazine = _currentGunAttributes.magazineSize;
         }
@@ -59,13 +61,6 @@ namespace Weapons
 
         public override void Upgrade()
         {
-            // Block upgrading the weapon if there are no more levels left to unlock
-            if (currentLevel > weaponLevels.Length - 2)
-            {
-                return;
-            }
-
-            currentLevel++;
             _currentGunAttributes = weaponLevels[currentLevel];
             currentAttributes = _currentGunAttributes;
         }

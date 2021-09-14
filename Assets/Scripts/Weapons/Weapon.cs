@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using UnityEngine;
 
@@ -7,11 +8,18 @@ namespace Weapons
     {
         [SerializeField] protected string weaponName;
 
+        protected int maxLevel;
         protected int currentLevel;
         protected WeaponAttributes currentAttributes;
 
         private bool _isFiring;
         private float _fireCooldown;
+
+        protected virtual void Start()
+        {
+            currentLevel = 0;
+            maxLevel = 0;
+        }
 
         private void Update()
         {
@@ -51,8 +59,17 @@ namespace Weapons
             _fireCooldown = currentAttributes.fireCooldown;
         }
 
-        public virtual void Reload() { }
+        public abstract void Reload();
 
-        public abstract void Upgrade();
+        public virtual void Upgrade()
+        {
+            // Block upgrading the weapon if there are no more levels left to unlock
+            if (currentLevel > maxLevel - 2)
+            {
+                return;
+            }
+
+            currentLevel++;
+        }
     }
 }
