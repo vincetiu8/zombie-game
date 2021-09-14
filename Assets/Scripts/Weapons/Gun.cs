@@ -25,8 +25,6 @@ namespace Weapons
 
         protected override void Fire()
         {
-            Debug.Log("Firing from gun!");
-            
             if (_bulletsInMagazine < 1) return;
 
             if (_reloadCoroutine != null)
@@ -48,15 +46,16 @@ namespace Weapons
         public override void Reload()
         {
             if (_reloadCoroutine != null) return;
-
+            
             _reloadCoroutine = StartCoroutine(ReloadCoroutine());
         }
         
         private IEnumerator ReloadCoroutine()
         {
             yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
-
+            
             _bulletsInMagazine = _currentGunAttributes.magazineSize;
+            _reloadCoroutine = null;
         }
 
         public override void Upgrade()

@@ -55,7 +55,6 @@ namespace Weapons
 
         protected virtual void Fire()
         {
-            Debug.Log("Firing!");
             _fireCooldown = currentAttributes.fireCooldown;
         }
 
