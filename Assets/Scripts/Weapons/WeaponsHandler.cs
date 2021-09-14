@@ -26,10 +26,8 @@ namespace Weapons
         public void FireAction(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
-            
-            if (!context.started) return;
-            
-            _currentWeapon.Fire();
+
+            _currentWeapon.ToggleFire(context.performed);
         }
 
         public void ReloadAction(InputAction.CallbackContext context)

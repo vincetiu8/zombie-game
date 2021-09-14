@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class Gun : MonoBehaviourPun, IWeapon
+    public abstract class Gun : MonoBehaviourPun, IWeapon
     {
         [SerializeField] private string weaponName;
         [SerializeField] private Transform firepoint;
@@ -13,9 +13,12 @@ namespace Weapons
         [SerializeField] private WeaponAttributes[] weaponLevels;
         [SerializeField] private AmmoType ammoType;
 
+        
+        protected int bulletsInMagazine;
+        protected float fireCooldown;
+        protected Coroutine reloadCoroutine;
+
         private int _currentLevel;
-        private int _bulletsInMagazine;
-        private float _fireCooldown;
         private WeaponAttributes _currentAttributes;
         private Coroutine _reloadCoroutine;
         private AmmoInventory _ammoInventory;
@@ -23,16 +26,16 @@ namespace Weapons
         private void Start()
         {
             _currentAttributes = weaponLevels[0];
-            _bulletsInMagazine = _currentAttributes.magazineSize;
+            bulletsInMagazine = _currentAttributes.magazineSize;
         }
 
         private void Update()
         {
             if (!photonView.IsMine) return;
             
-            if (_fireCooldown > 0)
+            if (fireCooldown > 0)
             {
-                _fireCooldown -= Time.deltaTime;
+                fireCooldown -= Time.deltaTime;
             }
         }
 
@@ -49,15 +52,10 @@ namespace Weapons
             _currentAttributes = weaponLevels[_currentLevel];
         }
 
-        public void Fire()
-        {
-            if (_fireCooldown > 0 || _bulletsInMagazine < 1) return;
+        public abstract void ToggleFire(bool isFiring);
 
-            if (_reloadCoroutine != null)
-            {
-                StopCoroutine(_reloadCoroutine);
-            }
-            
+        protected void Fire()
+        {
             GameObject bulletClone = PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, firepoint.rotation);
             Vector2 bulletVelocity = firepoint.right * _currentAttributes.bulletVelocity;
             
@@ -65,21 +63,21 @@ namespace Weapons
             bulletClone.GetComponent<Bullet>().damage = _currentAttributes.damage;
             
 
-            _bulletsInMagazine--;
+            bulletsInMagazine--;
         }
 
         public void Reload()
         {
             if (_reloadCoroutine != null || _ammoInventory.GetAmmo(ammoType) == 0) return;
 
-            _reloadCoroutine = StartCoroutine(ReloadCoroutine());
+            reloadCoroutine = StartCoroutine(ReloadCoroutine());
         }
         
         private IEnumerator ReloadCoroutine()
         {
             yield return new WaitForSeconds(_currentAttributes.reloadTime);
 
-            _bulletsInMagazine = _ammoInventory.WithdrawAmmo(ammoType, _currentAttributes.magazineSize);
+            bulletsInMagazine = _ammoInventory.WithdrawAmmo(ammoType, _currentAttributes.magazineSize);
         }
 
         public override string ToString()

@@ -6,8 +6,10 @@ namespace Weapons
     {
         public void Setup(AmmoInventory ammoInventory);
         
-        public void Fire();
+        public void ToggleFire(bool isFiring);
 
         public void Reload();
+
+        public void Upgrade();
     }
 }
