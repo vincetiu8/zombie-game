@@ -12,21 +12,14 @@ namespace Levels
         //[SerializeField] private int maxRepairState; //Coding it in case there will be many differnt window sizes initial health
         //private int repairState; //Make this public if it needs to be accessed health
 
-        private float timer = 0.0f;
-        [SerializeField] private float barricadeBreakTime;
+        [SerializeField] private float barricadeBreakRate;
 
         private void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                //Debug.Log("Enemy in window");
-                timer += Time.deltaTime;
-                if (timer > barricadeBreakTime)
-                {
-                    timer = timer - barricadeBreakTime;
-                    ChangeHealth(-1);
-                    
-                }
+                ChangeHealth(-barricadeBreakRate * Time.deltaTime);
+                Debug.Log(_health);
 
             }
         }
@@ -34,7 +27,7 @@ namespace Levels
 
         public override void ChangeHealth(float change)
         {
-            if (_health + change > initialHealth)
+            /*if (_health + change > initialHealth)
             {
                 _health = initialHealth;
                 Debug.Log("Window already fully fixed");
@@ -50,7 +43,19 @@ namespace Levels
             {
                 _health += change;
                 windowCollider.SetActive(true);
+            }*/
+
+            _health = Mathf.Clamp(_health + change, 0, initialHealth);
+            Debug.Log(_health);
+            if (_health == 0)
+            {
+                windowCollider.SetActive(false);
             }
+            else
+            {
+                windowCollider.SetActive(true);
+            }
+
 
             float _checkingRepairState = _health;
             for (int i = 0; i < initialHealth; i++) //renders the amount of barricades to display
