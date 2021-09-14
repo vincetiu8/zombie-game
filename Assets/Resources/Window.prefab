@@ -334,7 +334,7 @@ MonoBehaviour:
   initialHealth: 6
   barricadesGraphics: {fileID: 4149290357387999077}
   windowCollider: {fileID: 4149290358810432981}
-  barricadeBreakTime: 2
+  barricadeBreakRate: 1
 --- !u!61 &834110767766099061
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ namespace Levels
 
         public override void Interact()
         {
-            Debug.Log("fixing window");
+            //Debug.Log("fixing window");
             if (Time.time > nextActionTime)
             {
                 //Everything in here will be called every barricadeBreakTime interval
