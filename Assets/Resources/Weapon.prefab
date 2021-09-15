@@ -109,6 +109,9 @@ MonoBehaviour:
     fireCooldown: 0.1
     reloadTime: 1
     bulletVelocity: 2
+  ammoType: 0
+  playerPrefab: {fileID: 5676611098347806923, guid: 22b6fc01ed2c23789bcc7aaf1683d711,
+    type: 3}
 --- !u!114 &8110468372728126296
 MonoBehaviour:
   m_ObjectHideFlags: 0
