@@ -95,14 +95,15 @@ namespace Weapons
         // That would require recalculation of the offset each time a sprite is loaded
         private void CalculateGunOffsetAdjustment()
         {
-            _gunOffsetAdjustment = -firepoint.localPosition.y + transform.localPosition.y;
+            _gunOffsetAdjustment = -firepoint.localPosition.y - transform.localPosition.y;
         }
 
         public override void FaceMouse(float distance)
         {
             // Gets the adjustment angle that the weaponPivot needs the rotate
             // This lines up the weapon with the mouse properly
-            float angle = -Mathf.Atan2(_gunOffsetAdjustment, distance) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(_gunOffsetAdjustment, distance) * Mathf.Rad2Deg;
+            
             transform.parent.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
         

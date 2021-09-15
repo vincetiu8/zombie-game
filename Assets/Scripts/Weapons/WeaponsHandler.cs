@@ -70,7 +70,7 @@ namespace Weapons
 
             float angle = Utils.Vector2ToDeg(direction);
 
-            playerSprite.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
             
             // Allows the current weapon to be adjusted to face the mouse
             _currentWeapon.FaceMouse(direction.magnitude);
