@@ -1,34 +1,29 @@
 using System;
-using UnityEngine;
+using System.ComponentModel;
 
 namespace Weapons
 {
-    public enum AmmoType { Primary, Heavy, Special }
-
     [Serializable]
-    public struct AmmoEntry
+    public class WeaponAttributes
     {
-        public int maxCapacity;
-        public int currentStock;
-    }
-
-    [Serializable]
-    public struct WeaponAttributes
-    {
+        [Description("The weapon's description")]
         public string description;
+        
+        [Description("The weapon's damage")]
         public float damage;
-        public int magazineSize;
+        
+        [Description("The number of seconds between weapon attacks")]
         public float fireCooldown;
-        public float reloadTime;
-        public float bulletVelocity;
+        
+        [Description("Whether the weapon automatically fires if the mouse is pressed")]
+        public bool fullAuto;
 
         public override string ToString()
         {
-            return $"Damage: {damage}\n" 
-                   + $"Magazine Size: {magazineSize}\n"
+            return $"Description: {description}\n"
+                   + $"Damage: {damage}\n"
                    + $"Fire Cooldown: {fireCooldown}\n"
-                   + $"Reload Time: {reloadTime}\n"
-                   + $"Bullet Velocity: {bulletVelocity}\n";
+                   + $"Full Auto: {fullAuto}\n";
         }
     }
 }

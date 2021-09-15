@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Weapons
 {
+    // AmmoDict is a specific SerializableDictionary
+    // This allows the dict to be displayed in the unity editor
     [Serializable]
     public class AmmoDict : SerializableDictionary<AmmoType, AmmoEntry>
     {
@@ -13,12 +13,18 @@ namespace Weapons
 
     public class AmmoInventory : MonoBehaviour
     {
+        [Description("The player's ammo inventory")]
         [SerializeField] private AmmoDict ammoInventory;
-
+        
         private void Awake()
         {
+            // Loops through all ammo types and ensures they have a corresponding entry in the dict
             foreach (AmmoType type in Enum.GetValues(typeof(AmmoType)))
             {
+                // Do nothing if ammo type is already set in the inventory
+                if (ammoInventory.ContainsKey(type)) continue;
+                
+                // Create an empty entry
                 ammoInventory[type] = new AmmoEntry
                 {
                     maxCapacity = 0,
@@ -27,6 +33,7 @@ namespace Weapons
             }
         }
 
+        // Get's the amount of bullets of the AmmoType the player currently has
         public int GetAmmo(AmmoType type)
         {
             return ammoInventory[type].currentStock;
