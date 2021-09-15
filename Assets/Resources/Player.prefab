@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 5405575787435880548}
   - component: {fileID: 5960631646741268416}
   - component: {fileID: 4340305559612925413}
+  - component: {fileID: 3014086736208035401}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -317,6 +318,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2c93b75c-851c-4bae-bdf1-928d018d7fee
     m_ActionName: Game/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3014086736208035401}
+        m_TargetAssemblyTypeName: PlayerInteract, Assembly-CSharp
+        m_MethodName: CheckInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fef1fff4-bec9-4533-bb48-14f0d94df9aa
+    m_ActionName: Game/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game
@@ -429,14 +446,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoInventory:
-    m_keys: 000000000100000002000000
-    m_values:
-    - maxCapacity: 50
-      currentStock: 0
-    - maxCapacity: 50
-      currentStock: 0
-    - maxCapacity: 50
-      currentStock: 0
+    m_keys: 
+    m_values: []
+--- !u!114 &3014086736208035401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676611098347806923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5524255c76ae12439a971297d8d36dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRange: 3
 --- !u!1 &5730595962619871849
 GameObject:
   m_ObjectHideFlags: 0
