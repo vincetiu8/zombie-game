@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
 
@@ -7,13 +8,26 @@ namespace Weapons
 {
     public class Gun : Weapon
     {
+        [Description("Holds the GunAttributes for the gun")]
         [SerializeField] protected GunAttributes[] weaponLevels;
+        
+        [Description("The transform the bullets will shoot from")]
         [SerializeField] private Transform firepoint;
+        
+        [Description("The bullet prefab to be instantiated")]
         [SerializeField] private GameObject bulletPrefab;
 
+        // The current GunAttributes
         private GunAttributes _currentGunAttributes;
+        
+        // Current number of bullets in the magazine
         private int _bulletsInMagazine;
+        
+        // Coroutine representing the reload
+        // If this is not null, the player is currently reloading
         private Coroutine _reloadCoroutine;
+        
+        // The adjustment necessary to correct the gun's rotation
         private float _gunOffsetAdjustment;
 
         protected override void Start()
@@ -53,11 +67,14 @@ namespace Weapons
             _reloadCoroutine = StartCoroutine(ReloadCoroutine());
         }
         
+        // Once this coroutine finishes, the weapon is reloaded
         private IEnumerator ReloadCoroutine()
         {
             yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
             
             _bulletsInMagazine = _currentGunAttributes.magazineSize;
+            
+            // Make sure to set _reloadCoroutine to null so the player can reload again after
             _reloadCoroutine = null;
         }
 
@@ -68,6 +85,8 @@ namespace Weapons
         }
 
         // Calculates the vertical distance between the firepoint and the player pivot
+        // Abstracted into method in case we add multiple weapon sprites in the future
+        // That would require recalculation of the offset each time a sprite is loaded
         private void CalculateGunOffsetAdjustment()
         {
             _gunOffsetAdjustment = -firepoint.localPosition.y + transform.localPosition.y;
