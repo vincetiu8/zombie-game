@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
         if(ammoDrop != null)
         {
-            ammoDrop.DropItem();
+            ammoDrop.DropAmmo();
         }
     }
 }
