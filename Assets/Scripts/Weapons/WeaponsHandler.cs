@@ -60,7 +60,11 @@ namespace Weapons
 
             Vector2 direction = mousePos - (Vector2) playerSprite.position;
 
-            playerSprite.rotation = Quaternion.Euler(0, 0, Utils.Vector2ToDeg(direction));
+            float angle = Utils.Vector2ToDeg(direction);
+
+            playerSprite.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            
+            _currentWeapon.FaceMouse(direction.magnitude);
         }
     }
 }

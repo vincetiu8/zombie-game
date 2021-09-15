@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Photon.Pun;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Weapons
         private GunAttributes _currentGunAttributes;
         private int _bulletsInMagazine;
         private Coroutine _reloadCoroutine;
+        private float _gunOffsetAdjustment;
 
         protected override void Start()
         {
@@ -21,6 +23,7 @@ namespace Weapons
             _currentGunAttributes = weaponLevels[currentLevel];
             currentAttributes = _currentGunAttributes;
             _bulletsInMagazine = _currentGunAttributes.magazineSize;
+            CalculateGunOffsetAdjustment();
         }
 
         protected override void Fire()
@@ -62,6 +65,20 @@ namespace Weapons
         {
             _currentGunAttributes = weaponLevels[currentLevel];
             currentAttributes = _currentGunAttributes;
+        }
+
+        // Calculates the vertical distance between the firepoint and the player pivot
+        private void CalculateGunOffsetAdjustment()
+        {
+            _gunOffsetAdjustment = -firepoint.localPosition.y + transform.localPosition.y;
+        }
+
+        public override void FaceMouse(float distance)
+        {
+            // Gets the adjustment angle that the weaponPivot needs the rotate
+            // This lines up the weapon with the mouse properly
+            float angle = Mathf.Atan2(_gunOffsetAdjustment, distance) * Mathf.Rad2Deg;
+            transform.parent.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
         
         public override string ToString()

@@ -19,7 +19,8 @@ namespace Enemy
         {
             Vector2 direction = _playerDetector.GetTrackingPlayerDirection();
             _rigidbody2D.velocity = direction * movementSpeed;
-            transform.rotation = Quaternion.Euler(0, 0, Utils.Vector2ToDeg(direction));
+            float angle = Utils.Vector2ToDeg(direction);
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
 }

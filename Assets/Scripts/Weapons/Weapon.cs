@@ -58,7 +58,10 @@ namespace Weapons
             _fireCooldown = currentAttributes.fireCooldown;
         }
 
-        public abstract void Reload();
+        public virtual void Reload()
+        {
+            
+        }
 
         public virtual void Upgrade()
         {
@@ -69,6 +72,11 @@ namespace Weapons
             }
 
             currentLevel++;
+        }
+
+        public virtual void FaceMouse(float distance)
+        {
+            
         }
     }
 }
