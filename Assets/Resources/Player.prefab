@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1890970094835804043}
   - component: {fileID: 5405575787435880548}
   - component: {fileID: 5960631646741268416}
+  - component: {fileID: 4340305559612925413}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -384,6 +385,21 @@ MonoBehaviour:
   componentsToDisableIfMine: []
   componentsToDisableIfNotMine:
   - {fileID: 7075696312697196668}
+--- !u!114 &4340305559612925413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676611098347806923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd794169ec741e696a5d531c94c3bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoInventory:
+    m_keys: 
+    m_values: []
 --- !u!1 &5730595962619871849
 GameObject:
   m_ObjectHideFlags: 0
