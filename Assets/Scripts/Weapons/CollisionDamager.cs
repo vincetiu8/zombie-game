@@ -28,7 +28,7 @@ namespace Weapons
 
         protected virtual void OnCollisionStay2D(Collision2D other)
         {
-            // Make sure cooldown is complete and the collision is in the layermask
+            // Make sure cooldown is complete and the collision is in the layermask to deal damage
             if (_cooldown > 0 || !Utils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
             
             other.gameObject.GetComponent<Health>().ChangeHealth(-damage);

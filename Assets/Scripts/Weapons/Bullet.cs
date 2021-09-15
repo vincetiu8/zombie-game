@@ -24,6 +24,8 @@ namespace Weapons
         // Destroy the bullet on a collision
         protected override void OnCollisionStay2D(Collision2D other)
         {
+            Debug.Log(other);
+            
             base.OnCollisionStay2D(other);
         
             Destroy(gameObject);
