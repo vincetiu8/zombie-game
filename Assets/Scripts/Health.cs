@@ -4,7 +4,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] protected float initialHealth;
 
-    protected float _health;
+    [SerializeField] protected float _health;
 
     private void Awake()
     {

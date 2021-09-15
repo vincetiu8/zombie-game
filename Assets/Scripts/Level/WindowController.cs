@@ -31,9 +31,10 @@ namespace Levels
             _previousHealth = _health;
             _health = Mathf.Clamp(_health + change, 0, initialHealth);
             if (_previousHealth == _health) return;
-            if (_health <= 1)
+            if (_health == 0)
             {
                 windowCollider.SetActive(false);
+                barricadesGraphics.transform.GetChild(0).gameObject.SetActive(false);
             }
             else
             {
@@ -43,7 +44,7 @@ namespace Levels
             float _checkingRepairState = _health;
             if ((_health - _previousHealth < 0))
             {
-                barricadesGraphics.transform.GetChild((int)_previousHealth).gameObject.SetActive(false);
+                barricadesGraphics.transform.GetChild((int)_previousHealth+1).gameObject.SetActive(false);
             }
             else if ((_health - _previousHealth > 0))
             {
