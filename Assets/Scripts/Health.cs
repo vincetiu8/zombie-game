@@ -5,10 +5,12 @@ public class Health : MonoBehaviour
     [SerializeField] private float initialHealth;
 
     private float _health;
+    private AmmoDrop ammoDrop;
 
     private void Awake()
     {
         _health = initialHealth;
+        ammoDrop = GetComponent<AmmoDrop>();
     }
 
     public float GetHealth()
@@ -33,5 +35,9 @@ public class Health : MonoBehaviour
     private void OnDeath()
     {
         Destroy(gameObject);
+        if(ammoDrop != null)
+        {
+            ammoDrop.DropItem();
+        }
     }
 }

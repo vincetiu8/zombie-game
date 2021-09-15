@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37cbe7c0-0224-4cb6-ae44-c06fdab68a70" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/AmmoInventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/AmmoInventory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponAttributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponAttributes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +74,8 @@
       <workItem from="1631509438638" duration="13000" />
       <workItem from="1631585311070" duration="466000" />
       <workItem from="1631590772913" duration="54000" />
+      <workItem from="1631679644603" duration="255000" />
+      <workItem from="1631682945961" duration="100000" />
     </task>
     <task id="LOCAL-00001" summary="e">
       <created>1631508144160</created>
