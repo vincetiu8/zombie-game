@@ -5,12 +5,12 @@ public class Health : MonoBehaviour
     [SerializeField] private float initialHealth;
 
     private float _health;
-    private AmmoDrop ammoDrop;
+    private ItemDrop ammoDrop;
 
     private void Awake()
     {
         _health = initialHealth;
-        ammoDrop = GetComponent<AmmoDrop>();
+        ammoDrop = GetComponent<ItemDrop>();
     }
 
     public float GetHealth()

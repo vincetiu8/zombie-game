@@ -428,9 +428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd794169ec741e696a5d531c94c3bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoInventory:
-    m_keys: 
-    m_values: []
 --- !u!1 &5730595962619871849
 GameObject:
   m_ObjectHideFlags: 0

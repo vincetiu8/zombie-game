@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Weapons;
 
-public class ItemPickup : MonoBehaviour
+public class AmmoPickup : MonoBehaviour
 {
     [SerializeField] private AmmoType _ammoType;
 

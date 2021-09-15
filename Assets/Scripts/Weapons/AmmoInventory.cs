@@ -18,6 +18,11 @@ namespace Weapons
         
         private void Awake()
         {
+            if(ammoInventory == null)
+            {
+                ammoInventory = new AmmoDict();
+            }
+            
             // Loops through all ammo types and ensures they have a corresponding entry in the dict
             foreach (AmmoType type in Enum.GetValues(typeof(AmmoType)))
             {

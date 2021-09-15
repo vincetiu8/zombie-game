@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoDrop : MonoBehaviour
+public class ItemDrop : MonoBehaviour
 {
     [SerializeField] private GameObject[] itemList; 
     private int itemIndex;
