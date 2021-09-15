@@ -14,7 +14,7 @@ public class AmmoDrop : MonoBehaviour
         enemyPos = GetComponent<Transform>();
     }
 
-    public void DropItem()
+    public void DropAmmo()
     {
         dropNum = Random.Range(0, 100);
         Debug.Log("dropNum is " + dropNum);
