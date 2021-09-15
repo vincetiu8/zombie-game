@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Pistol
+  ammoType: 0
   weaponLevels:
   - description: Basic Pistol
     damage: 0.25
@@ -106,7 +107,7 @@ MonoBehaviour:
     fullAuto: 0
     magazineSize: 5
     reloadTime: 1
-    bulletVelocity: 5
+    bulletSpeed: 5
   firepoint: {fileID: 6581261222417765288}
   bulletPrefab: {fileID: 5597441476687873508, guid: 7b55bd1d5c1b1f758997014851f9f8c5,
     type: 3}

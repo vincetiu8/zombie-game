@@ -8,6 +8,9 @@ namespace Weapons
 {
     public class Gun : Weapon
     {
+        [Description("The gun's ammo type")]
+        [SerializeField] private AmmoType ammoType;
+        
         [Description("Holds the GunAttributes for the gun")]
         [SerializeField] protected GunAttributes[] weaponLevels;
         
@@ -50,12 +53,14 @@ namespace Weapons
             }
             
             GameObject bulletClone = PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, firepoint.rotation);
-            Vector2 bulletVelocity = firepoint.right * _currentGunAttributes.bulletVelocity;
             
+            // Set the bullet's attributes
+            Vector2 bulletVelocity = firepoint.right * _currentGunAttributes.bulletSpeed;
             bulletClone.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
             bulletClone.GetComponent<Bullet>().damage = currentAttributes.damage;
             
 
+            // Remove a bullet from the magazine
             _bulletsInMagazine--;
             base.Fire();
         }
@@ -72,7 +77,8 @@ namespace Weapons
         {
             yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
             
-            _bulletsInMagazine = _currentGunAttributes.magazineSize;
+            // Withdraw bullets from the player's inventory
+            _bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
             
             // Make sure to set _reloadCoroutine to null so the player can reload again after
             _reloadCoroutine = null;

@@ -19,6 +19,9 @@ namespace Weapons
         
         // The weapon attributes
         protected WeaponAttributes currentAttributes;
+
+        // The player's ammo inventory
+        protected AmmoInventory ammoInventory;
         
         // Represents whether the weapon is currently firing for full auto weapons
         // Not used for semi auto
@@ -32,6 +35,11 @@ namespace Weapons
         {
             currentLevel = 0;
             maxLevel = 0;
+        }
+
+        public void Setup(AmmoInventory inventory)
+        {
+            ammoInventory = inventory;
         }
 
         private void Update()

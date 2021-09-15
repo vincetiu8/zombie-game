@@ -1,23 +1,34 @@
 using System;
 using System.Collections;
+using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Weapons
 {
+    [RequireComponent(typeof(AmmoInventory))]
     public class WeaponsHandler : MonoBehaviourPun
     {
+        [Description("The camera the player will see")]
         [SerializeField] private Camera playerCamera;
+        
+        [Description("The child object containing the player's sprite and weapons")]
         [SerializeField] private Transform playerSprite;
 
+        // The player's AmmoInventory
+        private AmmoInventory _ammoInventory;
+        
+        // The current weapon the player is using
         private Weapon _currentWeapon;
 
         private void Start()
         {
             _currentWeapon = GetComponentInChildren<Gun>();
+            _ammoInventory = GetComponent<AmmoInventory>();
+            _currentWeapon.Setup(_ammoInventory);
         }
-
+        
         public void FireAction(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
@@ -42,16 +53,13 @@ namespace Weapons
         {
             if (!photonView.IsMine) return;
 
+            // Make sure this is only when the reload button is pressed
             if (!context.performed) return;
 
-            CmdReload();
-        }
-        
-        private void CmdReload()
-        {
             _currentWeapon.Reload();
         }
 
+        // Makes the player face the mouse
         public void FaceMouse(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
@@ -64,6 +72,7 @@ namespace Weapons
 
             playerSprite.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             
+            // Allows the current weapon to be adjusted to face the mouse
             _currentWeapon.FaceMouse(direction.magnitude);
         }
     }

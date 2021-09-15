@@ -11,6 +11,8 @@ namespace Weapons
         protected override void Update()
         {
             _timeAlive += Time.deltaTime;
+            
+            // Destroy the bullet if its outlived its lifetime
             if (_timeAlive > lifetime)
             {
                 Destroy(gameObject);
@@ -19,6 +21,7 @@ namespace Weapons
             base.Update();
         }
 
+        // Destroy the bullet on a collision
         protected override void OnCollisionStay2D(Collision2D other)
         {
             base.OnCollisionStay2D(other);
