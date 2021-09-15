@@ -14,7 +14,7 @@ namespace Weapons
     public class AmmoInventory : MonoBehaviour
     {
         [Description("The player's ammo inventory")]
-        private AmmoDict ammoInventory;
+        [SerializeField] private AmmoDict ammoInventory;
         
         private void Awake()
         {

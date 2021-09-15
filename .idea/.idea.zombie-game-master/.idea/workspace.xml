@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37cbe7c0-0224-4cb6-ae44-c06fdab68a70" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Update_at_9_15_2021_1_17_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Update_at_9_15_2021_1_17_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AmmoDrop.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AmmoDrop.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Health.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ItemPickup.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ItemPickup.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AmmoDrop_Primary.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AmmoDrop_Primary.prefab.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +78,7 @@
       <workItem from="1631590772913" duration="54000" />
       <workItem from="1631679644603" duration="255000" />
       <workItem from="1631682945961" duration="100000" />
-      <workItem from="1631701818709" duration="333000" />
+      <workItem from="1631701818709" duration="1347000" />
     </task>
     <task id="LOCAL-00001" summary="e">
       <created>1631508144160</created>
