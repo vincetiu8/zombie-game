@@ -96,7 +96,7 @@ namespace Weapons
         {
             // Gets the adjustment angle that the weaponPivot needs the rotate
             // This lines up the weapon with the mouse properly
-            float angle = Mathf.Atan2(_gunOffsetAdjustment, distance) * Mathf.Rad2Deg;
+            float angle = -Mathf.Atan2(_gunOffsetAdjustment, distance) * Mathf.Rad2Deg;
             transform.parent.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
         
