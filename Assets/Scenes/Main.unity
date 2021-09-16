@@ -8245,6 +8245,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2127754562}
     m_Modifications:
+    - target: {fileID: 660494166538846111, guid: d0aeb3b0182b6364f93663fbb8653098,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 660494166538846111, guid: d0aeb3b0182b6364f93663fbb8653098,
+        type: 3}
+      propertyPath: m_ShadowIntensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 660494166538846111, guid: d0aeb3b0182b6364f93663fbb8653098,
+        type: 3}
+      propertyPath: m_LightVolumeOpacity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 660494166538846111, guid: d0aeb3b0182b6364f93663fbb8653098,
+        type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 360
+      objectReference: {fileID: 0}
     - target: {fileID: 1435641262588721846, guid: d0aeb3b0182b6364f93663fbb8653098,
         type: 3}
       propertyPath: m_Name
