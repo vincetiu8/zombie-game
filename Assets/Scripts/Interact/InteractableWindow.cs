@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Levels
 {
     [RequireComponent(typeof(WindowController))]
-    public class InteractableWindows : Interactable
+    public class InteractableWindow : Interactable
     {
         private WindowController windowController;
         private PlayerMovement playerMovement;
