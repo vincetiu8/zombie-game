@@ -41,7 +41,6 @@ public class Health : MonoBehaviourPun, IPunObservable
     protected void RpcOnDeath()
     {
         Destroy(gameObject);
-        gameObject.SendMessage("DropSingleItem", SendMessageOptions.RequireReceiver);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

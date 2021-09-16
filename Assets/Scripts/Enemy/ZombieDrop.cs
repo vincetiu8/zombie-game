@@ -2,21 +2,18 @@ using System;
 using System.ComponentModel;
 using UnityEngine;
 
-/*
-This script is still being worked on
-*/
 
 [Serializable]
 public class ItemDict : SerializableDictionary<int, GameObject>
 {
 }
 
-public class ZombieDrop : MonoBehaviour
+public class ZombieDrop : Health
 {
     [Description("Item drops for this enemy")]
     [SerializeField] private ItemDict _itemDict;
-    System.Random _rand = new System.Random();
-    private int _prob;
+
+    [Range(0, 101)] [SerializeField] private int _maxProb;
     private Transform _enemyPos;
 
     private void Awake()
@@ -29,10 +26,16 @@ public class ZombieDrop : MonoBehaviour
         _enemyPos = GetComponent<Transform>();
     }
 
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        DropSingleItem();
+    }
+
     public void DropSingleItem()
     {
-        _prob = _rand.Next(1, 101);
-
+        int _prob = UnityEngine.Random.Range(1, _maxProb);
+        
         foreach (var dictentry in _itemDict)
         {
             if(_prob <= dictentry.Key)
