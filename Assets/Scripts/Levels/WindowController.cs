@@ -25,25 +25,17 @@ namespace Levels
             }
         }
 
-
         public override void ChangeHealth(float change)
         {
-            _previousHealth = _health;
             _health = Mathf.Clamp(_health + change, 0, initialHealth);
-            if (_previousHealth == _health) return;
-            if (_health == 0)
-            {
-                windowCollider.SetActive(false);
-                barricadesGraphics.transform.GetChild(0).gameObject.SetActive(false);
-            }
-            else
-            {
-                windowCollider.SetActive(true);
-            }
+            if (_previousHealth == _health) return; //If zombies hitting an already destroyed window or player fixing an already fixed window
 
-            if ((_health - _previousHealth < 0))
+            if (_health == 0) windowCollider.SetActive(false);
+            else windowCollider.SetActive(true);
+            
+            if ((_health - _previousHealth < 0 && (Mathf.CeilToInt(_health) != 6))) //it's really annoying that indexing is one lower than a normal way to count
             {
-                barricadesGraphics.transform.GetChild((int)_previousHealth+1).gameObject.SetActive(false);
+                barricadesGraphics.transform.GetChild(Mathf.CeilToInt(_health)).gameObject.SetActive(false);
             }
             else if ((_health - _previousHealth > 0))
             {
