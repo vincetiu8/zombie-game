@@ -1,22 +1,18 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using Debug = UnityEngine.Debug;
+
 
 public class Lantern : MonoBehaviour {
-    [SerializeField] private Behaviour[] lightswitch;
     [SerializeField] private float duration;
 
     private Coroutine currentCoroutine;
 
+    private Light2D _light2D;
+
     private void Start() {
-        for (int i = 0; i < lightswitch.Length; i++) {
-            lightswitch[i].enabled = false;   
-        }
+        _light2D = GetComponent<Light2D>();
+        currentCoroutine = StartCoroutine (Lighting(_light2D, false, duration));
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -25,24 +21,31 @@ public class Lantern : MonoBehaviour {
                 StopCoroutine(currentCoroutine);
             }
 
-            currentCoroutine = StartCoroutine (light());
-            lightswitch[0].enabled = true;
+            currentCoroutine = StartCoroutine (Lighting(_light2D, false, duration));
         }                      
     }
     
-    IEnumerator light(){
-        yield return new WaitForSeconds(duration/4);
-        lightswitch[0].enabled = false;
-        lightswitch[1].enabled = true;
-        yield return new WaitForSeconds(duration / 4);
-        lightswitch[1].enabled = false;
-        lightswitch[2].enabled = true;
-        yield return new WaitForSeconds(duration / 4);
-        lightswitch[2].enabled = false;
-        lightswitch[3].enabled = true;
-        yield return new WaitForSeconds(duration / 4);
-        lightswitch[3].enabled = false;
-        lightswitch[0].enabled = false;
-        
+    private IEnumerator Lighting(Light2D lightToFade, bool fadeIn, float duration) {
+        float minLuminosity = 0;
+        float maxLuminosity = 1; 
+        float counter = 0f;
+        float a, b;
+
+        if (fadeIn) {
+            a = minLuminosity;
+            b = maxLuminosity;
+        }
+        else {
+            a = maxLuminosity;
+            b = minLuminosity;
+        }
+
+        float currentIntensity = _light2D.intensity;
+
+        while (counter < duration) {
+            counter += Time.deltaTime;
+            _light2D.intensity = Mathf.Lerp(a, b, counter / duration);
+            yield return null;
+        }
     }
 }
