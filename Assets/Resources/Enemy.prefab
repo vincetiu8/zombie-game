@@ -284,7 +284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6698ca512d86adf478231fcc297b1407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialHealth: 0
   _itemDict:
     m_keys: 63000000
     m_values:
     - {fileID: 5774804764515098991, guid: 41c5e7222100dbe4eb1d6a315b1112a0, type: 3}
+  _prob: 1
