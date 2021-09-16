@@ -4308,7 +4308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomNameInputField: {fileID: 527412676}
-  errorText: {fileID: 850621034}
+  errorText: {fileID: 1414290306}
   roomNameText: {fileID: 738420261}
   roomListContent: {fileID: 513197373}
   roomListItemPrefab: {fileID: 5590041413162275129, guid: 1269824dfd0cb1642a9294fbbfb1a1ea,
