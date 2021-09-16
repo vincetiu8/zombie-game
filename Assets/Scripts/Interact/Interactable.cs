@@ -9,7 +9,7 @@ public abstract class Interactable : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            collision.GetComponent<PlayerInteract>().OpenInteractableIcon(gameObject); //display the icon to let player know the object is interactable
+            collision.GetComponent<PlayerInteract>().AddInteractableObject(gameObject); //display the icon to let player know the object is interactable
         }
     }
 
@@ -17,7 +17,7 @@ public abstract class Interactable : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            collision.GetComponent<PlayerInteract>().CloseInteractableIcon(gameObject);
+            collision.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
         }
     }
 }
