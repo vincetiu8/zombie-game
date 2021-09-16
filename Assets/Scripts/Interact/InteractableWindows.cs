@@ -14,16 +14,14 @@ namespace Levels
         [SerializeField] private float barricadeFixTime;
 
         private bool isFixing;
+        private float _cooldown;
 
         public override void Interact()
         {
-            //Debug.Log("fixing window");
-            if (Time.time > nextActionTime)
+            if (_cooldown <= 0)
             {
-                //Everything in here will be called every barricadeBreakTime interval
-                nextActionTime = Time.time + barricadeFixTime;
-                windowController.ChangeHealth(1); // can't use the time delta time cooldown method here cuz it isn't being constatly called
-                // If i can get the hold interaction working, ill switch it to the other cooldown system
+                windowController.ChangeHealth(1);
+                _cooldown += barricadeFixTime;
             }
             
         }
@@ -33,6 +31,14 @@ namespace Levels
         {
             //playerMovement = GetComponent
             windowController = GetComponent<WindowController>();
+        }
+
+        private void Update()
+        {
+            if (_cooldown > 0)
+            {
+                _cooldown -= Time.deltaTime;
+            }
         }
 
     }
