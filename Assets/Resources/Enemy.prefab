@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 3148990426618924570}
   - component: {fileID: 8280161211853246893}
   - component: {fileID: 8782713418366867163}
+  - component: {fileID: 3719824534238069527}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -268,10 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203c3da25fdbeaa4bbac98c7bfa2bf89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList:
-  - {fileID: 5774804764515098991, guid: 41c5e7222100dbe4eb1d6a315b1112a0, type: 3}
-  - {fileID: 6927649112921695316, guid: 021e2d16677d6e64a9c3425c035e61c9, type: 3}
-  - {fileID: 557892614118174535, guid: 091c86ce5e3c11e4d83d263b07588983, type: 3}
 --- !u!114 &8782713418366867163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,3 +285,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &3719824534238069527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027714350541001172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6698ca512d86adf478231fcc297b1407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemDict:
+    m_keys: []
+    m_values: 
