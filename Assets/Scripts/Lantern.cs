@@ -19,10 +19,6 @@ public class Lantern : MonoBehaviour {
         }
     }
 
-    private void Update() {
-        Debug.Log(currentCoroutine);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.tag == "Player") {
             if (currentCoroutine != null) {
