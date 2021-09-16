@@ -10,7 +10,7 @@ public class RoomListItem : MonoBehaviour
 
 	public RoomInfo info;
 
-	public void SetUp(RoomInfo _info)
+	public void Setup(RoomInfo _info)
 	{
 		info = _info;
 		text.text = _info.Name;
