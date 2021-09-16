@@ -33,5 +33,6 @@ public class Health : MonoBehaviour
     private void OnDeath()
     {
         Destroy(gameObject);
+        gameObject.SendMessage("DropSingleItem", SendMessageOptions.RequireReceiver);
     }
 }
