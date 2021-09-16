@@ -10,7 +10,7 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
 	[SerializeField] TMP_Text text;
 	Player player;
 
-	public void SetUp(Player _player)
+	public void Setup(Player _player)
 	{
 		player = _player;
 		text.text = _player.NickName;
