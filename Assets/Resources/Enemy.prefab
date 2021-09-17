@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 1
-  _itemDict:
+  itemDict:
     m_keys: 63000000
     m_values:
     - {fileID: 5774804764515098991, guid: 41c5e7222100dbe4eb1d6a315b1112a0, type: 3}
-  _maxProb: 0
+  maxProb: 101

@@ -1,43 +1,43 @@
 using System;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-
-[Serializable]
-public class ItemDict : SerializableDictionary<int, GameObject>
+namespace Enemy
 {
-}
-
-public class ItemDrop : Health
-{
-    [Description("Item drops for this enemy")] [SerializeField]
-    private ItemDict _itemDict;
-
-    [Range(0, 101)] [SerializeField] private int _maxProb;
-
-    private void Awake()
+    [Serializable]
+    public class ItemDict : SerializableDictionary<int, GameObject>
     {
-        if (_itemDict == null)
+    }
+
+    public class ItemDrop : Health
+    {
+        [Description("Item drops for this enemy")] [SerializeField]
+        private ItemDict itemDict;
+
+        [Range(0, 101)] [SerializeField] private int maxProb;
+
+        private void Awake()
         {
-            _itemDict = new ItemDict();
+            itemDict ??= new ItemDict();
         }
-    }
 
-    protected override void OnDeath()
-    {
-        base.OnDeath();
-        DropSingleItem();
-    }
-
-    public void DropSingleItem()
-    {
-        int _prob = UnityEngine.Random.Range(1, _maxProb);
-
-        foreach (var dictentry in _itemDict)
+        protected override void OnDeath()
         {
-            if (_prob > dictentry.Key) continue;
-            Instantiate(dictentry.Value, transform.position, Quaternion.identity);
-            break;
+            base.OnDeath();
+            DropSingleItem();
+        }
+
+        private void DropSingleItem()
+        {
+            int prob = UnityEngine.Random.Range(1, maxProb);
+
+            foreach (var dictentry in itemDict)
+            {
+                if (prob > dictentry.Key) continue;
+                Instantiate(dictentry.Value, transform.position, Quaternion.identity);
+                break;
+            }
         }
     }
 }
