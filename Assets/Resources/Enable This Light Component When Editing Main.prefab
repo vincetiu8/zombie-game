@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7844729388281051163}
   - component: {fileID: 7989535879827652917}
+  - component: {fileID: 1839006844124547582}
   m_Layer: 0
-  m_Name: Place This Light In Hiarchy While Editing Main And Remove On Commit
+  m_Name: Enable This Light Component When Editing Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,3 +73,16 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &1839006844124547582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4130506803478008390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6bba9aac72d7245b88eab3aff788c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 7989535879827652917}

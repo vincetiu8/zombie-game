@@ -415,7 +415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentsToDisableIfMine: []
   componentsToDisableIfNotMine:
-  - {fileID: 0}
+  - {fileID: 8877395515788126079}
 --- !u!114 &4340305559612925413
 MonoBehaviour:
   m_ObjectHideFlags: 0
