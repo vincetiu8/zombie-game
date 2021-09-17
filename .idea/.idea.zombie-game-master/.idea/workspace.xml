@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="37cbe7c0-0224-4cb6-ae44-c06fdab68a70" name="Changes" comment="" />
+    <list default="true" id="37cbe7c0-0224-4cb6-ae44-c06fdab68a70" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_14_2021_8_05_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_14_2021_8_05_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_14_2021_8_05_AM__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_14_2021_8_05_AM__Changes_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Update_at_9_15_2021_1_17_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_Update_at_9_15_2021_1_17_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_rebase__Changes_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_rebase__Changes_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_rebase__Changes_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/shelf/Uncommitted_changes_before_rebase__Changes_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.zombie-game-master/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Bullet.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

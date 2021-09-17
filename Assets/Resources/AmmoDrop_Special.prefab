@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8721446685275676622}
   - component: {fileID: 6247637316928899268}
   - component: {fileID: 8741583497953789769}
+  - component: {fileID: 748429657276105209}
   - component: {fileID: 366873062226903084}
   m_Layer: 0
   m_Name: AmmoDrop_Special
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1036530043
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7,
     type: 3}
@@ -95,7 +96,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -111,6 +112,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &748429657276105209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557892614118174535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f4a9266ecd205e47ba7983af8012e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ammoType: 0
+  _dropAmount: 0
+  _minAmt: 1
+  _maxAmt: 10
 --- !u!114 &366873062226903084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,3 +141,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ammoType: 2
+  _dropAmount: 0

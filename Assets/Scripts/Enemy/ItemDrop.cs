@@ -8,13 +8,12 @@ public class ItemDict : SerializableDictionary<int, GameObject>
 {
 }
 
-public class ZombieDrop : Health
+public class ItemDrop : Health
 {
     [Description("Item drops for this enemy")]
     [SerializeField] private ItemDict _itemDict;
 
     [Range(0, 101)] [SerializeField] private int _maxProb;
-    private Transform _enemyPos;
 
     private void Awake()
     {
@@ -22,8 +21,6 @@ public class ZombieDrop : Health
         {
             _itemDict = new ItemDict();
         }
-
-        _enemyPos = GetComponent<Transform>();
     }
 
     protected override void OnDeath()
@@ -40,7 +37,7 @@ public class ZombieDrop : Health
         {
             if(_prob <= dictentry.Key)
             {
-                Instantiate(dictentry.Value, _enemyPos.position, Quaternion.identity);
+                Instantiate(dictentry.Value, transform.position, Quaternion.identity);
                 break;
             }
         }
