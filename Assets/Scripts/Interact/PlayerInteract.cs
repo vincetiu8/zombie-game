@@ -5,32 +5,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteract : MonoBehaviour
 {
-    //List to keep track of how many interactables are in range, will always prioritise the most recent one
-    private List<GameObject> interactPriorityList = new List<GameObject>(); //prioritiy lists are probably to complicated for such a simple thing surely
+    // List to keep track of how many interactables are in range, will be checked for closest object in CheckInteraction
+    private List<GameObject> interactPriorityList = new List<GameObject>();
 
-    public void AddInteractableObject( GameObject interact)//maybe in the future, have a parameter that takes in icons to display in front of the player
+    public void AddInteractableObject( GameObject interact)// Maybe in the future, have a parameter that takes in icons to display in front of the player
     {
         interactPriorityList.Add(interact);
-        //Debug.Log("OpenInteractableIcon" + interact);
     }
 
     public void RemoveInteractableObject(GameObject interact)
     {
         interactPriorityList.Remove(interact);
-        //Debug.Log("CloseInteractableIcon" + interact);
     }
 
     public void CheckInteraction(InputAction.CallbackContext context)
     {
-        /*Debug.Log("length: " + interactPriorityList.Count);
-        foreach (GameObject objet in interactPriorityList)
-        {
-            Debug.Log(objet);
-        }*/
-
         if (interactPriorityList.Count > 0)
         {
-            //Check which object in the list is closest to the player
+            // Check which object in the list is closest to the player
             float _closestDistance = Mathf.Infinity;
             GameObject _closestObject = null;
             foreach (GameObject obj in interactPriorityList)
@@ -43,7 +35,6 @@ public class PlayerInteract : MonoBehaviour
                 } 
             }
             _closestObject.GetComponent<Interactable>().Interact();
- 
         }
         else
         {
