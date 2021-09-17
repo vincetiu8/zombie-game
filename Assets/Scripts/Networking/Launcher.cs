@@ -64,6 +64,8 @@ namespace Networking
 
         public override void OnJoinedRoom()
         {
+            if (!PhotonNetwork.IsMasterClient) return;
+            
             PhotonNetwork.LoadLevel("Main");
         }
     }

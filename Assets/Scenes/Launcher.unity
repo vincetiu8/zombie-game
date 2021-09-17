@@ -134,6 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 85005377}
   - component: {fileID: 85005378}
+  - component: {fileID: 85005379}
   m_Layer: 0
   m_Name: Launcher
   m_TagString: Untagged
@@ -170,6 +171,19 @@ MonoBehaviour:
   maxPlayersPerRoom: 4
   controlPanel: {fileID: 809795315}
   progressLabel: {fileID: 1237186240}
+--- !u!114 &85005379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85005376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28dd60f6abf16d4094cf0f642a043e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
