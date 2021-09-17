@@ -7,12 +7,12 @@ public abstract class Collectible : MonoBehaviour
 {
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             Pickup(collision.gameObject);
             Destroy(this.gameObject);
         }
     }
-    
+
     protected abstract void Pickup(GameObject _player);
 }

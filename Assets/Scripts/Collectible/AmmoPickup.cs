@@ -16,10 +16,11 @@ public class AmmoPickup : Collectible
     protected override void Pickup(GameObject _player)
     {
         AmmoInventory _ammoInventory = _player.gameObject.GetComponent<AmmoInventory>();
-        if(_ammoInventory == null)
-            {
-                return;
-            }
+        if (_ammoInventory == null)
+        {
+            return;
+        }
+
         Debug.Log(_dropAmount);
         _ammoInventory.DepositAmmo(_ammoType, _dropAmount);
     }
