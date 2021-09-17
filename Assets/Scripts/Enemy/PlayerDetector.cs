@@ -10,10 +10,10 @@ namespace Enemy
         [SerializeField] private float updatePeriod;
         
         private Transform _trackingPlayer;
-        private readonly List<Transform> _players;
+        private List<Transform> _players;
         private float _updateCooldown;
 
-        private PlayerDetector()
+        private void Awake()
         {
             _players = new List<Transform>();
         }
@@ -47,6 +47,8 @@ namespace Enemy
                 minDistance = playerDistance;
                 _trackingPlayer = player;
             }
+
+            _updateCooldown = updatePeriod;
         }
 
         private void RemovePlayer(Transform other)
@@ -69,11 +71,15 @@ namespace Enemy
         
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (!other.CompareTag("Player")) return;
+            
             AddPlayer(other.transform);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if (!other.CompareTag("Player")) return;
+            
             RemovePlayer(other.transform);
         }
     }
