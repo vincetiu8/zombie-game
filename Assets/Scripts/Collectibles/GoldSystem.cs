@@ -1,55 +1,31 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-namespace Collectibles
+public static class GoldSystem
 {
-    public class GoldSystem : MonoBehaviour
+    public struct PlayerGold
     {
-
-        public static Dictionary<string, int> AllPlayerGold = new Dictionary<string, int>(); // Dictionary that contains all the players and the gold they have
-        // Makes it easier to display all player's gold on the UI as well
-
-        public void AddGold(List<string> playerNames, int goldAmount) // Takes in the names of multiple players as well
-            // used like this btw: AddGold(new List<string> { PhotonNetwork.NickName }, 10);
+        public string playerName;
+        public int gold;
+        public PlayerGold(string nickName, int gold) : this()
         {
-            foreach (string name in playerNames)
-            {
-                if (AllPlayerGold.ContainsKey(name))
-                {
-                    AllPlayerGold[name] += goldAmount;
-                }
-            }
+            this.playerName = nickName;
+            this.gold = gold;
         }
-
-        public bool WithdrawGold(string playerName, int goldAmount)
-            // Only coded for one person only since taking money from multiple people at the same time doens't sound like something we need
-        {
-            if (AllPlayerGold.ContainsKey(playerName))
-            {
-                if (goldAmount < AllPlayerGold[playerName])
-                {
-                    AllPlayerGold[playerName] -= goldAmount;
-                    return true;
-                }
-                else
-                {
-                    Debug.Log("Player doesn't have enough money");
-                    return false;
-                }
-            }
-            else
-            {
-                Debug.Log("Player doesn't exist");
-                return false;
-            }
-        }
-
-        public int GetGold(string playerName)
-        {
-            return AllPlayerGold[playerName];
-        }
-        /*
-    foreach (KeyValuePair<string, int> kvp in allPlayerGold)
-                Debug.Log("Name: " + kvp.Key + " Gold: " + kvp.Value);*/
+    }
+    public static void AddGold(string playerName, int goldAmount)
+    {
+        if (playerName != PlayerGold.playerName) return // how am i supposed to get the player name from the player?
+        playerGold.gold += goldAmount;
     }
 }
+public class Gold : MonoBehaviour
+{
+    private GoldSystem.PlayerGold playerGold = new GoldSystem.PlayerGold(PhotonNetwork.NickName, 0);
+
+    
+
+}
+
