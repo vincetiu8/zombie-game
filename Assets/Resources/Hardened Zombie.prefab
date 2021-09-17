@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8237a4965a069d25aba8b4d6d87142f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updatePeriod: 0.5
+  targetStickiness: 2
+  updatePeriod: 2.5
 --- !u!58 &6518528213137725804
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -251,6 +252,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 2042632738896592113}
   - {fileID: 6835588830130277189}
   sceneViewId: 0
   InstantiationId: 0

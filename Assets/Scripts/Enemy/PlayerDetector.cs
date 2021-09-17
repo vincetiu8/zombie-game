@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Enemy
@@ -7,7 +8,11 @@ namespace Enemy
     // Make into an abstract class and make child classes for each tracking strategy
     public class PlayerDetector : MonoBehaviour
     {
-        [SerializeField] private float updatePeriod;
+        [Description("How much the enemy 'sticks' to the current player it's tracking")]
+        [Range(1, 5f)] [SerializeField] private float targetStickiness = 1;
+        
+        [Description("How often the enemy updates the player it's tracking, aside from trigger events")]
+        [Range(0.1f, 5f)] [SerializeField] private float updatePeriod = 1;
         
         private Transform _trackingPlayer;
         private List<Transform> _players;
@@ -20,29 +25,26 @@ namespace Enemy
 
         private void Update()
         {
-            _updateCooldown -= Time.deltaTime;
-            
-            if (_updateCooldown > 0) return;
-            
-            UpdateTrackingPlayer();
-        }
-
-        private void AddPlayer(Transform other)
-        {
-            _players.Add(other.transform);
+            if (_updateCooldown > 0)
+            {
+                _updateCooldown -= Time.deltaTime;
+                return;
+            }
             
             UpdateTrackingPlayer();
         }
 
         private void UpdateTrackingPlayer()
         {
+            if (_updateCooldown > 0) return;
+
             float minDistance = float.PositiveInfinity;
 
             foreach (Transform player in _players)
             {
                 float playerDistance = (player.position - transform.position).magnitude;
 
-                if (playerDistance > minDistance) continue;
+                if (playerDistance * targetStickiness > minDistance) continue;
                 
                 minDistance = playerDistance;
                 _trackingPlayer = player;
@@ -50,11 +52,24 @@ namespace Enemy
 
             _updateCooldown = updatePeriod;
         }
+        
+        private void AddPlayer(Transform other)
+        {
+            _players.Add(other);
+            
+            UpdateTrackingPlayer();
+        }
 
         private void RemovePlayer(Transform other)
         {
             _players.Remove(other);
             if (_trackingPlayer != other) return;
+            
+            if (_players.Count == 0)
+            {
+                _trackingPlayer = null;
+                return;
+            }
 
             UpdateTrackingPlayer();
         }
