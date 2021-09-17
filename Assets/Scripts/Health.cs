@@ -2,7 +2,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
 
-public class Health : MonoBehaviour, IPunObservable
+public class Health : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] protected float initialHealth;
 
@@ -28,12 +28,17 @@ public class Health : MonoBehaviour, IPunObservable
         health += change;
 
         if (health > 0) return;
-
+        
         OnDeath();
     }
 
-    [PunRPC]
     protected virtual void OnDeath()
+    {
+        photonView.RPC("RpcOnDeath", RpcTarget.All);
+    }
+
+    [PunRPC]
+    protected void RpcOnDeath()
     {
         Destroy(gameObject);
     }
