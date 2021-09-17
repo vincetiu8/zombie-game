@@ -35,7 +35,7 @@ public class ItemDrop : Health
 
         foreach (var dictentry in _itemDict)
         {
-            if (_prob <= dictentry.Key) continue;
+            if (_prob > dictentry.Key) continue;
             Instantiate(dictentry.Value, transform.position, Quaternion.identity);
             break;
         }
