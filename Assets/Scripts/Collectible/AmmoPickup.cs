@@ -8,11 +8,6 @@ public class AmmoPickup : Collectible
     [SerializeField] private AmmoType _ammoType;
     [SerializeField] protected int _dropAmount;
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-    }
-
     protected override void Pickup(GameObject _player)
     {
         AmmoInventory _ammoInventory = _player.gameObject.GetComponent<AmmoInventory>();
