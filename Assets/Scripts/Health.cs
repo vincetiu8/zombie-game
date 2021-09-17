@@ -4,7 +4,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] protected float initialHealth;
 
-    private float _health;
+    protected float _health;
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
         return Mathf.RoundToInt(_health);
     }
 
-    public void ChangeHealth(float change)
+    public virtual void ChangeHealth(float change)
     {
         _health += change;
 
