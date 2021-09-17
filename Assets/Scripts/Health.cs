@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float initialHealth;
+    [SerializeField] protected float initialHealth;
 
     private float _health;
 
@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
         OnDeath();
     }
 
-    private void OnDeath()
+    protected virtual void OnDeath()
     {
         Destroy(gameObject);
     }
