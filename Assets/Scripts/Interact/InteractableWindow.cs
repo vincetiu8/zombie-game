@@ -8,16 +8,18 @@ namespace Levels
     public class InteractableWindow : Interactable
     {
         private WindowController windowController;
-        private PlayerMovement playerMovement;
 
-        private float nextActionTime = 0.0f;
         [SerializeField] private float barricadeFixTime;
 
-        private bool isFixing;
         private float _cooldown;
 
         public override void Interact()
         {
+            if (windowController.zombieAtWindow)
+            {
+                Debug.Log("Can't fix while zombie is at window");
+                return;
+            }
             if (_cooldown <= 0)
             {
                 windowController.ChangeHealth(1);
@@ -26,10 +28,8 @@ namespace Levels
             
         }
 
-        // Start is called before the first frame update
         void Start()
         {
-            //playerMovement = GetComponent
             windowController = GetComponent<WindowController>();
         }
 
