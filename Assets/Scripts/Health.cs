@@ -32,6 +32,7 @@ public class Health : MonoBehaviour, IPunObservable
         OnDeath();
     }
 
+    [PunRPC]
     protected virtual void OnDeath()
     {
         Destroy(gameObject);
