@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public static class GoldSystem
+public class GoldSystem
 {
     public struct PlayerGold
     {
@@ -15,10 +15,35 @@ public static class GoldSystem
             this.gold = gold;
         }
     }
-    public static void AddGold(string playerName, int goldAmount)
+
+  
+
+    public Dictionary<string, int> allPlayerGold = new Dictionary<string, int>();
+
+    public void AddGold(List<string> playerNames, int goldAmount) // Takes in the names of multiple players as well
     {
-        if (playerName != PlayerGold.playerName) return // how am i supposed to get the player name from the player?
-        playerGold.gold += goldAmount;
+        foreach (string name in playerNames)
+        {
+            if (allPlayerGold.ContainsKey(name))
+            {
+                allPlayerGold[name] += goldAmount;
+            }
+        }
+    }
+
+    public void WithdrawGold(List<string> playerNames, int goldAmount)
+    {
+        foreach (string name in playerNames)
+        {
+            if (allPlayerGold.ContainsKey(name))
+            {
+                if (goldAmount < allPlayerGold[name])
+                {
+                    allPlayerGold[name] -= goldAmount;
+                }
+               
+            }
+        }
     }
 }
 public class Gold : MonoBehaviour
