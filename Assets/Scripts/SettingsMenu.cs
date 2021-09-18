@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -38,7 +41,7 @@ public class SettingsMenu : MonoBehaviour
         resDropdown.value = currentResIndex;
         resDropdown.RefreshShownValue();
     }
-
+    
     public void SetResolution(int resIndex)
     {
         Resolution resolution = _resolutions[resIndex];
