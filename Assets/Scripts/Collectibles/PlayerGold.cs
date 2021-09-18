@@ -1,23 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Photon.Pun;
+using UnityEngine;
 
-public class PlayerGold : GoldSystem
+namespace Collectibles
 {
-    private void Awake()
+    public class PlayerGold : GoldSystem
     {
-        allPlayerGold.Add(PhotonNetwork.NickName, 0);
+        private void Awake()
+        {
+            AllPlayerGold.Add(PhotonNetwork.NickName, 0);
 
-        foreach (KeyValuePair<string, int> kvp in allPlayerGold)
-            Debug.Log("Name: " + kvp.Key + " Gold: "+ kvp.Value);
+            foreach (KeyValuePair<string, int> kvp in AllPlayerGold)
+                Debug.Log("Name: " + kvp.Key + " Gold: "+ kvp.Value);
 
+        }
 
     }
-
-    private void Update()
-    {
-        
-    }
-
 }
