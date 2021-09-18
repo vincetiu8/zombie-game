@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2219618937838980186}
   - component: {fileID: 6717603907330712230}
   - component: {fileID: 7100656342668233535}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AmmoDrop_Heavy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,10 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4a9266ecd205e47ba7983af8012e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoType: 0
-  _dropAmount: 0
-  _minAmt: 2
-  _maxAmt: 20
+  ammoType: 0
+  dropAmount: 0
+  minAmt: 0
+  maxAmt: 0
 --- !u!114 &7100656342668233535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,5 +140,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa0601298675c94db9ed00bd53303b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoType: 1
-  _dropAmount: 0
+  ammoType: 0
+  dropAmount: 0
