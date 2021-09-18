@@ -6,7 +6,7 @@ namespace Collectibles
 {
     public class PlayerGold : MonoBehaviour
     {
-        [SerializeField] private GameObject gameManager;
+        public GameObject gameManager;
         
         private void Awake()
         {
