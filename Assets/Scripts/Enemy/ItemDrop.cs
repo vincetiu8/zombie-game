@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,18 +26,19 @@ namespace Enemy
 
         protected override void OnDeath()
         {
-            base.OnDeath();
             DropSingleItem();
+            base.OnDeath();
         }
 
         private void DropSingleItem()
         {
             int prob = UnityEngine.Random.Range(1, maxProb);
 
-            foreach (var dictentry in itemDict)
+            IEnumerable<KeyValuePair<int, GameObject>> droppedItems = itemDict.Where(dictEntry => prob <= dictEntry.Key);
+            
+            foreach (KeyValuePair<int, GameObject> dictEntry in droppedItems)
             {
-                if (prob > dictentry.Key) continue;
-                Instantiate(dictentry.Value, transform.position, Quaternion.identity);
+                Instantiate(dictEntry.Value, transform.position, Quaternion.identity);
                 break;
             }
         }

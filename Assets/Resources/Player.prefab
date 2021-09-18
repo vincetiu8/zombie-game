@@ -125,6 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1911151390933760986}
+  - component: {fileID: 792787284476533698}
   m_Layer: 3
   m_Name: WeaponPivot
   m_TagString: Player
@@ -147,6 +148,22 @@ Transform:
   m_Father: {fileID: 4693431101948605444}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &792787284476533698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4705562140252545668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5676611098347806923
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,10 +180,10 @@ GameObject:
   - component: {fileID: 5989146994798338574}
   - component: {fileID: 6455594554168295160}
   - component: {fileID: 1890970094835804043}
-  - component: {fileID: 5405575787435880548}
   - component: {fileID: 5960631646741268416}
   - component: {fileID: 4340305559612925413}
   - component: {fileID: 3014086736208035401}
+  - component: {fileID: 2053541363557141476}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -398,26 +415,13 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 5405575787435880548}
+  - {fileID: 1257494630980918847}
+  - {fileID: 2053541363557141476}
+  - {fileID: 7071985431003773134}
+  - {fileID: 792787284476533698}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5405575787435880548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5676611098347806923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 0
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &5960631646741268416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,9 +434,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f093314ae2afb74eaa3d16ff93b807f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  componentsToDisableIfMine: []
   componentsToDisableIfNotMine:
   - {fileID: 7075696312697196668}
+  - {fileID: 4693431101761815404}
+  - {fileID: 4693431101761815405}
+  - {fileID: 5989146994798338574}
+  - {fileID: 5989146994798338574}
 --- !u!114 &4340305559612925413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,7 +467,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5524255c76ae12439a971297d8d36dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRange: 3
+--- !u!114 &2053541363557141476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676611098347806923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5730595962619871849
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4693431101948605444}
   - component: {fileID: 1089952147184385324}
+  - component: {fileID: 7071985431003773134}
   m_Layer: 3
   m_Name: PlayerObject
   m_TagString: Player
@@ -545,6 +568,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7071985431003773134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5730595962619871849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &8105208831145279700
 GameObject:
   m_ObjectHideFlags: 0

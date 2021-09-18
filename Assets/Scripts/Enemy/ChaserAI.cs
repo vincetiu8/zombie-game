@@ -19,7 +19,6 @@ namespace Enemy
         private void FixedUpdate()
         {
             Vector2 direction = _playerDetector.GetTrackingPlayerDirection();
-            Debug.Log(direction);
             _rigidbody2D.velocity = direction * movementSpeed;
             float angle = Utils.Vector2ToDeg(direction);
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
