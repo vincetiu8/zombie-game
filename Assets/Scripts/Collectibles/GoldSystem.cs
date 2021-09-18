@@ -6,7 +6,7 @@ namespace Collectibles
     public class GoldSystem : MonoBehaviour
     {
 
-        public static Dictionary<string, int> AllPlayerGold = new Dictionary<string, int>(); // Dictionary that contains all the players and the gold they have
+        public Dictionary<string, int> AllPlayerGold = new Dictionary<string, int>(); // Dictionary that contains all the players and the gold they have
         // Makes it easier to display all player's gold on the UI as well
 
         public void AddGold(List<string> playerNames, int goldAmount) // Takes in the names of multiple players as well
@@ -14,10 +14,7 @@ namespace Collectibles
         {
             foreach (string name in playerNames)
             {
-                if (AllPlayerGold.ContainsKey(name))
-                {
-                    AllPlayerGold[name] += goldAmount;
-                }
+                if (AllPlayerGold.ContainsKey(name)) AllPlayerGold[name] += goldAmount;
             }
         }
 
@@ -48,8 +45,5 @@ namespace Collectibles
         {
             return AllPlayerGold[playerName];
         }
-        /*
-    foreach (KeyValuePair<string, int> kvp in allPlayerGold)
-                Debug.Log("Name: " + kvp.Key + " Gold: " + kvp.Value);*/
     }
 }

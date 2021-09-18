@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace Collectibles
 {
-    public class PlayerGold : GoldSystem
+    public class PlayerGold : MonoBehaviour
     {
+        [SerializeField] private GameObject gameManager;
+        
         private void Awake()
         {
-            AllPlayerGold.Add(PhotonNetwork.NickName, 0);
+            GoldSystem goldSystem = gameManager.GetComponent<GoldSystem>();
+            goldSystem.AllPlayerGold.Add(PhotonNetwork.NickName, 0);
 
-            foreach (KeyValuePair<string, int> kvp in AllPlayerGold)
+            foreach (KeyValuePair<string, int> kvp in goldSystem.AllPlayerGold)
                 Debug.Log("Name: " + kvp.Key + " Gold: "+ kvp.Value);
 
         }
