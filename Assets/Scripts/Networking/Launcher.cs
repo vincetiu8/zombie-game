@@ -42,6 +42,12 @@ namespace Networking
             PhotonNetwork.GameVersion = GameVersion;
         }
 
+        public void QuitGame()
+        {
+            Debug.Log("Quit game!");
+            Application.Quit();
+        }
+
         public override void OnConnectedToMaster()
         {
             if (!_isConnecting) return;
