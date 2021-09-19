@@ -4,25 +4,26 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
+using Weapons;
 
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public Dropdown resDropdown;
+    public Dropdown graphicsDropdown;
     private Resolution[] _resolutions;
 
     private void Start()
     {
         //get resolutions available for project
         _resolutions = Screen.resolutions;
-
         //clear dropdown
         resDropdown.ClearOptions();
 
-        //convert resolutions to list
         int currentResIndex = 0;
+        int graphicsIndex = QualitySettings.GetQualityLevel(); 
+        
+        //convert resolutions to list
         List<string> resOptions = new List<string>();
         for (int i = 0; i < _resolutions.Length; i++)
         {
@@ -37,11 +38,14 @@ public class SettingsMenu : MonoBehaviour
         }
         //add resOptions to dropdown
         resDropdown.AddOptions(resOptions);
-        //set dropdown to current resolution
+        //set dropdown to current resolution and current graphics settings
         resDropdown.value = currentResIndex;
         resDropdown.RefreshShownValue();
+
+        graphicsDropdown.value = graphicsIndex;
+        graphicsDropdown.RefreshShownValue();
     }
-    
+
     public void SetResolution(int resIndex)
     {
         Resolution resolution = _resolutions[resIndex];

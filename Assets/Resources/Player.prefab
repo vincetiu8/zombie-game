@@ -351,23 +351,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fef1fff4-bec9-4533-bb48-14f0d94df9aa
     m_ActionName: Game/Interact[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1926936510275007407, guid: 56d7eb2862562cb40a7501fcb3948467,
-          type: 3}
-        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: ToggleOptions
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6c9cd3bb-bf70-4e1b-ad3a-8af3fa78cb92
-    m_ActionName: Game/Options[/Keyboard/o]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game
