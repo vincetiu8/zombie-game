@@ -430,7 +430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f093314ae2afb74eaa3d16ff93b807f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  componentsToDisableIfMine: []
   componentsToDisableIfNotMine:
   - {fileID: 7075696312697196668}
 --- !u!114 &4340305559612925413
