@@ -6,11 +6,11 @@ namespace Collectibles
 {
     public class PlayerGold : MonoBehaviour
     {
-        public GameObject gameManager;
+        public GoldSystem goldSystem;
         
-        private void Awake()
+        private void Start()
         {
-            GoldSystem goldSystem = gameManager.GetComponent<GoldSystem>();
+            Debug.Log(goldSystem);
             goldSystem.AllPlayerGold.Add(PhotonNetwork.NickName, 0);
 
             foreach (KeyValuePair<string, int> kvp in goldSystem.AllPlayerGold)
