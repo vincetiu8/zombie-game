@@ -4314,7 +4314,7 @@ MonoBehaviour:
   roomListItemPrefab: {fileID: 5590041413162275129, guid: 1269824dfd0cb1642a9294fbbfb1a1ea,
     type: 3}
   playerListContent: {fileID: 477289445}
-  PlayerListItemPrefab: {fileID: 1878336002063414184, guid: d11edb5dbb901db49a659dace16ad395,
+  playerListItemPrefab: {fileID: 1878336002063414184, guid: d11edb5dbb901db49a659dace16ad395,
     type: 3}
   startGameButton: {fileID: 740400222}
 --- !u!114 &2125027183
