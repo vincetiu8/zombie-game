@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-namespace Collectibles
+namespace Shop
 {
     public class PlayerGold : MonoBehaviour
     {
@@ -10,11 +10,12 @@ namespace Collectibles
         
         private void Start()
         {
-            Debug.Log(goldSystem);
             goldSystem.AllPlayerGold.Add(PhotonNetwork.NickName, 0);
 
             foreach (KeyValuePair<string, int> kvp in goldSystem.AllPlayerGold)
                 Debug.Log("Name: " + kvp.Key + " Gold: "+ kvp.Value);
+            
+            // Check gold amount for all the players
 
         }
 

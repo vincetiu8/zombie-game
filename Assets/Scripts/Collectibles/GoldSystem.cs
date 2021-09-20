@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Collectibles
+namespace Shop
 {
     public class GoldSystem : MonoBehaviour
     {
