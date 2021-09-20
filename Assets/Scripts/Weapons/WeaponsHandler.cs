@@ -4,6 +4,7 @@ using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Weapons
 {
@@ -20,13 +21,13 @@ namespace Weapons
         private AmmoInventory _ammoInventory;
         
         // The current weapon the player is using
-        private Weapon _currentWeapon;
+        [FormerlySerializedAs("_currentWeapon")] [HideInInspector] public Weapon currentWeapon;
 
         private void Start()
         {
-            _currentWeapon = GetComponentInChildren<Gun>();
+            currentWeapon = GetComponentInChildren<Gun>();
             _ammoInventory = GetComponent<AmmoInventory>();
-            _currentWeapon.Setup(_ammoInventory);
+            currentWeapon.Setup(_ammoInventory);
         }
         
         public void FireAction(InputAction.CallbackContext context)
@@ -37,7 +38,7 @@ namespace Weapons
             // We'll use performed here to check for the press
             if (context.performed)
             {
-                _currentWeapon.ToggleFire(true);
+                currentWeapon.ToggleFire(true);
                 return;
             }
 
@@ -45,7 +46,7 @@ namespace Weapons
             // This is mainly to cancel
             if (context.canceled)
             {
-                _currentWeapon.ToggleFire(false);
+                currentWeapon.ToggleFire(false);
             }
         }
 
@@ -56,7 +57,7 @@ namespace Weapons
             // Make sure this is only when the reload button is pressed
             if (!context.performed) return;
 
-            _currentWeapon.Reload();
+            currentWeapon.Reload();
         }
 
         // Makes the player face the mouse
@@ -75,9 +76,9 @@ namespace Weapons
             playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
             
             // Allows the current weapon to be adjusted to face the mouse
-            if(_currentWeapon != null)
+            if(currentWeapon != null)
             {
-                _currentWeapon.FaceMouse(direction.magnitude);
+                currentWeapon.FaceMouse(direction.magnitude);
             }
         }
     }
