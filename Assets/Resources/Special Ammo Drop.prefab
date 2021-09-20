@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8721446685275676622}
   - component: {fileID: 6247637316928899268}
-  - component: {fileID: 8741583497953789769}
+  - component: {fileID: 6008838072120005483}
   - component: {fileID: 748429657276105209}
-  - component: {fileID: 366873062226903084}
   m_Layer: 10
-  m_Name: AmmoDrop_Special
+  m_Name: Special Ammo Drop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,9 +73,9 @@ SpriteRenderer:
   m_SortingLayerID: 1036530043
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7,
+  m_Sprite: {fileID: -6058229231348979346, guid: fddb5385a0f4479f5bd5a03f1a2ef0bb,
     type: 3}
-  m_Color: {r: 0.34577608, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -86,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8741583497953789769
-BoxCollider2D:
+--- !u!58 &6008838072120005483
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -100,18 +99,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.25
 --- !u!114 &748429657276105209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,21 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4a9266ecd205e47ba7983af8012e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoType: 0
+  ammoType: 2
   dropAmount: 0
-  minAmt: 0
-  maxAmt: 0
---- !u!114 &366873062226903084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 557892614118174535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aa0601298675c94db9ed00bd53303b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammoType: 0
-  dropAmount: 0
+  minAmt: 2
+  maxAmt: 5
