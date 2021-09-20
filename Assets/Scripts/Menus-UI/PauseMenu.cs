@@ -12,7 +12,6 @@ namespace Menus
         public bool gamePaused = false;
 
         [SerializeField] private GameObject pauseMenuUI;
-        public GameManager manager;
 
         public void PauseAction(InputAction.CallbackContext context)
         {
@@ -24,10 +23,8 @@ namespace Menus
                 }
                 else
                 {   
-                    manager.player.GetComponent<WeaponsHandler>().enabled = false;
-
+                    GameManager.instance.player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
                     pauseMenuUI.SetActive(true);
-                    Time.timeScale = 0f;
                     gamePaused = true;
                 }
             }
@@ -36,8 +33,8 @@ namespace Menus
         //this is a separate function so it can be used for the resume button
         public void ResumeGame()
         {
+            GameManager.instance.player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Game");
             pauseMenuUI.SetActive(false);
-            Time.timeScale = 1f;
             gamePaused = false;
         }
 
