@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Weapons;
 
 public class PlayerMovement : MonoBehaviour
 {

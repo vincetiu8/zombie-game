@@ -12,7 +12,7 @@ namespace Interact
 
         private float _cooldown;
 
-        public override void Interact()
+        public override void Interact(GameObject notUsedHaha)
         {
             if (_windowController.zombieAtWindow)
             {
