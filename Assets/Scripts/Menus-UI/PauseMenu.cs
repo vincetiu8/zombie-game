@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Weapons;
 
 namespace Menus
 {
@@ -11,6 +12,7 @@ namespace Menus
         public bool gamePaused = false;
 
         [SerializeField] private GameObject pauseMenuUI;
+        public GameManager manager;
 
         public void PauseAction(InputAction.CallbackContext context)
         {
@@ -21,7 +23,9 @@ namespace Menus
                     ResumeGame();
                 }
                 else
-                {
+                {   
+                    manager.player.GetComponent<WeaponsHandler>().enabled = false;
+
                     pauseMenuUI.SetActive(true);
                     Time.timeScale = 0f;
                     gamePaused = true;
