@@ -14,14 +14,16 @@ namespace Menus_UI
         {
             if(gamePaused)
             {
-                pauseMenuUI.SetActive(false);
                 GameManager.instance.player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Game");
                 gamePaused = false;
             }
+            else
+            {
+                GameManager.instance.player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+                gamePaused = true;
+            }
             
-            pauseMenuUI.SetActive(true);
-            GameManager.instance.player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
-            gamePaused = true;
+            pauseMenuUI.SetActive(gamePaused);
         }
 
         private void PauseAction(InputAction.CallbackContext context)
