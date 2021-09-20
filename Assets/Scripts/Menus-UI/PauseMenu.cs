@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Weapons;
 
-namespace Menus
+namespace Menus_UI
 {
     public class PauseMenu : MonoBehaviour
     {

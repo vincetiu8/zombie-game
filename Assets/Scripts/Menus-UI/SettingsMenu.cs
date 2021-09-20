@@ -1,12 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using Weapons;
 
-namespace Menus
+namespace Menus_UI
 {
     public class SettingsMenu : MonoBehaviour
     {
