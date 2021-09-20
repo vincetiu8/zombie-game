@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Weapons;
 
 namespace Interact
 {
@@ -14,42 +16,33 @@ namespace Interact
         Quaternion look;
         float distance;
 
-        private GameObject _player;
         public override void Interact(GameObject player)
         {
             if (!_isHolding)
             {
-                player.transform.Find("PlayerObject").Find("WeaponPivot").Find("Weapon").gameObject.SetActive(false); // This doesn't work, why??
+
+                player.transform.Find("PlayerObject").Find("WeaponPivot").gameObject.SetActive(false);
+                player.GetComponent<WeaponsHandler>().enabled = false; // Hmmm this doens't seem to work for some reason
                 Debug.Log("Taking box");
-                collier.SetActive(false);
-                
-                
+                //collier.SetActive(false);
                 gameObject.transform.SetParent (player.transform.Find("PlayerObject").gameObject.transform);
-
-                
-                //player.transform.Find("PlayerObject").Find("WeaponPivot").Find("Weapon").gameObject.SetActive(false);
-
-                transform.parent.Find("WeaponPivot").Find("Weapon").gameObject.SetActive(false);
-                
-                Debug.Log(player.transform.Find("PlayerObject").Find("WeaponPivot").Find("Weapon").gameObject);
-
-                
-                 
-                /*_player = player.transform.Find("PlayerObject").gameObject;
-                Vector3 diff = player.gameObject.transform.position - transform.position;
-                offset = Quaternion.FromToRotation (player.gameObject.transform.forward, diff.normalized);
-                look = Quaternion.FromToRotation (player.gameObject.transform.forward, transform.forward);
-                distance = diff.magnitude;
-                stuckTo = player.gameObject.transform;*/
             }
             else
             {
-                player.transform.Find("PlayerObject").Find("WeaponPivot").GetChild(0).gameObject.SetActive(true);
+                player.transform.Find("PlayerObject").Find("WeaponPivot").gameObject.SetActive(true);
+                player.GetComponent<WeaponsHandler>().enabled = true;
                 Debug.Log("Putting down box");
                 collier.SetActive(true);
+                gameObject.transform.SetParent (null);
             }
 
             _isHolding = !_isHolding;
+        }
+
+        protected override void OnTriggerExit2D(Collider2D collision)
+        {
+            if (_isHolding) return;
+            base.OnTriggerExit2D(collision);
         }
 
         // Making this a child of the player causes quite a lot of bugs so i'm doing this instead
@@ -59,6 +52,7 @@ namespace Interact
         {
 
         }
+        
 
         // Update is called once per frame
         void Update()
@@ -73,7 +67,7 @@ namespace Interact
             }
 
             //transform.localRotation = Quaternion.Euler(0, 0, 40);
-            Debug.Log(_player.transform.rotation);
+            //Debug.Log(_player.transform.rotation);
         }
         
 
