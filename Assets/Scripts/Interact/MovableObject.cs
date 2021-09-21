@@ -12,8 +12,6 @@ namespace Interact
         private void Awake()
         {
             _colList = transform.GetComponentsInChildren<Collider2D>();
-
-            Debug.Log(_colList.Length);
         }
 
         public override void Interact(GameObject player)
@@ -43,6 +41,7 @@ namespace Interact
             }
             _isHolding = !_isHolding;
         }
+        
         private void SetAllCollidersStatus(bool active)
         {
             foreach (Collider2D colliders in _colList)
