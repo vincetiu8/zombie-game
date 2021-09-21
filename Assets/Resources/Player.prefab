@@ -334,6 +334,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fef1fff4-bec9-4533-bb48-14f0d94df9aa
     m_ActionName: Game/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 11ec32c9-e59d-4f0d-8afd-e243bd620d2c
+    m_ActionName: UI/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game
@@ -398,6 +402,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 1257494630980918847}
   - {fileID: 5405575787435880548}
   sceneViewId: 0
   InstantiationId: 0
@@ -431,7 +436,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentsToDisableIfNotMine:
-  - {fileID: 7075696312697196668}
+  - {fileID: 2475852923928295786}
+  - {fileID: 4693431101761815405}
+  - {fileID: 4693431101761815404}
 --- !u!114 &4340305559612925413
 MonoBehaviour:
   m_ObjectHideFlags: 0

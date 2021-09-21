@@ -74,5 +74,10 @@ namespace Networking
             
             PhotonNetwork.LoadLevel("Main");
         }
+
+        public override void OnLeftRoom()
+        {
+            PhotonNetwork.LoadLevel("Launcher");
+        }
     }
 }

@@ -64,6 +64,8 @@ namespace Weapons
         {
             if (!photonView.IsMine) return;
             
+            if(!context.performed) return;
+
             Vector2 mousePos = playerCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
 
             Vector2 direction = mousePos - (Vector2) playerSprite.position;
