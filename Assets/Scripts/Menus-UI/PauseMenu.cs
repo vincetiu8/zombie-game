@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using Weapons;
 
 namespace Menus_UI
 {
@@ -9,20 +10,18 @@ namespace Menus_UI
         public bool gamePaused = false;
 
         [SerializeField] private GameObject pauseMenuUI;
+        private PlayerInput playerInput;
 
         public void PauseMenuToggle()
         {
-            if(gamePaused)
+            if(playerInput == null)
             {
-                GameManager.instance.player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Game");
-                gamePaused = false;
+                playerInput = GameManager.instance.player.GetComponent<PlayerInput>();
             }
-            else
-            {
-                GameManager.instance.player.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
-                gamePaused = true;
-            }
-            
+
+            gamePaused = !gamePaused;
+            string actionMap = gamePaused ? "UI" : "Game";
+            playerInput.SwitchCurrentActionMap(actionMap);
             pauseMenuUI.SetActive(gamePaused);
         }
 

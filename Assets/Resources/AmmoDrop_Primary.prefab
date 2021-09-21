@@ -124,10 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4a9266ecd205e47ba7983af8012e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoType: 0
-  _dropAmount: 0
-  _minAmt: 8
-  _maxAmt: 38
+  ammoType: 0
+  dropAmount: 0
+  minAmt: 15
+  maxAmt: 1
 --- !u!114 &5948506533959945732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,5 +140,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa0601298675c94db9ed00bd53303b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoType: 0
-  _dropAmount: 0
+  ammoType: 0
+  dropAmount: 0
