@@ -3,8 +3,9 @@ using System.Runtime.CompilerServices;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using Interact;
 
-public class Lantern : MonoBehaviourPun, IPunObservable {
+public class Lantern : Interactable, IPunObservable {
     [SerializeField] private float duration;
 
     private Coroutine _fadeLightingCoroutine;
@@ -15,10 +16,11 @@ public class Lantern : MonoBehaviourPun, IPunObservable {
         _light2D.intensity = 0;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    public override void Interact(GameObject player)
+    {
         if (!PhotonNetwork.IsMasterClient) return;
         
-        if (!collision.gameObject.CompareTag("Player")) return;
+        if (!player.gameObject.CompareTag("Player")) return;
         if (_fadeLightingCoroutine != null) StopCoroutine(_fadeLightingCoroutine);
 
         photonView.RPC("RpcStartLightingCoroutine", RpcTarget.All);
