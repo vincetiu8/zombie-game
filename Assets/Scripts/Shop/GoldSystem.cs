@@ -6,27 +6,28 @@ namespace Shop
     public class GoldSystem : MonoBehaviour
     {
 
-        public readonly Dictionary<string, int> AllPlayerGold = new Dictionary<string, int>(); 
+        private readonly Dictionary<string, int> _allPlayerGold = new Dictionary<string, int>(); 
         // Dictionary that contains all the players and the gold they have
         // Makes it easier to display all player's gold on the UI as well
+        // Note for myself (debug _allPlayerGold with): foreach (KeyValuePair<string, int> kvp in goldSystem.AllPlayerGold) Debug.Log("Name: " + kvp.Key + " Gold: "+ kvp.Value);
 
         public void AddGold(List<string> playerNames, int goldAmount) // Takes in the names of multiple players as well
             // used like this btw: AddGold(new List<string> { PhotonNetwork.NickName }, 10);
         {
             foreach (string playerName in playerNames)
             {
-                if (AllPlayerGold.ContainsKey(playerName)) AllPlayerGold[playerName] += goldAmount;
+                if (_allPlayerGold.ContainsKey(playerName)) _allPlayerGold[playerName] += goldAmount;
             }
         }
 
         public bool WithdrawGold(string playerName, int goldAmount)
             // Only coded for one person only since taking money from multiple people at the same time doesn't sound like something we need
         {
-            if (AllPlayerGold.ContainsKey(playerName))
+            if (_allPlayerGold.ContainsKey(playerName))
             {
-                if (goldAmount < AllPlayerGold[playerName])
+                if (goldAmount < _allPlayerGold[playerName])
                 {
-                    AllPlayerGold[playerName] -= goldAmount;
+                    _allPlayerGold[playerName] -= goldAmount;
                     return true;
                 }
                 else
@@ -42,9 +43,24 @@ namespace Shop
             }
         }
 
-        public int GetGold(string playerName)
+        public int GetPlayerGold(string playerName)
         {
-            return AllPlayerGold[playerName];
+            return _allPlayerGold[playerName];
+        }
+
+        public Dictionary<string, int> GetAllGold()
+        {
+            return _allPlayerGold;
+        } 
+
+        public void InitializePlayer(string playerName)
+        {
+            _allPlayerGold.Add(playerName, 0);
+        }
+
+        public void RemovePlayer(string playerName)
+        {
+            _allPlayerGold.Remove(playerName);
         }
         
     }
