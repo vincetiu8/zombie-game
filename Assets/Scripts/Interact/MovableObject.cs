@@ -16,12 +16,11 @@ namespace Interact
 
         public override void Interact(GameObject player)
         {
-            if (!_isHolding)
+            _isHolding = !_isHolding;
+            player.GetComponent<WeaponsHandler>().PreventFire(_isHolding);
+            SetAllCollidersStatus(!_isHolding);
+            if (_isHolding)
             {
-                player.GetComponent<WeaponsHandler>().PreventFire(true);
-                SetAllCollidersStatus(false);                
-                // Prevents colliders getting buggy and also prevents other players from taking your box while you're holding it
-                
                 gameObject.transform.SetParent (player.transform.Find("PlayerObject").gameObject.transform); 
                 // Make box become part of the player, so it takes in rotation, etc
 
@@ -31,15 +30,11 @@ namespace Interact
             }
             else
             {
-                player.GetComponent<WeaponsHandler>().PreventFire(false);
-                Debug.Log("Putting down box");
-                SetAllCollidersStatus(true);
                 gameObject.transform.SetParent (null);
                 player.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
                 // Manually removes the box from player interaction list as it seems OnTriggerExit2D doesn't get called properly
                 // If this isn't done, player will be able to pick up the box from any distance away
             }
-            _isHolding = !_isHolding;
         }
         
         private void SetAllCollidersStatus(bool active)

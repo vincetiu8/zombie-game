@@ -69,7 +69,7 @@ namespace Weapons
         // Toggle is true when pressed, false when released
         public void ToggleFire(bool toggle)
         {
-            if (!CanAttack) {Debug.Log("Can't fire in current state"); return;}
+            if (!CanAttack) return;
             if (!currentAttributes.fullAuto)
             {
                 // Just fires when pressed for semi auto

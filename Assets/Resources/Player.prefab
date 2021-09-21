@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3672776582642655363}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4693431101761815404
 Camera:
@@ -145,7 +145,7 @@ Transform:
   m_Children:
   - {fileID: 5679914712382805372}
   m_Father: {fileID: 4693431101948605444}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5676611098347806923
 GameObject:
@@ -186,7 +186,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7389429422979479959}
   - {fileID: 4693431101948605444}
   - {fileID: 4693431101761815406}
   m_Father: {fileID: 0}
@@ -384,7 +383,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 4693431101761815404}
   playerSprite: {fileID: 4693431101948605444}
-  currentWeapon: {fileID: 0}
 --- !u!114 &1890970094835804043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,6 +439,7 @@ MonoBehaviour:
   - {fileID: 2475852923928295786}
   - {fileID: 4693431101761815405}
   - {fileID: 4693431101761815404}
+  - {fileID: 7075696312697196668}
 --- !u!114 &4340305559612925413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,9 +508,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7389429422979479959}
   - {fileID: 1911151390933760986}
   m_Father: {fileID: 3672776582642655363}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1089952147184385324
 SpriteRenderer:
@@ -593,7 +593,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3672776582642655363}
+  m_Father: {fileID: 4693431101948605444}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7075696312697196668
