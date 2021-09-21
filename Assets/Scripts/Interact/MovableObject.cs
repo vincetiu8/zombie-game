@@ -11,7 +11,6 @@ namespace Interact
 
         private void Awake()
         {
-            //colList = transform.GetComponentsInChildren<Collider>();
             _colList = transform.GetComponentsInChildren<Collider2D>();
 
             Debug.Log(_colList.Length);

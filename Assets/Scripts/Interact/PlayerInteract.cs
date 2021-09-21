@@ -40,7 +40,6 @@ namespace Interact
             {
                 Debug.Log("No Interactables in range");
             }
-            
         }
     }
 }

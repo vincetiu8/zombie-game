@@ -4,7 +4,6 @@ using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Weapons
 {
