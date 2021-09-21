@@ -7,9 +7,8 @@ namespace Collectibles
     {
         public override void Interact(GameObject player)
         {
-            if (!player.gameObject.CompareTag("Player")) return;
-            Pickup(player.gameObject);
-            Destroy(this.gameObject);
+            Pickup(player);
+            Destroy(gameObject);
         }        
 
         protected abstract void Pickup(GameObject player);

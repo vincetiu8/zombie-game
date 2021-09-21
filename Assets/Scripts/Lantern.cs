@@ -20,7 +20,6 @@ public class Lantern : Interactable, IPunObservable {
     {
         if (!PhotonNetwork.IsMasterClient) return;
         
-        if (!player.gameObject.CompareTag("Player")) return;
         if (_fadeLightingCoroutine != null) StopCoroutine(_fadeLightingCoroutine);
 
         photonView.RPC("RpcStartLightingCoroutine", RpcTarget.All);

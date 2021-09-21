@@ -35,7 +35,7 @@ namespace Interact
                         Debug.Log("closest object: " + closestObject);
                     } 
                 }
-                closestObject.GetComponent<Interactable>().Interact(this.gameObject);
+                closestObject.GetComponent<Interactable>().Interact(gameObject);
             }
             else
             {
