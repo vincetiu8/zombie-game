@@ -31,7 +31,7 @@ namespace Levels
         {
             float previousHealth = health;
             health = Mathf.Clamp(health + change, 0, initialHealth);
-            if (Mathf.Abs(previousHealth - health) < 0.01f) return; // If zombies hitting an already destroyed window or player fixing an already fixed window
+            if (previousHealth == health) return; // If zombies hitting an already destroyed window or player fixing an already fixed window
 
             windowCollider.SetActive(health != 0);
 

@@ -9,6 +9,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using Shop;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Debug.Log("Spawning Player!");
         int position = Random.Range(0, spawnpoints.Length);
         Vector3 spawnPosition = spawnpoints[position].position;
-        player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+        GameObject instantiatedPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+        instantiatedPlayer.GetComponent<PlayerGold>().goldSystem = gameObject.GetComponent<GoldSystem>();
     }
 }
