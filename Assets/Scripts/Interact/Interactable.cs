@@ -1,11 +1,12 @@
 using UnityEngine;
+using Photon.Pun;
 
 namespace Interact
 {
     [RequireComponent(typeof(Collider2D))]
-    public abstract class Interactable : MonoBehaviour
+    public abstract class Interactable : MonoBehaviourPun
     {
-        public abstract void Interact();
+        public abstract void Interact(GameObject player);
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
