@@ -384,6 +384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 4693431101761815404}
   playerSprite: {fileID: 4693431101948605444}
+  currentWeapon: {fileID: 0}
 --- !u!114 &1890970094835804043
 MonoBehaviour:
   m_ObjectHideFlags: 0

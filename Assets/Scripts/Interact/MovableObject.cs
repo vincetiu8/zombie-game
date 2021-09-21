@@ -1,12 +1,22 @@
+using System;
 using UnityEngine;
 using Weapons;
 
 namespace Interact
 {
-    public class InteractMove : Interactable
+    public class MovableObject : Interactable
     {
         private bool _isHolding;
         [SerializeField] private GameObject collier;
+
+        private void Awake()
+        {
+            //foreach (var VARIABLE in COLLECTION)
+            
+                Collider[] colList = transform.GetComponentsInChildren<Collider>(); //this doint work
+            Debug.Log(colList.Length);
+        }
+
         public override void Interact(GameObject player)
         {
             if (!_isHolding)
