@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Weapons;
 
@@ -8,48 +7,51 @@ namespace Interact
     {
         private bool _isHolding;
         [SerializeField] private GameObject collier;
+        private Collider2D[] _colList;
 
         private void Awake()
         {
-            //foreach (var VARIABLE in COLLECTION)
-            
-                Collider[] colList = transform.GetComponentsInChildren<Collider>(); //this doint work
-            Debug.Log(colList.Length);
+            //colList = transform.GetComponentsInChildren<Collider>();
+            _colList = transform.GetComponentsInChildren<Collider2D>();
+
+            Debug.Log(_colList.Length);
         }
 
         public override void Interact(GameObject player)
         {
             if (!_isHolding)
             {
-
-                player.transform.Find("PlayerObject").Find("WeaponPivot").gameObject.SetActive(false);
-                
-                Debug.Log("Taking box");
-                collier.SetActive(false); 
+                player.GetComponent<WeaponsHandler>().PreventFire(true);
+                SetAllCollidersStatus(false);                
                 // Prevents colliders getting buggy and also prevents other players from taking your box while you're holding it
+                
                 gameObject.transform.SetParent (player.transform.Find("PlayerObject").gameObject.transform); 
                 // Make box become part of the player, so it takes in rotation, etc
-                player.GetComponent<WeaponsHandler>().currentWeapon.canAttack = false;
-                // Disable player's ability to shoot (just disabling the player's weapon doesn't actually stop them from shooting)
+
+                player.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
+                // Manually re-introduces the box into the player interaction list as the collider will not do so again since it got 
+                // If this isn't done, pressing E will give a no "intractables in range"
             }
             else
             {
-                player.transform.Find("PlayerObject").Find("WeaponPivot").gameObject.SetActive(true);
+                player.GetComponent<WeaponsHandler>().PreventFire(false);
                 Debug.Log("Putting down box");
-                collier.SetActive(true);
+                SetAllCollidersStatus(true);
                 gameObject.transform.SetParent (null);
-                player.GetComponent<WeaponsHandler>().currentWeapon.canAttack = true;
+                player.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
+                // Manually removes the box from player interaction list as it seems OnTriggerExit2D doesn't get called properly
+                // If this isn't done, player will be able to pick up the box from any distance away
             }
             _isHolding = !_isHolding;
         }
-
-        protected override void OnTriggerExit2D(Collider2D collision)
+        private void SetAllCollidersStatus(bool active)
         {
-            if (_isHolding) return;
-            collision.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
-            // Needs to remove object from list twice as 2 of the box will be added to the list since we ignored it when we picked it up
-            base.OnTriggerExit2D(collision);
+            foreach (Collider2D colliders in _colList)
+            {
+                colliders.enabled = active;
+            }
         }
+        
     }
 
 }

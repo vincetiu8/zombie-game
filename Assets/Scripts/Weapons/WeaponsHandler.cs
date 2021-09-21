@@ -21,13 +21,13 @@ namespace Weapons
         private AmmoInventory _ammoInventory;
         
         // The current weapon the player is using
-        [FormerlySerializedAs("_currentWeapon")] [HideInInspector] public Weapon currentWeapon;
+        private Weapon _currentWeapon;
 
         private void Start()
         {
-            currentWeapon = GetComponentInChildren<Gun>();
+            _currentWeapon = GetComponentInChildren<Gun>();
             _ammoInventory = GetComponent<AmmoInventory>();
-            currentWeapon.Setup(_ammoInventory);
+            _currentWeapon.Setup(_ammoInventory);
         }
         
         public void FireAction(InputAction.CallbackContext context)
@@ -38,7 +38,7 @@ namespace Weapons
             // We'll use performed here to check for the press
             if (context.performed)
             {
-                currentWeapon.ToggleFire(true);
+                _currentWeapon.ToggleFire(true);
                 return;
             }
 
@@ -46,7 +46,7 @@ namespace Weapons
             // This is mainly to cancel
             if (context.canceled)
             {
-                currentWeapon.ToggleFire(false);
+                _currentWeapon.ToggleFire(false);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Weapons
             // Make sure this is only when the reload button is pressed
             if (!context.performed) return;
 
-            currentWeapon.Reload();
+            _currentWeapon.Reload();
         }
 
         // Makes the player face the mouse
@@ -76,10 +76,16 @@ namespace Weapons
             playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
             
             // Allows the current weapon to be adjusted to face the mouse
-            if(currentWeapon != null)
+            if(_currentWeapon != null)
             {
-                currentWeapon.FaceMouse(direction.magnitude);
+                _currentWeapon.FaceMouse(direction.magnitude);
             }
+        }
+
+        public void PreventFire(bool preventFire)
+        {
+            _currentWeapon.CanAttack = !preventFire;
+            transform.Find("PlayerObject").Find("WeaponPivot").gameObject.SetActive(!preventFire);
         }
     }
 }
