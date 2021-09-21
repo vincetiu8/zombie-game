@@ -1,15 +1,16 @@
 using UnityEngine;
+using Interact;
 
 namespace Collectibles
 {
-    public abstract class Collectible : MonoBehaviour
+    public abstract class Collectible : Interactable
     {
-        protected virtual void OnTriggerEnter2D(Collider2D collision)
+        public override void Interact(GameObject player)
         {
-            if (!collision.gameObject.CompareTag("Player")) return;
-            Pickup(collision.gameObject);
+            if (!player.gameObject.CompareTag("Player")) return;
+            Pickup(player.gameObject);
             Destroy(this.gameObject);
-        }
+        }        
 
         protected abstract void Pickup(GameObject player);
     }
