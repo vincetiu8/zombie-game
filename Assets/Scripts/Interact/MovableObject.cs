@@ -19,22 +19,13 @@ namespace Interact
             _isHolding = !_isHolding;
             player.GetComponent<WeaponsHandler>().PreventFire(_isHolding);
             SetAllCollidersStatus(!_isHolding);
+            transform.SetParent(_isHolding ? player.transform.Find("PlayerObject").gameObject.transform : null);
             if (_isHolding)
             {
-                gameObject.transform.SetParent (player.transform.Find("PlayerObject").gameObject.transform); 
-                // Make box become part of the player, so it takes in rotation, etc
-
                 player.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
-                // Manually re-introduces the box into the player interaction list as the collider will not do so again since it got 
-                // If this isn't done, pressing E will give a no "intractables in range"
+                return;
             }
-            else
-            {
-                gameObject.transform.SetParent (null);
-                player.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
-                // Manually removes the box from player interaction list as it seems OnTriggerExit2D doesn't get called properly
-                // If this isn't done, player will be able to pick up the box from any distance away
-            }
+            player.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
         }
         
         private void SetAllCollidersStatus(bool active)
