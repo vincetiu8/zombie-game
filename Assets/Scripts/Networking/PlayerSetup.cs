@@ -1,5 +1,6 @@
 using Photon.Pun;
 using UnityEngine;
+using Player_UI;
 
 namespace Networking
 {
@@ -17,6 +18,7 @@ namespace Networking
 			PhotonView view = GetComponent<PhotonView>();
 			if (view.IsMine) return;
 			
+			HealthBarsLayout.Singleton.AddHealthController(GetComponent<Health>());
 			nameText.GetComponent<TextMesh>().text = PhotonNetwork.NickName;
 
 			
