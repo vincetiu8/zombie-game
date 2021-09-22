@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UI
+namespace Health_UI
 {
     public class HealthBarsLayout : MonoBehaviour
     {
@@ -38,7 +38,7 @@ namespace UI
 
         public void AddHealthController(Health healthController)
         {
-            _healthControllers.Add((Mathf.RoundToInt(healthController.initialHealth)), healthController);
+            _healthControllers.Add(Mathf.RoundToInt(healthController.GetInitialHealth()), healthController);
             GameObject healthBarGameObject = Instantiate(healthBarPrefab, transform);
             HealthBar healthBar = healthBarGameObject.GetComponent<HealthBar>();
             _healthBars.Add(healthBar);

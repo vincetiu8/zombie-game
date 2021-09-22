@@ -33,10 +33,19 @@ public class Health : MonoBehaviourPun, IPunObservable
 		return health;
 	}
 
-	public int GetRoundedHealth()
-	{
-		return Mathf.RoundToInt(health);
-	}
+    public int GetRoundedHealth()
+    {
+        return Mathf.RoundToInt(health);
+    }
+    
+    public float GetInitialHealth()
+    {
+        return initialHealth;
+    }
+    public float GetPercentageHealth()
+    {
+        return health / initialHealth;
+    }
 
 	public virtual void ChangeHealth(float change)
 	{
