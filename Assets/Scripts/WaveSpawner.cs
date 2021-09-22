@@ -54,10 +54,8 @@ namespace Spawners
                     //new wave
                     StartNewWave();
                 }
-                else
-                {
-                    return;
-                }
+                return;
+                
             }
 
             if(_waveCoutndown <= 0 && _state != SpawnState.Spawning)
@@ -65,11 +63,9 @@ namespace Spawners
                 //spawn wave
                 StartCoroutine(SpawnWave(waves[_nextWave]));
                 return;
-            } 
-            else
-            {
-                _waveCoutndown -= Time.deltaTime;
             }
+            _waveCoutndown -= Time.deltaTime;
+            
         }
 
         private void StartNewWave()
