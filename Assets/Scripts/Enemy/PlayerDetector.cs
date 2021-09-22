@@ -107,11 +107,14 @@ namespace Enemy
 			UpdateTrackingPlayer();
 		}
 
-		public Vector2 GetTrackingPlayerDirection()
-		{
-			if (!_trackingPlayer) return Vector2.zero;
-
-			return (_trackingPlayer.position - transform.position).normalized;
-		}
-	}
+        public Vector2 GetTrackingPlayerDirection()
+        {
+            if (!_trackingPlayer)
+            {
+                return Vector2.zero;
+            }
+            return _trackingPlayer.position;
+        }
+        
+    }
 }
