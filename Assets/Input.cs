@@ -68,7 +68,7 @@ public class @Input : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""WeaponSwitchingScroll"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""1ed66e5d-28e8-4517-aeab-704ed1d142f0"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
