@@ -453,8 +453,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoInventory:
-    m_keys: 
-    m_values: []
+    m_keys: 000000000100000002000000
+    m_values:
+    - maxCapacity: 100
+      currentStock: 0
+    - maxCapacity: 50
+      currentStock: 0
+    - maxCapacity: 25
+      currentStock: 0
 --- !u!114 &3014086736208035401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,12 +658,12 @@ PrefabInstance:
     - target: {fileID: 894441089126901917, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.348
+      value: 0.267
       objectReference: {fileID: 0}
     - target: {fileID: 894441089126901917, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.623
+      value: -0.586
       objectReference: {fileID: 0}
     - target: {fileID: 894441089126901917, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
