@@ -1,31 +1,32 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PlayerListItem : MonoBehaviourPunCallbacks
+namespace Networking
 {
-	[SerializeField] TMP_Text text;
-	Player player;
-
-	public void Setup(Player _player)
+	public class PlayerListItem : MonoBehaviourPunCallbacks
 	{
-		player = _player;
-		text.text = _player.NickName;
-	}
+		[SerializeField] TMP_Text text;
+		Player player;
 
-	public override void OnPlayerLeftRoom(Player otherPlayer)
-	{
-		if(player == otherPlayer)
+		public void Setup(Player _player)
+		{
+			player = _player;
+			text.text = _player.NickName;
+		}
+
+		public override void OnPlayerLeftRoom(Player otherPlayer)
+		{
+			if(player == otherPlayer)
+			{
+				Destroy(gameObject);
+			}
+		}
+
+		public override void OnLeftRoom()
 		{
 			Destroy(gameObject);
 		}
-	}
-
-	public override void OnLeftRoom()
-	{
-		Destroy(gameObject);
 	}
 }
