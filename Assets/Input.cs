@@ -60,8 +60,16 @@ public class @Input : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""WeaponSwitching"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""2881ac44-7507-47c9-82c7-53a4b8bda50b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""WeaponSwitchingScroll"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""1ed66e5d-28e8-4517-aeab-704ed1d142f0"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -169,17 +177,6 @@ public class @Input : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e66c9af7-a55e-4763-b4ed-133861eb8c03"",
-                    ""path"": ""<Mouse>/scroll/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""WeaponSwitching"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""4e669e84-537b-4777-a32c-f7fdd6679941"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": ""Press"",
@@ -208,6 +205,17 @@ public class @Input : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""WeaponSwitching"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e66c9af7-a55e-4763-b4ed-133861eb8c03"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": ""Clamp(min=-1,max=1)"",
+                    ""groups"": """",
+                    ""action"": ""WeaponSwitchingScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -241,6 +249,7 @@ public class @Input : IInputActionCollection, IDisposable
         m_Game_Reload = m_Game.FindAction("Reload", throwIfNotFound: true);
         m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
         m_Game_WeaponSwitching = m_Game.FindAction("WeaponSwitching", throwIfNotFound: true);
+        m_Game_WeaponSwitchingScroll = m_Game.FindAction("WeaponSwitchingScroll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -296,6 +305,7 @@ public class @Input : IInputActionCollection, IDisposable
     private readonly InputAction m_Game_Reload;
     private readonly InputAction m_Game_Interact;
     private readonly InputAction m_Game_WeaponSwitching;
+    private readonly InputAction m_Game_WeaponSwitchingScroll;
     public struct GameActions
     {
         private @Input m_Wrapper;
@@ -306,6 +316,7 @@ public class @Input : IInputActionCollection, IDisposable
         public InputAction @Reload => m_Wrapper.m_Game_Reload;
         public InputAction @Interact => m_Wrapper.m_Game_Interact;
         public InputAction @WeaponSwitching => m_Wrapper.m_Game_WeaponSwitching;
+        public InputAction @WeaponSwitchingScroll => m_Wrapper.m_Game_WeaponSwitchingScroll;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -333,6 +344,9 @@ public class @Input : IInputActionCollection, IDisposable
                 @WeaponSwitching.started -= m_Wrapper.m_GameActionsCallbackInterface.OnWeaponSwitching;
                 @WeaponSwitching.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnWeaponSwitching;
                 @WeaponSwitching.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnWeaponSwitching;
+                @WeaponSwitchingScroll.started -= m_Wrapper.m_GameActionsCallbackInterface.OnWeaponSwitchingScroll;
+                @WeaponSwitchingScroll.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnWeaponSwitchingScroll;
+                @WeaponSwitchingScroll.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnWeaponSwitchingScroll;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -355,6 +369,9 @@ public class @Input : IInputActionCollection, IDisposable
                 @WeaponSwitching.started += instance.OnWeaponSwitching;
                 @WeaponSwitching.performed += instance.OnWeaponSwitching;
                 @WeaponSwitching.canceled += instance.OnWeaponSwitching;
+                @WeaponSwitchingScroll.started += instance.OnWeaponSwitchingScroll;
+                @WeaponSwitchingScroll.performed += instance.OnWeaponSwitchingScroll;
+                @WeaponSwitchingScroll.canceled += instance.OnWeaponSwitchingScroll;
             }
         }
     }
@@ -376,5 +393,6 @@ public class @Input : IInputActionCollection, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnWeaponSwitching(InputAction.CallbackContext context);
+        void OnWeaponSwitchingScroll(InputAction.CallbackContext context);
     }
 }
