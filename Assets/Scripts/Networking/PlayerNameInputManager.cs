@@ -7,8 +7,11 @@ namespace Networking
     [RequireComponent(typeof(InputField))]
     public class PlayerNameInputManager : MonoBehaviour
     {
+        #region Variables
         private const string PlayerNamePrefKey = "PlayerName";
+        #endregion
 
+        #region Unity Methods
         private void Start()
         {
             string defaultName = string.Empty;
@@ -24,7 +27,9 @@ namespace Networking
 
             PhotonNetwork.NickName = defaultName;
         }
+        #endregion
 
+        #region Public Methods
         public void SetPlayerName(string value)
         {
             if (string.IsNullOrEmpty(value)) return;
@@ -32,5 +37,6 @@ namespace Networking
             PhotonNetwork.NickName = value;
             PlayerPrefs.SetString(PlayerNamePrefKey, value);
         }
+        #endregion
     }
 }
