@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.Serialization;
 
 namespace Spawners
 {
@@ -22,16 +23,16 @@ namespace Spawners
 
         [SerializeField] private Wave[] waves;
         [SerializeField] private Transform[] spawnpoints;
-        private int _nextWave = 0;
-        
+        private SpawnState _state = SpawnState.Counting;
+
         //time between waves
         [SerializeField] private float waveDelay = 5;
-        private float waveCoutndown;
+        private float _waveCoutndown;
+        private int _nextWave = 0;
 
-        private SpawnState state = SpawnState.Counting;
-
-        private float _searchInterval = 1f;
-
+        private float _searchInterval;
+        [SerializeField] private float searchIntervalAmount = 1f;
+        
         private void Start()
         {
             if(spawnpoints.Length == 0)
@@ -39,12 +40,13 @@ namespace Spawners
                 Debug.LogError("No available spawnpoints");
             }
             
-            waveCoutndown = waveDelay;
+            _waveCoutndown = waveDelay;
+            _searchInterval = searchIntervalAmount;
         }
 
         private void Update()
         {
-            if(state == SpawnState.Waiting)
+            if(_state == SpawnState.Waiting)
             {
                 //check for alive enemies
                 if(!EnemyIsAlive())
@@ -58,7 +60,7 @@ namespace Spawners
                 }
             }
 
-            if(waveCoutndown <= 0 && state != SpawnState.Spawning)
+            if(_waveCoutndown <= 0 && _state != SpawnState.Spawning)
             {
                 //spawn wave
                 StartCoroutine(SpawnWave(waves[_nextWave]));
@@ -66,7 +68,7 @@ namespace Spawners
             } 
             else
             {
-                waveCoutndown -= Time.deltaTime;
+                _waveCoutndown -= Time.deltaTime;
             }
         }
 
@@ -74,8 +76,8 @@ namespace Spawners
         {
             Debug.Log("wave completed");
 
-            state = SpawnState.Counting;
-            waveCoutndown = waveDelay;
+            _state = SpawnState.Counting;
+            _waveCoutndown = waveDelay;
             
             if(_nextWave + 1 > waves.Length - 1)
             {
@@ -91,27 +93,27 @@ namespace Spawners
         }
 
         //do i need to assign this to some sort of private Coroutine variable?
-        private IEnumerator SpawnWave(Wave _wave)
+        private IEnumerator SpawnWave(Wave wave)
         {
-            Debug.Log("Spawning wave: " + _wave.waveName);
-            state = SpawnState.Spawning;
+            Debug.Log("Spawning wave: " + wave.waveName);
+            _state = SpawnState.Spawning;
 
-            for (int i = 0; i < _wave.count; i++)
+            for (int i = 0; i < wave.count; i++)
             {
-                SpawnEnemy(_wave.enemyType);
-                yield return new WaitForSeconds(1/_wave.spawnRate);
+                SpawnEnemy(wave.enemyType);
+                yield return new WaitForSeconds(1/wave.spawnRate);
             }
 
-            state = SpawnState.Waiting;
+            _state = SpawnState.Waiting;
 
             yield break;
         }   
 
-        private void SpawnEnemy(Transform _enemy)
+        private void SpawnEnemy(Transform enemy)
         {
-            Debug.Log("Spawning enemy: " + _enemy.name);
-            Transform _spawnpoint = spawnpoints[UnityEngine.Random.Range(0, spawnpoints.Length)];
-            PhotonNetwork.Instantiate(_enemy.name, _spawnpoint.position, Quaternion.identity);
+            Debug.Log("Spawning enemy: " + enemy.name);
+            Transform spawnpoint = spawnpoints[UnityEngine.Random.Range(0, spawnpoints.Length)];
+            PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
         }
 
         private bool EnemyIsAlive()
@@ -119,7 +121,7 @@ namespace Spawners
             _searchInterval -= Time.deltaTime;
             if(_searchInterval <= 0f)
             {
-                _searchInterval = 1f;
+                _searchInterval = searchIntervalAmount;
                 if(GameObject.FindWithTag("Enemy") == null)
                 {
                     return false;
