@@ -16,7 +16,6 @@ namespace Health_UI
 
         private void Awake()
         {
-            if (!photonView.IsMine) return;
 
             if (Singleton)
             {
