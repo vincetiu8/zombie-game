@@ -6,7 +6,6 @@ namespace Interact
     public class MovableObject : Interactable
     {
         private bool _isHolding;
-        [SerializeField] private GameObject collider;
         private Collider2D[] _colList;
 
         private void Awake()
