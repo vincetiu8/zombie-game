@@ -115,5 +115,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoType: 1
   dropAmount: 0
-  minAmt: 5
+  minAmt: 1
   maxAmt: 10

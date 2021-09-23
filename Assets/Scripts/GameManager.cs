@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Debug.Log("Spawning Player!");
         int position = Random.Range(0, spawnpoints.Length);
         Vector3 spawnPosition = spawnpoints[position].position;
-        GameObject instantiatedPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
-        instantiatedPlayer.GetComponent<PlayerGold>().goldSystem = gameObject.GetComponent<GoldSystem>();
+        player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+        player.GetComponent<PlayerGold>().goldSystem = gameObject.GetComponent<GoldSystem>();
     }
 }

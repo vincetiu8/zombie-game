@@ -80,9 +80,10 @@ GameObject:
   - component: {fileID: 904628254594388868}
   - component: {fileID: 6835588830130277189}
   - component: {fileID: 1679262202406998328}
+  - component: {fileID: 6963397570999706585}
   m_Layer: 6
   m_Name: Hardened Zombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,6 +256,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 2042632738896592113}
   - {fileID: 6835588830130277189}
+  - {fileID: 6963397570999706585}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -291,3 +293,22 @@ MonoBehaviour:
   - {fileID: 3719824534238069527, guid: 7d178d64c618d137f9c5f4bd28cc9c2b, type: 3}
   - {fileID: 9027714349123552497, guid: 7d178d64c618d137f9c5f4bd28cc9c2b, type: 3}
   - {fileID: 9027714349123552498, guid: 7d178d64c618d137f9c5f4bd28cc9c2b, type: 3}
+--- !u!114 &6963397570999706585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518528214555036746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6698ca512d86adf478231fcc297b1407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 0
+  itemDict:
+    m_keys: 1400000050000000
+    m_values:
+    - {fileID: 6927649112921695316, guid: 021e2d16677d6e64a9c3425c035e61c9, type: 3}
+    - {fileID: 5774804764515098991, guid: 41c5e7222100dbe4eb1d6a315b1112a0, type: 3}
+  maxProb: 101
