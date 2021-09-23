@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Health_UI
 {
-    public class HealthBarsLayout : MonoBehaviour
+    public class HealthBarsLayout : MonoBehaviourPunCallbacks
     {
         public static HealthBarsLayout Singleton;
         
@@ -15,6 +16,8 @@ namespace Health_UI
 
         private void Awake()
         {
+            if (!photonView.IsMine) return;
+
             if (Singleton)
             {
                 Destroy(this);
