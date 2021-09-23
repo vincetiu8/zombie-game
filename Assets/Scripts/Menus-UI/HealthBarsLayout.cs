@@ -7,7 +7,7 @@ namespace Health_UI
 {
     public class HealthBarsLayout : MonoBehaviourPunCallbacks
     {
-        public HealthBarsLayout Singleton;
+        public HealthBarsLayout healthBarsLayout;
         
         [SerializeField] private GameObject healthBarPrefab;
         [SerializeField] private int maxBars;
@@ -17,13 +17,13 @@ namespace Health_UI
         private void Awake()
         {
 
-            if (Singleton)
+            if (healthBarsLayout)
             {
                 Destroy(this);
                 return;
             }
 
-            Singleton = this;
+            healthBarsLayout = this;
             _healthControllers = new SortedList<int, Health>();
             _healthBars = new List<HealthBar>();
         }
