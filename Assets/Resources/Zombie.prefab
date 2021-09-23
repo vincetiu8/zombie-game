@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9027714349123552496}
   - component: {fileID: 9027714349123552497}
-  - component: {fileID: 9027714349123552498}
+  - component: {fileID: 1079737510406892539}
   m_Layer: 7
   m_Name: PlayerDetector
   m_TagString: Untagged
@@ -39,14 +39,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9027714349123552503}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8237a4965a069d25aba8b4d6d87142f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetStickiness: 1.5
   updatePeriod: 1
---- !u!58 &9027714349123552498
+--- !u!58 &1079737510406892539
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 3719824534238069527}
   - component: {fileID: 8087625155460507899}
   m_Layer: 6
-  m_Name: Enemy
+  m_Name: Zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 3
+  m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -141,7 +141,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1036530043
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 8733842730735159489, guid: 0246d79ac60b897b6836ef7b5186b0c7,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9027714350541001172}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6698ca512d86adf478231fcc297b1407, type: 3}
   m_Name: 
@@ -295,4 +295,3 @@ MonoBehaviour:
   - {fileID: 9027714350541001168}
   - {fileID: 3719824534238069527}
   - {fileID: 9027714349123552497}
-  - {fileID: 9027714349123552498}
