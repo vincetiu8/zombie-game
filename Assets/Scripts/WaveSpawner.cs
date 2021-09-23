@@ -16,7 +16,7 @@ namespace Spawners
         public struct Wave 
         {
             public string waveName;
-            public Transform enemyType;
+            public GameObject enemyType;
             public int count;
             public float spawnRate;
         }
@@ -106,7 +106,7 @@ namespace Spawners
             yield break;
         }   
 
-        private void SpawnEnemy(Transform enemy)
+        private void SpawnEnemy(GameObject enemy)
         {
             Debug.Log("Spawning enemy: " + enemy.name);
             Transform spawnpoint = spawnpoints[UnityEngine.Random.Range(0, spawnpoints.Length)];
