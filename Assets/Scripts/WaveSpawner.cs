@@ -24,6 +24,7 @@ namespace Spawners
         [SerializeField] private Wave[] waves;
         [SerializeField] private Transform[] spawnpoints;
         private SpawnState _state;
+        private Coroutine _spawnCoroutine;
 
         //time between waves
         [SerializeField] private float waveDelay = 5;
@@ -42,39 +43,44 @@ namespace Spawners
             }
             
             _waveCoutndown = waveDelay;
-            
+
+            if(_spawnCoroutine != null)
+            {
+                StopCoroutine(_spawnCoroutine);
+            }
         }
 
         private void Update()
         {
-            if(_state == SpawnState.Waiting)
+            if(_state == SpawnState.Counting)
+            {
+                _waveCoutndown -= Time.deltaTime;
+                _searchInterval -= Time.deltaTime;  
+            }
+
+            if(_state == SpawnState.Spawning)
+            {
+                return;
+            }
+
+            if(_state == SpawnState.Waiting && _searchInterval <= 0f)
             {
                 //check for alive enemies
-                if(!EnemyIsAlive())
+                if(!AreEnemiesAlive())
                 {
                     //new wave
+                    _searchInterval = searchIntervalAmount;
                     StartNewWave();
                 }
-                return;
-                
+                return; 
             }
 
             if(_waveCoutndown <= 0 && _state != SpawnState.Spawning)
             {
                 //spawn wave
-                StartCoroutine(SpawnWave(waves[_nextWave]));
+                _spawnCoroutine = StartCoroutine(SpawnWave(waves[_nextWave]));
                 return;
-            }
-
-            _waveCoutndown -= Time.deltaTime;
-            _searchInterval -= Time.deltaTime;
-
-            if(_searchInterval <= 0f)
-            {
-                _searchInterval = searchIntervalAmount;
-                EnemyIsAlive();
-            }
-            
+            }          
         }
 
         private void StartNewWave()
@@ -113,13 +119,9 @@ namespace Spawners
             PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
         }
 
-        private bool EnemyIsAlive()
+        private bool AreEnemiesAlive()
         {
-            if(GameObject.FindWithTag("Enemy") == null)
-            {
-                return false;
-            }
-            return true;
+            return GameObject.FindGameObjectWithTag("Enemy");
         }
     }
 
