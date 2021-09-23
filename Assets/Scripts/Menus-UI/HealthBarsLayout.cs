@@ -7,7 +7,7 @@ namespace Health_UI
 {
     public class HealthBarsLayout : MonoBehaviourPunCallbacks
     {
-        public static HealthBarsLayout Singleton;
+        public HealthBarsLayout Singleton;
         
         [SerializeField] private GameObject healthBarPrefab;
         [SerializeField] private int maxBars;
