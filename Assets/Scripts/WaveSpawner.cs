@@ -9,7 +9,7 @@ namespace Spawners
 {
     public class WaveSpawner : MonoBehaviour
     {   
-        //will probably move this enum and the wave struct to a separate script in the future
+        //todo: will probably move this enum and the wave struct to a separate script in the future
         public enum SpawnState {Spawning, Waiting, Counting}
 
         [Serializable]
@@ -23,7 +23,7 @@ namespace Spawners
 
         [SerializeField] private Wave[] waves;
         [SerializeField] private Transform[] spawnpoints;
-        private SpawnState _state = SpawnState.Counting;
+        private SpawnState _state;
 
         //time between waves
         [SerializeField] private float waveDelay = 5;
@@ -34,14 +34,15 @@ namespace Spawners
         [SerializeField] private float searchIntervalAmount = 1f;
         
         private void Start()
-        {
+        {   
+            _state = SpawnState.Counting;
             if(spawnpoints.Length == 0)
             {
                 Debug.LogError("No available spawnpoints");
             }
             
             _waveCoutndown = waveDelay;
-            _searchInterval = searchIntervalAmount;
+            
         }
 
         private void Update()
@@ -64,27 +65,27 @@ namespace Spawners
                 StartCoroutine(SpawnWave(waves[_nextWave]));
                 return;
             }
+
             _waveCoutndown -= Time.deltaTime;
+            _searchInterval -= Time.deltaTime;
+
+            if(_searchInterval <= 0f)
+            {
+                _searchInterval = searchIntervalAmount;
+                EnemyIsAlive();
+            }
             
         }
 
         private void StartNewWave()
         {
-            Debug.Log("wave completed");
+            Debug.Log("wave completed, looping");
 
             _state = SpawnState.Counting;
             _waveCoutndown = waveDelay;
             
-            if(_nextWave + 1 > waves.Length - 1)
-            {
-                //resets wave counter
-                _nextWave = 0;
-                Debug.Log("completed all waves, looping");
-            }
-            else
-            {
-                _nextWave++;
-            }
+            _nextWave += 1 + waves.Length;
+            _nextWave %= waves.Length;
 
         }
 
@@ -114,14 +115,9 @@ namespace Spawners
 
         private bool EnemyIsAlive()
         {
-            _searchInterval -= Time.deltaTime;
-            if(_searchInterval <= 0f)
+            if(GameObject.FindWithTag("Enemy") == null)
             {
-                _searchInterval = searchIntervalAmount;
-                if(GameObject.FindWithTag("Enemy") == null)
-                {
-                    return false;
-                }
+                return false;
             }
             return true;
         }
