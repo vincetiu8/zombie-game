@@ -21,6 +21,7 @@ namespace Interact
 
         public void CheckInteraction(InputAction.CallbackContext context)
         {
+            if (!context.performed) return;
             if (_interactPriorityList.Count > 0)
             {
                 // Check which object in the list is closest to the player
@@ -28,12 +29,10 @@ namespace Interact
                 GameObject closestObject = null;
                 foreach (GameObject obj in _interactPriorityList)
                 {
-                    if (Vector2.Distance(obj.transform.position, transform.position) < closestDistance) 
-                    {
-                        closestDistance = Vector2.Distance(obj.transform.position, transform.position);
-                        closestObject = obj;
-                        Debug.Log("closest object: " + closestObject);
-                    } 
+                    if (Vector2.Distance(obj.transform.position, transform.position) > closestDistance) continue;
+                    closestDistance = Vector2.Distance(obj.transform.position, transform.position);
+                    closestObject = obj;
+                    Debug.Log("closest object: " + closestObject);
                 }
                 closestObject.GetComponent<Interactable>().Interact(gameObject);
             }

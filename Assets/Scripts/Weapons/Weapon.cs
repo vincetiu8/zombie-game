@@ -30,11 +30,15 @@ namespace Weapons
         // Amount of seconds before the weapon can be fired again
         private float _fireCooldown;
 
+        // Will be false if player is in animation or doing something that shouldn't allow them to fire their weapon
+        internal bool CanAttack;
+
         // Should be overridden to set maxLevel
         protected virtual void Start()
         {
             currentLevel = 0;
             maxLevel = 0;
+            CanAttack = true;
         }
 
         public void Setup(AmmoInventory inventory)
@@ -65,6 +69,7 @@ namespace Weapons
         // Toggle is true when pressed, false when released
         public void ToggleFire(bool toggle)
         {
+            if (!CanAttack) return;
             if (!currentAttributes.fullAuto)
             {
                 // Just fires when pressed for semi auto

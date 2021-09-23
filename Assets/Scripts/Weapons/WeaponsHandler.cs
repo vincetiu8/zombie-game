@@ -80,5 +80,11 @@ namespace Weapons
                 _currentWeapon.FaceMouse(direction.magnitude);
             }
         }
+
+        public void PreventFire(bool preventFire)
+        {
+            _currentWeapon.CanAttack = !preventFire;
+            transform.Find("PlayerObject").Find("WeaponPivot").gameObject.SetActive(!preventFire);
+        }
     }
 }
