@@ -138,7 +138,7 @@ MonoBehaviour:
     reloadTime: 1.5
     bulletSpeed: 2
   firepoint: {fileID: 2754838259538124271}
-  bulletPrefab: {fileID: 7180488135982431806, guid: 2d7c2576ecb27e447b386945a3375ea1,
+  bulletPrefab: {fileID: 602968682288907159, guid: 2d7c2576ecb27e447b386945a3375ea1,
     type: 3}
 --- !u!114 &999901341116486943
 MonoBehaviour:
