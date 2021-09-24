@@ -12,14 +12,16 @@ namespace Networking
 		[SerializeField] private Behaviour[] componentsToDisableIfNotMine;
 		[SerializeField] private GameObject nameText;
 
-		
-		private void Start()
-		{
-			PhotonView view = GetComponent<PhotonView>();
-			if (view.IsMine) return;
-			
-			HealthBarsLayout.Singleton.AddHealthController(GetComponent<Health>());
-			nameText.GetComponent<TextMesh>().text = PhotonNetwork.NickName;
+        [SerializeField] private Text nameText;
+
+        private void Start()
+        {
+
+            PhotonView view = GetComponent<PhotonView>();
+            if (view.IsMine) return;
+
+            GameObject.Find("Canvas").GetComponent<PlayerStatistics>().player = gameObject;
+            nameText.text = PhotonNetwork.NickName; // Haven't really tested this out yet, so not sure if it will actually work
 
 			
 			foreach (Behaviour behaviour in componentsToDisableIfNotMine) behaviour.enabled = false;
