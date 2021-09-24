@@ -5,7 +5,7 @@ using Health_UI;
 
 public class PlayerStatistics : MonoBehaviour
 {
-    public GameObject player;
+    [HideInInspector] public GameObject player;
     private HealthBarsLayout _healthBarsLayout;
 
     IEnumerator Start()
