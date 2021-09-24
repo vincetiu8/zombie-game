@@ -22,12 +22,15 @@ namespace Enemy
 
         private void FixedUpdate()
         {
-            _agent.SetDestination(_playerDetector.GetTrackingPlayerDirection());
+            if (_playerDetector.GetTrackingPlayerDirection() == Vector2.zero) Debug.Log("No player in sight");
+                _agent.SetDestination(_playerDetector.GetTrackingPlayerDirection());
 
             // Make agent look the direction it is going
             Vector3 dir = _agent.velocity;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+
         }
     }
 }
