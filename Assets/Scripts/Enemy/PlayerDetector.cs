@@ -111,7 +111,7 @@ namespace Enemy
         {
             if (!_trackingPlayer)
             {
-                return Vector2.zero;
+                return Vector2.zero; // Would have set this to null if I could, but can't
             }
             return _trackingPlayer.position;
         }
