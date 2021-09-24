@@ -3,19 +3,11 @@
 Welcome to the BSM Byte Surfers Zombie Game github repository! We're looking forward to working together on this project
 and creating something amazing!
 
-### Pre-requisites
 
-If you have access to this repo, you should already have some experience with:
 
-- [Unity](https://store.unity.com/download-nuo) and C#
-- [Git](https://git-scm.com/downloads)
-- [Git LFS](https://git-lfs.github.com/)
-- [Rider](https://www.jetbrains.com/rider/download/) (optional)
+### Setup
 
-If you haven't ever used these tools, please look at
-the [progress tracker](https://docs.google.com/spreadsheets/u/1/d/109DPBLzFU0w9QFPqDZJjNRbqHhQe1GieOeOr9Jxrs3Q/edit?usp=drive_web&ouid=106431960309338225006)
-and complete the tutorials there. If you're already experienced but want a refresher, it's also probably a good idea to
-look.
+This assumes that you have Rider and Unity installed.
 
 ### Where to start
 
