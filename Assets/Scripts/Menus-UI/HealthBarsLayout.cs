@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-namespace Health_UI
+namespace Player_UI
 {
-    public class HealthBarsLayout : MonoBehaviourPunCallbacks
+    /// <summary>
+    /// Handles how healthbar displaying. Supports multiple health bars, will be sorted out in the usual Vertical Layout Group fassion.
+    /// </summary>
+    public class HealthBarsLayout : MonoBehaviour
     {
         [HideInInspector] public HealthBarsLayout healthBarsLayout;
         
@@ -30,6 +33,7 @@ namespace Health_UI
 
         private void Start()
         {
+            // Check for all healthbars that require displaying, instantiates that amount of healthbars
             for (int i = 0; i < maxBars; i++)
             {
                 GameObject healthBar = Instantiate(healthBarPrefab, transform);
@@ -38,6 +42,11 @@ namespace Health_UI
             }
         }
 
+        /// <summary>
+        /// Creates a new health bar in the <c>_healthBars</c> list as well as instantiates it in the UI.
+        /// </summary>
+        /// <param name="healthController"> takes in the <c>Health</c> component of an object</param>
+        /// <example><code>_healthBarsLayout.AddHealthController(player.GetComponent>Health>())</code></example>
         public void AddHealthController(Health healthController)
         {
             _healthControllers.Add(Mathf.RoundToInt(healthController.GetInitialHealth()), healthController);

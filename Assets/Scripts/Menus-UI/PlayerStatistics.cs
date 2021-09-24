@@ -1,26 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Health_UI;
 
-public class PlayerStatistics : MonoBehaviour
+namespace Player_UI
 {
-    [HideInInspector] public GameObject player;
-    private HealthBarsLayout _healthBarsLayout;
-
-    IEnumerator Start()
+    /// <summary>
+    /// <para>UI component that handles information stored within the player gameObject.</para>
+    /// <para>Ie. player: Health, ammo, weapon</para>
+    /// </summary>
+    public class PlayerStatistics : MonoBehaviour
     {
-        yield return new WaitUntil(() => player != null);
+        [HideInInspector] public GameObject player;
+        private HealthBarsLayout _healthBarsLayout;
 
-        _healthBarsLayout = GetComponentInChildren<HealthBarsLayout>();
-        Debug.Log(GetComponentInChildren<HealthBarsLayout>());
+        IEnumerator Start()
+        {
+            yield return new WaitUntil(() => player != null);
 
-        _healthBarsLayout.AddHealthController(player.GetComponent<Health>());
-    }
+            _healthBarsLayout = GetComponentInChildren<HealthBarsLayout>();
+            Debug.Log(GetComponentInChildren<HealthBarsLayout>());
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            _healthBarsLayout.AddHealthController(player.GetComponent<Health>());
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

@@ -1,6 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 using Player_UI;
+using UnityEngine.UI;
 
 namespace Networking
 {
@@ -10,8 +11,6 @@ namespace Networking
 	public class PlayerSetup : MonoBehaviour
 	{
 		[SerializeField] private Behaviour[] componentsToDisableIfNotMine;
-		[SerializeField] private GameObject nameText;
-
         [SerializeField] private Text nameText;
 
         private void Start()
@@ -20,9 +19,14 @@ namespace Networking
             PhotonView view = GetComponent<PhotonView>();
             if (view.IsMine) return;
 
+            // Locate UI component that will display player object information.
             GameObject.Find("Canvas").GetComponent<PlayerStatistics>().player = gameObject;
-            nameText.text = PhotonNetwork.NickName; // Haven't really tested this out yet, so not sure if it will actually work
-
+            
+            // Will be false by default
+            nameText.gameObject.SetActive(true);
+            
+            // Sets name tag to Nickname assigned at the launcher scene
+            nameText.text = PhotonNetwork.NickName;
 			
 			foreach (Behaviour behaviour in componentsToDisableIfNotMine) behaviour.enabled = false;
 		}
