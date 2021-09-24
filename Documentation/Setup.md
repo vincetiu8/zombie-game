@@ -39,13 +39,15 @@ and all commits.
 10. On the bottom right, change you
 11. Go to `File > Settings` on the top left, then select `Editor > Code Style`. Change the scheme to `Project`.  
     ![](Images/SetupImage4.png)
-12. Still in settings, go to `Version Control > Diff & Merge > External Diff Tools`. `Enable external merge tool` and
+12. Still in settings, go to `Tools > Diff & Merge > External Diff Tools`. `Enable external merge tool` and
     set the executable path to `{ADD YOU UNITY INSTALL PATH HERE}/Editor/Data/Tools/UnityYAMLMerge`. If on windows,
     add `.exe` to the end.  
     ![](Images/SetupImage5.png)
-13. Close Rider and open the project from Unity Hub, selecting the installed version of Unity. Wait for it to load.
-14. Go to `Edit > Preferences` and then select `External Tools`. Set the external script editor to Rider.
+13. Still in settings, go to `Version Control > Commit` and check all the pre-commit checks except for the unit testing.
     ![](Images/SetupImage6.png)
+14. Close Rider and open the project from Unity Hub, selecting the installed version of Unity. Wait for it to load.
+15. Go to `Edit > Preferences` and then select `External Tools`. Set the external script editor to Rider.
+    ![](Images/SetupImage7.png)
 
 ## Unity and Unity Hub
 

@@ -15,6 +15,7 @@ Here are some useful tips when developing features.
   - Ideally, object references should only go one-way. You shouldn't have any objects that both reference each other.
 - Return early.
   - Avoid `else` statements if possible.
+- Follow all rider suggestions.
 
 ## Unity related
 - Make things prefabs.
