@@ -22,8 +22,15 @@ namespace Enemy
 
         private void FixedUpdate()
         {
-            if (_playerDetector.GetTrackingPlayerDirection() == Vector2.zero) Debug.Log("No player in sight");
-                _agent.SetDestination(_playerDetector.GetTrackingPlayerDirection());
+            // Make object stay if place if there are no players currently tracked
+            if (_playerDetector.GetTrackingPlayerDirection() == Vector2.zero)
+            {
+                _agent.SetDestination(transform.position);
+                Debug.Log("No player in sight");
+                return;
+            }
+            // Sets a position object will walk towards using NavMesh navigation system.
+            _agent.SetDestination(_playerDetector.GetTrackingPlayerDirection());
 
             // Make agent look the direction it is going
             Vector3 dir = _agent.velocity;
