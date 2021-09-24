@@ -3,19 +3,14 @@
 Welcome to the BSM Byte Surfers Zombie Game github repository! We're looking forward to working together on this project
 and creating something amazing!
 
-
-
-### Setup
-
-This assumes that you have Rider and Unity installed.
-
 ### Where to start
 
-1. Download the repo and open it in Unity.
-2. **Make sure you've pulled the latest master**.
-3. Find a small issue (xs/s) and assign yourself to it.
-4. Fix the issue.
-5. Make a PR and request for review!
+1. Follow the instructions in [Setup](Documentation/Setup.md) to get everything configured on your computer.
+2. Read [Workflow](Documentation/Workflow.md) and [Developing](Documentation/Developing.md)
+3. **Make sure you've pulled the latest master**.
+4. Find a small issue (xs/s) and assign yourself to it.
+5. Fix the issue.
+6. Make a PR and request for review!
 
 ### Issues
 
@@ -35,6 +30,15 @@ on making a shop, create some smaller issues on:
 - Allowing vending machines to sell different items
 
 After writing the issue, you should give it relevant labels. All issues should have an `area`, `size` and `type`.
+
+Priority is how important the issue is in relation to the game and other issue. Try to assign yourself to medium or high
+priority issues.  
+| Priority | Description | Example |
+|---|---|---|
+| High | Work on this if possible. Relates to several other issues. | Adding a weapon system |
+| Medium | Work on this if interesting. Relevant and useful. | Adding a new enemy |
+| Low | Work on this if nothing else is available. Not strictly needed. | Adding armor |
+| None | Don't work on this. Often depends on a pending issue. | Adding a perk (without perk system yet) |
 
 Areas are what aspect of the game the issue relates to. These include:  
 | Area | Description | Example |  
@@ -64,6 +68,7 @@ Types are used to identify whether the issue is a bug, enhancement or feature. T
 | Type | Description | Example |  
 |---|---|---|  
 | Bug | Something isn't working | Player can't shoot |  
+| Refactor | Cleaning up implementation | Changing objects to use same parent class |  
 | Enhancement | Updating an existing feature | Adding another weapon |  
 | Feature | Adding a new feature | Adding a perk system |
 
