@@ -135,8 +135,8 @@ MonoBehaviour:
     fireCooldown: 0.5
     fullAuto: 0
     magazineSize: 4
-    reloadTime: 1.5
-    bulletSpeed: 4
+    reloadTime: 2
+    bulletSpeed: 8
   firepoint: {fileID: 2754838259538124271}
   bulletPrefab: {fileID: 602968682288907159, guid: 2d7c2576ecb27e447b386945a3375ea1,
     type: 3}
