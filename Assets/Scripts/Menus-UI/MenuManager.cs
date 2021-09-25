@@ -36,8 +36,10 @@ namespace Menus_UI
 				if(menus[i].menuName == menuName)
 				{
 					menus[i].Open();
-					if(!menus[i].isFreezable) return;
-					Utils.FreezeGame(!menus[i].isFreezable, playerInput);
+					if (menus[i].isFreezable)
+					{
+						Utils.FreezeGame(!menus[i].isFreezable, playerInput);
+					}
 				}
 				else if(menus[i].open)
 				{
