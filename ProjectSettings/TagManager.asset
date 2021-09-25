@@ -7,7 +7,6 @@ TagManager:
   - AmmoPickup
   - Canvas
   - Enemy
-  - Bullets
   layers:
   - Default
   - TransparentFX
