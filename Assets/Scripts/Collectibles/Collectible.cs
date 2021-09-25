@@ -1,16 +1,21 @@
-using UnityEngine;
 using Interact;
+using UnityEngine;
 
 namespace Collectibles
 {
-    public abstract class Collectible : Interactable
-    {
-        public override void Interact(GameObject player)
-        {
-            Pickup(player);
-            Destroy(gameObject);
-        }        
+	// Collectible represents an object that is destroyed when the player interacts (collects) it
+	public abstract class Collectible : Interactable
+	{
+		#region Methods
 
-        protected abstract void Pickup(GameObject player);
-    }
+		public override void Interact(GameObject player)
+		{
+			Pickup(player);
+			Destroy(gameObject);
+		}
+
+		protected abstract void Pickup(GameObject player);
+
+		#endregion
+	}
 }

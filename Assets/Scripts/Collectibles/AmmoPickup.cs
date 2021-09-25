@@ -1,24 +1,31 @@
+using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Weapons;
 
 namespace Collectibles
 {
-    public class AmmoPickup : Collectible
-    {
-        [SerializeField] private AmmoType ammoType;
-        [SerializeField] protected int dropAmount;
+	public class AmmoPickup : Collectible
+	{
+		#region Methods
 
-        protected override void Pickup(GameObject player)
-        {
-            AmmoInventory ammoInventory = player.gameObject.GetComponent<AmmoInventory>();
-            if (ammoInventory == null)
-            {
-                return;
-            }
+		protected override void Pickup(GameObject player)
+		{
+			AmmoInventory ammoInventory = player.gameObject.GetComponent<AmmoInventory>();
+			if (ammoInventory == null) return;
 
-            Debug.Log(dropAmount);
-            ammoInventory.DepositAmmo(ammoType, dropAmount);
-        }
-    }
+			ammoInventory.DepositAmmo(ammoType, dropAmount);
+		}
+
+		#endregion
+
+		#region Variables
+
+		[Header("Ammo Settings")] [Description("The type of ammo being picked up")] [SerializeField]
+		private AmmoType ammoType;
+
+		[Description("The amount of ammo to drop")] [SerializeField]
+		protected int dropAmount;
+
+		#endregion
+	}
 }

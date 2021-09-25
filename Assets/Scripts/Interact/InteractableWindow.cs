@@ -1,43 +1,43 @@
-using Levels;
+using Objects;
 using UnityEngine;
 
 namespace Interact
 {
-    [RequireComponent(typeof(WindowController))]
-    public class InteractableWindow : Interactable
-    {
-        private WindowController _windowController;
+	// InteractableWindow implements the repair mechanic on windows
+	[RequireComponent(typeof(WindowController))]
+	public class InteractableWindow : Interactable
+	{
+		#region Variables
 
-        [SerializeField] private float barricadeFixTime;
+		[SerializeField] private float barricadeFixTime;
 
-        private float _cooldown;
+		private WindowController _windowController;
 
-        public override void Interact(GameObject player)
-        {
-            if (_windowController.zombieAtWindow)
-            {
-                Debug.Log("Can't fix while zombie is at window");
-                return;
-            }
+		private float _cooldown;
 
-            if (_cooldown <= 0)
-            {
-                _windowController.ChangeHealth(1);
-                _cooldown += barricadeFixTime;
-            }
-        }
+		#endregion
 
-        void Start()
-        {
-            _windowController = GetComponent<WindowController>();
-        }
+		#region Methods
 
-        private void Update()
-        {
-            if (_cooldown > 0)
-            {
-                _cooldown -= Time.deltaTime;
-            }
-        }
-    }
+		public override void Interact(GameObject player)
+		{
+			// Don't allow window to be repaired if a zombie is currently attacking it
+			if (_windowController.zombieAtWindow || _cooldown > 0) return;
+
+			_windowController.ChangeHealth(1);
+			_cooldown += barricadeFixTime;
+		}
+
+		private void Start()
+		{
+			_windowController = GetComponent<WindowController>();
+		}
+
+		private void Update()
+		{
+			if (_cooldown > 0) _cooldown -= Time.deltaTime;
+		}
+
+		#endregion
+	}
 }

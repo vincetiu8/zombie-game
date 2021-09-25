@@ -3,6 +3,8 @@
 Here are some useful tips when developing features.
 
 ## Code (C#) related
+
+### Concepts
 - Don't Repeat Yourself.
   - You should never have to write anything twice.
   - Think about combining common code into methods.
@@ -13,9 +15,27 @@ Here are some useful tips when developing features.
   - Make use of inheritance and overloading.
 - Avoid spaghetti code.
   - Ideally, object references should only go one-way. You shouldn't have any objects that both reference each other.
+  
+### Styling
+
+- Try to expose the least amount of variables and methods.
+  - Use `[SerializeField]` if a value needs to be edited in the editor, but not accessed during runtime.
 - Return early.
-  - Avoid `else` statements if possible.
+    - Avoid `else` statements if possible.
 - Follow all rider suggestions.
+
+### Formatting
+
+- Add comments on anything that isn't obvious.
+  - Use comments to explain complex methods.
+  - Comments should have a space and a capital, with no full stop: `// This is an example comment`
+  - Weird variables, methods and classes should have the `<summary>` comment to explain them.
+    - Rider automatically adds this if you insert `///`.
+- Add `#regions` to break up a file into (collapsible) areas.
+- Add Inspector attributes to everything.
+  - Add `[Header]` to separate sections, even if there is only one.
+  - Every variable that isn't an objects reference should have a `[Description]`.
+  - All numerical variables should have a `[Range]` and default value.
 
 ## Unity related
 - Make things prefabs.

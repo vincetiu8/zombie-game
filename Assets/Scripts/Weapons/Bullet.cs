@@ -2,31 +2,37 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class Bullet : CollisionDamager
-    {
-        public float lifetime;
+	// Bullet is a one-time collision damager with a lifetime
+	public class Bullet : CollisionDamager
+	{
+		#region Variables
 
-        private float _timeAlive;
+		public float lifetime;
 
-        protected override void Update()
-        {
-            _timeAlive += Time.deltaTime;
-            
-            // Destroy the bullet if its outlived its lifetime
-            if (_timeAlive > lifetime)
-            {
-                Destroy(gameObject);
-            }
-        
-            base.Update();
-        }
+		private float _timeAlive;
 
-        // Destroy the bullet on a collision
-        protected override void OnCollisionStay2D(Collision2D other)
-        {
-            base.OnCollisionStay2D(other);
-        
-            Destroy(gameObject);
-        }
-    }
+		#endregion
+
+		#region Methods
+
+		protected override void Update()
+		{
+			_timeAlive += Time.deltaTime;
+
+			// Destroy the bullet if its outlived its lifetime
+			if (_timeAlive > lifetime) Destroy(gameObject);
+
+			base.Update();
+		}
+
+		// Destroy the bullet on a collision
+		protected override void OnCollisionStay2D(Collision2D other)
+		{
+			base.OnCollisionStay2D(other);
+
+			Destroy(gameObject);
+		}
+
+		#endregion
+	}
 }

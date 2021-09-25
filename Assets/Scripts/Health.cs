@@ -1,57 +1,68 @@
 using Photon.Pun;
-using Photon.Pun.UtilityScripts;
 using UnityEngine;
 
+/// <summary>
+///     Health is the base class for all destructible objects.
+///     Once an object's health reaches 0, it is normally destroyed.
+/// </summary>
 public class Health : MonoBehaviourPun, IPunObservable
 {
-    [SerializeField] protected float initialHealth;
+	#region Variables
 
-    protected float health;
+	[SerializeField] protected float initialHealth;
 
-    private void Awake()
-    {
-        health = initialHealth;
-    }
+	protected float health;
 
-    public float GetHealth()
-    {
-        return health;
-    }
+	#endregion
 
-    public int GetRoundedHealth()
-    {
-        return Mathf.RoundToInt(health);
-    }
+	#region Methods
 
-    public virtual void ChangeHealth(float change)
-    {
-        health += change;
+	private void Awake()
+	{
+		health = initialHealth;
+	}
 
-        if (health > 0) return;
-        
-        OnDeath();
-    }
+	public float GetHealth()
+	{
+		return health;
+	}
 
-    protected virtual void OnDeath()
-    {
-        photonView.RPC("RpcOnDeath", RpcTarget.All);
-    }
+	public int GetRoundedHealth()
+	{
+		return Mathf.RoundToInt(health);
+	}
 
-    [PunRPC]
-    protected void RpcOnDeath()
-    {
-        Destroy(gameObject);
-    }
+	public virtual void ChangeHealth(float change)
+	{
+		health += change;
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(health);
-            return;
-        }
+		if (health > 0) return;
 
-        object received = stream.ReceiveNext();
-        health = (float)received;
-    }
+		OnDeath();
+	}
+
+	protected virtual void OnDeath()
+	{
+		photonView.RPC("RpcOnDeath", RpcTarget.All);
+	}
+
+	[PunRPC]
+	protected void RpcOnDeath()
+	{
+		Destroy(gameObject);
+	}
+
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+		if (stream.IsWriting)
+		{
+			stream.SendNext(health);
+			return;
+		}
+
+		object received = stream.ReceiveNext();
+		health = (float)received;
+	}
+
+	#endregion
 }
