@@ -16,8 +16,7 @@ public class Shotgun : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        
+    {        
         Debug.Log("Firing shotgun");
         _rb = transform.GetComponent<Rigidbody2D>();
         _bullet = transform.GetComponent<Bullet>();
@@ -25,17 +24,16 @@ public class Shotgun : MonoBehaviour
 
         for (int i = 0; i < pelletAmount; i++)
         {
-            GameObject bulletClone = PhotonNetwork.Instantiate(pellet.name, transform.position, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + Random.Range(-spraySpread, spraySpread)));
-            //GameObject bulletClone = PhotonNetwork.Instantiate(pellet.name, transform.position, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90f));
+            float spraySpreadAmount = Random.Range(-spraySpread, spraySpread);
 
-
+            GameObject bulletClone = PhotonNetwork.Instantiate(pellet.name, transform.position, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + spraySpreadAmount));
+            
             // Set the bullet's attributes
-            //Vector2 bulletVelocity = firepoint.right * _rb.velocity;
-
-            bulletClone.GetComponent<Rigidbody2D>().velocity  = Vector2.right * _rb.velocity.magnitude;
+            Vector2 sprayDirection = new Vector2(_rb.velocity.x * Mathf.Cos(spraySpreadAmount * Mathf.Deg2Rad) - _rb.velocity.y * Mathf.Sin(spraySpreadAmount * Mathf.Deg2Rad), _rb.velocity.x * Mathf.Sin(spraySpreadAmount * Mathf.Deg2Rad) + _rb.velocity.y * Mathf.Cos(spraySpreadAmount * Mathf.Deg2Rad));
+            bulletClone.GetComponent<Rigidbody2D>().velocity = sprayDirection;
             bulletClone.GetComponent<Bullet>().damage = _bullet.damage;
         }
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 
 }
