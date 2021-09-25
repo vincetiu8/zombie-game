@@ -18,9 +18,8 @@ public class AmmoMachine : Interactable
     [SerializeField] private AmmoType ammoType;
     [SerializeField] private Text ammoTypeText;
     [SerializeField] private GameObject ammoMachineUI;
-    private GoldSystem goldSystem;
-    private MenuManager menuManager;
-    private GameObject customer;
+    private GoldSystem _goldSystem;
+    private MenuManager _menuManager;
 
     #endregion
 
@@ -29,8 +28,8 @@ public class AmmoMachine : Interactable
 
     private void Start()
     {
-        goldSystem = GameManager.instance.GetComponent<GoldSystem>();
-        menuManager = MenuManager.Instance.GetComponent<MenuManager>();
+        _goldSystem = GameManager.instance.GetComponent<GoldSystem>();
+        _menuManager = MenuManager.Instance.GetComponent<MenuManager>();
         ammoTypeText.text = ammoType.ToString();
     }
 
@@ -39,7 +38,6 @@ public class AmmoMachine : Interactable
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             collision.gameObject.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
-            customer = collision.gameObject;
         }
     }
 
@@ -48,26 +46,26 @@ public class AmmoMachine : Interactable
 
     #region public methods
 
-    public void PurchaseAmmo(GameObject _customer)
+    public void PurchaseAmmo()
     {
-        _customer = customer;
+        GameObject customer = GameManager.instance.player;
         //for testing
-        goldSystem.AddGold(new List<string> {PhotonNetwork.NickName}, 10);
+        _goldSystem.AddGold(new List<string> {PhotonNetwork.NickName}, 10);
 
-        AmmoInventory ammoInventory = _customer.gameObject.GetComponent<AmmoInventory>();
+        AmmoInventory ammoInventory = customer.gameObject.GetComponent<AmmoInventory>();
         if(ammoInventory == null)
         {
             return;
         }
         ammoInventory.DepositAmmo(ammoType, 10);
-        goldSystem.WithdrawGold(PhotonNetwork.NickName, 5);
+        _goldSystem.WithdrawGold(PhotonNetwork.NickName, 5);
 
-        Debug.Log(goldSystem.GetPlayerGold(PhotonNetwork.NickName));
+        Debug.Log(_goldSystem.GetPlayerGold(PhotonNetwork.NickName));
     }
 
     public override void Interact(GameObject player)
     {
-        menuManager.OpenMenu("ammoMachine");
+        _menuManager.OpenMenu("ammoMachine");
     }
 
     #endregion
