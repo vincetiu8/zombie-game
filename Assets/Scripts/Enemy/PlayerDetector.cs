@@ -21,7 +21,7 @@ namespace Enemy
 		[SerializeField]
 		private float updatePeriod = 1;
 
-		private List<Transform> _players;
+		[SerializeField] private List<Transform> _players;
 
 		private Transform _trackingPlayer;
 		private float     _updateCooldown;
@@ -45,7 +45,6 @@ namespace Enemy
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			if (!other.CompareTag("Player")) return;
-
 			AddPlayer(other.transform);
 		}
 
@@ -85,8 +84,7 @@ namespace Enemy
 		{
 			_players.Add(other);
 
-			if (_updateCooldown > 0) return;
-
+			if (GetTrackingPlayerDirection() != Vector2.zero && _updateCooldown > 0) return;
 			UpdateTrackingPlayer();
 		}
 
