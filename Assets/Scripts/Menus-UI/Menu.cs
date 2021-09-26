@@ -7,8 +7,8 @@ public class Menu : MonoBehaviour
 {
 	public string menuName;
 	public bool open;
-	//controls whether the menu freezes the game 
-	//upon activation
+	//controls whether player input should
+	//be disabled upon menu activation
 	public bool isFreezable;
 
 	public void Open()

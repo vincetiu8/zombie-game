@@ -38,7 +38,7 @@ namespace Menus_UI
 					menus[i].Open();
 					if (menus[i].isFreezable)
 					{
-						Utils.FreezeGame(!menus[i].isFreezable, playerInput);
+						Utils.DisableInput(!menus[i].isFreezable, playerInput);
 					}
 				}
 				else if(menus[i].open)
@@ -57,7 +57,7 @@ namespace Menus_UI
 		{
 			menu.Close();
 			if(!menu.isFreezable) return;
-			Utils.FreezeGame(menu.isFreezable, playerInput);
+			Utils.DisableInput(menu.isFreezable, playerInput);
 		}
 		#endregion
 	}
