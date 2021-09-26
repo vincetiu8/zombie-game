@@ -3,36 +3,35 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class CollisionDamager : MonoBehaviour
-    {
-        [Description("The damage per attack")]
-        public float damage;
-        
-        [Description("The cooldown between damage reductions")]
-        public float damageCooldown;
-        
-        [Description("The layers the collision will affect")]
-        [SerializeField] private LayerMask layerMask;
+	/// <summary>
+	///     Damages an object as a function of time
+	/// </summary>
+	public class CollisionDamager : MonoBehaviour
+	{
+		[Description("The damage per attack")] public float damage;
 
-        // The current damage cooldown
-        private float _cooldown;
+		[Description("The cooldown between damage reductions")]
+		public float damageCooldown;
 
-        protected virtual void Update()
-        {
-            // Reduce cooldown by time
-            if (_cooldown > 0)
-            {
-                _cooldown -= Time.deltaTime;
-            }
-        }
+		[Description("The layers the collision will affect")] [SerializeField]
+		private LayerMask layerMask;
 
-        protected virtual void OnCollisionStay2D(Collision2D other)
-        {
-            // Make sure cooldown is complete and the collision is in the layermask to deal damage
-            if (_cooldown > 0 || !Utils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
-            
-            other.gameObject.GetComponent<Health>().ChangeHealth(-damage);
-            _cooldown = damageCooldown;
-        }
-    }
+		// The current damage cooldown
+		private float _cooldown;
+
+		protected virtual void Update()
+		{
+			// Reduce cooldown by time
+			if (_cooldown > 0) _cooldown -= Time.deltaTime;
+		}
+
+		protected virtual void OnCollisionStay2D(Collision2D other)
+		{
+			// Make sure cooldown is complete and the collision is in the layermask to deal damage
+			if (_cooldown > 0 || !Utils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
+
+			other.gameObject.GetComponent<Health>().ChangeHealth(-damage);
+			_cooldown = damageCooldown;
+		}
+	}
 }

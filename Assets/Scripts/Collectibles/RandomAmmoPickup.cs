@@ -1,15 +1,27 @@
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Collectibles
 {
-    public class RandomAmmoPickup : AmmoPickup
-    {
-        [SerializeField] [Range(1, 50)] private int minAmt;
-        [SerializeField] [Range(1, 50)] private int maxAmt;
+	/// <summary>
+	///     Sets a random amount of ammo when initialized.
+	///     Used when zombies drop ammo.
+	/// </summary>
+	public class RandomAmmoPickup : AmmoPickup
+	{
+		// These bounds override the dropAmount in the base class on awake
+		[Header("Random Bounds")]
+		[Description("The minimum amount of ammo to be dropped")]
+		[SerializeField]
+		[Range(1, 50)]
+		private int minAmt;
 
-        private void Awake()
-        {
-            dropAmount = Random.Range(minAmt, maxAmt);
-        }
-    }
+		[Description("The maximum amount of ammo to be dropped")] [SerializeField] [Range(1, 50)]
+		private int maxAmt;
+
+		private void Awake()
+		{
+			dropAmount = Random.Range(minAmt, maxAmt);
+		}
+	}
 }

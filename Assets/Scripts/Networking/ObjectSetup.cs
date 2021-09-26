@@ -3,21 +3,19 @@ using UnityEngine;
 
 namespace Networking
 {
-    public class ObjectSetup : MonoBehaviour
-    {
-        [SerializeField] private Behaviour[] componentsToDisableIfNotMasterClient;
+	/// <summary>
+	///     Disables behaviours on remote players
+	/// </summary>
+	public class ObjectSetup : MonoBehaviour
+	{
+		[Header("Setup Configuration")] [SerializeField]
+		private Behaviour[] componentsToDisableIfNotMasterClient;
 
-        private void Start()
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-            
-            foreach (Behaviour behaviour in componentsToDisableIfNotMasterClient)
-            {
-                behaviour.enabled = false;
-            }
-        }
-    }
+		private void Start()
+		{
+			if (PhotonNetwork.IsMasterClient) return;
+
+			foreach (Behaviour behaviour in componentsToDisableIfNotMasterClient) behaviour.enabled = false;
+		}
+	}
 }

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
@@ -7,84 +5,78 @@ using UnityEngine.InputSystem;
 
 namespace Weapons
 {
-    [RequireComponent(typeof(AmmoInventory))]
-    public class WeaponsHandler : MonoBehaviourPun
-    {
-        [Description("The camera the player will see")]
-        [SerializeField] private Camera playerCamera;
-        
-        [Description("The child object containing the player's sprite and weapons")]
-        [SerializeField] private Transform playerSprite;
+	/// <summary>
+	///     WeaponsHandler handles the usage of a player's weapons.
+	/// </summary>
+	[RequireComponent(typeof(AmmoInventory))]
+	public class WeaponsHandler : MonoBehaviourPun
+	{
+		[Description("The camera the player will see")] [SerializeField]
+		private Camera playerCamera;
 
-        // The player's AmmoInventory
-        private AmmoInventory _ammoInventory;
-        
-        // The current weapon the player is using
-        private Weapon _currentWeapon;
+		[Description("The child object containing the player's sprite and weapons")] [SerializeField]
+		private Transform playerSprite;
 
-        private void Start()
-        {
-            _currentWeapon = GetComponentInChildren<Gun>();
-            _ammoInventory = GetComponent<AmmoInventory>();
-            _currentWeapon.Setup(_ammoInventory);
-        }
-        
-        public void FireAction(InputAction.CallbackContext context)
-        {
-            if (!photonView.IsMine) return;
-            
-            // When the mouse is pressed down, two actions are sent: started and performed
-            // We'll use performed here to check for the press
-            if (context.performed)
-            {
-                _currentWeapon.ToggleFire(true);
-                return;
-            }
+		private AmmoInventory _ammoInventory;
+		private Weapon        _currentWeapon;
 
-            // Cancelled indicates the mouse was released
-            // This is mainly to cancel
-            if (context.canceled)
-            {
-                _currentWeapon.ToggleFire(false);
-            }
-        }
+		private void Start()
+		{
+			_currentWeapon = GetComponentInChildren<Gun>();
+			_ammoInventory = GetComponent<AmmoInventory>();
+			_currentWeapon.Setup(_ammoInventory);
+		}
 
-        public void ReloadAction(InputAction.CallbackContext context)
-        {
-            if (!photonView.IsMine) return;
+		public void PreventFire(bool preventFire)
+		{
+			_currentWeapon.CanAttack = !preventFire;
+			transform.Find("PlayerObject").Find("WeaponPivot").gameObject.SetActive(!preventFire);
+		}
 
-            // Make sure this is only when the reload button is pressed
-            if (!context.performed) return;
+		public void FireAction(InputAction.CallbackContext context)
+		{
+			if (!photonView.IsMine) return;
 
-            _currentWeapon.Reload();
-        }
+			// When the mouse is pressed down, two actions are sent: started and performed
+			// We'll use performed here to check for the press
+			if (context.performed)
+			{
+				_currentWeapon.ToggleFire(true);
+				return;
+			}
 
-        // Makes the player face the mouse
-        public void FaceMouse(InputAction.CallbackContext context)
-        {
-            if (!photonView.IsMine) return;
-            
-            if(!context.performed) return;
+			// Cancelled indicates the mouse was released
+			// This is mainly to cancel
+			if (context.canceled) _currentWeapon.ToggleFire(false);
+		}
 
-            Vector2 mousePos = playerCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
+		public void ReloadAction(InputAction.CallbackContext context)
+		{
+			if (!photonView.IsMine) return;
 
-            Vector2 direction = mousePos - (Vector2) playerSprite.position;
+			// Make sure this is only when the reload button is pressed
+			if (!context.performed) return;
 
-            float angle = Utils.Vector2ToDeg(direction);
+			_currentWeapon.Reload();
+		}
 
-            playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            
-            // Allows the current weapon to be adjusted to face the mouse
-            if(_currentWeapon != null)
-            {
-                _currentWeapon.FaceMouse(direction.magnitude);
-            }
-        }
+		// Makes the player face the mouse
+		public void FaceMouse(InputAction.CallbackContext context)
+		{
+			if (!photonView.IsMine) return;
 
-        public void PreventFire(bool preventFire)
-        {
-            _currentWeapon.CanAttack = !preventFire;
-            transform.Find("PlayerObject").Find("WeaponPivot").gameObject.SetActive(!preventFire);
-        }
-    }
+			if (!context.performed) return;
+
+			Vector2 mousePos = playerCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
+
+			Vector2 direction = mousePos - (Vector2)playerSprite.position;
+
+			float angle = Utils.Vector2ToDeg(direction);
+
+			playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+			// Allows the current weapon to be adjusted to face the mouse
+			if (_currentWeapon != null) _currentWeapon.FaceMouse(direction.magnitude);
+		}
+	}
 }

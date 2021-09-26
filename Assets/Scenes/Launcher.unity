@@ -669,12 +669,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2125027183}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Lobby.MenuManager, Assembly-CSharp
         m_MethodName: OpenMenu
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1263565208}
-          m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Lobby.Menu, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1069,12 +1069,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2125027183}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: Lobby.MenuManager, Assembly-CSharp
         m_MethodName: OpenMenu
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 645285602}
-          m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Lobby.Menu, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1505,7 +1505,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuName: title
-  open: 0
 --- !u!1 &527412674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,7 +1998,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuName: createroom
-  open: 0
 --- !u!1 &660748789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,7 +2051,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuName: room
-  open: 0
 --- !u!1 &689797179
 GameObject:
   m_ObjectHideFlags: 0
@@ -2818,7 +2815,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuName: error
-  open: 0
 --- !u!1 &948926165
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,12 +3523,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2125027183}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: Lobby.MenuManager, Assembly-CSharp
         m_MethodName: OpenMenu
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1917619824}
-          m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Lobby.Menu, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4363,7 +4359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuName: findroom
-  open: 0
 --- !u!1 &1946409278
 GameObject:
   m_ObjectHideFlags: 0
@@ -4600,7 +4595,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuName: loading
-  open: 1
 --- !u!1 &2125027177
 GameObject:
   m_ObjectHideFlags: 0

@@ -8888,6 +8888,7 @@ GameObject:
   - component: {fileID: 1162648886}
   - component: {fileID: 1162648885}
   - component: {fileID: 1162648887}
+  - component: {fileID: 1162648888}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: Untagged
@@ -8907,7 +8908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef2df04681b4a10d8950d0bab8c6aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  localPlayer: {fileID: 0}
   playerPrefab: {fileID: 5676611098347806923, guid: 22b6fc01ed2c23789bcc7aaf1683d711,
     type: 3}
   spawnpoints:
@@ -8947,14 +8948,26 @@ MonoBehaviour:
     enemyType: {fileID: 9027714350541001172, guid: 7d178d64c618d137f9c5f4bd28cc9c2b,
       type: 3}
     count: 4
-    spawnRate: 5
+    spawnDelay: 0
+  waveDelay: 5
   spawnpoints:
   - {fileID: 923617848}
   - {fileID: 1830988208}
   - {fileID: 998038556}
   - {fileID: 484746660}
-  waveDelay: 5
   searchIntervalAmount: 1
+--- !u!114 &1162648888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162648884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d541119c4616f41ab6c3d95362f83e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1398930195
 PrefabInstance:
   m_ObjectHideFlags: 0

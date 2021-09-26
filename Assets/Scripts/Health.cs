@@ -1,57 +1,60 @@
 using Photon.Pun;
-using Photon.Pun.UtilityScripts;
 using UnityEngine;
 
+/// <summary>
+///     Health is the base class for all destructible objects.
+///     Once an object's health reaches 0, it is normally destroyed.
+/// </summary>
 public class Health : MonoBehaviourPun, IPunObservable
 {
-    [SerializeField] protected float initialHealth;
+	[SerializeField] protected float initialHealth;
 
-    protected float health;
+	protected float health;
 
-    private void Awake()
-    {
-        health = initialHealth;
-    }
+	private void Awake()
+	{
+		health = initialHealth;
+	}
 
-    public float GetHealth()
-    {
-        return health;
-    }
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+		if (stream.IsWriting)
+		{
+			stream.SendNext(health);
+			return;
+		}
 
-    public int GetRoundedHealth()
-    {
-        return Mathf.RoundToInt(health);
-    }
+		object received = stream.ReceiveNext();
+		health = (float)received;
+	}
 
-    public virtual void ChangeHealth(float change)
-    {
-        health += change;
+	public float GetHealth()
+	{
+		return health;
+	}
 
-        if (health > 0) return;
-        
-        OnDeath();
-    }
+	public int GetRoundedHealth()
+	{
+		return Mathf.RoundToInt(health);
+	}
 
-    protected virtual void OnDeath()
-    {
-        photonView.RPC("RpcOnDeath", RpcTarget.All);
-    }
+	public virtual void ChangeHealth(float change)
+	{
+		health += change;
 
-    [PunRPC]
-    protected void RpcOnDeath()
-    {
-        Destroy(gameObject);
-    }
+		if (health > 0) return;
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(health);
-            return;
-        }
+		OnDeath();
+	}
 
-        object received = stream.ReceiveNext();
-        health = (float)received;
-    }
+	protected virtual void OnDeath()
+	{
+		photonView.RPC("RpcOnDeath", RpcTarget.All);
+	}
+
+	[PunRPC]
+	protected void RpcOnDeath()
+	{
+		Destroy(gameObject);
+	}
 }
