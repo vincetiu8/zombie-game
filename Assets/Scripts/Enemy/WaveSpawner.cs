@@ -8,12 +8,12 @@ using Random = UnityEngine.Random;
 
 namespace Enemy
 {
-	#region Related Objects
-
-	// SpawnState holds the current state of the spawner
-	// Spawning: the spawner is creating enemies
-	// Waiting: the spawner is waiting until all enemies are dead
-	// Counting: the spawner is counting down the start of the next wave
+	/// <summary>
+	///     Represents the current state of the spawner.
+	///     Spawning: the spawner is creating enemies.
+	///     Waiting: the spawner is waiting until all enemies are dead.
+	///     Counting: the spawner is counting down the start of the next wave.
+	/// </summary>
 	public enum SpawnState
 	{
 		Spawning,
@@ -21,8 +21,10 @@ namespace Enemy
 		Counting
 	}
 
-	// Wave holds information about a wave
-	// This is settable in the inspector
+	/// <summary>
+	///     Holds information about a wave.
+	///     This is settable in the inspector.
+	/// </summary>
 	[Serializable]
 	public struct Wave
 	{
@@ -32,12 +34,11 @@ namespace Enemy
 		public float      spawnDelay;
 	}
 
-	#endregion
-
+	/// <summary>
+	///     Handles spawning waves of enemies.
+	/// </summary>
 	public class WaveSpawner : MonoBehaviour
 	{
-		#region Variables
-
 		[Header("Wave Information")] [Description("The enemy waves")] [SerializeField]
 		private Wave[] waves;
 
@@ -47,74 +48,19 @@ namespace Enemy
 		[Description("The positions where enemies can spawn")] [SerializeField]
 		private Transform[] spawnpoints;
 
-		// Holds the current state of the spawner
-		private SpawnState _state;
-
-		// The time until the next wave starts
-		private float _waveCountdown;
-
-		// The index of the next wave
-		private int _nextWaveIndex;
-
-		// The coroutine spawning the enemies
-		private Coroutine _spawnCoroutine;
-
 		[Header("Enemy Searching")]
 		[Description("How often the number of remaining enemies sholud be checked")]
 		[SerializeField]
 		[Range(0.1f, 5)]
 		private float searchIntervalAmount = 1f;
 
-		// The time remaining before the next enemy search
-		private float _searchInterval;
+		private int _nextWaveIndex;
 
-		#endregion
+		private float     _searchInterval;
+		private Coroutine _spawnCoroutine;
 
-		#region Wave Spawner Methods
-
-		// StartNextWave updates the wave index and countdown
-		private void StartNewWave()
-		{
-			_state = SpawnState.Counting;
-			_waveCountdown = waveDelay;
-
-			// In case the wave index exceeds the number of waves, we loop back to the start
-			_nextWaveIndex += 1 + waves.Length;
-			_nextWaveIndex %= waves.Length;
-		}
-
-		// SpawnWave spawns all enemies in a wave
-		private IEnumerator SpawnWave(Wave wave)
-		{
-			Debug.Log("Spawning wave: " + wave.waveName);
-			_state = SpawnState.Spawning;
-
-			for (int i = 0; i < wave.count; i++)
-			{
-				SpawnEnemy(wave.enemyType);
-				yield return new WaitForSeconds(wave.spawnDelay);
-			}
-
-			_state = SpawnState.Waiting;
-			_spawnCoroutine = null;
-		}
-
-		private void SpawnEnemy(Object enemy)
-		{
-			// Get a random spawnpoint
-			Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Length)];
-
-			PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
-		}
-
-		private static bool AreEnemiesAlive()
-		{
-			return GameObject.FindGameObjectWithTag("Enemy");
-		}
-
-		#endregion
-
-		#region Unity Callbacks
+		private SpawnState _state;
+		private float      _waveCountdown;
 
 		private void Start()
 		{
@@ -159,6 +105,49 @@ namespace Enemy
 			}
 		}
 
-		#endregion
+
+		/// <summary>
+		///     Updates the wave index and countdown
+		/// </summary>
+		private void StartNewWave()
+		{
+			_state = SpawnState.Counting;
+			_waveCountdown = waveDelay;
+
+			// In case the wave index exceeds the number of waves, we loop back to the start
+			_nextWaveIndex += 1 + waves.Length;
+			_nextWaveIndex %= waves.Length;
+		}
+
+		/// <summary>
+		///     Spawns all enemies in a wave
+		/// </summary>
+		private IEnumerator SpawnWave(Wave wave)
+		{
+			Debug.Log("Spawning wave: " + wave.waveName);
+			_state = SpawnState.Spawning;
+
+			for (int i = 0; i < wave.count; i++)
+			{
+				SpawnEnemy(wave.enemyType);
+				yield return new WaitForSeconds(wave.spawnDelay);
+			}
+
+			_state = SpawnState.Waiting;
+			_spawnCoroutine = null;
+		}
+
+		private void SpawnEnemy(Object enemy)
+		{
+			// Get a random spawnpoint
+			Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Length)];
+
+			PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
+		}
+
+		private static bool AreEnemiesAlive()
+		{
+			return GameObject.FindGameObjectWithTag("Enemy");
+		}
 	}
 }

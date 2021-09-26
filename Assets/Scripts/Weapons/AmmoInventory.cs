@@ -4,24 +4,15 @@ using UnityEngine;
 
 namespace Weapons
 {
-	#region Other Objects
-
-	// AmmoDict is a specific SerializableDictionary
-	// This allows the dict to be displayed in the unity editor
 	[Serializable]
 	public class AmmoDict : SerializableDictionary<AmmoType, AmmoEntry>
 	{
 	}
 
-	#endregion
-
-
 	public class AmmoInventory : MonoBehaviour
 	{
 		[Description("The player's ammo inventory")] [SerializeField]
 		private AmmoDict ammoInventory;
-
-		#region Methods
 
 		private void Awake()
 		{
@@ -42,14 +33,22 @@ namespace Weapons
 			}
 		}
 
-		// Get's the amount of bullets of the AmmoType the player currently has
+		/// <summary>
+		///     Gets the amount of bullets of the AmmoType the player currently has.
+		/// </summary>
+		/// <param name="type">The ammo type to search for</param>
+		/// <returns>The amount of bullets the player has of the type</returns>
 		public int GetAmmo(AmmoType type)
 		{
 			return ammoInventory[type].currentStock;
 		}
 
-		// Deposits ammo into the player's inventory
-		// Returns the amount of ammo deposited
+		/// <summary>
+		///     Deposits ammo into the player's inventory.
+		/// </summary>
+		/// <param name="type">The type of ammo to deposit</param>
+		/// <param name="amount">The amount of ammo to deposit</param>
+		/// <returns>The amount of ammo actually deposited</returns>
 		public int DepositAmmo(AmmoType type, int amount)
 		{
 			AmmoEntry ammoEntry = ammoInventory[type];
@@ -59,8 +58,12 @@ namespace Weapons
 			return amount;
 		}
 
-		// Withdraws ammo from the player's inventory
-		// Returns the amount of ammo withdrawn
+		/// <summary>
+		///     Withdraws ammo from the player's inventory.
+		/// </summary>
+		/// <param name="type">The type of ammo to withdraw</param>
+		/// <param name="amount">The amount of ammo to withdraw</param>
+		/// <returns>The amount of ammo actually withdrawn</returns>
 		public int WithdrawAmmo(AmmoType type, int amount)
 		{
 			AmmoEntry ammoEntry = ammoInventory[type];
@@ -69,7 +72,5 @@ namespace Weapons
 			ammoInventory[type] = ammoEntry;
 			return amount;
 		}
-
-		#endregion
 	}
 }

@@ -3,17 +3,13 @@ using Weapons;
 
 namespace Interact
 {
-	// Movable object represents an object the player can pickup and move
+	/// <summary>
+	///     Movable object represents an object the player can pickup and move.
+	/// </summary>
 	public class MovableObject : Interactable
 	{
-		#region Variables
-
-		private bool         _isHolding;
 		private Collider2D[] _colList;
-
-		#endregion
-
-		#region Methods
+		private bool         _isHolding;
 
 		private void Awake()
 		{
@@ -46,7 +42,5 @@ namespace Interact
 		{
 			foreach (Collider2D colliders in _colList) colliders.enabled = active;
 		}
-
-		#endregion
 	}
 }

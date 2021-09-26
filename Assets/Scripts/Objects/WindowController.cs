@@ -3,9 +3,22 @@ using UnityEngine;
 
 namespace Objects
 {
-	// Window controller handles zombies breaking the window
+	/// <summary>
+	///     Handles zombies breaking the window.
+	/// </summary>
 	public class WindowController : Health
 	{
+		[HideInInspector] public bool zombieAtWindow;
+
+		[Header("Window Settings")] [Description("The graphics for each barricade")] [SerializeField]
+		private GameObject barricadesGraphics;
+
+		[Description("The window's collider")] [SerializeField]
+		private GameObject windowCollider;
+
+		[Description("The rate at which health is decreased")] [SerializeField] [Range(0.25f, 10)]
+		private float barricadeBreakRate;
+
 		private void OnTriggerExit2D(Collider2D collision)
 		{
 			if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
@@ -36,20 +49,5 @@ namespace Objects
 			else if (health - previousHealth > 0)
 				barricadesGraphics.transform.GetChild((int)health - 1).gameObject.SetActive(true);
 		}
-
-		#region Variables
-
-		[HideInInspector] public bool zombieAtWindow;
-
-		[Header("Window Settings")] [Description("The graphics for each barricade")] [SerializeField]
-		private GameObject barricadesGraphics;
-
-		[Description("The window's collider")] [SerializeField]
-		private GameObject windowCollider;
-
-		[Description("The rate at which health is decreased")] [SerializeField] [Range(0.25f, 10)]
-		private float barricadeBreakRate;
-
-		#endregion
 	}
 }

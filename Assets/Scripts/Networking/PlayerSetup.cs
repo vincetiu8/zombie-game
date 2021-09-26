@@ -3,16 +3,12 @@ using UnityEngine;
 
 namespace Networking
 {
-	// PlayerSetup disables components on remote player instances
+	/// <summary>
+	///     Disables behaviours on remote player instances
+	/// </summary>
 	public class PlayerSetup : MonoBehaviour
 	{
-		#region Variales
-
 		[SerializeField] private Behaviour[] componentsToDisableIfNotMine;
-
-		#endregion
-
-		#region Methods
 
 		private void Start()
 		{
@@ -21,7 +17,5 @@ namespace Networking
 
 			foreach (Behaviour behaviour in componentsToDisableIfNotMine) behaviour.enabled = false;
 		}
-
-		#endregion
 	}
 }

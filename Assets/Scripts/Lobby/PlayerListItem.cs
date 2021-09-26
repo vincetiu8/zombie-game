@@ -7,14 +7,10 @@ namespace Lobby
 {
 	public class PlayerListItem : MonoBehaviourPunCallbacks
 	{
-		#region Variables
-
 		[SerializeField] private TMP_Text text;
-		private                  Player   _player;
 
-		#endregion
+		private Player _player;
 
-		#region Methods
 
 		public void Setup(Player player)
 		{
@@ -34,7 +30,5 @@ namespace Lobby
 		{
 			Destroy(gameObject);
 		}
-
-		#endregion
 	}
 }

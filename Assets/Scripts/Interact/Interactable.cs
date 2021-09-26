@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Interact
 {
-	// Interactable is the base class for all interactable objects
-	// It handles players entering and exiting the intractable trigger area
+	/// <summary>
+	///     Interactable is the base class for all interactable objects.
+	///     It handles players entering and exiting the intractable trigger area.
+	/// </summary>
 	[RequireComponent(typeof(Collider2D))]
 	public abstract class Interactable : MonoBehaviourPun
 	{
-		#region Methods
-
 		// Added for debugging convenience
 		private void Start()
 		{
@@ -19,8 +19,6 @@ namespace Interact
 
 			Debug.LogError("No trigger colliders attached to interactable object, can't interact.");
 		}
-
-		public abstract void Interact(GameObject player);
 
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
@@ -35,6 +33,6 @@ namespace Interact
 				collision.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
 		}
 
-		#endregion
+		public abstract void Interact(GameObject player);
 	}
 }

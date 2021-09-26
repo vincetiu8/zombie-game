@@ -7,19 +7,25 @@ using UnityEngine;
 /// </summary>
 public class Health : MonoBehaviourPun, IPunObservable
 {
-	#region Variables
-
 	[SerializeField] protected float initialHealth;
 
 	protected float health;
 
-	#endregion
-
-	#region Methods
-
 	private void Awake()
 	{
 		health = initialHealth;
+	}
+
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+		if (stream.IsWriting)
+		{
+			stream.SendNext(health);
+			return;
+		}
+
+		object received = stream.ReceiveNext();
+		health = (float)received;
 	}
 
 	public float GetHealth()
@@ -51,18 +57,4 @@ public class Health : MonoBehaviourPun, IPunObservable
 	{
 		Destroy(gameObject);
 	}
-
-	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-	{
-		if (stream.IsWriting)
-		{
-			stream.SendNext(health);
-			return;
-		}
-
-		object received = stream.ReceiveNext();
-		health = (float)received;
-	}
-
-	#endregion
 }

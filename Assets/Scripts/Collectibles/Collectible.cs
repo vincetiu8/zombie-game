@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Collectibles
 {
-	// Collectible represents an object that is destroyed when the player interacts (collects) it
+	/// <summary>
+	///     Represents an object that is destroyed when the player interacts (collects) it.
+	/// </summary>
 	public abstract class Collectible : Interactable
 	{
-		#region Methods
-
 		public override void Interact(GameObject player)
 		{
 			Pickup(player);
@@ -15,7 +15,5 @@ namespace Collectibles
 		}
 
 		protected abstract void Pickup(GameObject player);
-
-		#endregion
 	}
 }

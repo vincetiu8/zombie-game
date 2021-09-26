@@ -2,18 +2,14 @@ using UnityEngine;
 
 namespace Weapons
 {
-	// Bullet is a one-time collision damager with a lifetime
+	/// <summary>
+	///     A one-time collision damager with a lifetime.
+	/// </summary>
 	public class Bullet : CollisionDamager
 	{
-		#region Variables
-
 		public float lifetime;
 
 		private float _timeAlive;
-
-		#endregion
-
-		#region Methods
 
 		protected override void Update()
 		{
@@ -25,14 +21,12 @@ namespace Weapons
 			base.Update();
 		}
 
-		// Destroy the bullet on a collision
 		protected override void OnCollisionStay2D(Collision2D other)
 		{
 			base.OnCollisionStay2D(other);
 
+			// Destroy the bullet on a collision
 			Destroy(gameObject);
 		}
-
-		#endregion
 	}
 }

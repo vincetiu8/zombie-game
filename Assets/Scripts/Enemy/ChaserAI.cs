@@ -3,20 +3,17 @@ using UnityEngine;
 
 namespace Enemy
 {
-	// ChaserAI implements a simple script that makes the enemy move directly towards the player it's targeting
+	/// <summary>
+	///     Makes the enemy move directly towards the player it's targeting.
+	/// </summary>
 	public class ChaserAI : MonoBehaviour
 	{
-		#region Variables
-
 		[Header("Chasing Settings")] [Description("The speed the enemy moves at")] [SerializeField] [Range(0.25f, 10)]
 		private float movementSpeed;
 
-		private Rigidbody2D    _rigidbody2D;
 		private PlayerDetector _playerDetector;
 
-		#endregion
-
-		#region Methods
+		private Rigidbody2D _rigidbody2D;
 
 		private void Awake()
 		{
@@ -36,7 +33,5 @@ namespace Enemy
 			float angle = Utils.Vector2ToDeg(direction);
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
-
-		#endregion
 	}
 }

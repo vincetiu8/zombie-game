@@ -6,12 +6,10 @@ using UnityEngine;
 namespace Weapons
 {
 	/// <summary>
-	///     Gun is a Weapon that fires bullets
+	/// Gun is a Weapon that fires bullets.
 	/// </summary>
 	public class Gun : Weapon
 	{
-		#region Variables
-
 		[Description("The gun's ammo type")] [SerializeField]
 		private AmmoType ammoType;
 
@@ -24,22 +22,12 @@ namespace Weapons
 		[Description("The bullet prefab to be instantiated")] [SerializeField]
 		private GameObject bulletPrefab;
 
-		// The current GunAttributes
-		private GunAttributes _currentGunAttributes;
-
-		// Current number of bullets in the magazine
 		private int _bulletsInMagazine;
 
-		// Coroutine representing the reload
-		// If this is not null, the player is currently reloading
-		private Coroutine _reloadCoroutine;
+		private GunAttributes _currentGunAttributes;
+		private float         _gunOffsetAdjustment;
+		private Coroutine     _reloadCoroutine;
 
-		// The adjustment necessary to correct the gun's rotation
-		private float _gunOffsetAdjustment;
-
-		#endregion
-
-		#region Methods
 
 		protected override void Start()
 		{
@@ -96,9 +84,11 @@ namespace Weapons
 			currentAttributes = _currentGunAttributes;
 		}
 
-		// Calculates the vertical distance between the firepoint and the player pivot
-		// Abstracted into method in case we add multiple weapon sprites in the future
-		// That would require recalculation of the offset each time a sprite is loaded
+		/// <summary>
+		///     Calculates the vertical distance between the firepoint and the player pivot.
+		///     Abstracted into method in case we add multiple weapon sprites in the future.
+		///     That would require recalculation of the offset each time a sprite is loaded.
+		/// </summary>
 		private void CalculateGunOffsetAdjustment()
 		{
 			_gunOffsetAdjustment = -firepoint.localPosition.y - transform.localPosition.y;
@@ -117,7 +107,5 @@ namespace Weapons
 		{
 			return $"{weaponName} Level {currentLevel} Stats:\n{currentAttributes}";
 		}
-
-		#endregion
 	}
 }

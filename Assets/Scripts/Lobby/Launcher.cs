@@ -10,8 +10,6 @@ namespace Lobby
 	// Launcher handles connecting to rooms and loading the game
 	public class Launcher : MonoBehaviourPunCallbacks
 	{
-		#region Variables
-
 		public static Launcher instance;
 
 		[Header("UI Objects")] [SerializeField]
@@ -25,10 +23,6 @@ namespace Lobby
 		[SerializeField] private GameObject playerListItemPrefab;
 		[SerializeField] private GameObject startGameButton;
 
-		#endregion
-
-		#region Unity Callbacks
-
 		private void Awake()
 		{
 			instance = this;
@@ -39,10 +33,6 @@ namespace Lobby
 			Debug.Log("Connecting to Master");
 			PhotonNetwork.ConnectUsingSettings();
 		}
-
-		#endregion
-
-		#region PUN Callbacks
 
 		public override void OnConnectedToMaster()
 		{
@@ -114,10 +104,6 @@ namespace Lobby
 			Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().Setup(newPlayer);
 		}
 
-		#endregion
-
-		#region Public Methods
-
 		public void CreateRoom()
 		{
 			if (string.IsNullOrEmpty(roomNameInputField.text))
@@ -145,7 +131,5 @@ namespace Lobby
 			PhotonNetwork.JoinRoom(info.Name);
 			MenuManager.instance.OpenMenu("loading");
 		}
-
-		#endregion
 	}
 }

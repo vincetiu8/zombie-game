@@ -6,11 +6,17 @@ using UnityEngine.InputSystem;
 
 namespace UI
 {
-	// PauseMenu controls the pause menu in the game
+	/// <summary>
+	///     Controls the pause menu in the game
+	/// </summary>
 	public class PauseMenu : MonoBehaviour
 	{
-		// Method is used by input, so needs to be public
-		// ReSharper disable once MemberCanBePrivate.Global
+		[Header("Pause Menu Objects")] [Description("The UI with the pause menu")] [SerializeField]
+		private GameObject pauseMenuUI;
+
+		private bool        _gamePaused;
+		private PlayerInput _playerInput;
+
 		public void PauseMenuToggle()
 		{
 			// Checks this here since the pause menu may be instantiated before the player is
@@ -37,15 +43,5 @@ namespace UI
 		{
 			Application.Quit();
 		}
-
-		#region Variables
-
-		[Header("Pause Menu Objects")] [Description("The UI with the pause menu")] [SerializeField]
-		private GameObject pauseMenuUI;
-
-		private bool        _gamePaused;
-		private PlayerInput _playerInput;
-
-		#endregion
 	}
 }

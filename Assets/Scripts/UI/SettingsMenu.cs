@@ -8,17 +8,10 @@ namespace UI
 	// SettingsMenu handles the in-game configurable settings
 	public class SettingsMenu : MonoBehaviour
 	{
-		#region Variables
-
 		public  AudioMixer   audioMixer;
 		public  Dropdown     resDropdown;
 		public  Dropdown     graphicsDropdown;
 		private Resolution[] _resolutions;
-
-		#endregion
-
-
-		#region Methods
 
 		private void Start()
 		{
@@ -77,7 +70,5 @@ namespace UI
 		{
 			Screen.fullScreen = isFullscreen;
 		}
-
-		#endregion
 	}
 }

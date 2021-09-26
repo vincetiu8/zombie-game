@@ -3,6 +3,10 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Objects
 {
+	/// <summary>
+	///     Script to disable the editor light on play.
+	///     This allows shadows to be removed in the editor for convenience.
+	/// </summary>
 	public class EditorLightDisabler : MonoBehaviour
 	{
 		private Light2D _light2D;

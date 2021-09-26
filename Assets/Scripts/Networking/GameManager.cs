@@ -23,8 +23,6 @@ namespace Networking
 		private void Start()
 		{
 			// Selecting spawn randomly from a range
-			// todo: once rooms are implemented, have the spawn predetermined by the player's room number
-			Debug.Log("Spawning Player!");
 			int position = Random.Range(0, spawnpoints.Length);
 			Vector3 spawnPosition = spawnpoints[position].position;
 			localPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);

@@ -7,13 +7,7 @@ namespace Lobby
 	[RequireComponent(typeof(InputField))]
 	public class PlayerNameInputManager : MonoBehaviour
 	{
-		#region Variables
-
 		private const string PlayerNamePrefKey = "PlayerName";
-
-		#endregion
-
-		#region Unity Methods
 
 		private void Start()
 		{
@@ -29,10 +23,6 @@ namespace Lobby
 			PhotonNetwork.NickName = defaultName;
 		}
 
-		#endregion
-
-		#region Public Methods
-
 		public void SetPlayerName(string value)
 		{
 			if (string.IsNullOrEmpty(value)) return;
@@ -40,7 +30,5 @@ namespace Lobby
 			PhotonNetwork.NickName = value;
 			PlayerPrefs.SetString(PlayerNamePrefKey, value);
 		}
-
-		#endregion
 	}
 }

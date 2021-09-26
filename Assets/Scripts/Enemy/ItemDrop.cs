@@ -6,28 +6,19 @@ using Random = UnityEngine.Random;
 
 namespace Enemy
 {
-	#region Related Objects
-
 	[Description("A mapping of a percentage to an object. If the rolled percentage is lower, the object is dropped.")]
 	[Serializable]
 	public class ItemDict : SerializableDictionary<int, GameObject>
 	{
 	}
 
-	#endregion
-
-
-	// Item drop is an extension of the health script that drops an item when the object is destroyed
+	/// <summary>
+	///     An extension of the Health script that drops an item when the object is destroyed
+	/// </summary>
 	public class ItemDrop : Health
 	{
-		#region Variables
-
 		[Header("Item Drops")] [Description("Item drops for this enemy")] [SerializeField]
 		private ItemDict itemDict;
-
-		#endregion
-
-		#region Methods
 
 		private void Awake()
 		{
@@ -62,7 +53,5 @@ namespace Enemy
 
 			Instantiate(minItem, transform.position, Quaternion.identity);
 		}
-
-		#endregion
 	}
 }

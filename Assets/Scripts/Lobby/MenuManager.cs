@@ -2,27 +2,20 @@ using UnityEngine;
 
 namespace Lobby
 {
-	// MenuManager handles opening and closing menus
+	/// <summary>
+	///     Handles opening and closing menus.
+	/// </summary>
+	// MenuManager 
 	public class MenuManager : MonoBehaviour
 	{
-		#region Unity Methods
+		public static MenuManager instance;
+
+		[SerializeField] private Menu[] menus;
 
 		private void Awake()
 		{
 			instance = this;
 		}
-
-		#endregion
-
-		#region Variables
-
-		public static MenuManager instance;
-
-		[SerializeField] private Menu[] menus;
-
-		#endregion
-
-		#region Public Methods
 
 		public void OpenMenu(string menuName)
 		{
@@ -33,7 +26,5 @@ namespace Lobby
 		{
 			OpenMenu(menu.menuName);
 		}
-
-		#endregion
 	}
 }

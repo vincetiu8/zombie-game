@@ -7,20 +7,16 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Objects
 {
-	// Lantern handles changing and syncing the lighting of the lanterns
+	/// <summary>
+	///     Handles changing and syncing the lighting of the lanterns.
+	/// </summary>
 	public class Lantern : Interactable
 	{
-		#region Variables
-
 		[Header("Lantern Settings")] [Description("The duration the lantern stays on")] [SerializeField]
 		private float duration;
 
 		private Coroutine _fadeLightingCoroutine;
 		private Light2D   _light2D;
-
-		#endregion
-
-		#region Methods
 
 		private void Start()
 		{
@@ -54,7 +50,5 @@ namespace Objects
 
 			_fadeLightingCoroutine = null;
 		}
-
-		#endregion
 	}
 }

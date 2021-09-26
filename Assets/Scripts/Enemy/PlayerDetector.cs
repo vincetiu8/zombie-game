@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Enemy
 {
-	// This script can be expanded in the future if other tracking methods are needed
-	// Make into an abstract class and make child classes for each tracking strategy
+	/// <summary>
+	///     Tracks a player based on proximity.
+	///     The stickiness can be set to make the enemy prefer continuing to track a player instead of switching.
+	/// </summary>
 	public class PlayerDetector : MonoBehaviour
 	{
-		#region Variables
-
 		[Header("Tracker Configuration")]
 		[Description("How much the enemy 'sticks' to the current player it's tracking")]
 		[Range(1, 5f)]
@@ -21,69 +21,10 @@ namespace Enemy
 		[SerializeField]
 		private float updatePeriod = 1;
 
-		private Transform       _trackingPlayer;
 		private List<Transform> _players;
-		private float           _updateCooldown;
 
-		#endregion
-
-		#region Tracking Methods
-
-		// UpdateTrackingPlayer updates the tracking player
-		private void UpdateTrackingPlayer()
-		{
-			float minDistance = float.PositiveInfinity;
-
-			foreach (Transform player in _players)
-			{
-				float playerDistance = (player.position - transform.position).magnitude;
-
-				// We give priority to the current player we're tracking based on "stickiness"
-				// This prevents the enemy from being stuck deciding between players
-				if (playerDistance * targetStickiness > minDistance) continue;
-
-				minDistance = playerDistance;
-				_trackingPlayer = player;
-			}
-
-			_updateCooldown = updatePeriod;
-		}
-
-		// AddPlayer adds a player to the list of tracked players
-		private void AddPlayer(Transform other)
-		{
-			_players.Add(other);
-
-			if (_updateCooldown > 0) return;
-
-			UpdateTrackingPlayer();
-		}
-
-		// RemovePlayer removes a player from the list of tracked players
-		private void RemovePlayer(Transform other)
-		{
-			_players.Remove(other);
-			if (_trackingPlayer != other) return;
-
-			if (_players.Count == 0)
-			{
-				_trackingPlayer = null;
-				return;
-			}
-
-			UpdateTrackingPlayer();
-		}
-
-		public Vector2 GetTrackingPlayerDirection()
-		{
-			if (!_trackingPlayer) return Vector2.zero;
-
-			return (_trackingPlayer.position - transform.position).normalized;
-		}
-
-		#endregion
-
-		#region Unity Callbacks
+		private Transform _trackingPlayer;
+		private float     _updateCooldown;
 
 		private void Awake()
 		{
@@ -115,6 +56,62 @@ namespace Enemy
 			RemovePlayer(other.transform);
 		}
 
-		#endregion
+		/// <summary>
+		///     Updates the tracking player.
+		/// </summary>
+		private void UpdateTrackingPlayer()
+		{
+			float minDistance = float.PositiveInfinity;
+
+			foreach (Transform player in _players)
+			{
+				float playerDistance = (player.position - transform.position).magnitude;
+
+				// We give priority to the current player we're tracking based on "stickiness"
+				// This prevents the enemy from being stuck deciding between players
+				if (playerDistance * targetStickiness > minDistance) continue;
+
+				minDistance = playerDistance;
+				_trackingPlayer = player;
+			}
+
+			_updateCooldown = updatePeriod;
+		}
+
+		/// <summary>
+		///     Adds a player to the list of tracked players.
+		/// </summary>
+		private void AddPlayer(Transform other)
+		{
+			_players.Add(other);
+
+			if (_updateCooldown > 0) return;
+
+			UpdateTrackingPlayer();
+		}
+
+		/// <summary>
+		///     Removes a player from the list of tracked players
+		/// </summary>
+		private void RemovePlayer(Transform other)
+		{
+			_players.Remove(other);
+			if (_trackingPlayer != other) return;
+
+			if (_players.Count == 0)
+			{
+				_trackingPlayer = null;
+				return;
+			}
+
+			UpdateTrackingPlayer();
+		}
+
+		public Vector2 GetTrackingPlayerDirection()
+		{
+			if (!_trackingPlayer) return Vector2.zero;
+
+			return (_trackingPlayer.position - transform.position).normalized;
+		}
 	}
 }

@@ -4,17 +4,15 @@ using UnityEngine.InputSystem;
 
 namespace Interact
 {
-	// PlayerInteract handles player triggering interactable objects
+	/// <summary>
+	///     PlayerInteract handles player triggering interactable objects.
+	/// </summary>
 	public class PlayerInteract : MonoBehaviour
 	{
-		#region Variables
-
-		// List to keep track of how many interactable objects are in rang
+		/// <summary>
+		///     List to keep track of how many interactable objects are in range.
+		/// </summary>
 		private readonly List<GameObject> _interactPriorityList = new List<GameObject>();
-
-		#endregion
-
-		#region Methods
 
 		public void AddInteractableObject(GameObject interact)
 		{
@@ -45,7 +43,5 @@ namespace Interact
 
 			closestObject.GetComponent<Interactable>().Interact(gameObject);
 		}
-
-		#endregion
 	}
 }

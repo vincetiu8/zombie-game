@@ -3,28 +3,35 @@ using UnityEngine;
 
 namespace Shop
 {
-	// GoldSystem handles gold across players
+	/// <summary>
+	///     Handles accessing information and updating gold.
+	/// </summary>
 	public class GoldSystem : MonoBehaviour
 	{
-		#region Variables
-
 		// Dictionary that contains all the players and the gold they have
 		// Makes it easier to display all player's gold on the UI as well
 		private readonly Dictionary<string, int> _allPlayerGold = new Dictionary<string, int>();
 
-		#endregion
-
-		#region Methods
-
-		// Adds a set amount of gold to all specified players
+		/// <summary>
+		///     Adds a set amount of gold to all specified players.
+		/// </summary>
+		/// <param name="playerNames">The names of the players to add the gold to</param>
+		/// <param name="goldAmount">The amount of gold to add</param>
 		public void AddGold(List<string> playerNames, int goldAmount)
 		{
 			foreach (string playerName in playerNames)
+			{
 				if (_allPlayerGold.ContainsKey(playerName))
 					_allPlayerGold[playerName] += goldAmount;
+			}
 		}
 
-		// Attempts to withdraw a certain amount of gold from a player's balance
+		/// <summary>
+		///     Attempts to withdraw a certain amount of gold from a player's balance.
+		/// </summary>
+		/// <param name="playerName">The name of the player to withdraw gold from</param>
+		/// <param name="goldAmount">The amount of gold to withdraw</param>
+		/// <returns>Whether the gold was withdrawn successfully</returns>
 		public bool WithdrawGold(string playerName, int goldAmount)
 		{
 			if (_allPlayerGold.ContainsKey(playerName))
@@ -61,7 +68,5 @@ namespace Shop
 		{
 			_allPlayerGold.Remove(playerName);
 		}
-
-		#endregion
 	}
 }

@@ -3,12 +3,10 @@ using System.ComponentModel;
 
 namespace Weapons
 {
-	#region Other Objects
-
 	/// <summary>
-	///     AmmoType represents all the ammo types in the game.
-	///     There are 3 kinds: primary, heavy and special.
-	///     Each gun also has an AmmoType, representing the bullets it uses.
+	/// AmmoType represents all the ammo types in the game.
+	/// There are 3 kinds: primary, heavy and special.
+	/// Each gun also has an AmmoType, representing the bullets it uses.
 	/// </summary>
 	public enum AmmoType
 	{
@@ -18,7 +16,7 @@ namespace Weapons
 	}
 
 	/// <summary>
-	///     An entry in the AmmoInventory. Each AmmoType has exactly 1 associated AmmoEntry.
+	/// An entry in the AmmoInventory. Each AmmoType has exactly 1 associated AmmoEntry.
 	/// </summary>
 	[Serializable]
 	public struct AmmoEntry
@@ -30,10 +28,8 @@ namespace Weapons
 		public int currentStock;
 	}
 
-	#endregion
-
 	/// <summary>
-	///     Extra features a Gun has in addition to a normal weapon.
+	///	Extra features a Gun has in addition to a normal weapon.
 	/// </summary>
 	[Serializable]
 	public class GunAttributes : WeaponAttributes

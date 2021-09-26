@@ -10,37 +10,18 @@ namespace Weapons
 	/// </summary>
 	public abstract class Weapon : MonoBehaviourPun
 	{
-		#region Variables
-
 		[Description("The weapon's name")] [SerializeField]
 		protected string weaponName;
 
-		// The maximum level of the weapon
-		// Should be set in a subclass
-		protected int maxLevel;
-
-		// The current level of the weapon
-		protected int currentLevel;
-
-		// The weapon attributes
-		protected WeaponAttributes currentAttributes;
-
-		// The player's ammo inventory
-		protected AmmoInventory ammoInventory;
-
-		// Represents whether the weapon is currently firing for full auto weapons
-		// Not used for semi auto
-		private bool _isFiring;
-
-		// Amount of seconds before the weapon can be fired again
 		private float _fireCooldown;
 
-		// Will be false if player is in animation or doing something that shouldn't allow them to fire their weapon
-		internal bool CanAttack;
+		private   bool             _isFiring;
+		protected AmmoInventory    ammoInventory;
+		internal  bool             CanAttack;
+		protected WeaponAttributes currentAttributes;
+		protected int              currentLevel;
 
-		#endregion
-
-		#region Unity Callbacks
+		protected int maxLevel;
 
 		// Should be overridden to set maxLevel
 		protected virtual void Start()
@@ -66,17 +47,15 @@ namespace Weapons
 			if (currentAttributes.fullAuto && _isFiring) Fire();
 		}
 
-		#endregion
-
-		#region Exposed Methods
-
 		public void Setup(AmmoInventory inventory)
 		{
 			ammoInventory = inventory;
 		}
 
-		// Called when mouse is pressed or released
-		// Toggle is true when pressed, false when released
+		/// <summary>
+		///     Called when mouse is pressed or released
+		/// </summary>
+		/// <param name="toggle">Whether the mouse was pressed or released</param>
 		public void ToggleFire(bool toggle)
 		{
 			if (!CanAttack) return;
@@ -92,18 +71,15 @@ namespace Weapons
 			_isFiring = toggle;
 		}
 
-		// Base fire method, should be overridden by subclasses
 		protected virtual void Fire()
 		{
 			_fireCooldown = currentAttributes.fireCooldown;
 		}
 
-		// Base reload method, should be overridden by subclasses
 		public virtual void Reload()
 		{
 		}
 
-		// Base upgrade method, should be overridden by subclasses
 		public virtual void Upgrade()
 		{
 			// Block upgrading the weapon if there are no more levels left to unlock
@@ -112,11 +88,12 @@ namespace Weapons
 			currentLevel++;
 		}
 
-		// Optional method to align weapon with cursor if needed
+		/// <summary>
+		///     Optional method to align weapon with cursor if needed.
+		/// </summary>
+		/// <param name="distance">The distance from the cursor to the object</param>
 		public virtual void FaceMouse(float distance)
 		{
 		}
-
-		#endregion
 	}
 }

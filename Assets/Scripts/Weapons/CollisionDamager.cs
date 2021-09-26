@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Weapons
 {
-	// CollisionDamager damages an object as a function of time
+	/// <summary>
+	///     Damages an object as a function of time
+	/// </summary>
 	public class CollisionDamager : MonoBehaviour
 	{
-		#region Variables
-
 		[Description("The damage per attack")] public float damage;
 
 		[Description("The cooldown between damage reductions")]
@@ -18,10 +18,6 @@ namespace Weapons
 
 		// The current damage cooldown
 		private float _cooldown;
-
-		#endregion
-
-		#region Methods
 
 		protected virtual void Update()
 		{
@@ -37,7 +33,5 @@ namespace Weapons
 			other.gameObject.GetComponent<Health>().ChangeHealth(-damage);
 			_cooldown = damageCooldown;
 		}
-
-		#endregion
 	}
 }

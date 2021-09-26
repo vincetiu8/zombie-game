@@ -11,23 +11,14 @@ namespace Weapons
 	[RequireComponent(typeof(AmmoInventory))]
 	public class WeaponsHandler : MonoBehaviourPun
 	{
-		#region Variables
-
 		[Description("The camera the player will see")] [SerializeField]
 		private Camera playerCamera;
 
 		[Description("The child object containing the player's sprite and weapons")] [SerializeField]
 		private Transform playerSprite;
 
-		// The player's AmmoInventory
 		private AmmoInventory _ammoInventory;
-
-		// The current weapon the player is using
-		private Weapon _currentWeapon;
-
-		#endregion
-
-		#region Methods
+		private Weapon        _currentWeapon;
 
 		private void Start()
 		{
@@ -41,10 +32,6 @@ namespace Weapons
 			_currentWeapon.CanAttack = !preventFire;
 			transform.Find("PlayerObject").Find("WeaponPivot").gameObject.SetActive(!preventFire);
 		}
-
-		#endregion
-
-		#region Input Actions
 
 		public void FireAction(InputAction.CallbackContext context)
 		{
@@ -91,7 +78,5 @@ namespace Weapons
 			// Allows the current weapon to be adjusted to face the mouse
 			if (_currentWeapon != null) _currentWeapon.FaceMouse(direction.magnitude);
 		}
-
-		#endregion
 	}
 }
