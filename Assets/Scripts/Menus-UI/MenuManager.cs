@@ -36,9 +36,9 @@ namespace Menus_UI
 				if(menus[i].menuName == menuName)
 				{
 					menus[i].Open();
-					if (menus[i].isFreezable)
+					if (menus[i].freezePlayerInput)
 					{
-						Utils.DisableInput(!menus[i].isFreezable, playerInput);
+						Utils.DisableInput(!menus[i].freezePlayerInput, playerInput);
 					}
 				}
 				else if(menus[i].open)
@@ -56,8 +56,8 @@ namespace Menus_UI
 		public void CloseMenu(Menu menu)
 		{
 			menu.Close();
-			if(!menu.isFreezable) return;
-			Utils.DisableInput(menu.isFreezable, playerInput);
+			if(!menu.freezePlayerInput) return;
+			Utils.DisableInput(menu.freezePlayerInput, playerInput);
 		}
 		#endregion
 	}

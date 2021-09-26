@@ -9,7 +9,7 @@ public class Menu : MonoBehaviour
 	public bool open;
 	//controls whether player input should
 	//be disabled upon menu activation
-	public bool isFreezable;
+	public bool freezePlayerInput;
 
 	public void Open()
 	{
