@@ -21,7 +21,7 @@ namespace Enemy
 		[SerializeField]
 		private float updatePeriod = 1;
 
-		[SerializeField] private List<Transform> _players;
+		private List<Transform> _players;
 
 		private Transform _trackingPlayer;
 		private float     _updateCooldown;
