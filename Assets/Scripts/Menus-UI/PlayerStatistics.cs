@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Networking;
 
 namespace Player_UI
 {
@@ -10,23 +11,17 @@ namespace Player_UI
     /// </summary>
     public class PlayerStatistics : MonoBehaviour
     {
-        [HideInInspector] public GameObject player;
+        private GameObject _player;
         private HealthBarsLayout _healthBarsLayout;
 
-        IEnumerator Start()
+        void Start()
         {
-            yield return new WaitUntil(() => player != null);
+            _player = GameManager.instance.localPlayer;
 
             _healthBarsLayout = GetComponentInChildren<HealthBarsLayout>();
             Debug.Log(GetComponentInChildren<HealthBarsLayout>());
 
-            _healthBarsLayout.AddHealthController(player.GetComponent<Health>());
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            _healthBarsLayout.AddHealthController(_player.GetComponent<Health>());
         }
     }
 }

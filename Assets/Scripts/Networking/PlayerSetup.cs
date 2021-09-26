@@ -19,9 +19,6 @@ namespace Networking
             PhotonView view = GetComponent<PhotonView>();
             if (view.IsMine) return;
 
-            // Locate UI component that will display player object information.
-            GameObject.Find("Canvas").GetComponent<PlayerStatistics>().player = gameObject;
-            
             // Will be false by default
             nameText.gameObject.SetActive(true);
             
