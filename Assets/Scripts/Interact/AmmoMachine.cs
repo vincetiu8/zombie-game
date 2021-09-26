@@ -18,21 +18,16 @@ namespace Interact
         private GoldSystem _goldSystem;
         private MenuManager _menuManager;
 
+        [Range(1, 50)] [SerializeField] private int purchaseAmount;
+        [Range(1, 200)] [SerializeField] private int purchasePrice;
+
         private void Start()
         {
             _goldSystem = GameManager.instance.GetComponent<GoldSystem>();
             _menuManager = MenuManager.Instance.GetComponent<MenuManager>();
             ammoTypeText.text = ammoType.ToString();
         }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                collision.gameObject.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
-            }
-        }
-
+        
         public void PurchaseAmmo()
         {
             GameObject customer = GameManager.instance.player;
@@ -45,8 +40,8 @@ namespace Interact
                 return;
             }
 
-            ammoInventory.DepositAmmo(ammoType, 10);
-            _goldSystem.WithdrawGold(PhotonNetwork.NickName, 5);
+            ammoInventory.DepositAmmo(ammoType, purchaseAmount);
+            _goldSystem.WithdrawGold(PhotonNetwork.NickName, purchasePrice);
 
             Debug.Log(_goldSystem.GetPlayerGold(PhotonNetwork.NickName));
         }
