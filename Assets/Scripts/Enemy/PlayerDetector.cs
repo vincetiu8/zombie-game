@@ -84,6 +84,7 @@ namespace Enemy
 		{
 			_players.Add(other);
 
+			// If no players are currently getting tracked, _updateCooldown can be ignored.
 			if (GetTrackingPlayerDirection() != Vector2.zero && _updateCooldown > 0) return;
 			UpdateTrackingPlayer();
 		}
