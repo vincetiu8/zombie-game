@@ -51,7 +51,7 @@ namespace Lobby
 
 		public override void OnJoinedRoom()
 		{
-			MenuManager.instance.OpenMenu("room");
+			MenuManager.instance.OpenMenu("roommenu");
 			roomNameText.text = PhotonNetwork.CurrentRoom.Name;
 
 			Player[] players = PhotonNetwork.PlayerList;

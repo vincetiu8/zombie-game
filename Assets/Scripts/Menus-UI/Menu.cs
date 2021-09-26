@@ -1,25 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
+using Networking;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Menu : MonoBehaviour
+namespace Menus_UI
 {
-	public string menuName;
-	public bool open;
-	//controls whether player input should
-	//be disabled upon menu activation
-	public bool freezePlayerInput;
-
-	public void Open()
+	/// <summary>
+	///     Handles each menu.
+	///     Provides functionality to toggle them on or off.
+	/// </summary>
+	public class Menu : MonoBehaviour
 	{
-		open = true;
-		gameObject.SetActive(true);
-	}
+		public string menuName;
+		
+		//whether menu can disable player input 
+		//upon activation
+		public bool freezeOnToggle;
+		private PlayerInput _playerInput;
 
-	public void Close()
-	{
-		open = false;
-		gameObject.SetActive(false);
+		public void Toggle(bool active)
+		{
+			gameObject.SetActive(active);
+			if (freezeOnToggle)
+			{
+				_playerInput = GameManager.instance.localPlayer.GetComponent<PlayerInput>();
+				Utils.DisableInput(active, _playerInput);
+			}
+		}
 	}
 }

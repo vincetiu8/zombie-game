@@ -1,64 +1,31 @@
+using Lobby;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Menus_UI
 {
+	/// <summary>
+	///     Handles opening and closing menus.
+	/// </summary>
+	// MenuManager 
 	public class MenuManager : MonoBehaviour
 	{
-		#region Variables
-		public static MenuManager Instance;
-		[SerializeField] Menu[] menus;
-		private PlayerInput playerInput;
-		#endregion
+		public static MenuManager instance;
 
-		#region Unity Methods
-		void Awake()
+		[SerializeField] private Menu[] menus;
+
+		private void Awake()
 		{
-			Instance = this;
+			instance = this;
 		}
 
-		void Start()
-		{
-			//this is gonna throw a nullreference in the start menu
-			//that's fine and intentional, so we can keep this in one script
-			if(playerInput == null)
-			{
-				playerInput = GameManager.instance.player.GetComponent<PlayerInput>();
-			}
-		}
-		#endregion
-
-		#region Public Methods
 		public void OpenMenu(string menuName)
 		{
-			for(int i = 0; i < menus.Length; i++)
-			{
-				if(menus[i].menuName == menuName)
-				{
-					menus[i].Open();
-					if (menus[i].freezePlayerInput)
-					{
-						Utils.DisableInput(!menus[i].freezePlayerInput, playerInput);
-					}
-				}
-				else if(menus[i].open)
-				{
-					CloseMenu(menus[i]);
-				}
-			}
+			foreach (Menu menu in menus) menu.Toggle(menu.menuName == menuName);
 		}
 
 		public void OpenMenu(Menu menu)
 		{
 			OpenMenu(menu.menuName);
 		}
-
-		public void CloseMenu(Menu menu)
-		{
-			menu.Close();
-			if(!menu.freezePlayerInput) return;
-			Utils.DisableInput(menu.freezePlayerInput, playerInput);
-		}
-		#endregion
 	}
 }

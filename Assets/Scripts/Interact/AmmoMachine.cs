@@ -7,6 +7,7 @@ using Shop;
 using Photon.Pun;
 using UnityEngine.UI;
 using Menus_UI;
+using Networking;
 
 namespace Interact
 {
@@ -23,13 +24,13 @@ namespace Interact
         private void Start()
         {
             _goldSystem = GameManager.instance.GetComponent<GoldSystem>();
-            _menuManager = MenuManager.Instance.GetComponent<MenuManager>();
+            _menuManager = MenuManager.instance.GetComponent<MenuManager>();
             ammoTypeText.text = ammoType.ToString();
         }
         
         public void PurchaseAmmo()
         {
-            GameObject customer = GameManager.instance.player;
+            GameObject customer = GameManager.instance.localPlayer;
 
             AmmoInventory ammoInventory = customer.gameObject.GetComponent<AmmoInventory>();
             if (ammoInventory == null)
@@ -45,7 +46,7 @@ namespace Interact
 
         public override void Interact(GameObject player)
         {
-            _menuManager.OpenMenu("ammoMachine");
+            _menuManager.OpenMenu("ammomachine");
         }
     }
 }

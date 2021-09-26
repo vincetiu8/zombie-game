@@ -14,7 +14,7 @@ namespace UI
 		[Header("Pause Menu Objects")] [Description("The UI with the pause menu")] [SerializeField]
 		private GameObject pauseMenuUI;
 
-		private bool        _gamePaused;
+		private bool        _gamePaused = false;
 		private PlayerInput _playerInput;
 
 		public void PauseMenuToggle()
