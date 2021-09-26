@@ -28,15 +28,17 @@ Here are some useful tips when developing features.
 ### Formatting
 
 - Add comments on anything that isn't obvious.
-	- Use comments to explain complex methods.
-	- Comments should have a space and a capital, with no full stop: `// This is an example comment`
-	- Weird variables, methods and classes should have the `<summary>` comment to explain them.
-		- Rider automatically adds this if you insert `///`.
-- Add `#regions` to break up a file into (collapsible) areas.
+    - Use comments to explain complex methods.
+    - Comments should have a space and a capital, with no full stop: `// This is an example comment`
+    - Public variables, methods and classes should have the `<summary>` comment to explain them.
+        - Rider automatically adds this if you insert `///`.
+- Do not add `#regions`.
+  - If a file is so large that regions need to be added, it should be broken up into multiple files.
+  - This also allows more code to be reused.
 - Add Inspector attributes to everything.
-	- Add `[Header]` to separate sections, even if there is only one.
-	- Every variable that isn't an objects reference should have a `[Description]`.
-	- All numerical variables should have a `[Range]` and default value.
+    - Add `[Header]` to separate sections, even if there is only one.
+    - Every variable that isn't an objects reference should have a `[Description]`.
+    - All numerical variables should have a `[Range]` and default value.
 
 ## Unity related
 
