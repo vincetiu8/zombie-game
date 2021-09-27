@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Shop
@@ -10,63 +11,69 @@ namespace Shop
 	{
 		// Dictionary that contains all the players and the gold they have
 		// Makes it easier to display all player's gold on the UI as well
-		private readonly Dictionary<string, int> _allPlayerGold = new Dictionary<string, int>();
+		private int[] _allPlayerGold;
+
+		private void Awake()
+		{
+			_allPlayerGold = new int[PhotonNetwork.PlayerList.Length];
+		}
+
+		private bool IsInvalidPlayer(int playerNumber)
+		{
+			return 0 > playerNumber || playerNumber >= _allPlayerGold.Length;
+		}
 
 		/// <summary>
 		///     Adds a set amount of gold to all specified players.
 		/// </summary>
-		/// <param name="playerNames">The names of the players to add the gold to</param>
+		/// <param name="playerNumbers">The numbers of the players to add the gold to</param>
 		/// <param name="goldAmount">The amount of gold to add</param>
-		public void AddGold(List<string> playerNames, int goldAmount)
+		public void AddGold(List<int> playerNumbers, int goldAmount)
 		{
-			foreach (string playerName in playerNames)
+			foreach (int playerNumber in playerNumbers)
 			{
-				if (_allPlayerGold.ContainsKey(playerName))
-					_allPlayerGold[playerName] += goldAmount;
+				if (IsInvalidPlayer(playerNumber))
+				{
+					Debug.LogError($"Trying to add gold to player {playerNumber}, out of bounds");
+					continue;
+				}
+
+				_allPlayerGold[playerNumber] += playerNumber;
 			}
 		}
 
 		/// <summary>
 		///     Attempts to withdraw a certain amount of gold from a player's balance.
 		/// </summary>
-		/// <param name="playerName">The name of the player to withdraw gold from</param>
+		/// <param name="playerNumber">The number of the player to withdraw gold from</param>
 		/// <param name="goldAmount">The amount of gold to withdraw</param>
 		/// <returns>Whether the gold was withdrawn successfully</returns>
-		public bool WithdrawGold(string playerName, int goldAmount)
+		public bool WithdrawGold(int playerNumber, int goldAmount)
 		{
-			if (_allPlayerGold.ContainsKey(playerName))
+			if (IsInvalidPlayer(playerNumber))
 			{
-				if (goldAmount < _allPlayerGold[playerName])
-				{
-					_allPlayerGold[playerName] -= goldAmount;
-					return true;
-				}
-
-				Debug.Log("Player doesn't have enough money");
+				Debug.LogError($"Trying to withdraw gold from player {playerNumber}, out of bounds");
+				return false;
 			}
 
-			Debug.LogWarning("Attempting to withdraw gold from non-existent player");
-			return false;
+			if (goldAmount < _allPlayerGold[playerNumber])
+			{
+				Debug.Log($"Trying to withdraw ${goldAmount} gold from player {playerNumber}, not enough money");
+				return false;
+			}
+
+			_allPlayerGold[playerNumber] -= goldAmount;
+			return true;
 		}
 
-		public int GetPlayerGold(string playerName)
+		/// <summary>
+		///     Gets the amount of gold a player currently has.
+		/// </summary>
+		/// <param name="playerNumber">The player's number</param>
+		/// <returns>The amount of gold the player has</returns>
+		public int GetPlayerGold(int playerNumber)
 		{
-			return _allPlayerGold[playerName];
-		}
-
-		public Dictionary<string, int> GetAllGold()
-		{
-			return _allPlayerGold;
-		}
-
-		public void InitializePlayer(string playerName)
-		{
-			_allPlayerGold.Add(playerName, 0);
-		}
-
-		public void RemovePlayer(string playerName)
-		{
-			_allPlayerGold.Remove(playerName);
+			return _allPlayerGold[playerNumber];
 		}
 	}
 }

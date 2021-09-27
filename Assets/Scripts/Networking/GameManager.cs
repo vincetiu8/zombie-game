@@ -1,5 +1,4 @@
 using Photon.Pun;
-using Shop;
 using UnityEngine;
 
 namespace Networking
@@ -23,10 +22,8 @@ namespace Networking
 		private void Start()
 		{
 			// Selecting spawn randomly from a range
-			int position = Random.Range(0, spawnpoints.Length);
-			Vector3 spawnPosition = spawnpoints[position].position;
+			Vector3 spawnPosition = spawnpoints[PhotonNetwork.LocalPlayer.ActorNumber].position;
 			localPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
-			localPlayer.GetComponent<PlayerGold>().goldSystem = gameObject.GetComponent<GoldSystem>();
 		}
 	}
 }
