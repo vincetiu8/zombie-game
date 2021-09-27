@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 6835588830130277189}
   - component: {fileID: 1679262202406998328}
   - component: {fileID: 6963397570999706585}
-  - component: {fileID: 6133861517256898044}
+  - component: {fileID: -5735369720552673388}
   m_Layer: 6
   m_Name: Hardened Zombie
   m_TagString: Enemy
@@ -311,25 +311,16 @@ MonoBehaviour:
     m_values:
     - {fileID: 6927649112921695316, guid: 021e2d16677d6e64a9c3425c035e61c9, type: 3}
     - {fileID: 5774804764515098991, guid: 41c5e7222100dbe4eb1d6a315b1112a0, type: 3}
---- !u!195 &6133861517256898044
-NavMeshAgent:
+--- !u!114 &-5735369720552673388
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6518528214555036746}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.49311998
-  m_Speed: 1.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.85
-  m_BaseOffset: 0.425
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc48c913038689429862432b34b4157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 0.5

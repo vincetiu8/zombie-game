@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ITrackingMethod : MonoBehaviour
+namespace Enemy
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	// Making this really flexible to support just about any type of Player tracking you can think of in the future
+	internal interface ITrackingMethod
+	{
+		void MoveTowardsPlayer(Transform player);
+	}
 }

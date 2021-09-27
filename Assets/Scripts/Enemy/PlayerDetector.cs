@@ -23,10 +23,10 @@ namespace Enemy
 
 		private List<Transform> _players;
 
-		private Transform _trackingPlayer;
+		protected Transform _trackingPlayer;
 		private float     _updateCooldown;
 
-		private void Awake()
+		protected virtual void Awake()
 		{
 			_players = new List<Transform>();
 		}
@@ -85,7 +85,7 @@ namespace Enemy
 			_players.Add(other);
 
 			// If no players are currently getting tracked, _updateCooldown can be ignored.
-			if (GetTrackingPlayerDirection() != Vector2.zero && _updateCooldown > 0) return;
+			if (GetTrackingPlayer() != null && _updateCooldown > 0) return;
 			UpdateTrackingPlayer();
 		}
 
@@ -106,13 +106,17 @@ namespace Enemy
 			UpdateTrackingPlayer();
 		}
 
-        public Vector2 GetTrackingPlayerDirection()
+		/// <summary>
+		///     Returns player currently getting tracked
+		/// </summary>
+        public Transform GetTrackingPlayer()
         {
             if (!_trackingPlayer)
             {
-                return Vector2.zero; // Would have set this to null if I could, but can't
+	            Debug.Log("No player in sight");
+                return null;
             }
-            return _trackingPlayer.position;
+            return _trackingPlayer;
         }
         
         
