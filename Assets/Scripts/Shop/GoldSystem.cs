@@ -28,13 +28,7 @@ namespace Shop
 		/// </summary>
 		/// <param name="playerNumbers">The numbers of the players to add the gold to</param>
 		/// <param name="goldAmount">The amount of gold to add</param>
-		public void AddGold(List<int> playerNumbers, int goldAmount)
-		{
-			photonView.RPC("RPCAddGold", RpcTarget.All, playerNumbers, goldAmount);
-		}
-
-		[PunRPC]
-		private void RPCAddGold(List<int> playerNumbers, int goldAmount)
+		public void AddGold(int goldAmount, List<int> playerNumbers)
 		{
 			foreach (int rawPlayerNumber in playerNumbers)
 			{
@@ -43,13 +37,19 @@ namespace Shop
 
 				if (IsInvalidPlayer(playerNumber))
 				{
-					Debug.LogError($"Trying to add gold to player {playerNumber + 1}, out of bounds");
-					continue;
+					Debug.LogError($"Trying to add gold to player {rawPlayerNumber}, out of bounds");
+					return;
 				}
 
-				_allPlayerGold[playerNumber] += goldAmount;
-				Debug.Log($"Added {goldAmount} gold to player {playerNumber + 1}");
+				photonView.RPC("RPCAddGold", RpcTarget.All, goldAmount, playerNumber);
 			}
+		}
+
+		[PunRPC]
+		private void RPCAddGold(int goldAmount, int playerNumber)
+		{
+			_allPlayerGold[playerNumber] += goldAmount;
+			Debug.Log($"Added {goldAmount} gold to player {playerNumber + 1}");
 		}
 
 		/// <summary>

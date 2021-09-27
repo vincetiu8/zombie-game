@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Networking
 {
-	public class GameManager : MonoBehaviourPunCallbacks
+	[RequireComponent(typeof(GoldSystem))]
+	public class GameManager : MonoBehaviour
 	{
 		public static GameManager instance;
 
-		public GoldSystem goldSystem;
-
+		[HideInInspector] public GoldSystem goldSystem;
 		[HideInInspector] public GameObject localPlayer;
 
 		[SerializeField] private GameObject  playerPrefab;

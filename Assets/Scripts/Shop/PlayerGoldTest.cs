@@ -19,7 +19,7 @@ namespace Shop
 			if (!context.performed) return;
 
 			int playerNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-			GameManager.instance.goldSystem.AddGold(new List<int> { playerNumber }, 10);
+			GameManager.instance.goldSystem.AddGold(10, new List<int> { playerNumber });
 		}
 
 		public void WithdrawGoldAction(InputAction.CallbackContext context)
