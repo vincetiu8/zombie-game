@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace Networking
 {
-	public class GameManager : MonoBehaviourPunCallbacks
+	public class GameManager : MonoBehaviour
 	{
 		public static GameManager instance;
 
+		[HideInInspector] public GoldSystem goldSystem;
 		[HideInInspector] public GameObject localPlayer;
 
 		[SerializeField] private GameObject  playerPrefab;
@@ -22,11 +23,12 @@ namespace Networking
 
 		private void Start()
 		{
-			// Selecting spawn randomly from a range
-			int position = Random.Range(0, spawnpoints.Length);
-			Vector3 spawnPosition = spawnpoints[position].position;
+			goldSystem = GetComponentInChildren<GoldSystem>();
+
+			// Player numbers start indexing at 1, need to correct for array
+			int correctedPlayerNumber = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+			Vector3 spawnPosition = spawnpoints[correctedPlayerNumber].position;
 			localPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
-			localPlayer.GetComponent<PlayerGold>().goldSystem = gameObject.GetComponent<GoldSystem>();
 		}
 	}
 }
