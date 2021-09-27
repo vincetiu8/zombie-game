@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Networking
 {
-	[RequireComponent(typeof(GoldSystem))]
 	public class GameManager : MonoBehaviour
 	{
 		public static GameManager instance;
@@ -24,7 +23,7 @@ namespace Networking
 
 		private void Start()
 		{
-			goldSystem = GetComponent<GoldSystem>();
+			goldSystem = GetComponentInChildren<GoldSystem>();
 
 			// Player numbers start indexing at 1, need to correct for array
 			int correctedPlayerNumber = PhotonNetwork.LocalPlayer.ActorNumber - 1;
