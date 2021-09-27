@@ -17,7 +17,6 @@ namespace Menus_UI
 		public bool freezeOnToggle;
 		// This variable is solely for toggling input
 		[HideInInspector] public bool inputToggle = false;
-		private PlayerInput _playerInput;
 
 		public void Toggle(bool active)
 		{
