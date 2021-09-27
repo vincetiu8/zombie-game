@@ -17,7 +17,6 @@ namespace Weapons
 
 		private   bool             _isFiring;
 		protected AmmoInventory    ammoInventory;
-		internal  bool             CanAttack;
 		protected WeaponAttributes currentAttributes;
 		protected int              currentLevel;
 
@@ -28,7 +27,6 @@ namespace Weapons
 		{
 			currentLevel = 0;
 			maxLevel = 0;
-			CanAttack = true;
 		}
 
 		private void Update()
@@ -58,7 +56,6 @@ namespace Weapons
 		/// <param name="toggle">Whether the mouse was pressed or released</param>
 		public void ToggleFire(bool toggle)
 		{
-			if (!CanAttack) return;
 			if (!currentAttributes.fullAuto)
 			{
 				// Just fires when pressed for semi auto

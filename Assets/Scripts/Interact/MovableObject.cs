@@ -22,7 +22,7 @@ namespace Interact
 			SetAllCollidersStatus(!_isHolding);
 
 			// Prevent the player from using any weapons
-			player.GetComponent<WeaponsHandler>().PreventFire(_isHolding);
+			player.GetComponent<WeaponsHandler>().ToggleFireEnabled(!_isHolding);
 			transform.SetParent(_isHolding ? player.transform.Find("PlayerObject").gameObject.transform : null);
 
 			// When the colliders are disabled, it removes this from the interactable list
