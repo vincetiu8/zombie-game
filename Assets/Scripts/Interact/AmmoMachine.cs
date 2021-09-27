@@ -38,8 +38,10 @@ namespace Interact
                 return;
             }
 
-            ammoInventory.DepositAmmo(ammoType, purchaseAmount);
-            _goldSystem.WithdrawGold(PhotonNetwork.NickName, purchasePrice);
+            if(_goldSystem.WithdrawGold(PhotonNetwork.NickName, purchasePrice))
+            {
+                ammoInventory.DepositAmmo(ammoType, purchaseAmount);
+            }
 
             Debug.Log(_goldSystem.GetPlayerGold(PhotonNetwork.NickName));
         }
