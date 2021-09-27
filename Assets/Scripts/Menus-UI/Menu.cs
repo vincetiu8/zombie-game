@@ -16,14 +16,13 @@ namespace Menus_UI
 		//upon activation
 		public bool freezeOnToggle;
 		// This variable is solely for toggling input
-		// todo: will probably rename it for clarity
-		[HideInInspector] public bool active2 = false;
+		[HideInInspector] public bool inputToggle = false;
 		private PlayerInput _playerInput;
 
 		public void Toggle(bool active)
 		{
 			gameObject.SetActive(active); 
-			active2 = !active2;
+			inputToggle = !inputToggle;
 		}
 	}
 }
