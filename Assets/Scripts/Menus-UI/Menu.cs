@@ -15,16 +15,15 @@ namespace Menus_UI
 		//whether menu can disable player input 
 		//upon activation
 		public bool freezeOnToggle;
+		// This variable is solely for toggling input
+		// todo: will probably rename it for clarity
+		[HideInInspector] public bool active2 = false;
 		private PlayerInput _playerInput;
 
 		public void Toggle(bool active)
 		{
-			gameObject.SetActive(active);
-			if (freezeOnToggle)
-			{
-				_playerInput = GameManager.instance.localPlayer.GetComponent<PlayerInput>();
-				Utils.DisableInput(active, _playerInput);
-			}
+			gameObject.SetActive(active); 
+			active2 = !active2;
 		}
 	}
 }

@@ -1,5 +1,6 @@
-using Lobby;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Networking;
 
 namespace Menus_UI
 {
@@ -12,15 +13,31 @@ namespace Menus_UI
 		public static MenuManager instance;
 
 		[SerializeField] private Menu[] menus;
+		private PlayerInput playerInput;
 
 		private void Awake()
 		{
 			instance = this;
 		}
 
+		private void Start()
+		{
+			if(playerInput == null)
+			{
+				playerInput = GameManager.instance.localPlayer.GetComponent<PlayerInput>();
+			}
+		}
+
 		public void OpenMenu(string menuName)
 		{
-			foreach (Menu menu in menus) menu.Toggle(menu.menuName == menuName);
+			foreach (Menu menu in menus)
+			{
+				menu.Toggle(menu.menuName == menuName);
+				if(menu.freezeOnToggle)
+				{
+					Utils.ToggleInput(menu.active2, playerInput);
+				}
+			}
 		}
 
 		public void OpenMenu(Menu menu)

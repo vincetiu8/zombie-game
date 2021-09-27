@@ -16,8 +16,8 @@ public static class Utils
 		return Mathf.Rad2Deg * Mathf.Atan2(vector2.y, vector2.x);
 	}
 	
-	public static bool DisableInput(bool isPaused, PlayerInput input)
-	{ 
+	public static bool ToggleInput(bool isPaused, PlayerInput input)
+	{
 		string actionMap = isPaused ? "UI" : "Game";
 		input.SwitchCurrentActionMap(actionMap);
 		return isPaused;

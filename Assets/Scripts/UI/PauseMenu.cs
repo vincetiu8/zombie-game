@@ -3,7 +3,7 @@ using Networking;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using Menus_UI;
 namespace UI
 {
 	/// <summary>
@@ -11,27 +11,17 @@ namespace UI
 	/// </summary>
 	public class PauseMenu : MonoBehaviour
 	{
-		[Header("Pause Menu Objects")] [Description("The UI with the pause menu")] [SerializeField]
-		private GameObject pauseMenuUI;
-
-		private bool        _gamePaused = false;
 		private PlayerInput _playerInput;
 
-		public void PauseMenuToggle()
+		private void Start()
 		{
-			// Checks this here since the pause menu may be instantiated before the player is
-			// The player input is located on the player
 			if (_playerInput == null) _playerInput = GameManager.instance.localPlayer.GetComponent<PlayerInput>();
-
-			_gamePaused = !_gamePaused;
-			string actionMap = _gamePaused ? "UI" : "Game";
-			_playerInput.SwitchCurrentActionMap(actionMap);
-			pauseMenuUI.SetActive(_gamePaused);
 		}
 
-		private void PauseAction(InputAction.CallbackContext context)
+		public void PauseAction(InputAction.CallbackContext context)
 		{
-			if (context.performed) PauseMenuToggle();
+			MenuManager _menuManager = MenuManager.instance.GetComponent<MenuManager>();
+			if (context.performed) _menuManager.OpenMenu("pause");
 		}
 
 		public void QuitFromPauseMenu()
