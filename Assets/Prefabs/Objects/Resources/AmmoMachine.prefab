@@ -127,8 +127,10 @@ MonoBehaviour:
   ammoType: 0
   ammoTypeText: {fileID: 0}
   purchaseAmountInput: {fileID: 0}
-  purchaseAmount: 5
-  purchasePrice: 5
+  purchaseSliderValue: {fileID: 0}
+  priceRatioText: {fileID: 0}
+  totalPurchaseAmount: {fileID: 0}
+  purchaseAmountMultiplier: 2
 --- !u!61 &7330685861903143323
 BoxCollider2D:
   m_ObjectHideFlags: 0

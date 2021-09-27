@@ -14,13 +14,19 @@ namespace Interact
 {
     public class AmmoMachine : Interactable
     {
+        
         [SerializeField] private AmmoType ammoType;
+        [Header("UI Objects")]
         [SerializeField] private Text ammoTypeText;
-        [SerializeField] private InputField purchaseAmountInput;
+        [SerializeField] private Slider purchaseAmountInput;
+        [SerializeField] private Text purchaseSliderValue;
+        [SerializeField] private Text priceRatioText;
+        [SerializeField] private Text totalPurchaseAmount;
+
         private GoldSystem _goldSystem;
         private MenuManager _menuManager;
 
-        [Range(1, 50)] private int purchaseAmount;
+        private int purchaseAmount;
         [Range(1, 200)] private int purchasePrice;
         [Range(1, 10)] [SerializeField] private int purchaseAmountMultiplier;
 
@@ -29,12 +35,19 @@ namespace Interact
             _menuManager = MenuManager.instance.GetComponent<MenuManager>();
             ammoTypeText.text = ammoType.ToString();
         }
+
+        //updates amount in PurchaseSlidervalue text element
+        public void SetPurchaseAmount(float value)
+        {
+            purchaseSliderValue.text = Mathf.FloorToInt(value).ToString();
+            totalPurchaseAmount.text = Mathf.FloorToInt(value * purchaseAmountMultiplier).ToString();
+        }
         
         public void PurchaseAmmo()
         {
             GameObject customer = GameManager.instance.localPlayer;
 
-            purchaseAmount = int.Parse(purchaseAmountInput.text);
+            purchaseAmount = Mathf.FloorToInt(purchaseAmountInput.value);
             purchasePrice = purchaseAmount * purchaseAmountMultiplier;
 
             AmmoInventory ammoInventory = customer.gameObject.GetComponent<AmmoInventory>();
@@ -52,7 +65,14 @@ namespace Interact
         }
 
         public override void Interact(GameObject player)
-        {
+        {   
+            // Set slider values
+            purchaseAmountInput.minValue = 0;
+            purchaseAmountInput.maxValue = (GameManager.instance.goldSystem.GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber())) / purchaseAmountMultiplier;
+            
+            priceRatioText.text = "";
+            priceRatioText.text = purchaseAmountMultiplier.ToString();
+
             _menuManager.OpenMenu("ammomachine");
         }
     }
