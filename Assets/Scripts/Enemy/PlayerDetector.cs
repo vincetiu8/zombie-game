@@ -23,7 +23,7 @@ namespace Enemy
 
 		private List<Transform> _players;
 
-		protected Transform _trackingPlayer;
+		private Transform _trackingPlayer;
 		private float     _updateCooldown;
 
 		protected virtual void Awake()

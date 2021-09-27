@@ -9,9 +9,7 @@ namespace Enemy
 
 	public class ChaserAI : MonoBehaviour
 	{
-		private PlayerDetector _playerDetector;
-
-		//private BasicNaveMeshTracking _trackResponse;
+		private PlayerDetector  _playerDetector;
 		private ITrackingMethod _trackMethod;
 
 		private void Awake()
@@ -22,9 +20,7 @@ namespace Enemy
 
 		private void FixedUpdate()
 		{
-	
-				_trackMethod.MoveTowardsPlayer(_playerDetector.GetTrackingPlayer());
-			
+			_trackMethod.MoveTowardsPlayer(_playerDetector.GetTrackingPlayer());
 		}
 
 
