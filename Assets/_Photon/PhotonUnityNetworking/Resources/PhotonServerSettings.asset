@@ -44,6 +44,10 @@ MonoBehaviour:
   - StartLightingCoroutine
   - RpcOnDeath
   - RpcStartLightingCoroutine
+  - WithdrawGold
+  - RPCWithdrawGold
+  - RPCAddGold
+  - RPCGetPlayerGold
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

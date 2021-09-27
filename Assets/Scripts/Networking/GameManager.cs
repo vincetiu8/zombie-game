@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Shop;
 using UnityEngine;
 
 namespace Networking
@@ -6,6 +7,8 @@ namespace Networking
 	public class GameManager : MonoBehaviourPunCallbacks
 	{
 		public static GameManager instance;
+
+		public GoldSystem goldSystem;
 
 		[HideInInspector] public GameObject localPlayer;
 
@@ -21,8 +24,11 @@ namespace Networking
 
 		private void Start()
 		{
-			// Selecting spawn randomly from a range
-			Vector3 spawnPosition = spawnpoints[PhotonNetwork.LocalPlayer.ActorNumber].position;
+			goldSystem = GetComponent<GoldSystem>();
+
+			// Player numbers start indexing at 1, need to correct for array
+			int correctedPlayerNumber = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+			Vector3 spawnPosition = spawnpoints[correctedPlayerNumber].position;
 			localPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
 		}
 	}

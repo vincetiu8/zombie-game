@@ -44,6 +44,30 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Debug Add Gold",
+                    "type": "Button",
+                    "id": "ccc33e1a-3796-475f-a352-db1a12b2f567",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Debug Withdraw Gold",
+                    "type": "Button",
+                    "id": "d192f15c-0f6a-4c97-8d30-c22829c2f589",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Debug Get Gold",
+                    "type": "Button",
+                    "id": "0d43e97a-c586-466a-aec0-c54b5789d4b1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -143,6 +167,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d8717884-4c9a-4810-8269-14649b1461f1",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Debug Add Gold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7bb062b2-62b1-4d7b-beec-2c1de7ae3d9f",
+                    "path": "<Keyboard>/f2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Debug Withdraw Gold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90a55b22-73d6-4c10-824a-4b9bb0f1a32e",
+                    "path": "<Keyboard>/f3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Debug Get Gold",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

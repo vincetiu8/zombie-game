@@ -7,7 +7,7 @@ namespace Shop
 	/// <summary>
 	///     Handles accessing information and updating gold.
 	/// </summary>
-	public class GoldSystem : MonoBehaviour
+	public class GoldSystem : MonoBehaviourPun
 	{
 		// Dictionary that contains all the players and the gold they have
 		// Makes it easier to display all player's gold on the UI as well
@@ -30,15 +30,19 @@ namespace Shop
 		/// <param name="goldAmount">The amount of gold to add</param>
 		public void AddGold(List<int> playerNumbers, int goldAmount)
 		{
-			foreach (int playerNumber in playerNumbers)
+			foreach (int rawPlayerNumber in playerNumbers)
 			{
+				// Player number indexing starts at 1, need to correct for array
+				int playerNumber = rawPlayerNumber - 1;
+
 				if (IsInvalidPlayer(playerNumber))
 				{
-					Debug.LogError($"Trying to add gold to player {playerNumber}, out of bounds");
+					Debug.LogError($"Trying to add gold to player {playerNumber + 1}, out of bounds");
 					continue;
 				}
 
-				_allPlayerGold[playerNumber] += playerNumber;
+				_allPlayerGold[playerNumber] += goldAmount;
+				Debug.Log($"Added {goldAmount} gold to player {playerNumber + 1}");
 			}
 		}
 
@@ -50,19 +54,23 @@ namespace Shop
 		/// <returns>Whether the gold was withdrawn successfully</returns>
 		public bool WithdrawGold(int playerNumber, int goldAmount)
 		{
+			// Player number indexing starts at 1, need to correct for array
+			playerNumber--;
+
 			if (IsInvalidPlayer(playerNumber))
 			{
-				Debug.LogError($"Trying to withdraw gold from player {playerNumber}, out of bounds");
+				Debug.LogError($"Trying to withdraw gold from player {playerNumber + 1}, out of bounds");
 				return false;
 			}
 
-			if (goldAmount < _allPlayerGold[playerNumber])
+			if (goldAmount > _allPlayerGold[playerNumber])
 			{
-				Debug.Log($"Trying to withdraw ${goldAmount} gold from player {playerNumber}, not enough money");
+				Debug.Log($"Trying to withdraw {goldAmount} gold from player {playerNumber + 1}, not enough money");
 				return false;
 			}
 
 			_allPlayerGold[playerNumber] -= goldAmount;
+			Debug.Log($"Player {playerNumber + 1} successfully withdrew {goldAmount} gold");
 			return true;
 		}
 
@@ -73,7 +81,14 @@ namespace Shop
 		/// <returns>The amount of gold the player has</returns>
 		public int GetPlayerGold(int playerNumber)
 		{
-			return _allPlayerGold[playerNumber];
+			// ReSharper disable once InvertIf // Debug will be removed later
+			if (IsInvalidPlayer(playerNumber - 1))
+			{
+				Debug.LogError($"Trying to get player {playerNumber}'s gold, out of bounds");
+				return 0;
+			}
+
+			return _allPlayerGold[playerNumber - 1];
 		}
 	}
 }
