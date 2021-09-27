@@ -27,7 +27,7 @@ namespace Interact
         private MenuManager _menuManager;
 
         private int purchaseAmount;
-        [Range(1, 200)] private int purchasePrice;
+        private int purchasePrice;
         [Range(1, 10)] [SerializeField] private int purchaseAmountMultiplier;
 
         private void Start()
@@ -39,16 +39,16 @@ namespace Interact
         //updates amount in PurchaseSlidervalue text element
         public void SetPurchaseAmount(float value)
         {
+            purchaseAmount = Mathf.FloorToInt(purchaseAmountInput.value);
+            purchasePrice = purchaseAmount * purchaseAmountMultiplier;
+
             purchaseSliderValue.text = Mathf.FloorToInt(value).ToString();
-            totalPurchaseAmount.text = Mathf.FloorToInt(value * purchaseAmountMultiplier).ToString();
+            totalPurchaseAmount.text = purchasePrice.ToString();
         }
         
         public void PurchaseAmmo()
         {
             GameObject customer = GameManager.instance.localPlayer;
-
-            purchaseAmount = Mathf.FloorToInt(purchaseAmountInput.value);
-            purchasePrice = purchaseAmount * purchaseAmountMultiplier;
 
             AmmoInventory ammoInventory = customer.gameObject.GetComponent<AmmoInventory>();
             if (ammoInventory == null)
