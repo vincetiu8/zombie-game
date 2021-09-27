@@ -41,6 +41,10 @@ relevant attributes to sync.
 In order for a script to be synced, it needs to derive from `MonoBehaviourPun` instead of `MonoBehaviour`. This gives it
 access to the `photonView` component attached to the object, among other functionality.
 
+If you also want to get callbacks to photon functions (mostly useful for any system that need to know about players
+leaving/joining, see [Player Numbering](#player-numbering)), inherit from `MonoBehaviourPunCallbacks` instead. This will
+give you all the functionality of `MonoBehaviourPun` and allow you to override methods to handle different situations.
+
 ### Syncing variables
 
 Example: syncing health
@@ -107,3 +111,17 @@ calculations. To add, withdraw or get the player's gold, simply call the relevan
 To instantiate an object across all clients, use `PhotonNetwork.Instantiate`, passing in the name of the Object instead
 of a Prefab reference. The resulting GameObject can then be accessed like normal. Note that the Prefab must be located
 in a folder called `Resources`, and all non-networked prefabs should be in other folders.
+
+## Player numbering
+
+When a player joins the room, they are assigned a unique player number. This can be accessed
+by `PhotonNetwork.localPlayer.GetPlayerNumber()` and is very useful for any scenario where we need a unique index for
+each player:
+
+- Unique spawning points
+- Player gold entries
+
+Note that when a player leaves a room, the other player numbers don't change, and any new players will take the number
+of the player that left first before extending the player numbering range. This means that when a player leaves a room
+(which you can handle by overriding the `OnPlayerLeftRoom` callback), all information related to that player needs to be
+erased so any new players don't inherit it.
