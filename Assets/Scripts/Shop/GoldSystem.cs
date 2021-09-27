@@ -30,6 +30,12 @@ namespace Shop
 		/// <param name="goldAmount">The amount of gold to add</param>
 		public void AddGold(List<int> playerNumbers, int goldAmount)
 		{
+			photonView.RPC("RPCAddGold", RpcTarget.All, playerNumbers, goldAmount);
+		}
+
+		[PunRPC]
+		private void RPCAddGold(List<int> playerNumbers, int goldAmount)
+		{
 			foreach (int rawPlayerNumber in playerNumbers)
 			{
 				// Player number indexing starts at 1, need to correct for array
@@ -47,15 +53,14 @@ namespace Shop
 		}
 
 		/// <summary>
-		///     Attempts to withdraw a certain amount of gold from a player's balance.
+		///     Attempts to withdraw a certain amount of gold from the local player's balance.
 		/// </summary>
-		/// <param name="playerNumber">The number of the player to withdraw gold from</param>
 		/// <param name="goldAmount">The amount of gold to withdraw</param>
 		/// <returns>Whether the gold was withdrawn successfully</returns>
-		public bool WithdrawGold(int playerNumber, int goldAmount)
+		public bool WithdrawPlayerGold(int goldAmount)
 		{
 			// Player number indexing starts at 1, need to correct for array
-			playerNumber--;
+			int playerNumber = PhotonNetwork.LocalPlayer.ActorNumber - 1;
 
 			if (IsInvalidPlayer(playerNumber))
 			{
@@ -69,9 +74,16 @@ namespace Shop
 				return false;
 			}
 
+			photonView.RPC("RPCWithdrawGold", RpcTarget.All, goldAmount);
+			return true;
+		}
+
+		[PunRPC]
+		public void RPCWithdrawGold(int goldAmount, PhotonMessageInfo info)
+		{
+			int playerNumber = info.Sender.ActorNumber - 1;
 			_allPlayerGold[playerNumber] -= goldAmount;
 			Debug.Log($"Player {playerNumber + 1} successfully withdrew {goldAmount} gold");
-			return true;
 		}
 
 		/// <summary>

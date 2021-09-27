@@ -12,46 +12,30 @@ namespace Shop
 	///     Allows adding and removing gold from player directly through input actions.
 	///     Use this as a model to implement shops and other interactions.
 	/// </summary>
-	public class PlayerGoldTest : MonoBehaviourPun
+	public class PlayerGoldTest : MonoBehaviour
 	{
 		public void AddGoldAction(InputAction.CallbackContext context)
 		{
 			if (!context.performed) return;
 
-			photonView.RPC("RPCAddGold", RpcTarget.MasterClient, 10);
-		}
-
-		[PunRPC]
-		private void RPCAddGold(int goldAmount, PhotonMessageInfo info)
-		{
-			GameManager.instance.goldSystem.AddGold(new List<int> { info.Sender.ActorNumber }, goldAmount);
+			int playerNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+			GameManager.instance.goldSystem.AddGold(new List<int> { playerNumber }, 10);
 		}
 
 		public void WithdrawGoldAction(InputAction.CallbackContext context)
 		{
 			if (!context.performed) return;
 
-			photonView.RPC("RPCWithdrawGold", RpcTarget.MasterClient, 10);
-		}
-
-		[PunRPC]
-		private void RPCWithdrawGold(int goldAmount, PhotonMessageInfo info)
-		{
-			GameManager.instance.goldSystem.WithdrawGold(info.Sender.ActorNumber, goldAmount);
+			GameManager.instance.goldSystem.WithdrawPlayerGold(10);
 		}
 
 		public void GetPlayerGoldAction(InputAction.CallbackContext context)
 		{
 			if (!context.performed) return;
 
-			photonView.RPC("RPCGetPlayerGold", RpcTarget.MasterClient);
-		}
-
-		[PunRPC]
-		private void RPCGetPlayerGold(PhotonMessageInfo info)
-		{
-			int gold = GameManager.instance.goldSystem.GetPlayerGold(info.Sender.ActorNumber);
-			Debug.Log($"Player {info.Sender.ActorNumber} has {gold} gold");
+			int playerNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+			int gold = GameManager.instance.goldSystem.GetPlayerGold(playerNumber);
+			Debug.Log($"Player {playerNumber} has {gold} gold");
 		}
 	}
 }
