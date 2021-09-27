@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Networking;
 using Photon.Pun;
 using UnityEngine;
@@ -19,7 +18,7 @@ namespace Shop
 			if (!context.performed) return;
 
 			int playerNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-			GameManager.instance.goldSystem.AddGold(10, new List<int> { playerNumber });
+			GameManager.instance.goldSystem.AddGold(10, playerNumber);
 		}
 
 		public void WithdrawGoldAction(InputAction.CallbackContext context)

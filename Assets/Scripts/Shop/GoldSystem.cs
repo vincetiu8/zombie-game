@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 namespace Shop
@@ -24,10 +25,45 @@ namespace Shop
 		}
 
 		/// <summary>
+		///     Adds a set amount of gold to all players.
+		/// </summary>
+		/// <param name="goldAmount">The amount of gold to add</param>
+		public void AddGold(int goldAmount)
+		{
+			photonView.RPC("RPCAddGold", RpcTarget.All, goldAmount);
+		}
+
+		[PunRPC]
+		private void RPCAddGold(int goldAmount)
+		{
+			// Loop through all players and add gold
+			foreach (Player player in PhotonNetwork.PlayerList) RPCAddPlayerGold(goldAmount, player.ActorNumber);
+		}
+
+		/// <summary>
+		///     Adds a set amount of gold to a specified player.
+		/// </summary>
+		/// <param name="goldAmount">The amount of gold to add</param>
+		/// <param name="playerNumber">The numbers of the player to add the gold to</param>
+		public void AddGold(int goldAmount, int playerNumber)
+		{
+			// Player number indexing starts at 1, need to correct for array
+			playerNumber--;
+
+			if (IsInvalidPlayer(playerNumber))
+			{
+				Debug.LogError($"Trying to add gold to player {playerNumber + 1}, out of bounds");
+				return;
+			}
+
+			photonView.RPC("RPCAddPlayerGold", RpcTarget.All, goldAmount, playerNumber);
+		}
+
+		/// <summary>
 		///     Adds a set amount of gold to all specified players.
 		/// </summary>
-		/// <param name="playerNumbers">The numbers of the players to add the gold to</param>
 		/// <param name="goldAmount">The amount of gold to add</param>
+		/// <param name="playerNumbers">The numbers of the players to add the gold to</param>
 		public void AddGold(int goldAmount, List<int> playerNumbers)
 		{
 			foreach (int rawPlayerNumber in playerNumbers)
@@ -41,12 +77,12 @@ namespace Shop
 					return;
 				}
 
-				photonView.RPC("RPCAddGold", RpcTarget.All, goldAmount, playerNumber);
+				photonView.RPC("RPCAddPlayerGold", RpcTarget.All, goldAmount, playerNumber);
 			}
 		}
 
 		[PunRPC]
-		private void RPCAddGold(int goldAmount, int playerNumber)
+		private void RPCAddPlayerGold(int goldAmount, int playerNumber)
 		{
 			_allPlayerGold[playerNumber] += goldAmount;
 			Debug.Log($"Added {goldAmount} gold to player {playerNumber + 1}");
