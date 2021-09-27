@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using Weapons;
 using Shop;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using UnityEngine.UI;
 using Menus_UI;
 using Networking;
@@ -15,15 +16,16 @@ namespace Interact
     {
         [SerializeField] private AmmoType ammoType;
         [SerializeField] private Text ammoTypeText;
+        [SerializeField] private InputField purchaseAmountInput;
         private GoldSystem _goldSystem;
         private MenuManager _menuManager;
 
-        [Range(1, 50)] [SerializeField] private int purchaseAmount;
-        [Range(1, 200)] [SerializeField] private int purchasePrice;
+        [Range(1, 50)] private int purchaseAmount;
+        [Range(1, 200)] private int purchasePrice;
+        [Range(1, 10)] [SerializeField] private int purchaseAmountMultiplier;
 
         private void Start()
         {
-            _goldSystem = GameManager.instance.GetComponent<GoldSystem>();
             _menuManager = MenuManager.instance.GetComponent<MenuManager>();
             ammoTypeText.text = ammoType.ToString();
         }
@@ -32,18 +34,21 @@ namespace Interact
         {
             GameObject customer = GameManager.instance.localPlayer;
 
+            purchaseAmount = int.Parse(purchaseAmountInput.text);
+            purchasePrice = purchaseAmount * purchaseAmountMultiplier;
+
             AmmoInventory ammoInventory = customer.gameObject.GetComponent<AmmoInventory>();
             if (ammoInventory == null)
             {
                 return;
             }
 
-            if(_goldSystem.WithdrawGold(PhotonNetwork.NickName, purchasePrice))
+            if(GameManager.instance.goldSystem.WithdrawPlayerGold(purchasePrice))
             {
                 ammoInventory.DepositAmmo(ammoType, purchaseAmount);
             }
 
-            Debug.Log(_goldSystem.GetPlayerGold(PhotonNetwork.NickName));
+            Debug.Log(GameManager.instance.goldSystem.GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber()));
         }
 
         public override void Interact(GameObject player)

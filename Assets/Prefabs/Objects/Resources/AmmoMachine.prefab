@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoType: 0
   ammoTypeText: {fileID: 0}
+  purchaseAmountInput: {fileID: 0}
   purchaseAmount: 5
   purchasePrice: 5
 --- !u!61 &7330685861903143323
