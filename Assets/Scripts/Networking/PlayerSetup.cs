@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Networking
 {
@@ -10,6 +11,7 @@ namespace Networking
 	public class PlayerSetup : MonoBehaviourPun
 	{
 		[SerializeField] private Behaviour[] componentsToDisableIfNotMine;
+        [SerializeField] private Text nameText;
 
 		private void Start()
 		{
@@ -19,6 +21,12 @@ namespace Networking
 				return;
 			}
 
+            // Will be false by default
+            nameText.gameObject.SetActive(true);
+            
+            // Sets name tag to Nickname assigned at the launcher scene
+            nameText.text = PhotonNetwork.NickName;
+			
 			foreach (Behaviour behaviour in componentsToDisableIfNotMine) behaviour.enabled = false;
 		}
 
