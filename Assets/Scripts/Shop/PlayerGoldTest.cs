@@ -1,5 +1,6 @@
 using Networking;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +18,7 @@ namespace Shop
 		{
 			if (!context.performed) return;
 
-			int playerNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+			int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
 			GameManager.instance.goldSystem.AddGold(10, playerNumber);
 		}
 
@@ -32,7 +33,7 @@ namespace Shop
 		{
 			if (!context.performed) return;
 
-			int playerNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+			int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
 			int gold = GameManager.instance.goldSystem.GetPlayerGold(playerNumber);
 			Debug.Log($"Player {playerNumber} has {gold} gold");
 		}

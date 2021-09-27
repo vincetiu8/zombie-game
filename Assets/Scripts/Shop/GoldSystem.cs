@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
 
@@ -8,20 +9,21 @@ namespace Shop
 	/// <summary>
 	///     Handles accessing information and updating gold.
 	/// </summary>
-	public class GoldSystem : MonoBehaviourPun
+	public class GoldSystem : MonoBehaviourPunCallbacks
 	{
 		// Dictionary that contains all the players and the gold they have
 		// Makes it easier to display all player's gold on the UI as well
-		private int[] _allPlayerGold;
+		private List<int> _playerGoldAmounts;
 
 		private void Awake()
 		{
-			_allPlayerGold = new int[PhotonNetwork.PlayerList.Length];
+			_playerGoldAmounts = new List<int>();
+			for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) _playerGoldAmounts.Add(0);
 		}
 
 		private bool IsInvalidPlayer(int playerNumber)
 		{
-			return 0 > playerNumber || playerNumber >= _allPlayerGold.Length;
+			return 0 > playerNumber || playerNumber >= _playerGoldAmounts.Count;
 		}
 
 		/// <summary>
@@ -37,7 +39,7 @@ namespace Shop
 		private void RPCAddGold(int goldAmount)
 		{
 			// Loop through all players and add gold
-			foreach (Player player in PhotonNetwork.PlayerList) RPCAddPlayerGold(goldAmount, player.ActorNumber);
+			foreach (Player player in PhotonNetwork.PlayerList) RPCAddPlayerGold(goldAmount, player.GetPlayerNumber());
 		}
 
 		/// <summary>
@@ -47,12 +49,9 @@ namespace Shop
 		/// <param name="playerNumber">The numbers of the player to add the gold to</param>
 		public void AddGold(int goldAmount, int playerNumber)
 		{
-			// Player number indexing starts at 1, need to correct for array
-			playerNumber--;
-
 			if (IsInvalidPlayer(playerNumber))
 			{
-				Debug.LogError($"Trying to add gold to player {playerNumber + 1}, out of bounds");
+				Debug.LogError($"Trying to add gold to player {playerNumber}, out of bounds");
 				return;
 			}
 
@@ -66,14 +65,11 @@ namespace Shop
 		/// <param name="playerNumbers">The numbers of the players to add the gold to</param>
 		public void AddGold(int goldAmount, List<int> playerNumbers)
 		{
-			foreach (int rawPlayerNumber in playerNumbers)
+			foreach (int playerNumber in playerNumbers)
 			{
-				// Player number indexing starts at 1, need to correct for array
-				int playerNumber = rawPlayerNumber - 1;
-
 				if (IsInvalidPlayer(playerNumber))
 				{
-					Debug.LogError($"Trying to add gold to player {rawPlayerNumber}, out of bounds");
+					Debug.LogError($"Trying to add gold to player {playerNumber}, out of bounds");
 					return;
 				}
 
@@ -84,8 +80,8 @@ namespace Shop
 		[PunRPC]
 		private void RPCAddPlayerGold(int goldAmount, int playerNumber)
 		{
-			_allPlayerGold[playerNumber] += goldAmount;
-			Debug.Log($"Added {goldAmount} gold to player {playerNumber + 1}");
+			_playerGoldAmounts[playerNumber] += goldAmount;
+			Debug.Log($"Added {goldAmount} gold to player {playerNumber}");
 		}
 
 		/// <summary>
@@ -95,18 +91,17 @@ namespace Shop
 		/// <returns>Whether the gold was withdrawn successfully</returns>
 		public bool WithdrawPlayerGold(int goldAmount)
 		{
-			// Player number indexing starts at 1, need to correct for array
-			int playerNumber = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+			int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
 
 			if (IsInvalidPlayer(playerNumber))
 			{
-				Debug.LogError($"Trying to withdraw gold from player {playerNumber + 1}, out of bounds");
+				Debug.LogError($"Trying to withdraw gold from player {playerNumber}, out of bounds");
 				return false;
 			}
 
-			if (goldAmount > _allPlayerGold[playerNumber])
+			if (goldAmount > _playerGoldAmounts[playerNumber])
 			{
-				Debug.Log($"Trying to withdraw {goldAmount} gold from player {playerNumber + 1}, not enough money");
+				Debug.Log($"Trying to withdraw {goldAmount} gold from player {playerNumber}, not enough money");
 				return false;
 			}
 
@@ -117,9 +112,9 @@ namespace Shop
 		[PunRPC]
 		public void RPCWithdrawGold(int goldAmount, PhotonMessageInfo info)
 		{
-			int playerNumber = info.Sender.ActorNumber - 1;
-			_allPlayerGold[playerNumber] -= goldAmount;
-			Debug.Log($"Player {playerNumber + 1} successfully withdrew {goldAmount} gold");
+			int playerNumber = info.Sender.GetPlayerNumber();
+			_playerGoldAmounts[playerNumber] -= goldAmount;
+			Debug.Log($"Player {playerNumber} successfully withdrew {goldAmount} gold");
 		}
 
 		/// <summary>
@@ -130,13 +125,27 @@ namespace Shop
 		public int GetPlayerGold(int playerNumber)
 		{
 			// ReSharper disable once InvertIf // Debug will be removed later
-			if (IsInvalidPlayer(playerNumber - 1))
+			if (IsInvalidPlayer(playerNumber))
 			{
 				Debug.LogError($"Trying to get player {playerNumber}'s gold, out of bounds");
 				return 0;
 			}
 
-			return _allPlayerGold[playerNumber - 1];
+			return _playerGoldAmounts[playerNumber];
+		}
+
+		public override void OnPlayerEnteredRoom(Player newPlayer)
+		{
+			if (!IsInvalidPlayer(newPlayer.GetPlayerNumber())) return;
+
+			_playerGoldAmounts.Add(0);
+		}
+
+		public override void OnPlayerLeftRoom(Player otherPlayer)
+		{
+			if (otherPlayer.IsInactive) return;
+
+			_playerGoldAmounts[otherPlayer.GetPlayerNumber()] = 0;
 		}
 	}
 }
