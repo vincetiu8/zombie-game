@@ -6,6 +6,7 @@ namespace Networking
 	[RequireComponent(typeof(PhotonView))]
 	public class OptimizedTransformView : MonoBehaviourPun, IPunObservable
 	{
+		[SerializeField] private bool  smooth;
 		[SerializeField] private float smoothingDelay = 5;
 		[SerializeField] private bool  syncPosition;
 		[SerializeField] private bool  syncRotation;
@@ -19,7 +20,6 @@ namespace Networking
 			if (photonView.IsMine) return;
 
 			if (syncPosition) SyncPosition();
-
 
 			if (syncRotation) SyncRotation();
 		}
@@ -51,7 +51,7 @@ namespace Networking
 
 		private void SyncPosition()
 		{
-			if (transform.position == Vector3.zero)
+			if (!smooth || transform.position == Vector3.zero)
 			{
 				transform.position = _correctPos;
 				return;
@@ -65,7 +65,7 @@ namespace Networking
 
 		private void SyncRotation()
 		{
-			if (transform.rotation.z == 0)
+			if (!smooth || transform.rotation.z == 0)
 			{
 				transform.rotation = Quaternion.Euler(0, 0, _correctRot);
 				return;
