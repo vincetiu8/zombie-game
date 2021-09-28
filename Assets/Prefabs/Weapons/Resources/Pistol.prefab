@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3909993537624026819}
   - component: {fileID: 1201697913036177066}
   - component: {fileID: 8110468372728126296}
-  m_Layer: 11
+  - component: {fileID: 8029223889314223093}
+  m_Layer: 3
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4793649891906802130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.267, y: -0.586, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 6581261222417765288}
   m_Father: {fileID: 0}
@@ -101,8 +102,8 @@ MonoBehaviour:
   weaponName: Pistol
   ammoType: 0
   weaponLevels:
-  - description: Basic Pistol
-    damage: 100
+  - description: Pistol
+    damage: 0.25
     fireCooldown: 0.1
     fullAuto: 0
     magazineSize: 5
@@ -129,10 +130,26 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8029223889314223093}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &8029223889314223093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793649891906802130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a088e2403a72ec12b491e529cb8e928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothingDelay: 5
+  syncPosition: 0
+  syncRotation: 1
 --- !u!1 &9175378642531915954
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6581261222417765288}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -50,6 +50,7 @@ MonoBehaviour:
   - RPCGetPlayerGold
   - RPCAddPlayerGold
   - RPCInteract
+  - SetupPlayerOnRemotes
   - RPCSetupPlayer
   - RpcMeleeAnimation
   DisableAutoOpenWizard: 1

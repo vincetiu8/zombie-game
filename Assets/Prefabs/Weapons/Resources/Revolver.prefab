@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7039570304982620994}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,8 +41,10 @@ GameObject:
   - component: {fileID: 4305294550502302816}
   - component: {fileID: 8049184801401153425}
   - component: {fileID: 5673859719892484690}
-  m_Layer: 11
-  m_Name: Big Temp Gun
+  - component: {fileID: 7142250817192997893}
+  - component: {fileID: 4766286017583952885}
+  m_Layer: 3
+  m_Name: Revolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 5424163015042692280}
   m_LocalRotation: {x: 0, y: 0, z: -0.002242733, w: 0.9999975}
   m_LocalPosition: {x: 0.114, y: -0.606, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 7039570304982620994}
   m_Father: {fileID: 0}
@@ -75,10 +77,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10213a7e97c0496f881fedbc3b5d8c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: Big Temp Gun
+  weaponName: Revolver
   ammoType: 0
   weaponLevels:
-  - description: Big Temp Gun
+  - description: Revolver
     damage: 90000
     fireCooldown: 1
     fullAuto: 1
@@ -140,3 +142,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7142250817192997893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424163015042692280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 4766286017583952885}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &4766286017583952885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424163015042692280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a088e2403a72ec12b491e529cb8e928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothingDelay: 5
+  syncPosition: 0
+  syncRotation: 1
