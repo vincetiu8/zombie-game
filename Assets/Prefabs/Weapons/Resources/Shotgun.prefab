@@ -163,4 +163,4 @@ MonoBehaviour:
   bulletPrefab: {fileID: 196426282172063056, guid: fcb85a575d2c50447984b3b916187f19,
     type: 3}
   pelletAmount: 10
-  spraySpread: 40
+  spraySpread: 30
