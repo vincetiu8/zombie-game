@@ -19,7 +19,7 @@ namespace Interact
         [SerializeField] private AmmoType ammoType;
         
         [Header("Purchase Settings")]
-        [Range(1, 10)] [SerializeField] [Description("The amount purchase quantity is multiplied by to get the total price")] 
+        [Range(1, 10)] [SerializeField] [Description("The price of one item, will be multiplied with purchase quantity to get the total price")] 
         private int purchaseAmountMultiplier;
 
         [Header("UI Objects")]
@@ -97,13 +97,13 @@ namespace Interact
 
             sliderMax = playerGold / purchaseAmountMultiplier;
 
-            purchaseAmountInput.maxValue = sliderMax;
-
-            bool showError = purchaseAmountInput.maxValue <= 0;
+            bool showError = sliderMax <= 0;
 
             sliderContainer.SetActive(!showError);
             buttonContainer.SetActive(!showError);
             errorText.SetActive(showError);
+
+            purchaseAmountInput.maxValue = sliderMax;
         }
     }
 }
