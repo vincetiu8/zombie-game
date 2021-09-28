@@ -7,22 +7,23 @@ namespace Enemy
 	///     Makes the enemy move directly towards the player it's targeting.
 	/// </summary>
 
-	public class ChaserAI : MonoBehaviour
+	public abstract class ChaserAI : MonoBehaviour
 	{
 		private PlayerDetector  _playerDetector;
-		private ITrackingMethod _trackMethod;
 
-		private void Awake()
+		protected virtual void Awake()
 		{
-			_trackMethod = GetComponent<ITrackingMethod>();
 			_playerDetector = GetComponentInChildren<PlayerDetector>();
 		}
 
 		private void FixedUpdate()
 		{
-			_trackMethod.MoveTowardsPlayer(_playerDetector.GetTrackingPlayer());
+			MoveTowardsPlayer(_playerDetector.GetTrackingPlayer());
 		}
 
+		protected virtual void MoveTowardsPlayer(Transform player)
+		{
+		}
 
 	}
 }

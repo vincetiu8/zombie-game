@@ -3,17 +3,19 @@ using UnityEngine.AI;
 namespace Enemy
 {
 	[RequireComponent(typeof(NavMeshAgent))]
-	public class BasicNavMeshTracking : MonoBehaviour, ITrackingMethod
+	public class BasicNavMeshTracking : ChaserAI
 	{
 		
 		private NavMeshAgent _agent;
 
-		private void Awake()
+		protected override void Awake()
 		{
+			base.Awake();
 			_agent = GetComponent<NavMeshAgent>();
 			_agent.updateUpAxis = false;
 		}
-		public void MoveTowardsPlayer(Transform player)
+
+		protected override void MoveTowardsPlayer(Transform player)
 		{
 			// Stop walking if player no longer tracked
 			if (player == null) 

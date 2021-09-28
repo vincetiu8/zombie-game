@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalDetection : MonoBehaviour
+namespace Enemy
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public class GlobalDetection : PlayerDetector
+	{
+		/// <summary>
+		///  Every player is permanently in the player detection list
+		/// </summary>
+		private GameObject[] _players;
+		private void Start()
+		{
+			_players = GameObject.FindGameObjectsWithTag("Player");
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+			foreach (GameObject player in _players)
+			{
+				AddPlayer(player.transform);
+			}
+		}
+	}
 }
