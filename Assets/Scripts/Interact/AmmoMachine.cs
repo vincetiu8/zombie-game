@@ -6,6 +6,7 @@ using Photon.Pun.UtilityScripts;
 using UnityEngine.UI;
 using Menus_UI;
 using Networking;
+using System.ComponentModel;
 
 namespace Interact
 {
@@ -15,8 +16,12 @@ namespace Interact
 
     public class AmmoMachine : Interactable
     {
-        
         [SerializeField] private AmmoType ammoType;
+        
+        [Header("Purchase Settings")]
+        [Range(1, 10)] [SerializeField] [Description("The amount purchase quantity is multiplied by to get the total price")] 
+        private int purchaseAmountMultiplier;
+
         [Header("UI Objects")]
         [SerializeField] private Text ammoTypeText;
         [SerializeField] private Slider purchaseAmountInput;
@@ -26,19 +31,22 @@ namespace Interact
         [SerializeField] private GameObject errorText;
         [SerializeField] private GameObject sliderContainer;
         [SerializeField] private GameObject buttonContainer;
-        
 
-        private GoldSystem _goldSystem;
         private MenuManager _menuManager;
 
         private int purchaseAmount;
         private int purchasePrice;
-        [Range(1, 10)] [SerializeField] private int purchaseAmountMultiplier;
+
+        private int player;
+        private int playerGold;
+        private int sliderMax;
 
         private void Start()
         {
             _menuManager = MenuManager.instance.GetComponent<MenuManager>();
             ammoTypeText.text = ammoType.ToString();
+
+            purchaseAmountInput.minValue = 1;
         }
         
         public void PurchaseAmmo()
@@ -57,13 +65,12 @@ namespace Interact
                 ammoInventory.DepositAmmo(ammoType, purchaseAmount);
             }
 
-            CheckIfPlayerHasEnoughMoney();
-            Debug.Log(GameManager.instance.goldSystem.GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber()));
+            CheckPlayerSufficientMoney();
         }
 
         public override void Interact(GameObject player)
         {  
-            CheckIfPlayerHasEnoughMoney();
+            CheckPlayerSufficientMoney();
 
             priceRatioText.text = purchaseAmountMultiplier.ToString();
 
@@ -82,23 +89,21 @@ namespace Interact
 
         // Calculates player's max amount of ammo purchaseable
         // Toggles on/off slider accordingly
-        private void CheckIfPlayerHasEnoughMoney()
+        private void CheckPlayerSufficientMoney()
         {
-            purchaseAmountInput.minValue = 1;
-            purchaseAmountInput.maxValue = (GameManager.instance.goldSystem.GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber())) / purchaseAmountMultiplier;
+            player = PhotonNetwork.LocalPlayer.GetPlayerNumber();
 
-            if(purchaseAmountInput.maxValue <= 0f)
-            {
-                sliderContainer.SetActive(false);
-                buttonContainer.SetActive(false);
-                errorText.SetActive(true);
-            }
-            else
-            {
-                sliderContainer.SetActive(true);
-                buttonContainer.SetActive(true);
-                errorText.SetActive(false);
-            }
+            playerGold = GameManager.instance.goldSystem.GetPlayerGold(player);
+
+            sliderMax = playerGold / purchaseAmountMultiplier;
+
+            purchaseAmountInput.maxValue = sliderMax;
+
+            bool showError = purchaseAmountInput.maxValue <= 0;
+
+            sliderContainer.SetActive(!showError);
+            buttonContainer.SetActive(!showError);
+            errorText.SetActive(showError);
         }
     }
 }
