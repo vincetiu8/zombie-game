@@ -13,13 +13,12 @@ namespace Enemy
 		private float movementSpeed;
 		private Rigidbody2D _rigidbody2D;
 
-		protected override void Awake()
+		private void Awake()
 		{
-			base.Awake();
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 		}
 
-		protected override void MoveTowardsPlayer(Transform player)
+		public override void MoveTowardsPlayer(Transform player)
 		{
 			if (player == null)
             {

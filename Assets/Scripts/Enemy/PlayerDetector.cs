@@ -25,11 +25,14 @@ namespace Enemy
 		private float     _updateCooldown;
 		private List<Transform> _players;
 
+        private ChaserAI  _chaserAI;
 
-		protected virtual void Awake()
-		{
-			_players = new List<Transform>();
-		}
+        protected virtual void Awake()
+        {
+            _players = new List<Transform>();
+            _chaserAI = GetComponentInParent<ChaserAI>();
+
+        }
 
 		private void Update()
 		{
@@ -61,9 +64,11 @@ namespace Enemy
 				minDistance = playerDistance;
 				_trackingPlayer = player;
 			}
+            
+            _chaserAI.MoveTowardsPlayer(_trackingPlayer);
+            _updateCooldown = updatePeriod;
 
-			_updateCooldown = updatePeriod;
-		}
+        }
 
 		/// <summary>
 		///     Adds a player to the list of tracked players.

@@ -11,14 +11,13 @@ namespace Enemy
 		
 		private NavMeshAgent _agent;
 
-		protected override void Awake()
+		private void Awake()
 		{
-			base.Awake();
 			_agent = GetComponent<NavMeshAgent>();
 			_agent.updateUpAxis = false;
 		}
 
-		protected override void MoveTowardsPlayer(Transform player)
+		public override void MoveTowardsPlayer(Transform player)
 		{
 			// Stop walking if player no longer tracked
 			if (player == null) 

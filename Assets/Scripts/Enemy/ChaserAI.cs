@@ -9,19 +9,7 @@ namespace Enemy
 
 	public abstract class ChaserAI : MonoBehaviour
 	{
-		private PlayerDetector  _playerDetector;
-
-		protected virtual void Awake()
-		{
-			_playerDetector = GetComponentInChildren<PlayerDetector>();
-		}
-
-		private void FixedUpdate()
-		{
-			MoveTowardsPlayer(_playerDetector.GetTrackingPlayer());
-		}
-
-		protected virtual void MoveTowardsPlayer(Transform player)
+        public virtual void MoveTowardsPlayer(Transform player)
 		{
 		}
 
