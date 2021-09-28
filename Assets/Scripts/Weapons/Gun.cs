@@ -26,7 +26,7 @@ namespace Weapons
 
 		protected GunAttributes  CurrentGunAttributes;
 		private float          _gunOffsetAdjustment;
-		protected Coroutine      _reloadCoroutine;
+		protected Coroutine      _reloadCoroutine; // Renaming this will cause a conflict
 
 		protected override void Start()
 		{
@@ -54,7 +54,6 @@ namespace Weapons
 
         protected virtual void SpawnBullet(Vector2 direction)
         {
-            
             GameObject bulletClone =
                 PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, firepoint.rotation);
 
