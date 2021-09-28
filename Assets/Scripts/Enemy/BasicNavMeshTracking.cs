@@ -2,8 +2,11 @@ using UnityEngine;
 using UnityEngine.AI;
 namespace Enemy
 {
+    /// <summary>
+    /// Move enemy to position through the base NavMeshConfiguration
+    /// </summary>
 	[RequireComponent(typeof(NavMeshAgent))]
-	public class BasicNavMeshTracking : ChaserAI
+    public class BasicNavMeshTracking : ChaserAI
 	{
 		
 		private NavMeshAgent _agent;
