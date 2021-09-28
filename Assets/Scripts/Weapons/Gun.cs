@@ -17,46 +17,52 @@ namespace Weapons
 		protected GunAttributes[] weaponLevels;
 
 		[Description("The transform the bullets will shoot from")] [SerializeField]
-		private Transform firepoint;
+		protected Transform firepoint;
 
 		[Description("The bullet prefab to be instantiated")] [SerializeField]
-		private GameObject bulletPrefab;
+		protected GameObject bulletPrefab;
 
-		private int _bulletsInMagazine;
+		protected int BulletsInMagazine;
 
-		private GunAttributes  _currentGunAttributes;
+		protected GunAttributes  CurrentGunAttributes;
 		private float          _gunOffsetAdjustment;
-		private Coroutine      _reloadCoroutine;
+		protected Coroutine      _reloadCoroutine;
 
 		protected override void Start()
 		{
 			base.Start();
 			maxLevel = weaponLevels.Length;
-			_currentGunAttributes = weaponLevels[currentLevel];
-			currentAttributes = _currentGunAttributes;
-			_bulletsInMagazine = _currentGunAttributes.magazineSize;
+			CurrentGunAttributes = weaponLevels[currentLevel];
+			currentAttributes = CurrentGunAttributes;
+			BulletsInMagazine = CurrentGunAttributes.magazineSize;
 			CalculateGunOffsetAdjustment();
 		}
 
 		protected override void Fire()
 		{
-			if (_bulletsInMagazine < 1) return;
+			if (BulletsInMagazine < 1) return;
 
 			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
+            
+            Vector2 bulletVelocity = firepoint.right * CurrentGunAttributes.bulletSpeed;
+            SpawnBullet(bulletVelocity);
+            
+            // Remove a bullet from the magazine
+			BulletsInMagazine--;
+            base.Fire();
+        }
 
-			GameObject bulletClone =
-				PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, firepoint.rotation);
+        protected virtual void SpawnBullet(Vector2 direction)
+        {
+            
+            GameObject bulletClone =
+                PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, firepoint.rotation);
 
-			// Set the bullet's attributes
-			Vector2 bulletVelocity = firepoint.right * _currentGunAttributes.bulletSpeed;
-			bulletClone.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
-			bulletClone.GetComponent<Bullet>().damage = currentAttributes.damage;
+            // Set the bullet's attributes
+            bulletClone.GetComponent<Rigidbody2D>().velocity = direction;
+            bulletClone.GetComponent<Bullet>().damage = currentAttributes.damage;
 
-
-			// Remove a bullet from the magazine
-			_bulletsInMagazine--;
-			base.Fire();
-		}
+        }
 
 		public override void Reload()
 		{
@@ -68,10 +74,10 @@ namespace Weapons
 		// Once this coroutine finishes, the weapon is reloaded
 		private IEnumerator ReloadCoroutine()
 		{
-			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
+			yield return new WaitForSeconds(CurrentGunAttributes.reloadTime);
 
 			// Withdraw bullets from the player's inventory
-			_bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
+			BulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, CurrentGunAttributes.magazineSize);
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
 			_reloadCoroutine = null;
@@ -79,8 +85,8 @@ namespace Weapons
 
 		public override void Upgrade()
 		{
-			_currentGunAttributes = weaponLevels[currentLevel];
-			currentAttributes = _currentGunAttributes;
+			CurrentGunAttributes = weaponLevels[currentLevel];
+			currentAttributes = CurrentGunAttributes;
 		}
 
 		/// <summary>

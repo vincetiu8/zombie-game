@@ -40,8 +40,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8144691297433904858}
   - component: {fileID: 5417098709769412740}
-  - component: {fileID: 7909228153501266157}
   - component: {fileID: 999901341116486943}
+  - component: {fileID: 5922183352098749460}
   m_Layer: 3
   m_Name: Shotgun
   m_TagString: Untagged
@@ -115,31 +115,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7909228153501266157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4604939237133819797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10213a7e97c0496f881fedbc3b5d8c84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: Shotgun
-  ammoType: 1
-  weaponLevels:
-  - description: Basic Shotgun
-    damage: 2
-    fireCooldown: 0.5
-    fullAuto: 0
-    magazineSize: 4
-    reloadTime: 2
-    bulletSpeed: 8
-  firepoint: {fileID: 2754838259538124271}
-  bulletPrefab: {fileID: 602968682288907159, guid: 2d7c2576ecb27e447b386945a3375ea1,
-    type: 3}
 --- !u!114 &999901341116486943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,3 +137,30 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &5922183352098749460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4604939237133819797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4561a1ab80ca00842a17bec1dc89c85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: Shotgun
+  ammoType: 1
+  weaponLevels:
+  - description: Basic Shotgun
+    damage: 0.5
+    fireCooldown: 0.75
+    fullAuto: 0
+    magazineSize: 4
+    reloadTime: 2
+    bulletSpeed: 8
+  firepoint: {fileID: 2754838259538124271}
+  bulletPrefab: {fileID: 196426282172063056, guid: fcb85a575d2c50447984b3b916187f19,
+    type: 3}
+  pelletAmount: 10
+  spraySpread: 40
