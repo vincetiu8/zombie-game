@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Weapons
 {
@@ -18,20 +19,24 @@ namespace Weapons
 		private Transform playerSprite;
 
 		private                  AmmoInventory _ammoInventory;
-		private                  Weapon        _currentWeapon;
+		private                  Weapon        currentWeapon;
 		[SerializeField] private GameObject[]  availableWeapons;
 		private                  int           _currentWeaponIndex;
 
 		private bool _preventFire;
 
-		private void Start()
-		{
+		public WeaponsHandler(AmmoInventory ammoInventory) {
+			_ammoInventory = ammoInventory;
+		}
+														   
+		private void Start() {
+			_ammoInventory = GetComponent<AmmoInventory>();
 			for (int i = 0; i < availableWeapons.Length; i++) 
 			{
 				availableWeapons[i].GetComponent<Weapon>().Setup(_ammoInventory);
 				availableWeapons[i].SetActive(i == 0);
 			}
-			_currentWeapon = availableWeapons[0].GetComponent<Weapon>();
+			currentWeapon = availableWeapons[0].GetComponent<Weapon>();
 		}
 
 		public void FireAction(InputAction.CallbackContext context)
@@ -42,13 +47,13 @@ namespace Weapons
 			// We'll use performed here to check for the press
 			if (context.performed)
 			{
-				_currentWeapon.ToggleFire(true);
+				currentWeapon.ToggleFire(true);
 				return;
 			}
 
 			// Cancelled indicates the mouse was released
 			// This is mainly to cancel
-			if (context.canceled) _currentWeapon.ToggleFire(false);
+			if (context.canceled) currentWeapon.ToggleFire(false);
 		}
 
 		public void ReloadAction(InputAction.CallbackContext context)
@@ -58,7 +63,7 @@ namespace Weapons
 			// Make sure this is only when the reload button is pressed
 			if (!context.performed) return;
 
-			_currentWeapon.Reload();
+			currentWeapon.Reload();
 		}
 
 		// Makes the player face the mouse
@@ -76,7 +81,7 @@ namespace Weapons
 			playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
 			// Allows the current weapon to be adjusted to face the mouse
-			if (_currentWeapon != null) _currentWeapon.FaceMouse(direction.magnitude);
+			if (currentWeapon != null) currentWeapon.FaceMouse(direction.magnitude);
 		}
 
 		public void WeaponSwitchingActionScroll(InputAction.CallbackContext context) 
@@ -108,13 +113,13 @@ namespace Weapons
 			availableWeapons[_currentWeaponIndex].SetActive(false);
 			_currentWeaponIndex = selectedIndex;  
 			availableWeapons[selectedIndex].SetActive(true);          
-			_currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();
+			currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();
 		}
 
 		public void ToggleFireEnabled(bool preventFire)
 		{
 			_preventFire = !preventFire;
-			_currentWeapon.gameObject.SetActive(!_preventFire);
+			currentWeapon.gameObject.SetActive(!_preventFire);
 		}
 	}
 }

@@ -24,10 +24,12 @@ namespace Weapons
 
 		private int _bulletsInMagazine;
 
-		private GunAttributes _currentGunAttributes;
-		private float         _gunOffsetAdjustment;
-		private Coroutine     _reloadCoroutine;
-
+		private GunAttributes  _currentGunAttributes;
+		private float          _gunOffsetAdjustment;
+		private Coroutine      _reloadCoroutine;
+		private WeaponsHandler _weaponsHandler;
+		private GunAttributes  _gunAttributes;
+		private AmmoInventory  _ammoInventory;
 
 		protected override void Start()
 		{
@@ -72,6 +74,9 @@ namespace Weapons
 			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
 
 			// Withdraw bullets from the player's inventory
+			Debug.Log("AmmoType: "+ ammoType);
+			Debug.Log("MagazineSize: "+ _currentGunAttributes.magazineSize);
+			Debug.Log("AmmoInventory: "+ammoInventory);
 			_bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
