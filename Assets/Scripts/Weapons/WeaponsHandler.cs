@@ -18,20 +18,14 @@ namespace Weapons
 		[Description("The child object containing the player's sprite and weapons")] [SerializeField]
 		private Transform playerSprite;
 
-		[Description("The variable that stores the ammo the player has")]
-		private                  AmmoInventory _ammoInventory;
-
-		[Description("The weapon the player currently has active")]
-		private                  Weapon        _currentWeapon;
-
-		[Description("The currentWeapon's index in the availableWeapons list")]
-		private                  int           _currentWeaponIndex;
-
-		[Description("The variable that prevents firing and changing weapons")]
-		private                  bool          _preventFire;
-		
 		[Description("List of available weapons the player can cycle through")]
 		[SerializeField] private GameObject[] availableWeapons;
+
+
+		private AmmoInventory _ammoInventory;
+		private Weapon        _currentWeapon;
+		private int           _currentWeaponIndex;
+		private bool          _preventFire;
 											   
 		private void Start() {
 			_ammoInventory = GetComponent<AmmoInventory>();

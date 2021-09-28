@@ -27,9 +27,6 @@ namespace Weapons
 		private GunAttributes  _currentGunAttributes;
 		private float          _gunOffsetAdjustment;
 		private Coroutine      _reloadCoroutine;
-		private WeaponsHandler _weaponsHandler;
-		private GunAttributes  _gunAttributes;
-		private AmmoInventory  _ammoInventory;
 
 		protected override void Start()
 		{
