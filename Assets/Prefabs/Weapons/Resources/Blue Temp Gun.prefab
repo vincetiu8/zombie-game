@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Temp Gun
-  ammoType: 2
+  ammoType: 0
   weaponLevels:
   - description: Blue Temp Gun
     damage: 21
