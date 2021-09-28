@@ -18,7 +18,7 @@ namespace Collectibles
 
 		protected override void Pickup(GameObject player)
 		{
-			AmmoInventory ammoInventory = player.gameObject.GetComponent<AmmoInventory>();
+			AmmoInventory ammoInventory = player.GetComponent<AmmoInventory>();
 			if (ammoInventory == null) return;
 
 			ammoInventory.DepositAmmo(ammoType, dropAmount);

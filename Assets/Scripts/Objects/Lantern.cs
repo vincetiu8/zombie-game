@@ -18,24 +18,22 @@ namespace Objects
 		private Coroutine _fadeLightingCoroutine;
 		private Light2D   _light2D;
 
-		private void Start()
+		protected override void Start()
 		{
+			base.Start();
 			_light2D = GetComponent<Light2D>();
 			_light2D.intensity = 0;
 		}
 
-		public override void Interact(GameObject player)
+		public override void Interact()
 		{
-			if (!PhotonNetwork.IsMasterClient) return;
-
-			if (_fadeLightingCoroutine != null) StopCoroutine(_fadeLightingCoroutine);
-
 			photonView.RPC("RpcStartLightingCoroutine", RpcTarget.All);
 		}
 
 		[PunRPC]
 		private void RpcStartLightingCoroutine()
 		{
+			if (_fadeLightingCoroutine != null) StopCoroutine(_fadeLightingCoroutine);
 			_fadeLightingCoroutine = StartCoroutine(FadeLightingCoroutine());
 		}
 

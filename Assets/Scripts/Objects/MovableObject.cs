@@ -1,7 +1,11 @@
+using Interact;
+using Networking;
+using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using Weapons;
 
-namespace Interact
+namespace Objects
 {
 	/// <summary>
 	///     Movable object represents an object the player can pickup and move.
@@ -16,17 +20,23 @@ namespace Interact
 			_colList = transform.GetComponentsInChildren<Collider2D>();
 		}
 
-		public override void Interact(GameObject player)
+		public override void Interact()
 		{
 			_isHolding = !_isHolding;
-			SetAllCollidersStatus(!_isHolding);
+			photonView.RPC("RPCInteract", RpcTarget.All, _isHolding);
+
+			GameObject player = GameManager.instance.localPlayerInstance;
 
 			// Prevent the player from using any weapons
+<<<<<<< HEAD:Assets/Scripts/Interact/MovableObject.cs
 			player.GetComponent<WeaponsHandler>().ToggleFireEnabled(!_isHolding);
 			transform.SetParent(_isHolding ? player.transform.Find("PlayerObject").gameObject.transform : null);
+=======
+			player.GetComponent<WeaponsHandler>().PreventFire(_isHolding);
+>>>>>>> Fix interactable networking:Assets/Scripts/Objects/MovableObject.cs
 
 			// When the colliders are disabled, it removes this from the interactable list
-			// We need to add it back so the player can drop the item and vice versa
+			// We need to add it back so the local player can drop the item and vice versa
 			// This also means closer objects will be interacted with instead of dropping this objects
 			// Therefore, it is suggested to make the interactable trigger as small as possible
 			if (_isHolding)
@@ -36,6 +46,27 @@ namespace Interact
 			}
 
 			player.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
+
+			if (photonView.IsMine) return;
+
+			photonView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
+			Debug.Log("Transferring ownership of movable object");
+			Debug.Log(photonView.Owner.ActorNumber);
+		}
+
+		[PunRPC]
+		private void RPCInteract(bool isHolding, PhotonMessageInfo info)
+		{
+			_isHolding = isHolding;
+			SetAllCollidersStatus(!_isHolding);
+			if (_isHolding)
+			{
+				GameObject player = GameManager.instance.GetPlayerInstance(info.Sender.GetPlayerNumber());
+				transform.SetParent(player.transform.Find("PlayerObject"));
+				return;
+			}
+
+			transform.SetParent(null);
 		}
 
 		private void SetAllCollidersStatus(bool active)
