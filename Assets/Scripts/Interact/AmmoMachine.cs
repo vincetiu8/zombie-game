@@ -102,7 +102,7 @@ namespace Interact
             sliderContainer.SetActive(!showError);
             buttonContainer.SetActive(!showError);
             errorText.SetActive(showError);
-
+                if (showError) return;
             purchaseAmountInput.maxValue = sliderMax;
         }
     }
