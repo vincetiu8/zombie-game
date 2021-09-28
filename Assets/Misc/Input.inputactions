@@ -68,6 +68,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "WeaponSwitchingScroll",
+                    "type": "Value",
+                    "id": "d3ed478d-6ec1-4528-bec3-8d7a7c46a7f0",
+                    "expectedControlType": "Axis",
+                    "processors": "Clamp(min=-1,max=1)",
+                    "interactions": ""
+                },
+                {
+                    "name": "WeaponSwitching",
+                    "type": "Button",
+                    "id": "62c29ec4-9e74-4899-99b7-34ccfdd47976",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -200,6 +216,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Debug Get Gold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dca49c1e-5d7e-47c9-a013-e00f6ee259d0",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "Clamp(min=-1,max=1)",
+                    "groups": "",
+                    "action": "WeaponSwitchingScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4726a313-f928-4a00-9c76-de9e5b317f87",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "Clamp(min=1,max=1)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd590865-c3cd-4ca5-9455-427ba4b7b73e",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "Clamp(min=2,max=2)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e67e3c24-a85f-4b08-967f-94480a52ba2a",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "Clamp(min=3,max=3)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -24,10 +24,9 @@ namespace Weapons
 
 		private int _bulletsInMagazine;
 
-		private GunAttributes _currentGunAttributes;
-		private float         _gunOffsetAdjustment;
-		private Coroutine     _reloadCoroutine;
-
+		private GunAttributes  _currentGunAttributes;
+		private float          _gunOffsetAdjustment;
+		private Coroutine      _reloadCoroutine;
 
 		protected override void Start()
 		{
