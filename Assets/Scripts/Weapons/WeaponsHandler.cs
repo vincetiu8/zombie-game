@@ -2,7 +2,6 @@ using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Weapons
 {
@@ -18,22 +17,24 @@ namespace Weapons
 		[Description("The child object containing the player's sprite and weapons")] [SerializeField]
 		private Transform playerSprite;
 
-		[Description("List of available weapons the player can cycle through")]
-		[SerializeField] private GameObject[] availableWeapons;
+		[Description("List of available weapons the player can cycle through")] [SerializeField]
+		private GameObject[] availableWeapons;
 
 
 		private AmmoInventory _ammoInventory;
 		private Weapon        _currentWeapon;
 		private int           _currentWeaponIndex;
 		private bool          _preventFire;
-											   
-		private void Start() {
+
+		private void Start()
+		{
 			_ammoInventory = GetComponent<AmmoInventory>();
-			for (int i = 0; i < availableWeapons.Length; i++) 
+			for (int i = 0; i < availableWeapons.Length; i++)
 			{
 				availableWeapons[i].GetComponent<Weapon>().Setup(_ammoInventory);
 				availableWeapons[i].SetActive(i == 0);
 			}
+
 			_currentWeapon = availableWeapons[0].GetComponent<Weapon>();
 		}
 
@@ -65,14 +66,15 @@ namespace Weapons
 		}
 
 		// Makes the player face the mouse
-		public void FaceMouse(InputAction.CallbackContext context) {
+		public void FaceMouse(InputAction.CallbackContext context)
+		{
 			if (!photonView.IsMine) return;
 
 			if (!context.performed) return;
 
 			Vector2 mousePos = playerCamera.ScreenToWorldPoint(context.ReadValue<Vector2>());
 
-			Vector2 direction = mousePos - (Vector2) playerSprite.position;
+			Vector2 direction = mousePos - (Vector2)playerSprite.position;
 
 			float angle = Utils.Vector2ToDeg(direction);
 
@@ -82,36 +84,43 @@ namespace Weapons
 			if (_currentWeapon != null) _currentWeapon.FaceMouse(direction.magnitude);
 		}
 
-		public void WeaponSwitchingScrollAction(InputAction.CallbackContext context) 
+		public void WeaponSwitchingScrollAction(InputAction.CallbackContext context)
 		{
-			if (!context.performed || _preventFire) 
+			if (!context.performed || _preventFire)
 			{
 				return;
 			}
-			int scrollDirection = (int) context.ReadValue<float>();
+
+			int scrollDirection = (int)context.ReadValue<float>();
 			int selectedWeaponIndex = _currentWeaponIndex + scrollDirection + availableWeapons.Length;
 			selectedWeaponIndex %= availableWeapons.Length;
 			SelectWeapon(selectedWeaponIndex);
 		}
 
-		public void WeaponSwitchingAction(InputAction.CallbackContext context) 
+		public void WeaponSwitchingAction(InputAction.CallbackContext context)
 		{
-			if (!context.performed || _preventFire) 
+			if (!context.performed || _preventFire)
 			{
 				return;
 			}
-			int keypressed = (int) context.ReadValue<float>();
+
+			int keypressed = (int)context.ReadValue<float>();
 			int selectedWeaponIndex = keypressed - 1;
 			SelectWeapon(selectedWeaponIndex);
-
 		}
-                                                                   
-		private void SelectWeapon(int selectedIndex) 
-		{ 
+
+		private void SelectWeapon(int selectedIndex)
+		{
+			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
+			_currentWeapon = availableWeapons[selectedIndex].GetComponent<Weapon>();
+		}
+
+		[PunRPC]
+		private void RPCSelectWeapon(int selectedIndex)
+		{
 			availableWeapons[_currentWeaponIndex].SetActive(false);
-			_currentWeaponIndex = selectedIndex;  
-			availableWeapons[selectedIndex].SetActive(true);          
-			_currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();
+			availableWeapons[selectedIndex].SetActive(true);
+			_currentWeaponIndex = selectedIndex;
 		}
 
 		public void ToggleFireEnabled(bool preventFire)

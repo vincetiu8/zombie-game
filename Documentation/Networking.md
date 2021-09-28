@@ -10,7 +10,7 @@ State: What the game currently looks like. The game state is the overarching sit
 Each component has its own state in the game, which composes of its attributes. These include the object's position and
 important variables in its scripts.
 
-Sync(ronization): Ensuring the game state is the same in all clients. From any client's perspective, the game should
+Synchronization: Ensuring the game state is the same in all clients. From any client's perspective, the game should
 look the same and they should be able to perform the same actions.
 
 Authority: Who controls an object. The client with authority sends the state of the object to all other clients, who
@@ -33,8 +33,8 @@ GameObject. This has multiple settings, but the defaults are normally acceptable
 
 Example: syncing positions
 
-To sync an object's position, rotation or scale, simply add the `Photon Transform View` to the object and select the
-relevant attributes to sync.
+To sync an object's position, rotation or scale, simply add the `Optimized Transform View` to the object and select the
+relevant attributes to sync. Use this instead of the normal `Photon Transform View` because it's faster.
 
 ## Syncing scripts
 
@@ -42,7 +42,7 @@ In order for a script to be synced, it needs to derive from `MonoBehaviourPun` i
 access to the `photonView` component attached to the object, among other functionality.
 
 If you also want to get callbacks to photon functions (mostly useful for any system that need to know about players
-leaving/joining, see [Player Numbering](#player-numbering)), inherit from `MonoBehaviourPunCallbacks` instead. This will
+leaving/joining, see [Player Numbering](#player-numbering), inherit from `MonoBehaviourPunCallbacks` instead. This will
 give you all the functionality of `MonoBehaviourPun` and allow you to override methods to handle different situations.
 
 ### Syncing variables
