@@ -125,3 +125,5 @@ Note that when a player leaves a room, the other player numbers don't change, an
 of the player that left first before extending the player numbering range. This means that when a player leaves a room
 (which you can handle by overriding the `OnPlayerLeftRoom` callback), all information related to that player needs to be
 erased so any new players don't inherit it.
+
+The instances of each player can be accessed from the `GameManager` by their player number.
