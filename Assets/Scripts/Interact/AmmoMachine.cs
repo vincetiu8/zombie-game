@@ -9,6 +9,10 @@ using Networking;
 
 namespace Interact
 {
+    ///<summary>
+    ///     Handles ammo machine interactions
+    ///</summary>
+
     public class AmmoMachine : Interactable
     {
         
@@ -47,26 +51,26 @@ namespace Interact
                 return;
             }
 
+            // Only deposit ammo if player can afford it
             if(GameManager.instance.goldSystem.WithdrawPlayerGold(purchasePrice))
             {
                 ammoInventory.DepositAmmo(ammoType, purchaseAmount);
             }
 
-            CheckIfPlayerhasEnoughMoney();
+            CheckIfPlayerHasEnoughMoney();
             Debug.Log(GameManager.instance.goldSystem.GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber()));
         }
 
         public override void Interact(GameObject player)
         {  
-            CheckIfPlayerhasEnoughMoney();
+            CheckIfPlayerHasEnoughMoney();
 
-            priceRatioText.text = "";
             priceRatioText.text = purchaseAmountMultiplier.ToString();
 
             _menuManager.OpenMenu("ammomachine");
         }
 
-        //updates amount in PurchaseSlidervalue text element
+        // Updates amount in PurchaseSlidervalue text element
         public void SetPurchaseAmount(float value)
         {
             purchaseAmount = Mathf.FloorToInt(value);
@@ -76,7 +80,9 @@ namespace Interact
             totalPurchaseAmount.text = purchasePrice.ToString();
         }
 
-        private void CheckIfPlayerhasEnoughMoney()
+        // Calculates player's max amount of ammo purchaseable
+        // Toggles on/off slider accordingly
+        private void CheckIfPlayerHasEnoughMoney()
         {
             purchaseAmountInput.minValue = 1;
             purchaseAmountInput.maxValue = (GameManager.instance.goldSystem.GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber())) / purchaseAmountMultiplier;
