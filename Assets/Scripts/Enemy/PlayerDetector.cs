@@ -36,13 +36,17 @@ namespace Enemy
 
 		private void Update()
 		{
+            if (_trackingPlayer)
+            {
+                _chaserAI.MoveTowardsPlayer(_trackingPlayer);
+            }
+            
 			if (_updateCooldown > 0)
 			{
 				_updateCooldown -= Time.deltaTime;
 				return;
 			}
-
-			UpdateTrackingPlayer();
+            UpdateTrackingPlayer();
 		}
 
 		
@@ -64,8 +68,6 @@ namespace Enemy
 				minDistance = playerDistance;
 				_trackingPlayer = player;
 			}
-            
-            _chaserAI.MoveTowardsPlayer(_trackingPlayer);
             _updateCooldown = updatePeriod;
 
         }
