@@ -18,12 +18,6 @@ namespace UI
 			if (_playerInput == null) _playerInput = GameManager.instance.localPlayer.GetComponent<PlayerInput>();
 		}
 
-		public void PauseAction(InputAction.CallbackContext context)
-		{
-			MenuManager _menuManager = MenuManager.instance.GetComponent<MenuManager>();
-			if (context.performed) _menuManager.OpenMenu("pause");
-		}
-
 		public void QuitFromPauseMenu()
 		{
 			PhotonNetwork.LeaveRoom();

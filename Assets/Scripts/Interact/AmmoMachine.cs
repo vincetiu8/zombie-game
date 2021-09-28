@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Weapons;
 using Shop;
 using Photon.Pun;
@@ -22,6 +19,10 @@ namespace Interact
         [SerializeField] private Text purchaseSliderValue;
         [SerializeField] private Text priceRatioText;
         [SerializeField] private Text totalPurchaseAmount;
+        [SerializeField] private GameObject errorText;
+        [SerializeField] private GameObject sliderContainer;
+        [SerializeField] private GameObject buttonContainer;
+        
 
         private GoldSystem _goldSystem;
         private MenuManager _menuManager;
@@ -34,16 +35,6 @@ namespace Interact
         {
             _menuManager = MenuManager.instance.GetComponent<MenuManager>();
             ammoTypeText.text = ammoType.ToString();
-        }
-
-        //updates amount in PurchaseSlidervalue text element
-        public void SetPurchaseAmount(float value)
-        {
-            purchaseAmount = Mathf.FloorToInt(purchaseAmountInput.value);
-            purchasePrice = purchaseAmount * purchaseAmountMultiplier;
-
-            purchaseSliderValue.text = Mathf.FloorToInt(value).ToString();
-            totalPurchaseAmount.text = purchasePrice.ToString();
         }
         
         public void PurchaseAmmo()
@@ -61,19 +52,47 @@ namespace Interact
                 ammoInventory.DepositAmmo(ammoType, purchaseAmount);
             }
 
+            CheckIfPlayerhasEnoughMoney();
             Debug.Log(GameManager.instance.goldSystem.GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber()));
         }
 
         public override void Interact(GameObject player)
-        {   
-            // Set slider values
-            purchaseAmountInput.minValue = 0;
-            purchaseAmountInput.maxValue = (GameManager.instance.goldSystem.GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber())) / purchaseAmountMultiplier;
-            
+        {  
+            CheckIfPlayerhasEnoughMoney();
+
             priceRatioText.text = "";
             priceRatioText.text = purchaseAmountMultiplier.ToString();
 
             _menuManager.OpenMenu("ammomachine");
+        }
+
+        //updates amount in PurchaseSlidervalue text element
+        public void SetPurchaseAmount(float value)
+        {
+            purchaseAmount = Mathf.FloorToInt(value);
+            purchasePrice = purchaseAmount * purchaseAmountMultiplier;
+
+            purchaseSliderValue.text = Mathf.FloorToInt(value).ToString();
+            totalPurchaseAmount.text = purchasePrice.ToString();
+        }
+
+        private void CheckIfPlayerhasEnoughMoney()
+        {
+            purchaseAmountInput.minValue = 1;
+            purchaseAmountInput.maxValue = (GameManager.instance.goldSystem.GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber())) / purchaseAmountMultiplier;
+
+            if(purchaseAmountInput.maxValue <= 0f)
+            {
+                sliderContainer.SetActive(false);
+                buttonContainer.SetActive(false);
+                errorText.SetActive(true);
+            }
+            else
+            {
+                sliderContainer.SetActive(true);
+                buttonContainer.SetActive(true);
+                errorText.SetActive(false);
+            }
         }
     }
 }

@@ -853,7 +853,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 559655258, guid: a9c77e03d50090b45be3c8af32691890, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 571154795, guid: a9c77e03d50090b45be3c8af32691890, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -861,6 +861,11 @@ PrefabInstance:
       objectReference: {fileID: 7330685861903143321}
     - target: {fileID: 1945127157, guid: a9c77e03d50090b45be3c8af32691890, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318616868945597279, guid: a9c77e03d50090b45be3c8af32691890,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2059872641806354327, guid: a9c77e03d50090b45be3c8af32691890,
@@ -993,6 +998,46 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7330685861903143321}
+    - target: {fileID: 5268548353569931453, guid: a9c77e03d50090b45be3c8af32691890,
+        type: 3}
+      propertyPath: m_Text
+      value: Not Enough Gold for New Purchase
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268548353569931453, guid: a9c77e03d50090b45be3c8af32691890,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268548353569931453, guid: a9c77e03d50090b45be3c8af32691890,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268548353569931453, guid: a9c77e03d50090b45be3c8af32691890,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268548353569931453, guid: a9c77e03d50090b45be3c8af32691890,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268548353569931453, guid: a9c77e03d50090b45be3c8af32691890,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146933727666409646, guid: a9c77e03d50090b45be3c8af32691890,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 355.7266
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146933727666409646, guid: a9c77e03d50090b45be3c8af32691890,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -28
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9c77e03d50090b45be3c8af32691890, type: 3}
 --- !u!114 &817854942 stripped
@@ -1025,6 +1070,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &817854945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1318616868945597279, guid: a9c77e03d50090b45be3c8af32691890,
+    type: 3}
+  m_PrefabInstance: {fileID: 817854941}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &817854946 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 255233107168396409, guid: a9c77e03d50090b45be3c8af32691890,
+    type: 3}
+  m_PrefabInstance: {fileID: 817854941}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &817854947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2755042882011971307, guid: a9c77e03d50090b45be3c8af32691890,
+    type: 3}
+  m_PrefabInstance: {fileID: 817854941}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &854672730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12742,13 +12805,13 @@ MonoBehaviour:
     m_ActionName: Game/Interact[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Menus_UI.PauseMenu, Assembly-CSharp
-        m_MethodName: PauseMenuToggle
-        m_Mode: 1
+      - m_Target: {fileID: 2067199974}
+        m_TargetAssemblyTypeName: Menus_UI.MenuManager, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1286004397}
+          m_ObjectArgumentAssemblyTypeName: Menus_UI.Menu, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13028,6 +13091,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7330685861977877046, guid: aa2d10839b7665149ada865acbb043ca,
         type: 3}
+      propertyPath: errorText
+      value: 
+      objectReference: {fileID: 817854945}
+    - target: {fileID: 7330685861977877046, guid: aa2d10839b7665149ada865acbb043ca,
+        type: 3}
       propertyPath: ammoTypeText
       value: 
       objectReference: {fileID: 817854944}
@@ -13036,6 +13104,16 @@ PrefabInstance:
       propertyPath: priceRatioText
       value: 
       objectReference: {fileID: 595079738}
+    - target: {fileID: 7330685861977877046, guid: aa2d10839b7665149ada865acbb043ca,
+        type: 3}
+      propertyPath: buttonContainer
+      value: 
+      objectReference: {fileID: 817854947}
+    - target: {fileID: 7330685861977877046, guid: aa2d10839b7665149ada865acbb043ca,
+        type: 3}
+      propertyPath: sliderContainer
+      value: 
+      objectReference: {fileID: 817854946}
     - target: {fileID: 7330685861977877046, guid: aa2d10839b7665149ada865acbb043ca,
         type: 3}
       propertyPath: purchaseAmountInput
