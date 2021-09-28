@@ -28,12 +28,7 @@ namespace Objects
 			GameObject player = GameManager.instance.localPlayerInstance;
 
 			// Prevent the player from using any weapons
-<<<<<<< HEAD:Assets/Scripts/Interact/MovableObject.cs
 			player.GetComponent<WeaponsHandler>().ToggleFireEnabled(!_isHolding);
-			transform.SetParent(_isHolding ? player.transform.Find("PlayerObject").gameObject.transform : null);
-=======
-			player.GetComponent<WeaponsHandler>().PreventFire(_isHolding);
->>>>>>> Fix interactable networking:Assets/Scripts/Objects/MovableObject.cs
 
 			// When the colliders are disabled, it removes this from the interactable list
 			// We need to add it back so the local player can drop the item and vice versa
@@ -50,8 +45,7 @@ namespace Objects
 			if (photonView.IsMine) return;
 
 			photonView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
-			Debug.Log("Transferring ownership of movable object");
-			Debug.Log(photonView.Owner.ActorNumber);
+			Debug.Log("Getting ownership of movable object");
 		}
 
 		[PunRPC]
