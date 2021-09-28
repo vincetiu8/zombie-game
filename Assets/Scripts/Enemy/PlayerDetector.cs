@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
@@ -36,12 +37,7 @@ namespace Enemy
 
 		private void Update()
 		{
-            if (_trackingPlayer)
-            {
-                _chaserAI.MoveTowardsPlayer(_trackingPlayer);
-            }
-            
-			if (_updateCooldown > 0)
+            if (_updateCooldown > 0)
 			{
 				_updateCooldown -= Time.deltaTime;
 				return;
@@ -49,8 +45,14 @@ namespace Enemy
             UpdateTrackingPlayer();
 		}
 
-		
-		/// <summary>
+        private void FixedUpdate()
+        {
+            if (!_trackingPlayer) return;
+            _chaserAI.MoveTowardsPlayer(_trackingPlayer);
+        }
+
+
+        /// <summary>
 		///     Updates the tracking player.
 		/// </summary>
 		private void UpdateTrackingPlayer()
