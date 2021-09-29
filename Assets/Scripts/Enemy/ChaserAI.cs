@@ -9,9 +9,11 @@ namespace Enemy
 
 	public abstract class ChaserAI : MonoBehaviour
 	{
-        public virtual void MoveTowardsPlayer(Transform player)
-		{
-		}
+        protected Transform _playerTracked;
+        public virtual void SetPlayerToTrack(Transform player)
+        {
+            _playerTracked = player;
+        }
 
 	}
 }

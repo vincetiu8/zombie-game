@@ -17,21 +17,23 @@ namespace Enemy
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 		}
-
-		public override void MoveTowardsPlayer(Transform player)
-		{
-			if (player == null)
+      
+        private void FixedUpdate()
+        {
+            if (!_playerTracked)
             {
-				_rigidbody2D.velocity = Vector2.zero;
-				return;
+                _rigidbody2D.velocity = Vector2.zero;
+                return;
             }
-			// Set the velocity in the direction of the player
-			Vector2 direction = (player.position - transform.position).normalized;
-			_rigidbody2D.velocity = direction * movementSpeed;
 
-			// Rotate the enemy towards the player
-			float angle = Utils.Vector2ToDeg(direction);
-			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-		}
+            // Set the velocity in the direction of the player
+            Vector2 direction = (_playerTracked.position - transform.position).normalized;
+            _rigidbody2D.velocity = direction * movementSpeed;
+            
+            // Rotate the enemy towards the player
+            float angle = Utils.Vector2ToDeg(direction);
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+    
 	}
 }

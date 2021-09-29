@@ -45,13 +45,6 @@ namespace Enemy
             UpdateTrackingPlayer();
 		}
 
-        private void FixedUpdate()
-        {
-            if (!_trackingPlayer) return;
-            _chaserAI.MoveTowardsPlayer(_trackingPlayer);
-        }
-
-
         /// <summary>
 		///     Updates the tracking player.
 		/// </summary>
@@ -71,6 +64,8 @@ namespace Enemy
 				_trackingPlayer = player;
 			}
             _updateCooldown = updatePeriod;
+            
+            _chaserAI.SetPlayerToTrack(_trackingPlayer);
 
         }
 
