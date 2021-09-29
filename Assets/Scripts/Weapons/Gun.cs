@@ -44,7 +44,7 @@ namespace Weapons
 
 			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
             
-            Vector2 bulletVelocity = firepoint.right * CurrentGunAttributes.bulletSpeed;
+            Vector2 bulletVelocity = firepoint.transform.right * CurrentGunAttributes.bulletSpeed;
             SpawnBullet(bulletVelocity);
             
             // Remove a bullet from the magazine
@@ -54,6 +54,7 @@ namespace Weapons
 
         protected virtual void SpawnBullet(Vector2 direction)
         {
+            
             GameObject bulletClone =
                 PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, firepoint.rotation);
 
