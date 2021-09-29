@@ -12,7 +12,7 @@ namespace Weapons
 		[Description("The weapon's description")]
 		public string description;
 
-		[Description("The weapon's damage")] public float damage;
+		[Description("The weapon's damage")] public int damage;
 
 		[Description("The number of seconds between weapon attacks")]
 		public float fireCooldown;

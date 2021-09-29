@@ -7,6 +7,7 @@ TagManager:
   - AmmoPickup
   - Canvas
   - Enemy
+  - DeadPlayer
   layers:
   - Default
   - TransparentFX

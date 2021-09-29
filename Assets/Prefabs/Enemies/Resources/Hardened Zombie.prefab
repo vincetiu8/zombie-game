@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6235af2f4a344af8f26c32f17e8d4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 100
   damageCooldown: 0.5
   layerMask:
     serializedVersion: 2
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6698ca512d86adf478231fcc297b1407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 0
+  initialHealth: 200
   itemDict:
     m_keys: 1400000050000000
     m_values:

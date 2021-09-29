@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d2f559143d48157be6a3a7b0aab6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 2
+  initialHealth: 200
 --- !u!114 &5989146994798338574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,6 +871,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6850329493316692729, guid: 363a07bf4b92d5c4b806ba0e1034100e,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].damage
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 7615179612898092161, guid: 363a07bf4b92d5c4b806ba0e1034100e,
         type: 3}
       propertyPath: m_Name
@@ -951,6 +956,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].damage
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
