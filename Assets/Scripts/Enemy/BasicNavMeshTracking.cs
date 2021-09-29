@@ -16,14 +16,22 @@ namespace Enemy
 			_agent = GetComponent<NavMeshAgent>();
 			_agent.updateUpAxis = false;
 		}
-        
-        private void FixedUpdate()
+
+        public override void SetPlayerToTrack(Transform player)
         {
+            base.SetPlayerToTrack(player);
             if (!_playerTracked)
             {
                 _agent.SetDestination(transform.position);
-                return;
             }
+            
+        }
+
+
+        
+        private void FixedUpdate()
+        {
+            if (!_playerTracked) return;
 
             _agent.SetDestination(_playerTracked.position);
 

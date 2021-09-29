@@ -77,7 +77,7 @@ namespace Enemy
 			_players.Add(other);
 
 			// If no players are currently getting tracked, _updateCooldown can be ignored.
-			if (GetTrackingPlayer() != null && _updateCooldown > 0) return;
+			if (_trackingPlayer && _updateCooldown > 0) return;
 			UpdateTrackingPlayer();
 		}
 
@@ -97,20 +97,5 @@ namespace Enemy
 
 			UpdateTrackingPlayer();
 		}
-
-		/// <summary>
-		///     Returns player currently getting tracked
-		/// </summary>
-        public Transform GetTrackingPlayer()
-        {
-            if (!_trackingPlayer)
-            {
-	            Debug.Log("No player in sight");
-                return null;
-            }
-            return _trackingPlayer;
-        }
-        
-        
     }
 }
