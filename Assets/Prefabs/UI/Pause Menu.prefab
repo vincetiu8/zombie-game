@@ -122,24 +122,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+        m_TargetAssemblyTypeName: Menus_UI.MenuManager, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1910789372790776597}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: Menus_UI.Menu, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -236,6 +224,7 @@ GameObject:
   - component: {fileID: 1910789372790776592}
   - component: {fileID: 1910789372790776595}
   - component: {fileID: 1910789372790776598}
+  - component: {fileID: 3276857934266911518}
   m_Layer: 5
   m_Name: Pause Menu
   m_TagString: Untagged
@@ -316,8 +305,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a5d766487e205419fd38584a20c892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamePaused: 0
-  pauseMenuUI: {fileID: 1910789372790776597}
+--- !u!114 &3276857934266911518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910789372790776597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462cf0baac97aee46a7ec45a3ef7a2fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuName: pause
+  freezeOnToggle: 1
+  inputToggle: 0
 --- !u!1 &1910789373094401311
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,13 +653,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1910789372790776598}
-        m_TargetAssemblyTypeName: Menus_UI.PauseMenu, Assembly-CSharp
-        m_MethodName: PauseMenuToggle
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Menus_UI.MenuManager, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: Menus_UI.Menu, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using Menus_UI;
 
 namespace Lobby
 {
@@ -50,7 +51,7 @@ namespace Lobby
 
 		public override void OnJoinedRoom()
 		{
-			MenuManager.instance.OpenMenu("room");
+			MenuManager.instance.OpenMenu("roommenu");
 			roomNameText.text = PhotonNetwork.CurrentRoom.Name;
 
 			Player[] players = PhotonNetwork.PlayerList;

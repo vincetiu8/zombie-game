@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 ///     Utils provides utility functions that other classes can use.
@@ -13,5 +14,12 @@ public static class Utils
 	public static float Vector2ToDeg(Vector2 vector2)
 	{
 		return Mathf.Rad2Deg * Mathf.Atan2(vector2.y, vector2.x);
+	}
+	
+	public static bool ToggleInput(bool isPaused, PlayerInput input)
+	{
+		string actionMap = isPaused ? "UI" : "Game";
+		input.SwitchCurrentActionMap(actionMap);
+		return isPaused;
 	}
 }
