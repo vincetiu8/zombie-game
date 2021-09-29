@@ -22,33 +22,33 @@ namespace Weapons
 		[Description("The bullet prefab to be instantiated")] [SerializeField]
 		protected GameObject bulletPrefab;
 
-		protected int BulletsInMagazine;
+		protected int _bulletsInMagazine;
 
-		protected GunAttributes  CurrentGunAttributes;
+		protected GunAttributes  _currentGunAttributes;
 		private float          _gunOffsetAdjustment;
-		protected Coroutine      _reloadCoroutine; // Renaming this will cause a conflict
+		protected Coroutine      _reloadCoroutine;
 
 		protected override void Start()
 		{
 			base.Start();
 			maxLevel = weaponLevels.Length;
-			CurrentGunAttributes = weaponLevels[currentLevel];
-			currentAttributes = CurrentGunAttributes;
-			BulletsInMagazine = CurrentGunAttributes.magazineSize;
+            _currentGunAttributes = weaponLevels[currentLevel];
+			currentAttributes = _currentGunAttributes;
+            _bulletsInMagazine = _currentGunAttributes.magazineSize;
 			CalculateGunOffsetAdjustment();
 		}
 
 		protected override void Fire()
 		{
-			if (BulletsInMagazine < 1) return;
+			if (_bulletsInMagazine < 1) return;
 
 			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
             
-            Vector2 bulletVelocity = firepoint.transform.right * CurrentGunAttributes.bulletSpeed;
+            Vector2 bulletVelocity = firepoint.transform.right * _currentGunAttributes.bulletSpeed;
             SpawnBullet(bulletVelocity);
             
             // Remove a bullet from the magazine
-			BulletsInMagazine--;
+            _bulletsInMagazine--;
             base.Fire();
         }
 
@@ -74,10 +74,10 @@ namespace Weapons
 		// Once this coroutine finishes, the weapon is reloaded
 		private IEnumerator ReloadCoroutine()
 		{
-			yield return new WaitForSeconds(CurrentGunAttributes.reloadTime);
+			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
 
 			// Withdraw bullets from the player's inventory
-			BulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, CurrentGunAttributes.magazineSize);
+            _bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
 			_reloadCoroutine = null;
@@ -85,8 +85,8 @@ namespace Weapons
 
 		public override void Upgrade()
 		{
-			CurrentGunAttributes = weaponLevels[currentLevel];
-			currentAttributes = CurrentGunAttributes;
+            _currentGunAttributes = weaponLevels[currentLevel];
+			currentAttributes = _currentGunAttributes;
 		}
 
 		/// <summary>
