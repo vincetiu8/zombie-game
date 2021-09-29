@@ -8,7 +8,7 @@ namespace Weapons
 	/// </summary>
 	public class CollisionDamager : MonoBehaviour
 	{
-		[Description("The damage per attack")] public float damage;
+		[Description("The damage per attack")] public int damage;
 
 		[Description("The cooldown between damage reductions")]
 		public float damageCooldown;

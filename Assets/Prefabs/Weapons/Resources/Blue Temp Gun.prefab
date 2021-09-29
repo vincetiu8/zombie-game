@@ -49,7 +49,7 @@ MonoBehaviour:
   ammoType: 0
   weaponLevels:
   - description: Blue Temp Gun
-    damage: 21
+    damage: 210
     fireCooldown: 0.01
     fullAuto: 0
     magazineSize: 72
