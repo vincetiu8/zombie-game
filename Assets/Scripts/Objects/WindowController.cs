@@ -19,6 +19,8 @@ namespace Objects
 		[Description("The rate at which health is decreased")] [SerializeField] [Range(0.25f, 1000f)]
 		private int barricadeBreakRate;
 
+		private float _carryHealth;
+
 		private void OnTriggerExit2D(Collider2D collision)
 		{
 			if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
@@ -30,8 +32,10 @@ namespace Objects
 		private void OnTriggerStay2D(Collider2D collision)
 		{
 			if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
-
-			ChangeHealth(-barricadeBreakRate * (int)Time.deltaTime);
+			_carryHealth -= Time.deltaTime * barricadeBreakRate;
+			int healthChange = (int) _carryHealth;
+			ChangeHealth(healthChange);
+			_carryHealth -= healthChange;
 			zombieAtWindow = true;
 		}
 

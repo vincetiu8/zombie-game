@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using UnityEngine;
 
 namespace Weapons
 {
@@ -12,7 +13,7 @@ namespace Weapons
 		[Description("The weapon's description")]
 		public string description;
 
-		[Description("The weapon's damage")] public int damage;
+		[Description("The weapon's damage")] [Range(0.25f, 1000f)]public int damage;
 
 		[Description("The number of seconds between weapon attacks")]
 		public float fireCooldown;
