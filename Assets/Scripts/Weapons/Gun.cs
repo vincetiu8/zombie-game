@@ -45,7 +45,6 @@ namespace Weapons
 		protected override void Fire()
 		{
             if (_bulletsInMagazine < 1) return;
-            Debug.Log("shooting");
             
 			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
 
@@ -72,7 +71,6 @@ namespace Weapons
                 PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, Quaternion.Euler(0,0, direction));
 
             // Set the bullet's attributes
-            Debug.Log("spawnbullet: " +Utils.DegToVector2(direction));
             bulletClone.GetComponent<Rigidbody2D>().velocity = Utils.DegToVector2(direction) * _currentGunAttributes.bulletSpeed; 
             bulletClone.GetComponent<Bullet>().damage = currentAttributes.damage;
         }
