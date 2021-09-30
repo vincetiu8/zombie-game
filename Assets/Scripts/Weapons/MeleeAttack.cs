@@ -1,36 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.ComponentModel;
 
 namespace Weapons
 {
-    public class MeleeAttack : Gun
+    /// <summary>
+    /// A weapon that attacks within a
+    /// small radius of the player
+    /// </summary>
+    public class MeleeAttack : Weapon
     {
         [Header("Attack settings")]
         [SerializeField] private float attackRange = 0.5f;
         [SerializeField] private LayerMask mask;
-        [SerializeField] private float meleeDamage;
-        [SerializeField] private float attackRate;
+        [SerializeField] private Transform meleePoint;
 
         [SerializeField] private Animator animator;
 
-        private float nextAttack;
-
         protected override void Fire()
         {
-            if(Time.time >= nextAttack)
+            base.Fire();
+            animator.SetTrigger("attack");
+
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleePoint.position, attackRange, mask);
+
+            foreach (Collider2D enemy in hitEnemies)
             {
-                animator.SetTrigger("attack");
-
-                Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firepoint.position, attackRange, mask);
-
-                foreach (Collider2D enemy in hitEnemies)
-                {
-                    Debug.Log("hit: " + enemy.name);
-                    enemy.gameObject.GetComponent<Health>().ChangeHealth(-meleeDamage);
-                }
-
-                nextAttack = Time.time + 1f / attackRate;
+                Debug.Log("hit: " + enemy.name);
+                enemy.gameObject.GetComponent<Health>().ChangeHealth(-currentAttributes.damage);
             }
         }
     }
