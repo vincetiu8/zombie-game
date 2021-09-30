@@ -26,6 +26,8 @@ namespace Weapons
 		private Weapon        _currentWeapon;
 		private int           _currentWeaponIndex;
 		private bool          _preventFire;
+
+		public bool          _invertMouse;
 											   
 		private void Start() {
 			_ammoInventory = GetComponent<AmmoInventory>();
@@ -35,6 +37,10 @@ namespace Weapons
 				availableWeapons[i].SetActive(i == 0);
 			}
 			_currentWeapon = availableWeapons[0].GetComponent<Weapon>();
+		}
+
+		public void SetInvertMouse(bool invertMouse) {
+			_invertMouse = invertMouse;
 		}
 
 		public void FireAction(InputAction.CallbackContext context)
@@ -84,12 +90,19 @@ namespace Weapons
 
 		public void WeaponSwitchingScrollAction(InputAction.CallbackContext context) 
 		{
+			Debug.Log(_invertMouse);
 			if (!context.performed || _preventFire) 
 			{
 				return;
 			}
 			int scrollDirection = (int) context.ReadValue<float>();
-			int selectedWeaponIndex = _currentWeaponIndex + scrollDirection + availableWeapons.Length;
+			int selectedWeaponIndex;
+			if (_invertMouse) {
+				selectedWeaponIndex = _currentWeaponIndex - scrollDirection + availableWeapons.Length;
+			}
+			else {
+				selectedWeaponIndex = _currentWeaponIndex + scrollDirection + availableWeapons.Length;
+			}
 			selectedWeaponIndex %= availableWeapons.Length;
 			SelectWeapon(selectedWeaponIndex);
 		}

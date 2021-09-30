@@ -443,6 +443,7 @@ MonoBehaviour:
   - {fileID: 17128285943786547}
   - {fileID: 8689795345025296494}
   - {fileID: 6904516959543821588}
+  _invertMouse: 0
 --- !u!114 &1257494630980918847
 MonoBehaviour:
   m_ObjectHideFlags: 0
