@@ -102,7 +102,7 @@ MonoBehaviour:
   ammoType: 0
   weaponLevels:
   - description: Basic Pistol
-    damage: 0.25
+    damage: 100
     fireCooldown: 0.1
     fullAuto: 0
     magazineSize: 5

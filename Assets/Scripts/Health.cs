@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class Health : MonoBehaviourPun, IPunObservable
 {
-	[SerializeField] protected float initialHealth;
+	[SerializeField] protected int initialHealth;
 
-	protected float health;
+	protected int health;
 
 	private void Awake()
 	{
@@ -25,10 +25,10 @@ public class Health : MonoBehaviourPun, IPunObservable
 		}
 
 		object received = stream.ReceiveNext();
-		health = (float)received;
+		health = (int)received;
 	}
 
-	public float GetHealth()
+	public int GetHealth()
 	{
 		return health;
 	}
@@ -38,7 +38,7 @@ public class Health : MonoBehaviourPun, IPunObservable
 		return Mathf.RoundToInt(health);
 	}
 
-	public virtual void ChangeHealth(float change)
+	public virtual void ChangeHealth(int change)
 	{
 		health += change;
 

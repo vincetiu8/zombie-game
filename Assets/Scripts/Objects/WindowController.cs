@@ -16,8 +16,10 @@ namespace Objects
 		[Description("The window's collider")] [SerializeField]
 		private GameObject windowCollider;
 
-		[Description("The rate at which health is decreased")] [SerializeField] [Range(0.25f, 10)]
-		private float barricadeBreakRate;
+		[Description("The rate at which health is decreased")] [SerializeField] [Range(0, 1000)]
+		private int barricadeBreakRate;
+
+		private float _carryHealth;
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
@@ -30,14 +32,16 @@ namespace Objects
 		private void OnTriggerStay2D(Collider2D collision)
 		{
 			if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
-
-			ChangeHealth(-barricadeBreakRate * Time.deltaTime);
+			_carryHealth -= Time.deltaTime * barricadeBreakRate;
+			int healthChange = (int) _carryHealth;
+			ChangeHealth(healthChange);
+			_carryHealth -= healthChange;
 			zombieAtWindow = true;
 		}
 
-		public override void ChangeHealth(float change)
+		public override void ChangeHealth(int change)
 		{
-			float previousHealth = health;
+			int previousHealth = health;
 			health = Mathf.Clamp(health + change, 0, initialHealth);
 			if (previousHealth == health)
 				return; // If zombies hitting an already destroyed window or player fixing an already fixed window
