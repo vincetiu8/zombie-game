@@ -15,6 +15,11 @@ public static class Utils
 	{
 		return Mathf.Rad2Deg * Mathf.Atan2(vector2.y, vector2.x);
 	}
+    
+    public static Vector2 DegToVector2(float degrees)
+    {
+        return new Vector2(Mathf.Cos(degrees * Mathf.Deg2Rad), Mathf.Sin(degrees * Mathf.Deg2Rad));
+    }
 	
 	public static bool ToggleInput(bool isPaused, PlayerInput input)
 	{
@@ -22,13 +27,4 @@ public static class Utils
 		input.SwitchCurrentActionMap(actionMap);
 		return isPaused;
 	}
-    
-    public static Vector2 RotateVector2(Vector2 originalVector2, float degreesInClockwise)
-    {
-        return new Vector2(
-            originalVector2.x * Mathf.Cos(degreesInClockwise * Mathf.Deg2Rad) - originalVector2.y * Mathf.Sin(degreesInClockwise * Mathf.Deg2Rad),
-            originalVector2.x * Mathf.Sin(degreesInClockwise * Mathf.Deg2Rad) + originalVector2.y * Mathf.Cos(degreesInClockwise * Mathf.Deg2Rad));
-        // Explination: https://en.wikipedia.org/wiki/Rotation_matrix
-
-    }
 }

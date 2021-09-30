@@ -22,7 +22,11 @@ namespace Weapons
 		[Description("The bullet prefab to be instantiated")] [SerializeField]
 		protected GameObject bulletPrefab;
 
-		protected int _bulletsInMagazine;
+        protected int _bulletsInMagazine;
+        
+        // Controls how much the bullet goes off of the way it is aimed towards
+        // Maybe implement a system where if you're running and gunning your aim will suck or smth
+        protected float _bulletOffsetAngle;
 
 		protected GunAttributes  _currentGunAttributes;
 		private float          _gunOffsetAdjustment;
@@ -40,28 +44,37 @@ namespace Weapons
 
 		protected override void Fire()
 		{
-			if (_bulletsInMagazine < 1) return;
-
-			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
+            if (_bulletsInMagazine < 1) return;
+            Debug.Log("shooting");
             
-            Vector2 bulletVelocity = firepoint.transform.right * _currentGunAttributes.bulletSpeed;
-            SpawnBullet(bulletVelocity);
+			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
+
+            float firingAngle = Utils.Vector2ToDeg(firepoint.right);
+            AdditionalFiringEffects(firingAngle);
             
             // Remove a bullet from the magazine
             _bulletsInMagazine--;
             base.Fire();
         }
 
-        protected virtual void SpawnBullet(Vector2 direction)
+        /// <summary>
+        /// Reserved for special weapons that dont' follow the normal shooting conventions.
+        /// Allows for easy overriding without touching the base Fire and SpawnBullet methods
+        /// </summary>
+        protected virtual void AdditionalFiringEffects(float direction)
         {
-            
+            SpawnBullet(direction + _bulletOffsetAngle);
+        }
+
+        protected virtual void SpawnBullet(float direction)
+        {
             GameObject bulletClone =
-                PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, firepoint.rotation);
+                PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, Quaternion.Euler(0,0, direction));
 
             // Set the bullet's attributes
-            bulletClone.GetComponent<Rigidbody2D>().velocity = direction;
+            Debug.Log("spawnbullet: " +Utils.DegToVector2(direction));
+            bulletClone.GetComponent<Rigidbody2D>().velocity = Utils.DegToVector2(direction) * _currentGunAttributes.bulletSpeed; 
             bulletClone.GetComponent<Bullet>().damage = currentAttributes.damage;
-
         }
 
 		public override void Reload()
