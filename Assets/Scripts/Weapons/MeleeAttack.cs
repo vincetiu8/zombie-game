@@ -12,12 +12,16 @@ namespace Weapons
         [SerializeField] private float meleeDamage;
         [SerializeField] private float attackRate;
 
+        [SerializeField] private Animator animator;
+
         private float nextAttack;
 
         protected override void Fire()
         {
             if(Time.time >= nextAttack)
             {
+                animator.SetTrigger("attack");
+
                 Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firepoint.position, attackRange, mask);
 
                 foreach (Collider2D enemy in hitEnemies)

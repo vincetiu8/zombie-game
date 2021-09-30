@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1897011605449688532
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3313138656565924842}
-  m_Layer: 3
-  m_Name: AttackPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3313138656565924842
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897011605449688532}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.244, y: 0.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6665705036354136277}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9004224348638097280
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,6 +11,7 @@ GameObject:
   - component: {fileID: 6665705036354136277}
   - component: {fileID: 5961624545284839176}
   - component: {fileID: 5737561027745860989}
+  - component: {fileID: 1134923111520138235}
   m_Layer: 3
   m_Name: Stabbystab
   m_TagString: Untagged
@@ -58,8 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.44662857, y: -0.58067644, z: 10}
   m_LocalScale: {x: 1, y: 0.0676, z: 1}
-  m_Children:
-  - {fileID: 3313138656565924842}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -137,7 +107,7 @@ MonoBehaviour:
     magazineSize: 0
     reloadTime: 0
     bulletSpeed: 0
-  firepoint: {fileID: 3313138656565924842}
+  firepoint: {fileID: 0}
   bulletPrefab: {fileID: 0}
   attackRange: 0.5
   mask:
@@ -145,3 +115,23 @@ MonoBehaviour:
     m_Bits: 64
   meleeDamage: 1
   attackRate: 2
+  animator: {fileID: 1134923111520138235}
+--- !u!95 &1134923111520138235
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004224348638097280}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bba6e3d1c2cc8ba47bc3a3b05aba7e28, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
