@@ -17,14 +17,20 @@ namespace Enemy
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 		}
-      
-        private void FixedUpdate()
+        
+        public override void SetPlayerToTrack(Transform player)
         {
+            base.SetPlayerToTrack(player);
             if (!_playerTracked)
             {
                 _rigidbody2D.velocity = Vector2.zero;
-                return;
             }
+            
+        }
+      
+        private void FixedUpdate()
+        {
+            if (!_playerTracked) return;
 
             // Set the velocity in the direction of the player
             Vector2 direction = (_playerTracked.position - transform.position).normalized;

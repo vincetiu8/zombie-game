@@ -36,9 +36,7 @@ namespace Enemy
             _agent.SetDestination(_playerTracked.position);
 
             // Make agent look the direction it is going
-            Vector3 dir = _agent.velocity;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.AngleAxis(Utils.Vector2ToDeg(_agent.velocity), Vector3.forward);
         }
     }
 }

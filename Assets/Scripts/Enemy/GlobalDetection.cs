@@ -1,4 +1,6 @@
+using Photon.Realtime;
 using UnityEngine;
+    
 
 namespace Enemy
 {
@@ -17,5 +19,17 @@ namespace Enemy
 				AddPlayer(player.transform);
 			}
 		}
+
+        public void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            Start();
+        }
+
+        public void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            Start();
+        }
+
+
 	}
 }
