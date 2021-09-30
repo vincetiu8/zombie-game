@@ -90,7 +90,6 @@ namespace Weapons
 
 		public void WeaponSwitchingScrollAction(InputAction.CallbackContext context) 
 		{
-			Debug.Log(_invertMouse);
 			if (!context.performed || _preventFire) 
 			{
 				return;
