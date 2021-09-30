@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.ComponentModel;
 using Interact;
@@ -7,48 +8,51 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Objects
 {
-	/// <summary>
-	///     Handles changing and syncing the lighting of the lanterns.
-	/// </summary>
-	public class Lantern : Interactable
+	class Lantern : MonoBehaviour
 	{
-		[Header("Lantern Settings")] [Description("The duration the lantern stays on")] [SerializeField]
-		private float duration;
+		/// <summary>
+		///     Handles Flickering Lights Mod and changed values of the 2D Point Light respectively
+		/// </summary>
+		
+		[Header("Light Flicker Settings")]
+		[SerializeField] private bool flicker = false;
+		[SerializeField] private bool flickerInUpdateMethod = true;
 
-		private Coroutine _fadeLightingCoroutine;
-		private Light2D   _light2D;
+		[SerializeField] private float flickerIntervalTime;
+		[SerializeField] private float lightIntensity;
+		[SerializeField] private float flickerLightIntensity;
 
-		private void Start()
+		private Light2D _light;
+
+		private bool _canFlicker;
+
+		private void Awake()
 		{
-			_light2D = GetComponent<Light2D>();
-			_light2D.intensity = 0;
+			_light = GetComponent<Light2D>();
 		}
 
-		public override void Interact(GameObject player)
+		private void Update()
 		{
-			if (!PhotonNetwork.IsMasterClient) return;
-
-			if (_fadeLightingCoroutine != null) StopCoroutine(_fadeLightingCoroutine);
-
-			photonView.RPC("RpcStartLightingCoroutine", RpcTarget.All);
-		}
-
-		[PunRPC]
-		private void RpcStartLightingCoroutine()
-		{
-			_fadeLightingCoroutine = StartCoroutine(FadeLightingCoroutine());
-		}
-
-		private IEnumerator FadeLightingCoroutine()
-		{
-			_light2D.intensity = 1;
-			while (_light2D.intensity > 0)
+			if (flickerInUpdateMethod == true && flicker == true)
 			{
-				_light2D.intensity -= Time.deltaTime / duration;
-				yield return null;
+				_canFlicker = true;
+				StartCoroutine(Flicker(flickerIntervalTime));
 			}
+		}
 
-			_fadeLightingCoroutine = null;
+		//NOTE: I am putting this in a public void so if we want to make the lights flicker be triggered ALSO by another script like the game manager, we can do that.
+		IEnumerator Flicker(float interval)
+		{
+			if (_canFlicker)
+			{
+				yield return new WaitForSeconds(interval);
+				_light.intensity = flickerLightIntensity;
+				
+				yield return new WaitForSeconds(0.5f);
+				_light.intensity = lightIntensity;
+
+			}
+			else Debug.Log($"{transform.name} CANNOT FLICKER");
 		}
 	}
 }
