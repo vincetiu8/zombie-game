@@ -16,7 +16,7 @@ namespace Objects
 		[Description("The window's collider")] [SerializeField]
 		private GameObject windowCollider;
 
-		[Description("The rate at which health is decreased")] [SerializeField] [Range(0.25f, 1000f)]
+		[Description("The rate at which health is decreased")] [SerializeField] [Range(0, 1000)]
 		private int barricadeBreakRate;
 
 		private float _carryHealth;
