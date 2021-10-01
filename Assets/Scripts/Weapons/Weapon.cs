@@ -17,7 +17,7 @@ namespace Weapons
 
 		private   bool             _isFiring;
 		protected AmmoInventory    ammoInventory;
-		[SerializeField] protected WeaponAttributes currentAttributes;
+		protected WeaponAttributes currentAttributes;
 		protected int              currentLevel;
 
 		protected int maxLevel;

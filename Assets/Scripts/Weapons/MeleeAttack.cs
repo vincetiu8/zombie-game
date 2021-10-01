@@ -11,21 +11,27 @@ namespace Weapons
     /// </summary>
     public class MeleeAttack : Weapon
     {
-        [Header("Attack settings")]
-        [SerializeField] private float attackRange = 0.5f;
-        [SerializeField] private LayerMask mask;
-        [SerializeField] private Transform meleePoint;
-
+        [Description("The weapon's attributes")] [SerializeField]
+        private WeaponAttributes[] _levels;
+        
         [SerializeField] private Animator animator;
+
+        private MeleePoint meleePoint;
+
+        protected override void Start()
+        {
+            base.Start();
+            maxLevel = _levels.Length;
+            currentAttributes = _levels[currentLevel];
+            meleePoint = GetComponentInChildren<MeleePoint>();
+        }
 
         protected override void Fire()
         {
             base.Fire();
             animator.SetTrigger("attack");
 
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleePoint.position, attackRange, mask);
-
-            foreach (Collider2D enemy in hitEnemies)
+            foreach (Collider2D enemy in meleePoint.hitEnemies)
             {
                 Debug.Log("hit: " + enemy.name);
                 enemy.gameObject.GetComponent<Health>().ChangeHealth(-currentAttributes.damage);
