@@ -9297,7 +9297,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldSystem: {fileID: 0}
-  localPlayer: {fileID: 0}
+  playerInstances: []
+  localPlayerInstance: {fileID: 0}
   playerPrefab: {fileID: 5676611098347806923, guid: 22b6fc01ed2c23789bcc7aaf1683d711,
     type: 3}
   spawnpoints:
@@ -13042,12 +13043,12 @@ PrefabInstance:
     - target: {fileID: 7330685861977877045, guid: aa2d10839b7665149ada865acbb043ca,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.42
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7330685861977877045, guid: aa2d10839b7665149ada865acbb043ca,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -14.39
+      value: -14.5
       objectReference: {fileID: 0}
     - target: {fileID: 7330685861977877045, guid: aa2d10839b7665149ada865acbb043ca,
         type: 3}
