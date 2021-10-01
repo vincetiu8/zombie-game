@@ -25,19 +25,19 @@ namespace Networking
 
 
 		private Vector2 _correctPos;
-		private float   _correctRot;
 
 		private void Update()
 		{
 			if (photonView.IsMine) return;
 
 			if (syncPosition) SyncPosition();
-
-			if (syncRotation) SyncRotation();
 		}
 
 		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 		{
+			float zRot;
+			byte byteZRot;
+
 			if (stream.IsWriting)
 			{
 				if (syncPosition)
@@ -46,7 +46,11 @@ namespace Networking
 					stream.SendNext(transform.position.y);
 				}
 
-				if (syncRotation) stream.SendNext(transform.rotation.eulerAngles.z);
+				if (!syncRotation) return;
+
+				zRot = transform.rotation.eulerAngles.z;
+				byteZRot = (byte)(zRot / 360 * 255);
+				stream.SendNext(byteZRot);
 
 				return;
 			}
@@ -58,7 +62,11 @@ namespace Networking
 			}
 
 
-			if (syncRotation) _correctRot = (float)stream.ReceiveNext();
+			if (!syncRotation) return;
+
+			byteZRot = (byte)stream.ReceiveNext();
+			zRot = byteZRot / 255f * 360;
+			transform.rotation = Quaternion.AngleAxis(zRot, Vector3.forward);
 		}
 
 		private void SyncPosition()
@@ -73,21 +81,6 @@ namespace Networking
 			                                  _correctPos,
 			                                  Time.deltaTime * smoothingSpeed
 			                                 );
-		}
-
-		private void SyncRotation()
-		{
-			if (!smooth || transform.rotation.z == 0)
-			{
-				transform.rotation = Quaternion.Euler(0, 0, _correctRot);
-				return;
-			}
-
-			transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(
-			                                                       transform.rotation.eulerAngles.z,
-			                                                       _correctRot,
-			                                                       Time.deltaTime * smoothingSpeed
-			                                                      ));
 		}
 	}
 }

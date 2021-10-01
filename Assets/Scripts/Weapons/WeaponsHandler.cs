@@ -9,8 +9,10 @@ namespace Weapons
 	///     WeaponsHandler handles the usage of a player's weapons.
 	/// </summary>
 	[RequireComponent(typeof(AmmoInventory))]
-	public class WeaponsHandler : MonoBehaviourPun
+	public class WeaponsHandler : MonoBehaviourPun, IPunObservable
 	{
+		private const float MouseDistPrecision = 1 << 4;
+
 		[Description("The camera the player will see")] [SerializeField]
 		private Camera playerCamera;
 
@@ -24,6 +26,7 @@ namespace Weapons
 		private AmmoInventory _ammoInventory;
 		private Weapon        _currentWeapon;
 		private int           _currentWeaponIndex;
+		private float         _mouseDist;
 		private bool          _preventFire;
 
 		private void Start()
@@ -36,6 +39,37 @@ namespace Weapons
 			}
 
 			_currentWeapon = availableWeapons[0].GetComponent<Weapon>();
+		}
+
+		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+		{
+			float zRot;
+			byte byteZRot;
+			byte byteMouseDist;
+
+			if (stream.IsWriting)
+			{
+				zRot = playerSprite.rotation.eulerAngles.z;
+				byteZRot = (byte)(zRot / 360 * 255);
+
+				stream.SendNext(byteZRot);
+
+				if (_currentWeapon == null) return;
+
+				byteMouseDist = (byte)(_mouseDist * MouseDistPrecision);
+				stream.SendNext(byteMouseDist);
+
+				return;
+			}
+
+			byteZRot = (byte)stream.ReceiveNext();
+			zRot = byteZRot / 255f * 360;
+			playerSprite.localRotation = Quaternion.AngleAxis(zRot, Vector3.forward);
+
+			if (_currentWeapon == null) return;
+
+			byteMouseDist = (byte)stream.ReceiveNext();
+			_currentWeapon.FaceMouse(byteMouseDist / MouseDistPrecision);
 		}
 
 		public void FireAction(InputAction.CallbackContext context)
@@ -81,7 +115,10 @@ namespace Weapons
 			playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
 			// Allows the current weapon to be adjusted to face the mouse
-			if (_currentWeapon != null) _currentWeapon.FaceMouse(direction.magnitude);
+			if (_currentWeapon == null) return;
+
+			_mouseDist = direction.magnitude;
+			_currentWeapon.FaceMouse(_mouseDist);
 		}
 
 		public void WeaponSwitchingScrollAction(InputAction.CallbackContext context)
