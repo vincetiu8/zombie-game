@@ -24,22 +24,24 @@ namespace Interact
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
 			if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+			{
+				_interact = collision.GetComponent<PlayerInteract>();
 
-			_interact = collision.GetComponent<PlayerInteract>();
-			
-			// Check if collision is a player
-			if(_interact == null) return;
-			_interact.AddInteractableObject(gameObject);
+				// Check if collision is a player
+				if (_interact == null) return;
+				_interact.AddInteractableObject(gameObject);
+			}
 		}
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
 			if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+			{
+				_interact = collision.GetComponent<PlayerInteract>();
 
-			_interact = collision.GetComponent<PlayerInteract>();
- 
-			if(_interact == null) return;
-			_interact.RemoveInteractableObject(gameObject);
+				if (_interact == null) return;
+				_interact.RemoveInteractableObject(gameObject);
+			}
 		}
 
 		/// <summary>
