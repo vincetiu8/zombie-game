@@ -57,6 +57,8 @@ namespace Interact
         public override void Interact(bool contextPerformed)
         {
             if (!contextPerformed) return;
+            Interact(player);
         }
+        protected abstract void Interact(GameObject player);
     }
 }
