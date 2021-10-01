@@ -31,10 +31,9 @@ namespace Weapons
             base.Fire();
             animator.SetTrigger("attack");
 
-            foreach (Collider2D enemy in meleePoint.hitEnemies)
+            foreach (Collider2D correctedEnemy in meleePoint.GetEnemiesInCollider())
             {
-                Debug.Log("hit: " + enemy.name);
-                enemy.gameObject.GetComponent<Health>().ChangeHealth(-currentAttributes.damage);
+                correctedEnemy.GetComponent<Health>().ChangeHealth(-currentAttributes.damage);
             }
         }
     }
