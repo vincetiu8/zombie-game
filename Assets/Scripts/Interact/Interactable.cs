@@ -11,6 +11,8 @@ namespace Interact
 	[RequireComponent(typeof(Collider2D))]
 	public abstract class Interactable : MonoBehaviourPun
 	{
+		private PlayerInteract _interact;
+
 		// Added for debugging convenience
 		protected virtual void Start()
 		{
@@ -22,13 +24,22 @@ namespace Interact
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
 			if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-				collision.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
+
+			_interact = collision.GetComponent<PlayerInteract>();
+			
+			// Check if collision is a player
+			if(_interact == null) return;
+			_interact.AddInteractableObject(gameObject);
 		}
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
 			if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-				collision.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
+
+			_interact = collision.GetComponent<PlayerInteract>();
+ 
+			if(_interact == null) return;
+			_interact.RemoveInteractableObject(gameObject);
 		}
 
 		/// <summary>
