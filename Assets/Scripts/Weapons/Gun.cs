@@ -20,17 +20,13 @@ namespace Weapons
 		protected Transform firepoint;
 
 		[Description("The bullet prefab to be instantiated")] [SerializeField]
-		protected GameObject bulletPrefab;
+		private GameObject bulletPrefab;
 
-        protected int _bulletsInMagazine;
+        private int _bulletsInMagazine;
         
-        // Controls how much the bullet goes off of the way it is aimed towards
-        // Maybe implement a system where if you're running and gunning your aim will suck or smth
-        protected float _bulletOffsetAngle;
-
-		protected GunAttributes  _currentGunAttributes;
+		private GunAttributes  _currentGunAttributes;
 		private float          _gunOffsetAdjustment;
-		protected Coroutine      _reloadCoroutine;
+        private Coroutine _reloadCoroutine;
 
 		protected override void Start()
 		{
@@ -62,7 +58,7 @@ namespace Weapons
         protected virtual void FireBullets()
         {
             float direction = firepoint.rotation.eulerAngles.z;
-            SpawnBullet(direction + _bulletOffsetAngle);
+            SpawnBullet(direction);
         }
 
         protected virtual void SpawnBullet(float direction)
