@@ -43,28 +43,20 @@ namespace Interact
     {
         public override void Interact(bool contextPerformed)
         {
-            if (contextPerformed)
-            {
-                StartInteraction();
-                return;
-            }
-            CancelInteraction();
+            (contextPerformed ? (Action)StartInteraction : CancelInteraction)();
         }
         protected abstract void StartInteraction();
         public abstract void CancelInteraction();
     }
 
     // I'm considering restructuring every press interaction to what i wrote below,
-    // However the code will get alot messier and longer because now you need to fill out 2 methods instead of just one
-    // What do you say? (the StartInteraction and CancelInteraction will be moved to Interactable class if you say yes ofc)
+    // However, writing if (!contextPerformed) return; is just as long as writing base.Interact
+    // What do you say?
     public abstract class PressInteractable : Interactable
     {
         public override void Interact(bool contextPerformed)
         {
-            (contextPerformed ? (Action)StartInteraction : CancelInteraction)();
+            if (!contextPerformed) return;
         }
-        protected abstract void StartInteraction();
-
-        public abstract void CancelInteraction();
     }
 }
