@@ -12,19 +12,17 @@ namespace Interact
 	public abstract class Interactable : MonoBehaviourPun
 	{
 		// Added for debugging convenience
-		private void Start()
+		protected virtual void Start()
 		{
 			Collider2D[] cols = GetComponents<Collider2D>();
-			if (cols.Any(col => col.isTrigger)) return;
-
-			Debug.LogError("No trigger colliders attached to interactable object, can't interact.");
+			if (!cols.Any(col => col.isTrigger))
+				Debug.LogError("No trigger colliders attached to interactable object, can't interact");
 		}
 
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
 			if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-				collision.GetComponent<PlayerInteract>()
-				         .AddInteractableObject(gameObject); // Display the icon to let player know the object is interactable
+				collision.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
 		}
 
 		private void OnTriggerExit2D(Collider2D collision)
@@ -33,6 +31,10 @@ namespace Interact
 				collision.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
 		}
 
-		public abstract void Interact(GameObject player);
+		/// <summary>
+		///     Callback when the player interacts with an object.
+		///     We don't pass in the player, but it can be assumed that the interacting player is the local player.
+		/// </summary>
+		public abstract void Interact();
 	}
 }

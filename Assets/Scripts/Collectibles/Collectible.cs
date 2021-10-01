@@ -1,4 +1,6 @@
 using Interact;
+using Networking;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Collectibles
@@ -8,9 +10,16 @@ namespace Collectibles
 	/// </summary>
 	public abstract class Collectible : Interactable
 	{
-		public override void Interact(GameObject player)
+		public override void Interact()
 		{
-			Pickup(player);
+			// We pass the player in here for convenience
+			Pickup(GameManager.instance.localPlayerInstance);
+			photonView.RPC("RPCInteract", RpcTarget.All);
+		}
+
+		[PunRPC]
+		protected void RPCInteract()
+		{
 			Destroy(gameObject);
 		}
 

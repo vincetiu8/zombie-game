@@ -1,109 +1,103 @@
-using UnityEngine;
-using Weapons;
-using Shop;
-using Photon.Pun;
-using Photon.Pun.UtilityScripts;
-using UnityEngine.UI;
+using System.ComponentModel;
 using Menus_UI;
 using Networking;
-using System.ComponentModel;
+using Photon.Pun;
+using Photon.Pun.UtilityScripts;
+using UnityEngine;
+using UnityEngine.UI;
+using Weapons;
 
 namespace Interact
 {
-    ///<summary>
-    ///     Handles ammo machine interactions
-    ///</summary>
+	/// <summary>
+	///     Handles ammo machine interactions
+	/// </summary>
+	public class AmmoMachine : Interactable
+	{
+		[SerializeField] private AmmoType ammoType;
 
-    public class AmmoMachine : Interactable
-    {
-        [SerializeField] private AmmoType ammoType;
-        
-        [Header("Purchase Settings")]
-        [Range(1, 10)] [SerializeField] [Description("The price of one item, will be multiplied with purchase quantity to get the total price")] 
-        private int purchaseAmountMultiplier;
+		[Header("Purchase Settings")]
+		[Range(1, 10)]
+		[SerializeField]
+		[Description("The price of one item, will be multiplied with purchase quantity to get the total price")]
+		private int purchaseAmountMultiplier;
 
-        [Header("UI Objects")]
-        [SerializeField] private Text ammoTypeText;
-        [SerializeField] private Slider purchaseAmountInput;
-        [SerializeField] private Text purchaseSliderValue;
-        [SerializeField] private Text priceRatioText;
-        [SerializeField] private Text totalPurchaseAmount;
-        [SerializeField] private GameObject errorText;
-        [SerializeField] private GameObject sliderContainer;
-        [SerializeField] private GameObject buttonContainer;
+		[Header("UI Objects")] [SerializeField]
+		private Text ammoTypeText;
 
-        private MenuManager _menuManager;
+		[SerializeField] private Slider     purchaseAmountInput;
+		[SerializeField] private Text       purchaseSliderValue;
+		[SerializeField] private Text       priceRatioText;
+		[SerializeField] private Text       totalPurchaseAmount;
+		[SerializeField] private GameObject errorText;
+		[SerializeField] private GameObject sliderContainer;
+		[SerializeField] private GameObject buttonContainer;
 
-        private int purchaseAmount;
-        private int purchasePrice;
+		private MenuManager _menuManager;
 
-        private int player;
-        private int playerGold;
-        private int sliderMax;
+		private int _purchaseAmount;
+		private int _purchasePrice;
 
-        private void Start()
-        {
-            _menuManager = MenuManager.instance.GetComponent<MenuManager>();
-            ammoTypeText.text = ammoType.ToString();
+		protected override void Start()
+		{
+			base.Start();
 
-            purchaseAmountInput.minValue = 1;
-        }
-        
-        public void PurchaseAmmo()
-        {
-            GameObject customer = GameManager.instance.localPlayer;
+			_menuManager = MenuManager.instance.GetComponent<MenuManager>();
+			ammoTypeText.text = ammoType.ToString();
 
-            AmmoInventory ammoInventory = customer.gameObject.GetComponent<AmmoInventory>();
-            if (ammoInventory == null)
-            {
-                return;
-            }
+			purchaseAmountInput.minValue = 1;
+		}
 
-            // Only deposit ammo if player can afford it
-            if(GameManager.instance.goldSystem.WithdrawPlayerGold(purchasePrice))
-            {
-                ammoInventory.DepositAmmo(ammoType, purchaseAmount);
-            }
+		public void PurchaseAmmo()
+		{
+			GameObject customer = GameManager.instance.localPlayerInstance;
 
-            CheckPlayerSufficientMoney();
-        }
+			AmmoInventory ammoInventory = customer.gameObject.GetComponent<AmmoInventory>();
+			if (ammoInventory == null) return;
 
-        public override void Interact(GameObject player)
-        {  
-            CheckPlayerSufficientMoney();
+			// Only deposit ammo if player can afford it
+			if (GameManager.instance.goldSystem.WithdrawPlayerGold(_purchasePrice))
+				ammoInventory.DepositAmmo(ammoType, _purchaseAmount);
 
-            priceRatioText.text = purchaseAmountMultiplier.ToString();
+			CheckPlayerSufficientMoney();
+		}
 
-            _menuManager.OpenMenu("ammomachine");
-        }
+		public override void Interact()
+		{
+			CheckPlayerSufficientMoney();
 
-        // Updates amount in PurchaseSlidervalue text element
-        public void SetPurchaseAmount(float value)
-        {
-            purchaseAmount = Mathf.FloorToInt(value);
-            purchasePrice = purchaseAmount * purchaseAmountMultiplier;
+			priceRatioText.text = purchaseAmountMultiplier.ToString();
 
-            purchaseSliderValue.text = Mathf.FloorToInt(value).ToString();
-            totalPurchaseAmount.text = purchasePrice.ToString();
-        }
+			_menuManager.OpenMenu("ammomachine");
+		}
 
-        // Calculates player's max amount of ammo purchaseable
-        // Toggles on/off slider accordingly
-        private void CheckPlayerSufficientMoney()
-        {
-            player = PhotonNetwork.LocalPlayer.GetPlayerNumber();
+		// Updates amount in PurchaseSliderValue text element
+		public void SetPurchaseAmount(float value)
+		{
+			_purchaseAmount = Mathf.FloorToInt(value);
+			_purchasePrice = _purchaseAmount * purchaseAmountMultiplier;
 
-            playerGold = GameManager.instance.goldSystem.GetPlayerGold(player);
+			purchaseSliderValue.text = _purchaseAmount.ToString();
+			totalPurchaseAmount.text = _purchasePrice.ToString();
+		}
 
-            sliderMax = playerGold / purchaseAmountMultiplier;
+		// Calculates player's max amount of ammo purchasable
+		// Toggles on/off slider accordingly
+		private void CheckPlayerSufficientMoney()
+		{
+			int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
 
-            bool showError = sliderMax <= 0;
+			int playerGold = GameManager.instance.goldSystem.GetPlayerGold(playerNumber);
 
-            sliderContainer.SetActive(!showError);
-            buttonContainer.SetActive(!showError);
-            errorText.SetActive(showError);
-                if (showError) return;
-            purchaseAmountInput.maxValue = sliderMax;
-        }
-    }
+			int sliderMax = playerGold / purchaseAmountMultiplier;
+
+			bool showError = sliderMax <= 0;
+
+			sliderContainer.SetActive(!showError);
+			buttonContainer.SetActive(!showError);
+			errorText.SetActive(showError);
+			if (showError) return;
+			purchaseAmountInput.maxValue = sliderMax;
+		}
+	}
 }

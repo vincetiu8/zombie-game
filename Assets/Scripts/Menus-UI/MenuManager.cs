@@ -1,6 +1,6 @@
+using Networking;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Networking;
 
 namespace Menus_UI
 {
@@ -12,8 +12,8 @@ namespace Menus_UI
 	{
 		public static MenuManager instance;
 
-		[SerializeField] private Menu[] menus;
-		private PlayerInput playerInput;
+		[SerializeField] private Menu[]      menus;
+		private                  PlayerInput _playerInput;
 
 		private void Awake()
 		{
@@ -22,10 +22,10 @@ namespace Menus_UI
 
 		private void Start()
 		{
-			if(playerInput == null)
+			if (_playerInput == null)
 			{
 				// Still causes an error in main menu, that's fine
-				playerInput = GameManager.instance.localPlayer.GetComponent<PlayerInput>();
+				_playerInput = GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>();
 			}
 		}
 
@@ -34,9 +34,9 @@ namespace Menus_UI
 			foreach (Menu menu in menus)
 			{
 				menu.Toggle(menu.menuName == menuName);
-				if(menu.freezeOnToggle)
+				if (menu.freezeOnToggle)
 				{
-					Utils.ToggleInput(menu.inputToggle, playerInput);
+					Utils.ToggleInput(menu.inputToggle, _playerInput);
 				}
 			}
 		}

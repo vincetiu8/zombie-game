@@ -1,7 +1,7 @@
-using Objects;
+using Interact;
 using UnityEngine;
 
-namespace Interact
+namespace Objects
 {
 	/// <summary>
 	///     InteractableWindow implements the repair mechanic on windows.
@@ -14,8 +14,9 @@ namespace Interact
 
 		private WindowController _windowController;
 
-		private void Start()
+		protected override void Start()
 		{
+			base.Start();
 			_windowController = GetComponent<WindowController>();
 		}
 
@@ -24,7 +25,7 @@ namespace Interact
 			if (_cooldown > 0) _cooldown -= Time.deltaTime;
 		}
 
-		public override void Interact(GameObject player)
+		public override void Interact()
 		{
 			// Don't allow window to be repaired if a zombie is currently attacking it
 			if (_windowController.zombieAtWindow || _cooldown > 0) return;

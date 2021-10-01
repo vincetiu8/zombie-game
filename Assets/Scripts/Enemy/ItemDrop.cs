@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Photon.Pun;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -51,7 +52,7 @@ namespace Enemy
 			// Don't instantiate if nothing was rolled
 			if (minItem == null) return;
 
-			Instantiate(minItem, transform.position, Quaternion.identity);
+			PhotonNetwork.Instantiate(minItem.name, transform.position, Quaternion.identity);
 		}
 	}
 }
