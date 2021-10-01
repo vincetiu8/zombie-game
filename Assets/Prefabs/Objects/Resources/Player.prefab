@@ -207,8 +207,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1911151390933760986}
-  - component: {fileID: 4586147281206343617}
-  - component: {fileID: 1641913253224208323}
+  - component: {fileID: 1828956038367096002}
+  - component: {fileID: 7690704655033454537}
   m_Layer: 3
   m_Name: WeaponPivot
   m_TagString: Player
@@ -235,7 +235,7 @@ Transform:
   m_Father: {fileID: 4693431101948605444}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4586147281206343617
+--- !u!114 &1828956038367096002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -254,11 +254,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 1641913253224208323}
+  - {fileID: 7690704655033454537}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1641913253224208323
+--- !u!114 &7690704655033454537
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
