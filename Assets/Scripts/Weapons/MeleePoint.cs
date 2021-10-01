@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Weapons
 {
+    /// <summary>
+    /// Handles enemies coming into contact with
+    /// the player's melee weapon
+    /// </summary>
     [RequireComponent(typeof(Collider2D))]
     public class MeleePoint : MonoBehaviour
     {
@@ -24,7 +28,11 @@ namespace Weapons
                 hitEnemies.Remove(collision);   
             } 
         }
-
+        
+        /// <summary>
+        /// Returns a new list of enemies obtained from hitEnemies
+        /// with all null (dead) enemies removed
+        /// </summary>
         public List<Collider2D> GetEnemiesInCollider()
         {
             List<Collider2D> correctedEnemies = new List<Collider2D>();
