@@ -9,12 +9,13 @@ namespace Weapons
         [SerializeField] private int         pelletAmount;
         [SerializeField] private float       spraySpread;
         
-        protected override void AdditionalFiringEffects(float direction)
+        protected override void FireBullets()
         {
+            float direction = firepoint.rotation.eulerAngles.z;
             for (int i = 0; i < pelletAmount; i++)
             {
                 float firingAngle = direction + Random.Range(-spraySpread, spraySpread);
-                base.AdditionalFiringEffects(firingAngle);
+                SpawnBullet(firingAngle);
             }                
         }
 

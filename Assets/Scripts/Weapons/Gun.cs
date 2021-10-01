@@ -48,8 +48,7 @@ namespace Weapons
             
 			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
 
-            float firingAngle = Utils.Vector2ToDeg(firepoint.right);
-            AdditionalFiringEffects(firingAngle);
+            FireBullets();
             
             // Remove a bullet from the magazine
             _bulletsInMagazine--;
@@ -60,8 +59,9 @@ namespace Weapons
         /// Reserved for special weapons that dont' follow the normal shooting conventions.
         /// Allows for easy overriding without touching the base Fire and SpawnBullet methods
         /// </summary>
-        protected virtual void AdditionalFiringEffects(float direction)
+        protected virtual void FireBullets()
         {
+            float direction = firepoint.rotation.eulerAngles.z;
             SpawnBullet(direction + _bulletOffsetAngle);
         }
 
