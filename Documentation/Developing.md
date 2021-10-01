@@ -73,6 +73,7 @@ Here are some useful tips when developing features.
 - [PUN API Reference](https://doc-api.photonengine.com/en/pun/v2/index.html)
 - [Synchronization and state](https://doc.photonengine.com/en-us/pun/current/gameplay/synchronization-and-state)
 - [PUN Cheatsheet](https://gist.github.com/ssshake/86b4da6c31258a7188f7fef3dbaf1d26)
+- [PUN Optimization](https://blog.matolabs.com/ho-to-optimize-photon-netcode-in-unity-game/)
 
 ### Git and Github
 
