@@ -41,7 +41,7 @@ namespace Interact
 
 			if (closestObject == null) return;
 
-			closestObject.GetComponent<Interactable>().Interact();
-		}
+            closestObject.GetComponent<Interactable>().Interact(context.performed);
+        }
 	}
 }

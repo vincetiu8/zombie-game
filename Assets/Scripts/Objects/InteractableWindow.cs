@@ -11,6 +11,8 @@ namespace Objects
 	{
 		[Description("How fast health is restored to the barricade")] [SerializeField] [Range(1, 100)]
 		private int barricadeFixRate;
+        //private                  float _cooldown;
+        //private bool _fixingWindow;
 
 		private WindowController _windowController;
 		private int              _zombiesAtWindow;
@@ -21,31 +23,58 @@ namespace Objects
 			_windowController = GetComponentInChildren<WindowController>();
 		}
 
-		protected override void OnTriggerEnter2D(Collider2D other)
+		private void Update()
 		{
-			base.OnTriggerEnter2D(other);
-
-			if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
-
-			_zombiesAtWindow++;
+			if (_cooldown > 0) _cooldown -= Time.deltaTime;
 		}
 
-		protected override void OnTriggerExit2D(Collider2D other)
+        protected override void OnTriggerEnter2D(Collider2D other)
+        {
+            base.OnTriggerEnter2D(other);
+
+            if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
+
+            _zombiesAtWindow++;
+        }
+
+        protected override void OnTriggerExit2D(Collider2D other)
+        {
+            base.OnTriggerExit2D(other);
+
+            if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
+
+            _zombiesAtWindow--;
+        }
+
+        public override void Interact()
+        {
+            // Don't allow window to be repaired if a zombie is currently attacking it
+            if (_zombiesAtWindow > 0) return;
+
+            // todo: fix this later to use hold interact
+            _windowController.ChangeHealth(barricadeFixRate);
+        }
+        
+        /*
+		private void Update()
 		{
-			base.OnTriggerExit2D(other);
-
-			if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
-
-			_zombiesAtWindow--;
-		}
-
-		public override void Interact()
-		{
-			// Don't allow window to be repaired if a zombie is currently attacking it
-			if (_zombiesAtWindow > 0) return;
-
-			// todo: fix this later to use hold interact
-			_windowController.ChangeHealth(barricadeFixRate);
-		}
-	}
+            if (_cooldown > 0)
+            {
+                _cooldown -= Time.deltaTime;
+                return;
+            }
+            if (!_fixingWindow || _windowController.zombieAtWindow) return;
+            _windowController.ChangeHealth(1);
+            _cooldown += barricadeFixTime;
+        }
+        protected override void StartInteraction()
+        {
+            _fixingWindow = true;
+        }
+        public override void CancelInteraction()
+        {
+            _fixingWindow = false;
+        }*/
+    }
 }
+	
