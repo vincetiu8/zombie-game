@@ -24,6 +24,7 @@ namespace Interact
         {
             base.Unlock();
             SetAllCollidersStatus(false);
+            canvas.gameObject.SetActive(false);
             // Call the new area method.
         }
     }
