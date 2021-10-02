@@ -48,10 +48,7 @@ namespace Interact
         protected abstract void StartInteraction();
         public abstract void CancelInteraction();
     }
-
-    // I'm considering restructuring every press interaction to what i wrote below,
-    // However, writing if (!contextPerformed) return; is just as long as writing base.Interact
-    // What do you say?
+    
     public abstract class PressInteractable : Interactable
     {
         public override void Interact(bool contextPerformed)
