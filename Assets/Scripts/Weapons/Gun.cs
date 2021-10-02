@@ -52,7 +52,6 @@ namespace Weapons
         }
 
         /// <summary>
-        /// Reserved for special weapons that dont' follow the normal shooting conventions.
         /// Allows for easy overriding without touching the base Fire and SpawnBullet methods
         /// </summary>
         protected virtual void FireBullets()
