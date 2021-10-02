@@ -10,7 +10,7 @@ namespace Objects
 	/// <summary>
 	///     Handles changing and syncing the lighting of the lanterns.
 	/// </summary>
-	public class Lantern : Interactable
+	public class Lantern : PressInteractable
 	{
 		[Header("Lantern Settings")] [Description("The duration the lantern stays on")] [SerializeField]
 		private float duration;
@@ -25,7 +25,7 @@ namespace Objects
 			_light2D.intensity = 0;
 		}
 
-		public override void Interact()
+		protected override void Interact()
 		{
 			photonView.RPC("RpcStartLightingCoroutine", RpcTarget.All);
 		}

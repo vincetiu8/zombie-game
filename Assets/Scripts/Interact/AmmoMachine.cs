@@ -12,7 +12,7 @@ namespace Interact
 	/// <summary>
 	///     Handles ammo machine interactions
 	/// </summary>
-	public class AmmoMachine : Interactable
+	public class AmmoMachine : PressInteractable
 	{
 		[SerializeField] private AmmoType ammoType;
 
@@ -62,7 +62,7 @@ namespace Interact
 			CheckPlayerSufficientMoney();
 		}
 
-		public override void Interact()
+        protected override void Interact()
 		{
 			CheckPlayerSufficientMoney();
 

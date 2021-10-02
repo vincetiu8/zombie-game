@@ -10,7 +10,7 @@ namespace Objects
 	/// <summary>
 	///     Movable object represents an object the player can pickup and move.
 	/// </summary>
-	public class MovableObject : Interactable
+	public class MovableObject : PressInteractable
 	{
 		private Collider2D[] _colList;
 		private bool         _isHolding;
@@ -20,7 +20,7 @@ namespace Objects
 			_colList = transform.GetComponentsInChildren<Collider2D>();
 		}
 
-		public override void Interact()
+        protected override void Interact()
 		{
 			_isHolding = !_isHolding;
 			photonView.RPC("RPCInteract", RpcTarget.All, _isHolding);
