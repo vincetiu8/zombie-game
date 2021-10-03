@@ -11,7 +11,7 @@ namespace Interact
     /// </summary>
     public class Unlockable : Interactable
     {
-        [SerializeField] private string itemName;
+        [SerializeField] protected string itemName;
         [SerializeField] private int purchasePrice;
 
         private SpriteRenderer _spriteRenderer;

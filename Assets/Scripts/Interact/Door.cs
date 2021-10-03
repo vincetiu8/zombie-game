@@ -9,7 +9,9 @@ namespace Interact
     public class Door : Unlockable
     {
         private Collider2D[] _myColList;
+        [SerializeField] private UnlockableAreas unlockableArea;
 
+        
         protected override void Start()
         {
             base.Start();
@@ -24,16 +26,16 @@ namespace Interact
         public override void Interact()
         {
             base.Interact();
-            photonView.RPC("RpcUnlockDoorForAll", RpcTarget.All);
+            photonView.RPC("RpcUnlockDoor", RpcTarget.All);
         }
 
         [PunRPC]
-        private void RpcUnlockDoorForAll()
+        private void RpcUnlockDoor()
         {
             SetAllCollidersStatus(false);
             canvas.gameObject.SetActive(false);
             Unlock();
-            // Call the new area method.
+            unlockableArea.UnlockArea(itemName);
         }
     }
 }
