@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -159,7 +160,8 @@ namespace Enemy
 
         public void AddSpawnPoints(List<Transform> additionalSpawnPoints)
         {
-            foreach (Transform addedSpawnPoint in additionalSpawnPoints)
+            // Only adds SpawnPoints that do not already exist to prevent accidentally adding the same points multiple times
+            foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint => !spawnpoints.Contains(addedSpawnPoint)))
             {
                 spawnpoints.Add(addedSpawnPoint);
             }

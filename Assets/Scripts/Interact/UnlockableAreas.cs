@@ -29,7 +29,7 @@ namespace Interact
             // Will be inactive by default since they're unused until the room is opened
             room.Find("Objects").gameObject.SetActive(true);
             
-            // Take all the transforms of the children found in "Enemy" into a list
+            // Take all the transforms of the children found in "Enemy" into a list (Enemy should already be active by default)
             List<Transform> enemySpawnPoint = room.Find("Enemy").Cast<Transform>().ToList();
 
             waveSpawner.AddSpawnPoints(enemySpawnPoint);
