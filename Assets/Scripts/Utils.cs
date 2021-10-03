@@ -15,6 +15,11 @@ public static class Utils
 	{
 		return Mathf.Rad2Deg * Mathf.Atan2(vector2.y, vector2.x);
 	}
+    
+    public static Vector2 DegToVector2(float degrees)
+    {
+        return new Vector2(Mathf.Cos(degrees * Mathf.Deg2Rad), Mathf.Sin(degrees * Mathf.Deg2Rad));
+    }
 	
 	public static bool ToggleInput(bool isPaused, PlayerInput input)
 	{
