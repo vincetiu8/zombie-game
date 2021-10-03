@@ -55,6 +55,7 @@ MonoBehaviour:
   - RPCSelectWeapon
   - RPCChangeHealth
   - RpcMeleeAnimation
+  - RpcUnlockForAll
   - RPCFireBullet
   - RPCOnDeath
   - RPCAddWeapon

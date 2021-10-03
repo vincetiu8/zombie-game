@@ -1,3 +1,4 @@
+using System;
 using System.Security.Cryptography;
 using Networking;
 using UnityEngine;
@@ -40,7 +41,8 @@ namespace Interact
                 Unlock();
                 return;
             }
-            Debug.Log("Not enough money");
+            // Is an exception to prevent code from further running in overridden methods
+            throw new Exception("Player does not have enough money");
         }
 
         protected virtual void Unlock()

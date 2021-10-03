@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace Interact
@@ -20,11 +21,18 @@ namespace Interact
             foreach (Collider2D colliders in _myColList) colliders.enabled = active;
         }
 
-        protected override void Unlock()
+        public override void Interact()
         {
-            base.Unlock();
+            base.Interact();
+            photonView.RPC("RpcUnlockDoorForAll", RpcTarget.All);
+        }
+
+        [PunRPC]
+        private void RpcUnlockDoorForAll()
+        {
             SetAllCollidersStatus(false);
             canvas.gameObject.SetActive(false);
+            Unlock();
             // Call the new area method.
         }
     }
