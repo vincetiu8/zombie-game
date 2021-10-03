@@ -13,8 +13,11 @@ namespace Interact
         
         /// <summary>
         /// Sets all objects in the area active and add all enemy spawn points to to the WaveSpawner
+        /// Rooms should have only 2 children, "Enemy" and "Objects"
+        /// "Enemy" will contain all the enemy spawn points (Set active true in the inspector)
+        /// "Objects" will contain the objects to be set active (Set active false in the inspector)
         /// </summary>
-        /// <param name="areaName"> Should be the same as the name used for the door text</param>
+        /// <param name="areaName"> Should be the same as the room name assigned at UnlockableAreas gameobject</param>
         public void UnlockArea(string areaName)
         {
             Transform room = transform.Find(areaName);
@@ -26,13 +29,8 @@ namespace Interact
             // Will be inactive by default since they're unused until the room is opened
             room.Find("Objects").gameObject.SetActive(true);
             
-            Transform addEnemySpawns = room.Find("Enemy");
-            
-            // Should be active by default already, but this is just in case
-            addEnemySpawns.gameObject.SetActive(true);
-            
-            // Take all the transforms of the children found in Enemy into a list
-            List<Transform> enemySpawnPoint = addEnemySpawns.Cast<Transform>().ToList();
+            // Take all the transforms of the children found in "Enemy" into a list
+            List<Transform> enemySpawnPoint = room.Find("Enemy").Cast<Transform>().ToList();
 
             waveSpawner.AddSpawnPoints(enemySpawnPoint);
         }
