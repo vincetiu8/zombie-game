@@ -37,8 +37,11 @@ namespace Menus_UI
 				menu.Toggle(menu.menuName == menuName);
 				if (menu.freezeOnToggle)
 				{
-					MiscUtils.ToggleInput(menu.inputToggle, _playerInput);
 				}
+					MiscUtils.ToggleInput(menu.inputToggle, _playerInput);
+                    //	Utils.ToggleInput(menu.inputToggle ? Utils.ActionMapOptions.UI : Utils.ActionMapOptions.Game, _playerInput);
+
+
 			}
 		}
 
