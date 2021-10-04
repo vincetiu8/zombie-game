@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.ComponentModel;
+using Photon.Pun;
 
 namespace Weapons
 {
@@ -29,12 +30,18 @@ namespace Weapons
         protected override void Fire()
         {
             base.Fire();
-            animator.SetTrigger("attack");
+            photonView.RPC("RpcMeleeAnimation", RpcTarget.All);
 
             foreach (Collider2D correctedEnemy in meleePoint.GetEnemiesInCollider())
             {
                 correctedEnemy.GetComponent<Health>().ChangeHealth(-currentAttributes.damage);
             }
+        }
+
+        [PunRPC]
+        private void RpcMeleeAnimation()
+        {
+            animator.SetTrigger("attack");
         }
     }
 }
