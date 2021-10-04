@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Weapons
@@ -41,9 +42,8 @@ namespace Weapons
         /// </summary>
         public List<Collider2D> GetEnemiesInCollider()
         {
-            // Still throws error, but still works
             _hitEnemies.RemoveAll(enemy => enemy == null);
-            return _hitEnemies;
+            return _hitEnemies.ToList();
         }
     }
 }
