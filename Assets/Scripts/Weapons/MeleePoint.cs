@@ -23,7 +23,7 @@ namespace Weapons
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if(collision.gameObject.layer != LayerMask.NameToLayer("Enemy"))
+            if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 hitEnemies.Remove(collision);   
             } 
