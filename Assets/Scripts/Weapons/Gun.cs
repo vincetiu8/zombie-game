@@ -78,7 +78,7 @@ namespace Weapons
 		}
 
 		// Once this coroutine finishes, the weapon is reloaded
-		private IEnumerator ReloadCoroutine()
+		protected virtual IEnumerator ReloadCoroutine()
 		{
 			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
 

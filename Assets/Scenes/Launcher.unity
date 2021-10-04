@@ -1489,6 +1489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuName: title
   freezeOnToggle: 0
+  inputToggle: 0
 --- !u!1 &527412674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,6 +1984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuName: createroom
   freezeOnToggle: 0
+  inputToggle: 0
 --- !u!1 &660748789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,6 +2039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuName: roommenu
   freezeOnToggle: 0
+  inputToggle: 0
 --- !u!1 &689797179
 GameObject:
   m_ObjectHideFlags: 0
@@ -2802,6 +2805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuName: errormenu
   freezeOnToggle: 0
+  inputToggle: 0
 --- !u!1 &948926165
 GameObject:
   m_ObjectHideFlags: 0
@@ -4329,6 +4333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuName: findroom
   freezeOnToggle: 0
+  inputToggle: 0
 --- !u!1 &1946409278
 GameObject:
   m_ObjectHideFlags: 0
@@ -4566,6 +4571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuName: loading
   freezeOnToggle: 0
+  inputToggle: 0
 --- !u!1 &2125027177
 GameObject:
   m_ObjectHideFlags: 0
