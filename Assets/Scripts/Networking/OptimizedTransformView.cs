@@ -55,7 +55,6 @@ namespace Networking
 				BitUtils.WriteBits(data, xPos, 12, ref offset);
 
 				int yPos = (int)(transform.position.y * _precisionCorrection);
-				Debug.Log("Sending:" + xPos + " " + yPos);
 				BitUtils.WriteBits(data, yPos, 12, ref offset);
 			}
 
@@ -75,8 +74,6 @@ namespace Networking
 				int yPos = BitUtils.ReadBits(data, 12, ref offset);
 
 				_correctPos = new Vector2(xPos, yPos) / _precisionCorrection;
-
-				Debug.Log("Received: " + xPos + " " + yPos);
 			}
 
 			if (!syncRotation) return;
