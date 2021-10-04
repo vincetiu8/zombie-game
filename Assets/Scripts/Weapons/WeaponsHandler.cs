@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 namespace Weapons
 {
@@ -110,7 +111,7 @@ namespace Weapons
 
 			Vector2 direction = mousePos - (Vector2)playerSprite.position;
 
-			float angle = Utils.Vector2ToDeg(direction);
+			float angle = VectorUtils.Vector2ToDeg(direction);
 
 			playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 

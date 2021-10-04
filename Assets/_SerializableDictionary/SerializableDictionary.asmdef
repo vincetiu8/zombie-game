@@ -1,9 +1,7 @@
 {
-  "name": "PhotonUnityNetworking",
+  "name": "SerializableDictionary",
   "rootNamespace": "",
-  "references": [
-    "PhotonRealtime"
-  ],
+  "references": [],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

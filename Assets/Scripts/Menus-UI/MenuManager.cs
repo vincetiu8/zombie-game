@@ -1,6 +1,7 @@
 using Networking;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 namespace Menus_UI
 {
@@ -36,7 +37,7 @@ namespace Menus_UI
 				menu.Toggle(menu.menuName == menuName);
 				if (menu.freezeOnToggle)
 				{
-					Utils.ToggleInput(menu.inputToggle, _playerInput);
+					MiscUtils.ToggleInput(menu.inputToggle, _playerInput);
 				}
 			}
 		}

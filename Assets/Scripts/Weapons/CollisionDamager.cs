@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using UnityEngine;
+using Utils;
 
 namespace Weapons
 {
@@ -8,7 +9,8 @@ namespace Weapons
 	/// </summary>
 	public class CollisionDamager : MonoBehaviour
 	{
-		[Description("The damage per attack")] [Range(0, 1000)] public int damage;
+		[Description("The damage per attack")] [Range(0, 1000)]
+		public int damage;
 
 		[Description("The cooldown between damage reductions")]
 		public float damageCooldown;
@@ -28,7 +30,7 @@ namespace Weapons
 		protected virtual void OnCollisionStay2D(Collision2D other)
 		{
 			// Make sure cooldown is complete and the collision is in the layermask to deal damage
-			if (_cooldown > 0 || !Utils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
+			if (_cooldown > 0 || !MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
 
 			other.gameObject.GetComponent<Health>().ChangeHealth(-damage);
 			_cooldown = damageCooldown;
