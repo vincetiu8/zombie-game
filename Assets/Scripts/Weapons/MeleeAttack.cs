@@ -15,16 +15,17 @@ namespace Weapons
         [Description("The weapon's attributes")] [SerializeField]
         private WeaponAttributes[] _levels;
         
-        [SerializeField] private Animator animator;
+        private Animator _animator;
 
-        private MeleePoint meleePoint;
+        private MeleePoint _meleePoint;
 
         protected override void Start()
         {
             base.Start();
             maxLevel = _levels.Length;
             currentAttributes = _levels[currentLevel];
-            meleePoint = GetComponentInChildren<MeleePoint>();
+            _meleePoint = GetComponentInChildren<MeleePoint>();
+            _animator = GetComponent<Animator>();
         }
 
         protected override void Fire()
@@ -32,7 +33,7 @@ namespace Weapons
             base.Fire();
             photonView.RPC("RpcMeleeAnimation", RpcTarget.All);
 
-            foreach (Collider2D correctedEnemy in meleePoint.GetEnemiesInCollider())
+            foreach (Collider2D correctedEnemy in _meleePoint.GetEnemiesInCollider())
             {
                 correctedEnemy.GetComponent<Health>().ChangeHealth(-currentAttributes.damage);
             }
@@ -41,7 +42,7 @@ namespace Weapons
         [PunRPC]
         private void RpcMeleeAnimation()
         {
-            animator.SetTrigger("attack");
+            _animator.SetTrigger("attack");
         }
     }
 }

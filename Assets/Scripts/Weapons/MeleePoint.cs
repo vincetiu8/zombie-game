@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +12,18 @@ namespace Weapons
     [RequireComponent(typeof(Collider2D))]
     public class MeleePoint : MonoBehaviour
     {
-        private List<Collider2D> hitEnemies = new List<Collider2D>();
+        private List<Collider2D> _hitEnemies;
+
+        private void Awake()
+        {
+            _hitEnemies = new List<Collider2D>();
+        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                hitEnemies.Add(collision);
+                _hitEnemies.Add(collision);
             }
         }
 
@@ -25,7 +31,7 @@ namespace Weapons
         {
             if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                hitEnemies.Remove(collision);   
+                _hitEnemies.Remove(collision);   
             } 
         }
         
@@ -35,17 +41,9 @@ namespace Weapons
         /// </summary>
         public List<Collider2D> GetEnemiesInCollider()
         {
-            // Throws an error about the list being modified
-            // still works, not sure why
-            for (int i = 0; i < hitEnemies.Count; i++)
-            {
-                if(hitEnemies[i] == null)
-                {
-                    hitEnemies.Remove(hitEnemies[i]);
-                }
-            }
-
-            return hitEnemies;
+            // Still throws error, but still works
+            _hitEnemies.RemoveAll(enemy => enemy == null);
+            return _hitEnemies;
         }
     }
 }
