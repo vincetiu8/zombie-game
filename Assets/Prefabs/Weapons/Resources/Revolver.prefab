@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4391671347075304750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.394, y: -0.019, z: 0}
+  m_LocalPosition: {x: 0.41, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4305294550502302816}
@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 8049184801401153425}
   - component: {fileID: 5673859719892484690}
   - component: {fileID: 7142250817192997893}
-  - component: {fileID: 4766286017583952885}
   m_Layer: 3
   m_Name: Revolver
   m_TagString: Untagged
@@ -130,7 +129,7 @@ SpriteRenderer:
   m_SortingLayerID: 1036530043
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5557420877203330147, guid: 92aa031c64efb71d9a518e107694d2c4,
+  m_Sprite: {fileID: 2912464402848211330, guid: 92aa031c64efb71d9a518e107694d2c4,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -160,23 +159,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 4766286017583952885}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &4766286017583952885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5424163015042692280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a088e2403a72ec12b491e529cb8e928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smoothingDelay: 5
-  syncPosition: 0
-  syncRotation: 1

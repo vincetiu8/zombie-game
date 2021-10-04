@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3909993537624026819}
   - component: {fileID: 1201697913036177066}
   - component: {fileID: 8110468372728126296}
-  - component: {fileID: 8029223889314223093}
   m_Layer: 3
   m_Name: Pistol
   m_TagString: Untagged
@@ -103,7 +102,7 @@ MonoBehaviour:
   ammoType: 0
   weaponLevels:
   - description: Pistol
-    damage: 0.25
+    damage: 0
     fireCooldown: 0.1
     fullAuto: 0
     magazineSize: 5
@@ -130,26 +129,10 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 8029223889314223093}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &8029223889314223093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4793649891906802130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a088e2403a72ec12b491e529cb8e928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smoothingDelay: 5
-  syncPosition: 0
-  syncRotation: 1
 --- !u!1 &9175378642531915954
 GameObject:
   m_ObjectHideFlags: 0

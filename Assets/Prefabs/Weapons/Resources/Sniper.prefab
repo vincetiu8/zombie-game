@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6850329493316692729}
   - component: {fileID: 1231988879280760708}
   - component: {fileID: 1221340971473396066}
-  - component: {fileID: 5924031244408854135}
   m_Layer: 3
   m_Name: Sniper
   m_TagString: Untagged
@@ -100,8 +99,7 @@ SpriteRenderer:
   m_SortingLayerID: 1036530043
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2912464402848211330, guid: 92aa031c64efb71d9a518e107694d2c4,
-    type: 3}
+  m_Sprite: {fileID: 853742892412031643, guid: 92aa031c64efb71d9a518e107694d2c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,26 +128,10 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 5924031244408854135}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5924031244408854135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7615179612898092161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a088e2403a72ec12b491e529cb8e928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smoothingDelay: 5
-  syncPosition: 0
-  syncRotation: 1
 --- !u!1 &8904486839453123787
 GameObject:
   m_ObjectHideFlags: 0
