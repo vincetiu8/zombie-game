@@ -8,14 +8,12 @@ namespace Networking
 {
 	/// <summary>
 	///     An optimized script to sync the movement of 2D objects.
-	///     Use this instead of PhotonTransformView
+	///     Use this instead of PhotonTransformView.
+	///		Note this doesn't support negative distances, so make sure the object can't go anywhere negative.
 	/// </summary>
 	[RequireComponent(typeof(PhotonView))]
 	public class OptimizedTransformView : MonoBehaviourPun, INetworkSerializeView
 	{
-		// Converts a degree measure into a byte value
-		private const float Deg2Byte = 256f / 360;
-
 		[Header("Sync Settings")] [Description("Whether to sync the object's position or not")] [SerializeField]
 		private bool syncPosition;
 
@@ -63,7 +61,7 @@ namespace Networking
 
 			if (!syncRotation) return true;
 
-			int zRot = (int)(transform.rotation.eulerAngles.z * Deg2Byte);
+			int zRot = (int)(transform.rotation.eulerAngles.z * TransformUtils.Deg2Byte);
 			BitUtils.WriteBits(data, zRot, 8, ref offset);
 
 			return true;
@@ -83,7 +81,7 @@ namespace Networking
 
 			if (!syncRotation) return;
 
-			float zRot = BitUtils.ReadBits(data, 8, ref offset) / Deg2Byte;
+			float zRot = BitUtils.ReadBits(data, 8, ref offset) / TransformUtils.Deg2Byte;
 			transform.rotation = Quaternion.AngleAxis(zRot, Vector3.forward);
 		}
 

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Networking;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,9 +11,9 @@ namespace Weapons
 	///     WeaponsHandler handles the usage of a player's weapons.
 	/// </summary>
 	[RequireComponent(typeof(AmmoInventory))]
-	public class WeaponsHandler : MonoBehaviourPun, IPunObservable
+	public class WeaponsHandler : MonoBehaviourPun, INetworkSerializeView
 	{
-		private const float MouseDistPrecision = 1 << 4;
+		private const int MouseDistPrecision = 10;
 
 		[Description("The camera the player will see")] [SerializeField]
 		private Camera playerCamera;
@@ -42,35 +43,28 @@ namespace Weapons
 			_currentWeapon = availableWeapons[0].GetComponent<Weapon>();
 		}
 
-		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+		public bool Serialize(byte[] data, ref int offset)
 		{
-			float zRot;
-			byte byteZRot;
-			byte byteMouseDist;
+			int zRot = (int)(playerSprite.localRotation.eulerAngles.z * TransformUtils.Deg2Byte);
+			BitUtils.WriteBits(data, zRot, 8, ref offset);
 
-			if (stream.IsWriting)
-			{
-				zRot = playerSprite.rotation.eulerAngles.z;
-				byteZRot = (byte)(zRot / 360 * 255);
+			if (_currentWeapon == null) return true;
 
-				stream.SendNext(byteZRot);
+			int mouseDist = (int)(_mouseDist * MouseDistPrecision);
+			BitUtils.WriteBits(data, mouseDist, 8, ref offset);
 
-				if (_currentWeapon == null) return;
+			return true;
+		}
 
-				byteMouseDist = (byte)(_mouseDist * MouseDistPrecision);
-				stream.SendNext(byteMouseDist);
-
-				return;
-			}
-
-			byteZRot = (byte)stream.ReceiveNext();
-			zRot = byteZRot / 255f * 360;
+		public void Deserialize(byte[] data, ref int offset)
+		{
+			float zRot = BitUtils.ReadBits(data, 8, ref offset) / TransformUtils.Deg2Byte;
 			playerSprite.localRotation = Quaternion.AngleAxis(zRot, Vector3.forward);
 
 			if (_currentWeapon == null) return;
 
-			byteMouseDist = (byte)stream.ReceiveNext();
-			_currentWeapon.FaceMouse(byteMouseDist / MouseDistPrecision);
+			float mouseDist = BitUtils.ReadBits(data, 8, ref offset);
+			_currentWeapon.FaceMouse(mouseDist / MouseDistPrecision);
 		}
 
 		public void FireAction(InputAction.CallbackContext context)
@@ -111,7 +105,7 @@ namespace Weapons
 
 			Vector2 direction = mousePos - (Vector2)playerSprite.position;
 
-			float angle = VectorUtils.Vector2ToDeg(direction);
+			float angle = TransformUtils.Vector2ToDeg(direction);
 
 			playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 

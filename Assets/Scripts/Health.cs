@@ -5,7 +5,7 @@ using UnityEngine;
 ///     Health is the base class for all destructible objects.
 ///     Once an object's health reaches 0, it is normally destroyed.
 /// </summary>
-public class Health : MonoBehaviourPun, IPunObservable
+public class Health : MonoBehaviourPun
 {
 	[SerializeField] protected int initialHealth;
 
@@ -14,18 +14,6 @@ public class Health : MonoBehaviourPun, IPunObservable
 	private void Awake()
 	{
 		health = initialHealth;
-	}
-
-	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-	{
-		if (stream.IsWriting)
-		{
-			stream.SendNext(health);
-			return;
-		}
-
-		object received = stream.ReceiveNext();
-		health = (int)received;
 	}
 
 	public int GetHealth()

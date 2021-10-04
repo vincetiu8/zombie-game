@@ -67,7 +67,7 @@ namespace Weapons
 			GameObject bulletClone = PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, rotation);
 
 			// Set the bullet's attributes
-			Vector2 direction = VectorUtils.DegToVector2(angle);
+			Vector2 direction = TransformUtils.DegToVector2(angle);
 			bulletClone.GetComponent<Rigidbody2D>().velocity = direction * _currentGunAttributes.bulletSpeed;
 			bulletClone.GetComponent<Bullet>().damage = currentAttributes.damage;
 		}
