@@ -32,7 +32,7 @@ namespace Weapons
 			// Make sure cooldown is complete and the collision is in the layermask to deal damage
 			if (_cooldown > 0 || !MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
 
-			other.gameObject.GetComponent<Health>().ChangeHealth(-damage);
+			other.gameObject.GetComponent<HealthController>().ChangeHealth(-damage);
 			_cooldown = damageCooldown;
 		}
 	}

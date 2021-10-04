@@ -5,32 +5,38 @@ using UnityEngine;
 ///     Health is the base class for all destructible objects.
 ///     Once an object's health reaches 0, it is normally destroyed.
 /// </summary>
-public class Health : MonoBehaviourPun
+public class HealthController : MonoBehaviourPun
 {
 	[SerializeField] protected int initialHealth;
 
-	protected int health;
+	protected int Health;
 
 	private void Awake()
 	{
-		health = initialHealth;
+		Health = initialHealth;
 	}
 
 	public int GetHealth()
 	{
-		return health;
+		return Health;
 	}
 
 	public int GetRoundedHealth()
 	{
-		return Mathf.RoundToInt(health);
+		return Mathf.RoundToInt(Health);
 	}
 
-	public virtual void ChangeHealth(int change)
+	public void ChangeHealth(int change)
 	{
-		health += change;
+		photonView.RPC("RPCChangeHealth", RpcTarget.All, change);
+	}
 
-		if (health > 0) return;
+	[PunRPC]
+	protected virtual void RPCChangeHealth(int change)
+	{
+		Health += change;
+
+		if (Health > 0) return;
 
 		OnDeath();
 	}

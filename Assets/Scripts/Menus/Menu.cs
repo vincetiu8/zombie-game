@@ -1,6 +1,4 @@
-using Networking;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Menus_UI
 {
@@ -11,16 +9,17 @@ namespace Menus_UI
 	public class Menu : MonoBehaviour
 	{
 		public string menuName;
-		
+
 		//whether menu can disable player input 
 		//upon activation
 		public bool freezeOnToggle;
+
 		// This variable is solely for toggling input
 		[HideInInspector] public bool inputToggle = false;
 
 		public void Toggle(bool active)
 		{
-			gameObject.SetActive(active); 
+			gameObject.SetActive(active);
 			inputToggle = !inputToggle;
 		}
 	}
