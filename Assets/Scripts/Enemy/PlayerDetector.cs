@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
@@ -21,42 +22,30 @@ namespace Enemy
 		[SerializeField]
 		private float updatePeriod = 1;
 
-		private List<Transform> _players;
-
 		private Transform _trackingPlayer;
 		private float     _updateCooldown;
+		private List<Transform> _players;
 
-		private void Awake()
-		{
-			_players = new List<Transform>();
-		}
+        private ChaserAI  _chaserAI;
+
+        protected virtual void Awake()
+        {
+            _players = new List<Transform>();
+            _chaserAI = GetComponentInParent<ChaserAI>();
+
+        }
 
 		private void Update()
 		{
-			if (_updateCooldown > 0)
+            if (_updateCooldown > 0)
 			{
 				_updateCooldown -= Time.deltaTime;
 				return;
 			}
-
-			UpdateTrackingPlayer();
+            UpdateTrackingPlayer();
 		}
 
-		private void OnTriggerEnter2D(Collider2D other)
-		{
-			if (!other.CompareTag("Player")) return;
-
-			AddPlayer(other.transform);
-		}
-
-		private void OnTriggerExit2D(Collider2D other)
-		{
-			if (!other.CompareTag("Player")) return;
-
-			RemovePlayer(other.transform);
-		}
-
-		/// <summary>
+        /// <summary>
 		///     Updates the tracking player.
 		/// </summary>
 		private void UpdateTrackingPlayer()
@@ -74,26 +63,28 @@ namespace Enemy
 				minDistance = playerDistance;
 				_trackingPlayer = player;
 			}
+            _updateCooldown = updatePeriod;
+            
+            _chaserAI.SetPlayerToTrack(_trackingPlayer);
 
-			_updateCooldown = updatePeriod;
-		}
+        }
 
 		/// <summary>
 		///     Adds a player to the list of tracked players.
 		/// </summary>
-		private void AddPlayer(Transform other)
+		protected void AddPlayer(Transform other)
 		{
 			_players.Add(other);
 
-			if (_updateCooldown > 0) return;
-
+			// If no players are currently getting tracked, _updateCooldown can be ignored.
+			if (_trackingPlayer && _updateCooldown > 0) return;
 			UpdateTrackingPlayer();
 		}
 
 		/// <summary>
 		///     Removes a player from the list of tracked players
 		/// </summary>
-		private void RemovePlayer(Transform other)
+		protected void RemovePlayer(Transform other)
 		{
 			_players.Remove(other);
 			if (_trackingPlayer != other) return;
@@ -106,12 +97,5 @@ namespace Enemy
 
 			UpdateTrackingPlayer();
 		}
-
-		public Vector2 GetTrackingPlayerDirection()
-		{
-			if (!_trackingPlayer) return Vector2.zero;
-
-			return (_trackingPlayer.position - transform.position).normalized;
-		}
-	}
+    }
 }

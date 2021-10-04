@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6518528213137725806}
-  - component: {fileID: 6518528213137725807}
   - component: {fileID: 6518528213137725804}
+  - component: {fileID: 4195218523388399679}
   m_Layer: 7
   m_Name: PlayerDetector
   m_TagString: Untagged
@@ -32,20 +32,6 @@ Transform:
   m_Father: {fileID: 6518528214555036744}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6518528213137725807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6518528213137725801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8237a4965a069d25aba8b4d6d87142f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetStickiness: 2
-  updatePeriod: 2.5
 --- !u!58 &6518528213137725804
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -62,6 +48,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 15
+--- !u!114 &4195218523388399679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518528213137725801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 080d3efdef5ac894e8ef64ce68c47450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetStickiness: 2
+  updatePeriod: 2.5
 --- !u!1 &6518528214555036746
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,13 +74,13 @@ GameObject:
   - component: {fileID: 6518528214555036747}
   - component: {fileID: 6518528214555036745}
   - component: {fileID: 6518528214555036751}
-  - component: {fileID: 6518528214555036750}
   - component: {fileID: 6518528214555036787}
   - component: {fileID: 2042632738896592113}
   - component: {fileID: 904628254594388868}
   - component: {fileID: 6835588830130277189}
   - component: {fileID: 1679262202406998328}
   - component: {fileID: 6963397570999706585}
+  - component: {fileID: -5735369720552673388}
   m_Layer: 6
   m_Name: Hardened Zombie
   m_TagString: Enemy
@@ -192,19 +192,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.42
---- !u!114 &6518528214555036750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6518528214555036746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 045af469261dc907ea32bf755f77cc6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 0.5
 --- !u!114 &6518528214555036787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,3 +298,16 @@ MonoBehaviour:
     m_values:
     - {fileID: 6927649112921695316, guid: 021e2d16677d6e64a9c3425c035e61c9, type: 3}
     - {fileID: 5774804764515098991, guid: 41c5e7222100dbe4eb1d6a315b1112a0, type: 3}
+--- !u!114 &-5735369720552673388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518528214555036746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc48c913038689429862432b34b4157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 0.5
