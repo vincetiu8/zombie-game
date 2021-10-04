@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 
 namespace Enemy
@@ -22,37 +22,40 @@ namespace Enemy
 		[SerializeField]
 		private float updatePeriod = 1;
 
-		private Transform _trackingPlayer;
-		private float     _updateCooldown;
+		private ChaserAI        _chaserAI;
 		private List<Transform> _players;
 
-        private ChaserAI  _chaserAI;
+		private Transform _trackingPlayer;
+		private float     _updateCooldown;
 
-        protected virtual void Awake()
-        {
-            _players = new List<Transform>();
-            _chaserAI = GetComponentInParent<ChaserAI>();
-
-        }
+		protected virtual void Awake()
+		{
+			_players = new List<Transform>();
+			_chaserAI = GetComponentInParent<ChaserAI>();
+		}
 
 		private void Update()
 		{
-            if (_updateCooldown > 0)
+			if (_updateCooldown > 0)
 			{
 				_updateCooldown -= Time.deltaTime;
 				return;
 			}
-            UpdateTrackingPlayer();
+
+			UpdateTrackingPlayer();
 		}
 
-        /// <summary>
+		/// <summary>
 		///     Updates the tracking player.
 		/// </summary>
 		private void UpdateTrackingPlayer()
 		{
 			float minDistance = float.PositiveInfinity;
 
-			foreach (Transform player in _players)
+			// Handle cases where player died
+			_players.RemoveAll(player => player == null);
+
+			foreach (Transform player in _players.ToList())
 			{
 				float playerDistance = (player.position - transform.position).magnitude;
 
@@ -63,11 +66,11 @@ namespace Enemy
 				minDistance = playerDistance;
 				_trackingPlayer = player;
 			}
-            _updateCooldown = updatePeriod;
-            
-            _chaserAI.SetPlayerToTrack(_trackingPlayer);
 
-        }
+			_updateCooldown = updatePeriod;
+
+			_chaserAI.SetPlayerToTrack(_trackingPlayer);
+		}
 
 		/// <summary>
 		///     Adds a player to the list of tracked players.
@@ -97,5 +100,5 @@ namespace Enemy
 
 			UpdateTrackingPlayer();
 		}
-    }
+	}
 }
