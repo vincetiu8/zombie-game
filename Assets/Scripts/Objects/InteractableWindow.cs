@@ -22,8 +22,8 @@ namespace Objects
 			base.Start();
 			_windowController = GetComponentInChildren<WindowController>();
 		}
-
-		private void Update()
+        
+        private void Update()
 		{
 			if (_cooldown > 0) _cooldown -= Time.deltaTime;
 		}
@@ -69,10 +69,12 @@ namespace Objects
         }
         protected override void StartInteraction()
         {
+            base.StartInteraction();
             _fixingWindow = true;
         }
         public override void CancelInteraction()
         {
+            base.CancelInteraction();
             _fixingWindow = false;
         }*/
     }

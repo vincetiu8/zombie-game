@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Interact;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : Health
 {
-    // Start is called before the first frame update
-    void Start()
+    private PlayerInteract _playerInteract;
+    private void Start()
     {
-        
+        _playerInteract = transform.GetComponent<PlayerInteract>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ChangeHealth(int change)
     {
-        
+        if (change < 0) _playerInteract.CancelHoldInteraction();
+        base.ChangeHealth(change);
     }
+
 }

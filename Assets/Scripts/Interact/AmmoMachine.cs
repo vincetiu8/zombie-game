@@ -48,8 +48,7 @@ namespace Interact
 			purchaseAmountInput.minValue = 1;
 		}
 
-		public void Purc
-        haseAmmo()
+		public void PurchaseAmmo()
 		{
 			GameObject customer = GameManager.instance.localPlayerInstance;
 

@@ -13,7 +13,9 @@ namespace Interact
 		///     List to keep track of how many interactable objects are in range.
 		/// </summary>
 		private readonly List<GameObject> _interactPriorityList = new List<GameObject>();
+        private GameObject _closestObject;
 
+        
 		public void AddInteractableObject(GameObject interact)
 		{
 			_interactPriorityList.Add(interact);
@@ -31,17 +33,29 @@ namespace Interact
 
 			// Check which object in the list is closest to the player
 			float closestDistance = Mathf.Infinity;
-			GameObject closestObject = null;
+			_closestObject = null;
 			foreach (GameObject obj in _interactPriorityList)
 			{
 				if (Vector2.Distance(obj.transform.position, transform.position) > closestDistance) continue;
 				closestDistance = Vector2.Distance(obj.transform.position, transform.position);
-				closestObject = obj;
+				_closestObject = obj;
 			}
 
-			if (closestObject == null) return;
+			if (_closestObject == null) return;
 
-            closestObject.GetComponent<Interactable>().Interact(context.performed);
+            _closestObject.GetComponent<Interactable>().Interact(context.performed);
+        }
+
+        public void CancelHoldInteractionInput(InputAction.CallbackContext context)
+        {
+            if (!context.canceled) return;
+            CancelHoldInteraction();
+        }
+
+        public void CancelHoldInteraction()
+        {
+            if (!_closestObject) return;
+            _closestObject.GetComponent<Interactable>().CancelInteraction();
         }
 	}
 }

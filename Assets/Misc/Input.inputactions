@@ -377,7 +377,7 @@
                     "name": "Interact",
                     "type": "Value",
                     "id": "89807b38-1802-4035-afa4-359a69e5df7c",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },

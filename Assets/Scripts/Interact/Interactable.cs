@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
+using Networking;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Interact
 {
@@ -11,11 +13,12 @@ namespace Interact
 	/// </summary>
 	[RequireComponent(typeof(Collider2D))]
 	public abstract class Interactable : MonoBehaviourPun
-	{
-		// Added for debugging convenience
+    {
+        protected bool _cancelledAlready = true;
+        // Added for debugging convenience
 		protected virtual void Start()
 		{
-			Collider2D[] cols = GetComponents<Collider2D>();
+            Collider2D[] cols = GetComponents<Collider2D>();
 			if (!cols.Any(col => col.isTrigger))
 				Debug.LogError("No trigger colliders attached to interactable object, can't interact");
 		}
@@ -37,16 +40,45 @@ namespace Interact
 		///     We don't pass in the player, but it can be assumed that the interacting player is the local player.
 		/// </summary>
 		public abstract void Interact(bool contextPerformed);
-	}
+
+        public virtual void CancelInteraction()
+        {
+            
+        }
+    }
     
     public abstract class HoldInteractable : Interactable
     {
+        private                  PlayerInput _playerInput;
+        
+        protected override void Start()
+        {
+            base.Start();
+                 
+        }
+
         public override void Interact(bool contextPerformed)
         {
-            (contextPerformed ? (Action)StartInteraction : CancelInteraction)();
+            if (_playerInput == null)
+            {
+                _playerInput = GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>();
+            }  
+           // (contextPerformed ? (Action)StartInteraction : CancelInteraction)();
+           StartInteraction();
         }
-        protected abstract void StartInteraction();
-        public abstract void CancelInteraction();
+
+        protected virtual void StartInteraction()
+        {
+            Utils.ToggleInput(Utils.ActionMapOptions.InAnimation, _playerInput);
+            _cancelledAlready = false;
+        }
+
+        public override void CancelInteraction()
+        {
+            if (_cancelledAlready)  throw new Exception("You cannot cancel multiple times in a row");
+            _cancelledAlready = true;
+            Utils.ToggleInput(Utils.ActionMapOptions.Game, _playerInput);
+        }
     }
     
     public abstract class PressInteractable : Interactable
