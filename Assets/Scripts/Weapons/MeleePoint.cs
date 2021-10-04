@@ -30,26 +30,22 @@ namespace Weapons
         }
         
         /// <summary>
-        /// Returns a new list of enemies obtained from hitEnemies
+        /// Returns a list of enemies obtained from hitEnemies
         /// with all null (dead) enemies removed
         /// </summary>
         public List<Collider2D> GetEnemiesInCollider()
         {
-            List<Collider2D> correctedEnemies = new List<Collider2D>();
-
-            foreach (Collider2D enemy in hitEnemies)
+            // Throws an error about the list being modified
+            // still works, not sure why
+            for (int i = 0; i < hitEnemies.Count; i++)
             {
-                if(enemy == null)
+                if(hitEnemies[i] == null)
                 {
-                    hitEnemies.Remove(enemy);
-                }
-                else
-                {
-                    correctedEnemies.Add(enemy);
+                    hitEnemies.Remove(hitEnemies[i]);
                 }
             }
 
-            return correctedEnemies;
+            return hitEnemies;
         }
     }
 }

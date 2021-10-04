@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3941757315853924774}
   - component: {fileID: 6850329493316692729}
   - component: {fileID: 1231988879280760708}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: Blue Temp Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6801910507221268516}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

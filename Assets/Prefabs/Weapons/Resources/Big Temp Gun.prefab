@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7039570304982620994}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4305294550502302816}
   - component: {fileID: 8049184801401153425}
   - component: {fileID: 5673859719892484690}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: Big Temp Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5424163015042692280}
-  m_LocalRotation: {x: -0, y: -0, z: 0.0022396273, w: -0.99999756}
+  m_LocalRotation: {x: 0, y: 0, z: -0.002242733, w: 0.9999975}
   m_LocalPosition: {x: 0.114, y: -0.606, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
