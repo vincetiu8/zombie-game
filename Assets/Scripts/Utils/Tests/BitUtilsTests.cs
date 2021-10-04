@@ -28,28 +28,42 @@ namespace Utils.Tests
 			Assert.AreEqual(0xde, data[2]);
 			Assert.AreEqual(0xc0, data[3]);
 
+			// Test truncating long data
+			BitUtils.WriteBits(data, 0x1234, 8, ref offset);
+			Assert.AreEqual(36, offset);
+			Assert.AreEqual(0xc4, data[3]);
+			Assert.AreEqual(0x30, data[4]);
+
 			// Test writing within 1 byte half full
 			BitUtils.WriteBits(data, 7, 3, ref offset);
-			Assert.AreEqual(31, offset);
-			Assert.AreEqual(0xce, data[3]);
+			Assert.AreEqual(39, offset);
+			Assert.AreEqual(0x3e, data[4]);
 
 			offset = 0;
 
 			// Test reading data within 1 byte
 			int value = BitUtils.ReadBits(data, 4, ref offset);
+			Assert.AreEqual(4, offset);
 			Assert.AreEqual(0x9, value);
 
 			// Test reading that overflows 1 byte
 			value = BitUtils.ReadBits(data, 8, ref offset);
+			Assert.AreEqual(12, offset);
 			Assert.AreEqual(0xab, value);
 
 			// Test reading that overflows multiple bytes
 			value = BitUtils.ReadBits(data, 16, ref offset);
+			Assert.AreEqual(28, offset);
 			Assert.AreEqual(0xcdef, value);
+
+			// Test reading long data
+			value = BitUtils.ReadBits(data, 8, ref offset);
+			Assert.AreEqual(36, offset);
+			Assert.AreEqual(0x34, value);
 
 			// Test reading within 1 byte half full
 			value = BitUtils.ReadBits(data, 3, ref offset);
-			Assert.AreEqual(31, offset);
+			Assert.AreEqual(39, offset);
 			Assert.AreEqual(7, value);
 		}
 	}

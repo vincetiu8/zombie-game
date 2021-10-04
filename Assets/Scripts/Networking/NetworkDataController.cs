@@ -13,7 +13,7 @@ namespace Networking
 		private readonly byte[] _data = new byte[32];
 		private          int    _offset;
 
-		void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 		{
 			Debug.Assert(networkedComponents.Length <= MaxComponents, "Too many networked components");
 

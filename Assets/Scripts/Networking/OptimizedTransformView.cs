@@ -1,6 +1,8 @@
+using System;
 using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
+using Utils;
 
 namespace Networking
 {
@@ -9,10 +11,18 @@ namespace Networking
 	///     Use this instead of PhotonTransformView
 	/// </summary>
 	[RequireComponent(typeof(PhotonView))]
-	public class OptimizedTransformView : MonoBehaviourPun, IPunObservable
+	public class OptimizedTransformView : MonoBehaviourPun, INetworkSerializeView
 	{
+		// Converts a degree measure into a byte value
+		private const float Deg2Byte = 256f / 360;
+
 		[Header("Sync Settings")] [Description("Whether to sync the object's position or not")] [SerializeField]
 		private bool syncPosition;
+
+		[Description("The precision the position should be synced to, in decimal places")]
+		[SerializeField]
+		[Range(0, 10)]
+		private int positionPrecision = 2;
 
 		[Description("Whether to sync the object's rotation or not")] [SerializeField]
 		private bool syncRotation;
@@ -23,8 +33,14 @@ namespace Networking
 		[Description("How fast the movement should be smoothed")] [SerializeField] [Range(1, 20)]
 		private float smoothingSpeed = 10;
 
-
 		private Vector2 _correctPos;
+
+		private float _precisionCorrection;
+
+		private void Awake()
+		{
+			_precisionCorrection = (int)Math.Pow(10, positionPrecision);
+		}
 
 		private void Update()
 		{
@@ -33,39 +49,41 @@ namespace Networking
 			if (syncPosition) SyncPosition();
 		}
 
-		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+		public bool Serialize(byte[] data, ref int offset)
 		{
-			float zRot;
-			byte byteZRot;
-
-			if (stream.IsWriting)
-			{
-				if (syncPosition)
-				{
-					stream.SendNext(transform.position.x);
-					stream.SendNext(transform.position.y);
-				}
-
-				if (!syncRotation) return;
-
-				zRot = transform.rotation.eulerAngles.z;
-				byteZRot = (byte)(zRot / 360 * 255);
-				stream.SendNext(byteZRot);
-
-				return;
-			}
-
 			if (syncPosition)
 			{
-				_correctPos.x = (float)stream.ReceiveNext();
-				_correctPos.y = (float)stream.ReceiveNext();
+				int xPos = (int)(transform.position.x * _precisionCorrection);
+				BitUtils.WriteBits(data, xPos, 12, ref offset);
+
+				int yPos = (int)(transform.position.y * _precisionCorrection);
+				Debug.Log("Sending:" + xPos + " " + yPos);
+				BitUtils.WriteBits(data, yPos, 12, ref offset);
 			}
 
+			if (!syncRotation) return true;
+
+			int zRot = (int)(transform.rotation.eulerAngles.z * Deg2Byte);
+			BitUtils.WriteBits(data, zRot, 8, ref offset);
+
+			return true;
+		}
+
+		public void Deserialize(byte[] data, ref int offset)
+		{
+			if (syncPosition)
+			{
+				int xPos = BitUtils.ReadBits(data, 12, ref offset);
+				int yPos = BitUtils.ReadBits(data, 12, ref offset);
+
+				_correctPos = new Vector2(xPos, yPos) / _precisionCorrection;
+
+				Debug.Log("Received: " + xPos + " " + yPos);
+			}
 
 			if (!syncRotation) return;
 
-			byteZRot = (byte)stream.ReceiveNext();
-			zRot = byteZRot / 255f * 360;
+			float zRot = BitUtils.ReadBits(data, 8, ref offset) / Deg2Byte;
 			transform.rotation = Quaternion.AngleAxis(zRot, Vector3.forward);
 		}
 
