@@ -77,10 +77,11 @@ GameObject:
   - component: {fileID: 6518528214555036787}
   - component: {fileID: 2042632738896592113}
   - component: {fileID: 904628254594388868}
-  - component: {fileID: 6835588830130277189}
   - component: {fileID: 1679262202406998328}
   - component: {fileID: 6963397570999706585}
   - component: {fileID: -5735369720552673388}
+  - component: {fileID: 1088363777178162445}
+  - component: {fileID: -6664837484685924371}
   m_Layer: 6
   m_Name: Hardened Zombie
   m_TagString: Enemy
@@ -241,28 +242,10 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 2042632738896592113}
-  - {fileID: 6835588830130277189}
-  - {fileID: 6963397570999706585}
+  - {fileID: 1088363777178162445}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &6835588830130277189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6518528214555036746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &1679262202406998328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,10 +259,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentsToDisableIfNotMasterClient:
-  - {fileID: 9027714350541001168, guid: 7d178d64c618d137f9c5f4bd28cc9c2b, type: 3}
+  - {fileID: 6518528214555036787}
   - {fileID: 3719824534238069527, guid: 7d178d64c618d137f9c5f4bd28cc9c2b, type: 3}
-  - {fileID: 9027714349123552497, guid: 7d178d64c618d137f9c5f4bd28cc9c2b, type: 3}
-  - {fileID: 9027714349123552498, guid: 7d178d64c618d137f9c5f4bd28cc9c2b, type: 3}
+  - {fileID: 6963397570999706585}
 --- !u!114 &6963397570999706585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,3 +293,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.5
+--- !u!114 &1088363777178162445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518528214555036746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a799013d30649f1a7e063b0d3b740f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkedComponents:
+  - {fileID: -6664837484685924371}
+--- !u!114 &-6664837484685924371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518528214555036746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a088e2403a72ec12b491e529cb8e928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncPosition: 1
+  positionPrecision: 2
+  syncRotation: 1
+  smooth: 1
+  smoothingSpeed: 10

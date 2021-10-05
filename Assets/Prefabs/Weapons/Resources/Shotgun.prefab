@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160738396262455029}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.78, y: 0, z: 0}
+  m_LocalPosition: {x: 0.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8144691297433904858}
@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 4604939237133819797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.6855805, y: -3.216948, z: 0}
-  m_LocalScale: {x: 0.6, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 2754838259538124271}
   m_Father: {fileID: 0}
@@ -104,12 +104,13 @@ SpriteRenderer:
   m_SortingLayerID: 1036530043
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 197152969116689273, guid: a44209a1b8bf00842bf6c79c5b5c7507, type: 3}
+  m_Sprite: {fileID: 8101326686158321518, guid: 92aa031c64efb71d9a518e107694d2c4,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 0.296875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -153,7 +154,7 @@ MonoBehaviour:
   ammoType: 1
   weaponLevels:
   - description: Basic Shotgun
-    damage: 0.5
+    damage: 0
     fireCooldown: 0.75
     fullAuto: 0
     magazineSize: 4

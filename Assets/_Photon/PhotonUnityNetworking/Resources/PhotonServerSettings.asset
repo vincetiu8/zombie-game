@@ -28,7 +28,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: us
+  DevRegion: 
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -50,7 +50,10 @@ MonoBehaviour:
   - RPCGetPlayerGold
   - RPCAddPlayerGold
   - RPCInteract
+  - SetupPlayerOnRemotes
   - RPCSetupPlayer
+  - RPCSelectWeapon
+  - RPCChangeHealth
   - RpcMeleeAnimation
   DisableAutoOpenWizard: 1
   ShowSettings: 0

@@ -16,7 +16,7 @@ namespace Enemy
 	/// <summary>
 	///     An extension of the Health script that drops an item when the object is destroyed
 	/// </summary>
-	public class ItemDrop : Health
+	public class ItemDrop : HealthController
 	{
 		[Header("Item Drops")] [Description("Item drops for this enemy")] [SerializeField]
 		private ItemDict itemDict;

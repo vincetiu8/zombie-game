@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4706817818639944328}
   - component: {fileID: 4706817818639944329}
   - component: {fileID: 301593380}
-  - component: {fileID: 301593379}
   - component: {fileID: 5221598095173118916}
+  - component: {fileID: 9206374881851240513}
+  - component: {fileID: 8474994737807135849}
   m_Layer: 0
   m_Name: Movable Crate
   m_TagString: Untagged
@@ -144,26 +145,10 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 301593379}
+  - {fileID: 8474994737807135849}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &301593379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4706817818639944334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 0
 --- !u!58 &5221598095173118916
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -180,3 +165,34 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 5
+--- !u!114 &9206374881851240513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706817818639944334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a088e2403a72ec12b491e529cb8e928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncPosition: 1
+  positionPrecision: 2
+  syncRotation: 1
+  smooth: 0
+  smoothingSpeed: 10
+--- !u!114 &8474994737807135849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706817818639944334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a799013d30649f1a7e063b0d3b740f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkedComponents:
+  - {fileID: 9206374881851240513}

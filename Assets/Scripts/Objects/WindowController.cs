@@ -6,7 +6,7 @@ namespace Objects
 	/// <summary>
 	///     Handles zombies breaking the window.
 	/// </summary>
-	public class WindowController : Health
+	public class WindowController : HealthController
 	{
 		[HideInInspector] public bool zombieAtWindow;
 
@@ -33,25 +33,25 @@ namespace Objects
 		{
 			if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
 			_carryHealth -= Time.deltaTime * barricadeBreakRate;
-			int healthChange = (int) _carryHealth;
+			int healthChange = (int)_carryHealth;
 			ChangeHealth(healthChange);
 			_carryHealth -= healthChange;
 			zombieAtWindow = true;
 		}
 
-		public override void ChangeHealth(int change)
+		protected override void RPCChangeHealth(int change)
 		{
-			int previousHealth = health;
-			health = Mathf.Clamp(health + change, 0, initialHealth);
-			if (previousHealth == health)
+			int previousHealth = Health;
+			Health = Mathf.Clamp(Health + change, 0, initialHealth);
+			if (previousHealth == Health)
 				return; // If zombies hitting an already destroyed window or player fixing an already fixed window
 
-			windowCollider.SetActive(health != 0);
+			windowCollider.SetActive(Health != 0);
 
-			if (health - previousHealth < 0 && Mathf.CeilToInt(health) != 6)
-				barricadesGraphics.transform.GetChild(Mathf.CeilToInt(health)).gameObject.SetActive(false);
-			else if (health - previousHealth > 0)
-				barricadesGraphics.transform.GetChild((int)health - 1).gameObject.SetActive(true);
+			if (Health - previousHealth < 0 && Mathf.CeilToInt(Health) != 6)
+				barricadesGraphics.transform.GetChild(Mathf.CeilToInt(Health)).gameObject.SetActive(false);
+			else if (Health - previousHealth > 0)
+				barricadesGraphics.transform.GetChild(Health - 1).gameObject.SetActive(true);
 		}
 	}
 }
