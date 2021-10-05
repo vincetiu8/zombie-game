@@ -10,8 +10,8 @@ State: What the game currently looks like. The game state is the overarching sit
 Each component has its own state in the game, which composes of its attributes. These include the object's position and
 important variables in its scripts.
 
-Synchronization: Ensuring the game state is the same in all clients. From any client's perspective, the game should
-look the same and they should be able to perform the same actions.
+Synchronization: Ensuring the game state is the same in all clients. From any client's perspective, the game should look
+the same and they should be able to perform the same actions.
 
 Authority: Who controls an object. The client with authority sends the state of the object to all other clients, who
 read and update their own internal state accordingly.
@@ -24,57 +24,51 @@ also has authority over all objects aside from the players.
 When you're implementing a new feature, you need to ensure it's synchronized across all clients. Photon offers several
 ways to do this, and the method you should take depends on what exactly you are trying to do.
 
-## Photon view
+### `PhotonView`
 
-In order to synchronize their state, all networked objects need to have a `Photon View` component in their parent
+In order to synchronize their state, all networked objects need to have a `PhotonView` component in their parent
 GameObject. This has multiple settings, but the defaults are normally acceptable.
 
-## Syncing transforms
+In order for a script to access network information, it needs to derive from `MonoBehaviourPun` instead
+of `MonoBehaviour`. This gives it access to the `photonView` component attached to the object, among other
+functionality.
 
-Example: syncing positions
+If you also want to get callbacks to photon functions (mostly useful for any system that need to know about players
+leaving/joining, see [Player Numbering](#Player numbering), inherit from `MonoBehaviourPunCallbacks` instead. This will
+give you all the functionality of `MonoBehaviourPun` and allow you to override methods to handle different situations.
+
+### Observable vs. RPC
+
+The two main ways of syncing information are through observable objects and RPC calls. Observable objects should only be
+used when data needs to be synced at a rate faster than once every second, which is mostly just transforms. For
+everything else, use RPC calls.
+
+## Observable objects
+
+### `NetworkDataHandler`
+
+In order to optimize reading and writing data, we need to attach a `NetworkDataHandler` to all objects with observable
+scripts. This handles compressing data from each object which makes it more efficient. However, this is only useful for
+observable objects and makes no difference for RPCs.
+
+Note that unlike normal photon observables, all networked observables need to be added to the `NetworkDataHandler`
+manually. This includes the optimized transform.
+
+### Syncing transforms
 
 To sync an object's position, rotation or scale, simply add the `Optimized Transform View` to the object and select the
 relevant attributes to sync. Use this instead of the normal `Photon Transform View` because it's faster.
 
-## Syncing scripts
-
-In order for a script to be synced, it needs to derive from `MonoBehaviourPun` instead of `MonoBehaviour`. This gives it
-access to the `photonView` component attached to the object, among other functionality.
-
-If you also want to get callbacks to photon functions (mostly useful for any system that need to know about players
-leaving/joining, see [Player Numbering](#player-numbering), inherit from `MonoBehaviourPunCallbacks` instead. This will
-give you all the functionality of `MonoBehaviourPun` and allow you to override methods to handle different situations.
-
 ### Syncing variables
 
-Example: syncing health
+To sync a variable in a script, it needs to implement the `INetworkSerializeView` interface. You need to add methods
+called `Serialize` and `Deserialize` in the script to handle writing and reading data respectively.
 
-To sync a variable in a script, it needs to implement the `IPunObservable` interface. You need to add a method
-called `OnPhotonSerializeView`, and then synchronize relevant variables inside. For example, if we want to synchronize
-the player's health, we would write something like:
+All data is read and written to the provided byte array in the method. Use `BitUtils.WriteBits` and `BitUtils.ReadBits`
+respectively to write and read bits from the array. Try to optimize the information being sent and minimize the number
+of bits used. For an example, look at the `OptimizedTransformView` code.
 
-```
-public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-{
-	// If we are writing, we have authority over the object and dictate it's state
-	if (stream.IsWriting) 
-	{
-		// Send the variable to the other clients
-		stream.SendNext(health); 
-		return;
-	}
-
-	// Receieve the variable and update our own state accordingly
-	// Note the typecast: incoming variables from the stream are all objects
-	// So we need to typecast them back to their original form
-	health = (int) stream.ReceiveNext(); 
-}
-```
-
-This approach is preferred for single variables that change often. If you are trying to sync something less often or a
-larger struct, please use and RPC, as detailed below.
-
-### Remote procedure calls (RPCs)
+## Remote procedure calls (RPCs)
 
 If we are going to synchronize something more complex, like the contents of a class, or need to call a method on another
 client, we need to use an RPC. An RPC is a method that can be called by other clients, and normally we just want to call
@@ -101,7 +95,7 @@ protected void RpcOnDeath()
 }
 ```
 
-#### Shops and gold
+### Shops and gold
 
 All gold interactions are handled by the `GoldManager` script. We trust clients to be honest with their gold
 calculations. To add, withdraw or get the player's gold, simply call the relevant methods in the `GoldManager`.
