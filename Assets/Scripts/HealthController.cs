@@ -26,13 +26,7 @@ public class HealthController : MonoBehaviourPun
 		return Mathf.RoundToInt(Health);
 	}
 
-	public void ChangeHealth(int change)
-	{
-		photonView.RPC("RPCChangeHealth", RpcTarget.All, change);
-	}
-
-	[PunRPC]
-	protected virtual void RPCChangeHealth(int change)
+	public virtual void ChangeHealth(int change)
 	{
 		Health += change;
 
@@ -43,11 +37,11 @@ public class HealthController : MonoBehaviourPun
 
 	protected virtual void OnDeath()
 	{
-		photonView.RPC("RpcOnDeath", RpcTarget.All);
+		photonView.RPC("RPCOnDeath", RpcTarget.All);
 	}
 
 	[PunRPC]
-	protected void RpcOnDeath()
+	protected void RPCOnDeath()
 	{
 		Destroy(gameObject);
 	}

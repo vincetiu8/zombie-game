@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Objects
@@ -39,19 +40,25 @@ namespace Objects
 			zombieAtWindow = true;
 		}
 
-		protected override void RPCChangeHealth(int change)
+		public override void ChangeHealth(int change)
 		{
 			int previousHealth = Health;
-			Health = Mathf.Clamp(Health + change, 0, initialHealth);
-			if (previousHealth == Health)
-				return; // If zombies hitting an already destroyed window or player fixing an already fixed window
+			int newHealth = Mathf.Clamp(Health + change, 0, initialHealth);
+			if (previousHealth == newHealth) return;
 
-			windowCollider.SetActive(Health != 0);
+			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
+		}
 
-			if (Health - previousHealth < 0 && Mathf.CeilToInt(Health) != 6)
-				barricadesGraphics.transform.GetChild(Mathf.CeilToInt(Health)).gameObject.SetActive(false);
-			else if (Health - previousHealth > 0)
+		private void RPCChangeHealth(int newHealth)
+		{
+			windowCollider.SetActive(newHealth != 0);
+
+			if (newHealth - Health < 0 && Mathf.CeilToInt(newHealth) != 6)
+				barricadesGraphics.transform.GetChild(Mathf.CeilToInt(newHealth)).gameObject.SetActive(false);
+			else if (newHealth - Health > 0)
 				barricadesGraphics.transform.GetChild(Health - 1).gameObject.SetActive(true);
+
+			Health = newHealth;
 		}
 	}
 }
