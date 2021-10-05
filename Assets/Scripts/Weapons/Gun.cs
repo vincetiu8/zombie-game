@@ -1,15 +1,13 @@
 using System.Collections;
 using System.ComponentModel;
-using Photon.Pun;
 using UnityEngine;
-using Utils;
 
 namespace Weapons
 {
 	/// <summary>
 	/// Gun is a Weapon that fires bullets.
 	/// </summary>
-	public class Gun : Weapon
+	public abstract class Gun : Weapon
 	{
 		[Description("The gun's ammo type")] [SerializeField]
 		private AmmoType ammoType;
@@ -20,22 +18,20 @@ namespace Weapons
 		[Description("The transform the bullets will shoot from")] [SerializeField]
 		protected Transform firepoint;
 
-		[Description("The bullet prefab to be instantiated")] [SerializeField]
-		private GameObject bulletPrefab;
-
 		private int _bulletsInMagazine;
 
-		private GunAttributes _currentGunAttributes;
-		private float         _gunOffsetAdjustment;
-		private Coroutine     _reloadCoroutine;
+		private float     _gunOffsetAdjustment;
+		private Coroutine _reloadCoroutine;
+
+		protected GunAttributes CurrentGunAttributes;
 
 		protected override void Start()
 		{
 			base.Start();
 			maxLevel = weaponLevels.Length;
-			_currentGunAttributes = weaponLevels[currentLevel];
-			currentAttributes = _currentGunAttributes;
-			_bulletsInMagazine = _currentGunAttributes.magazineSize;
+			CurrentGunAttributes = weaponLevels[currentLevel];
+			currentAttributes = CurrentGunAttributes;
+			_bulletsInMagazine = CurrentGunAttributes.magazineSize;
 			CalculateGunOffsetAdjustment();
 		}
 
@@ -52,25 +48,13 @@ namespace Weapons
 			base.Fire();
 		}
 
-		/// <summary>
-		/// Allows for easy overriding without touching the base Fire and SpawnBullet methods
-		/// </summary>
 		protected virtual void FireBullets()
 		{
-			float direction = firepoint.rotation.eulerAngles.z;
-			SpawnBullet(direction);
+			float angle = firepoint.rotation.eulerAngles.z;
+			FireBullet(angle);
 		}
 
-		protected void SpawnBullet(float angle)
-		{
-			Quaternion rotation = Quaternion.Euler(0, 0, angle);
-			GameObject bulletClone = PhotonNetwork.Instantiate(bulletPrefab.name, firepoint.position, rotation);
-
-			// Set the bullet's attributes
-			Vector2 direction = TransformUtils.DegToVector2(angle);
-			bulletClone.GetComponent<Rigidbody2D>().velocity = direction * _currentGunAttributes.bulletSpeed;
-			bulletClone.GetComponent<Bullet>().damage = currentAttributes.damage;
-		}
+		protected abstract void FireBullet(float angle);
 
 		public override void Reload()
 		{
@@ -80,12 +64,12 @@ namespace Weapons
 		}
 
 		// Once this coroutine finishes, the weapon is reloaded
-		protected virtual IEnumerator ReloadCoroutine()
+		private IEnumerator ReloadCoroutine()
 		{
-			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
+			yield return new WaitForSeconds(CurrentGunAttributes.reloadTime);
 
 			// Withdraw bullets from the player's inventory
-			_bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
+			_bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, CurrentGunAttributes.magazineSize);
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
 			_reloadCoroutine = null;
@@ -93,8 +77,8 @@ namespace Weapons
 
 		public override void Upgrade()
 		{
-			_currentGunAttributes = weaponLevels[currentLevel];
-			currentAttributes = _currentGunAttributes;
+			CurrentGunAttributes = weaponLevels[currentLevel];
+			currentAttributes = CurrentGunAttributes;
 		}
 
 		/// <summary>

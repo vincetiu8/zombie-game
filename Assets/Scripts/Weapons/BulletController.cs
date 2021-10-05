@@ -5,7 +5,7 @@ namespace Weapons
 	/// <summary>
 	///     A one-time collision damager with a lifetime.
 	/// </summary>
-	public class Bullet : CollisionDamager
+	public class BulletController : CollisionDamager
 	{
 		public float lifetime;
 

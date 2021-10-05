@@ -40,15 +40,11 @@ namespace Weapons
 		[Description("The time the gun takes to reload")]
 		public float reloadTime;
 
-		[Description("The speed of the bullets")]
-		public float bulletSpeed;
-
 		public override string ToString()
 		{
 			return base.ToString()
 			       + $"Magazine Size: {magazineSize}\n"
-			       + $"Reload Time: {reloadTime}\n"
-			       + $"bulletVelocity: {bulletSpeed}\n";
+			       + $"Reload Time: {reloadTime}\n";
 		}
 	}
 }
