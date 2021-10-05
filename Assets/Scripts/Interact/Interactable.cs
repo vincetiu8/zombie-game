@@ -5,6 +5,7 @@ using Networking;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 using Weapons;
 
 namespace Interact
@@ -74,7 +75,7 @@ namespace Interact
 
         protected virtual void StartInteraction()
         {
-            //Utils.ToggleInput(Utils.ActionMapOptions.InAnimation, _playerInput);
+            MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.InAnimation, _playerInput);
             _playerWeaponHandler.ToggleFireEnabled(false);
             _cancelledAlready = false;
         }
@@ -83,7 +84,7 @@ namespace Interact
         {
             if (_cancelledAlready)  throw new Exception("You cannot cancel multiple times in a row");
             _cancelledAlready = true;
-            //Utils.ToggleInput(Utils.ActionMapOptions.Game, _playerInput);
+            MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.Game, _playerInput);
             _playerWeaponHandler.ToggleFireEnabled(true);
         }
     }
