@@ -38,6 +38,7 @@ namespace Menus_UI
 				if (menu.freezeOnToggle)
 				{
 				}
+                Debug.Log(GameManager.instance.localPlayerInstance);
 					MiscUtils.ToggleInput(menu.inputToggle, _playerInput);
                     //	Utils.ToggleInput(menu.inputToggle ? Utils.ActionMapOptions.UI : Utils.ActionMapOptions.Game, _playerInput);
 

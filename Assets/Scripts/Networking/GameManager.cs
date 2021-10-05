@@ -2,7 +2,6 @@ using System;
 using Photon.Pun;
 using Shop;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Networking
 {
