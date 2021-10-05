@@ -1,48 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.ComponentModel;
 using Photon.Pun;
+using UnityEngine;
 
 namespace Weapons
 {
-    /// <summary>
-    /// A weapon that attacks within a
-    /// small radius of the player
-    /// </summary>
-    public class MeleeAttack : Weapon
-    {
-        [Description("The weapon's attributes")] [SerializeField]
-        private WeaponAttributes[] _levels;
-        
-        private Animator _animator;
+	/// <summary>
+	///     A weapon that attacks within a
+	///     small radius of the player
+	/// </summary>
+	public class MeleeAttack : Weapon
+	{
+		private static readonly int Attack = Animator.StringToHash("attack");
 
-        private MeleePoint _meleePoint;
+		[Description("The weapon's attributes")] [SerializeField]
+		private WeaponAttributes[] levels;
 
-        protected override void Start()
-        {
-            base.Start();
-            maxLevel = _levels.Length;
-            currentAttributes = _levels[currentLevel];
-            _meleePoint = GetComponentInChildren<MeleePoint>();
-            _animator = GetComponent<Animator>();
-        }
+		private Animator   _animator;
+		private MeleePoint _meleePoint;
 
-        protected override void Fire()
-        {
-            base.Fire();
-            photonView.RPC("RpcMeleeAnimation", RpcTarget.All);
+		protected override void Start()
+		{
+			base.Start();
+			maxLevel = levels.Length;
+			currentAttributes = levels[currentLevel];
+			_meleePoint = GetComponentInChildren<MeleePoint>();
+			_animator = GetComponentInChildren<Animator>();
+		}
 
-            foreach (Collider2D correctedEnemy in _meleePoint.GetEnemiesInCollider())
-            {
-                correctedEnemy.GetComponent<Health>().ChangeHealth(-currentAttributes.damage);
-            }
-        }
+		protected override void Fire()
+		{
+			base.Fire();
+			photonView.RPC("RpcMeleeAnimation", RpcTarget.All);
 
-        [PunRPC]
-        private void RpcMeleeAnimation()
-        {
-            _animator.SetTrigger("attack");
-        }
-    }
+			foreach (Collider2D correctedEnemy in _meleePoint.GetEnemiesInCollider())
+				correctedEnemy.GetComponent<HealthController>().ChangeHealth(-currentAttributes.damage);
+		}
+
+		[PunRPC]
+		private void RpcMeleeAnimation()
+		{
+			_animator.SetTrigger(Attack);
+		}
+	}
 }
