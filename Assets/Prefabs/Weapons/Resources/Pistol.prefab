@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 3909993537624026819}
   - component: {fileID: 1201697913036177066}
   - component: {fileID: 8110468372728126296}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &894441089126901917
 Transform:
   m_ObjectHideFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4793649891906802130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.267, y: -0.586, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 6581261222417765288}
   m_Father: {fileID: 0}
@@ -71,9 +71,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 549690393
-  m_SortingLayer: 4
-  m_SortingOrder: 2
+  m_SortingLayerID: 1036530043
+  m_SortingLayer: 3
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1098179606456428539, guid: 92aa031c64efb71d9a518e107694d2c4,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -95,21 +95,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 4793649891906802130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10213a7e97c0496f881fedbc3b5d8c84, type: 3}
+  m_Script: {fileID: 11500000, guid: b826ae0a6a40466297bb0bb5a836391b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Pistol
   ammoType: 0
   weaponLevels:
   - description: Pistol
-    damage: 15
-    fireCooldown: 0.1
+    damage: 5
+    fireCooldown: 0.15
     fullAuto: 0
-    magazineSize: 5
+    magazineSize: 10
     reloadTime: 1
-    bulletSpeed: 2
   firepoint: {fileID: 6581261222417765288}
-  bulletPrefab: {fileID: 5597441476687873508, guid: 7b55bd1d5c1b1f758997014851f9f8c5,
+  shotDistance: 5
+  tracerPrefab: {fileID: 2008120741083104990, guid: 98ac1e2b6135aedc0b5e5db844c0b611,
     type: 3}
 --- !u!114 &8110468372728126296
 MonoBehaviour:
@@ -142,7 +142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6581261222417765288}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

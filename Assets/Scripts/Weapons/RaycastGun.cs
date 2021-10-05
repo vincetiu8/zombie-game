@@ -7,6 +7,8 @@ namespace Weapons
 {
 	public class RaycastGun : Gun
 	{
+		private const float PositionPrecision = 100;
+
 		[Header("Raycast Settings")]
 		[Description("The distance to raycast over when looking for enemies")]
 		[SerializeField]
@@ -30,7 +32,8 @@ namespace Weapons
 
 			if (hit.collider == null) endpoint = (Vector2)firepoint.position + direction * shotDistance;
 
-			photonView.RPC("RPCFireBullet", RpcTarget.All, endpoint);
+			endpoint *= PositionPrecision;
+			photonView.RPC("RPCFireBullet", RpcTarget.All, (int)endpoint.x, (int)endpoint.y);
 
 			if (hit.collider == null || !hit.collider.CompareTag("Enemy")) return;
 
@@ -42,11 +45,13 @@ namespace Weapons
 		}
 
 		[PunRPC]
-		protected void RPCFireBullet(Vector2 endpoint)
+		protected void RPCFireBullet(int x, int y)
 		{
 			GameObject tracerInstance = Instantiate(tracerPrefab, Vector3.zero, Quaternion.identity);
 			LineRenderer lineRenderer = tracerInstance.GetComponent<LineRenderer>();
 			lineRenderer.SetPosition(0, firepoint.position);
+
+			Vector2 endpoint = new Vector2(x, y) / PositionPrecision;
 			lineRenderer.SetPosition(1, endpoint);
 		}
 	}
