@@ -16,5 +16,12 @@ namespace Utils
 			input.SwitchCurrentActionMap(actionMap);
 			return isPaused;
 		}
-	}
+        /*
+        public enum ActionMapOptions {UI, Game, InAnimation}
+        public static ActionMapOptions ToggleInput(ActionMapOptions actionMap, PlayerInput input)
+        {
+            input.SwitchCurrentActionMap(actionMap.ToString());
+            return actionMap;
+        }*/
+    }
 }

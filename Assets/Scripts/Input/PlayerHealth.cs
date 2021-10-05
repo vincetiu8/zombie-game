@@ -1,6 +1,6 @@
 using Interact;
 
-public class PlayerHealth : Health
+public class PlayerHealth : HealthController
 {
     private PlayerInteract _playerInteract;
     private void Start()
