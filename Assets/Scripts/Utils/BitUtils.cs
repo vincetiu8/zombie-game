@@ -2,6 +2,18 @@ namespace Utils
 {
 	public static class BitUtils
 	{
+		/// <summary>
+		///     Converts a degree to a byte.
+		/// </summary>
+		public const float Deg2Byte = 256f / 360;
+
+		/// <summary>
+		///     Writes bits to a byte array.
+		/// </summary>
+		/// <param name="data">The byte array to write to</param>
+		/// <param name="value">The value to write to the array</param>
+		/// <param name="length">The length of bits to write</param>
+		/// <param name="offset">The index (in bits) to start writing from</param>
 		public static void WriteBits(byte[] data, int value, int length, ref int offset)
 		{
 			int byteIndex = offset / 8;
@@ -42,6 +54,12 @@ namespace Utils
 			data[byteIndex] = (byte)value;
 		}
 
+		/// <summary>
+		///     Reads bits from a byte array.
+		/// </summary>
+		/// <param name="data">The byte array to read from</param>
+		/// <param name="length">The length of bits to read</param>
+		/// <param name="offset">The index (in bits) to start reading from</param>
 		public static int ReadBits(byte[] data, int length, ref int offset)
 		{
 			int value = 0;
@@ -84,6 +102,33 @@ namespace Utils
 			// Handle remaining value
 			value += (data[byteIndex] >> (8 - length + usedLength)) << usedLength;
 			return value;
+		}
+
+		/// <summary>
+		///     Cuts a float to the necessary precision before writing it to a byte array.
+		/// </summary>
+		/// <param name="data">The byte array to write to</param>
+		/// <param name="value">The float value</param>
+		/// <param name="precision">Multiplier to number before cutting</param>
+		/// <param name="length">Number of bits that should be sent</param>
+		/// <param name="offset">The index (in bits) to start writing from</param>
+		public static void WriteFloat(byte[] data, float value, float precision, int length, ref int offset)
+		{
+			int intVal = (int)(value * precision);
+			WriteBits(data, intVal, length, ref offset);
+		}
+
+		/// <summary>
+		///     Reads a float with given precision and length from a byte array.
+		/// </summary>
+		/// <param name="data">The byte array to write to</param>
+		/// <param name="precision">Multiplier to number before cutting</param>
+		/// <param name="length">Number of bits that should be sent</param>
+		/// <param name="offset">The index (in bits) to start writing from</param>
+		public static float ReadFloat(byte[] data, float precision, int length, ref int offset)
+		{
+			int intVal = ReadBits(data, length, ref offset);
+			return intVal / precision;
 		}
 	}
 }

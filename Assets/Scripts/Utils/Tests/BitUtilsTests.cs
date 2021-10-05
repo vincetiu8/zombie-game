@@ -5,7 +5,7 @@ namespace Utils.Tests
 	public class BitUtilsTests
 	{
 		[Test]
-		public void TestReadWriteBitUtils()
+		public void TestReadWrite()
 		{
 			byte[] data = new byte[8];
 			int offset = 0;
@@ -65,6 +65,35 @@ namespace Utils.Tests
 			value = BitUtils.ReadBits(data, 3, ref offset);
 			Assert.AreEqual(39, offset);
 			Assert.AreEqual(7, value);
+		}
+
+		[Test]
+		public void TestReadWriteFloat()
+		{
+			byte[] data = new byte[8];
+			int offset = 0;
+
+			// Test writing generic float
+			BitUtils.WriteFloat(data, 0x12, 1, 8, ref offset);
+			Assert.AreEqual(8, offset);
+			Assert.AreEqual(0x12, data[0]);
+
+			// Test writing degree
+			BitUtils.WriteFloat(data, 180, BitUtils.Deg2Byte, 8, ref offset);
+			Assert.AreEqual(16, offset);
+			Assert.AreEqual(0x80, data[1]);
+
+			offset = 0;
+
+			// Test reading generic float
+			float value = BitUtils.ReadFloat(data, 1, 8, ref offset);
+			Assert.AreEqual(8, offset);
+			Assert.AreEqual(0x12, value);
+
+			// Test reading degree
+			value = BitUtils.ReadFloat(data, BitUtils.Deg2Byte, 8, ref offset);
+			Assert.AreEqual(16, offset);
+			Assert.AreEqual(180, value);
 		}
 	}
 }

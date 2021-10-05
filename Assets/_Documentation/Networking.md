@@ -66,7 +66,8 @@ called `Serialize` and `Deserialize` in the script to handle writing and reading
 
 All data is read and written to the provided byte array in the method. Use `BitUtils.WriteBits` and `BitUtils.ReadBits`
 respectively to write and read bits from the array. Try to optimize the information being sent and minimize the number
-of bits used. For an example, look at the `OptimizedTransformView` code.
+of bits used. For an example, look at the `OptimizedTransformView` code. You can also use `BitUtils.WriteFloat`
+and `BitUtils.ReadFloat` for easier writing and reading floats.
 
 ## Remote procedure calls (RPCs)
 

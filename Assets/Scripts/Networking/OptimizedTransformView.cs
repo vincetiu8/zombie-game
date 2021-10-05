@@ -14,6 +14,9 @@ namespace Networking
 	[RequireComponent(typeof(PhotonView))]
 	public class OptimizedTransformView : MonoBehaviourPun, INetworkSerializeView
 	{
+		private const int PositionLength = 12;
+		private const int RotationLength = 8;
+
 		[Header("Sync Settings")] [Description("Whether to sync the object's position or not")] [SerializeField]
 		private bool syncPosition;
 
@@ -32,8 +35,7 @@ namespace Networking
 		private float smoothingSpeed = 10;
 
 		private Vector2 _correctPos;
-
-		private float _precisionCorrection;
+		private float   _precisionCorrection;
 
 		private void Awake()
 		{
@@ -51,18 +53,16 @@ namespace Networking
 		{
 			if (syncPosition)
 			{
-				int xPos = (int)(transform.position.x * _precisionCorrection);
-				BitUtils.WriteBits(data, xPos, 12, ref offset);
-
-				int yPos = (int)(transform.position.y * _precisionCorrection);
-				BitUtils.WriteBits(data, yPos, 12, ref offset);
+				float xPos = transform.position.x;
+				float yPos = transform.position.y;
+				BitUtils.WriteFloat(data, xPos, _precisionCorrection, PositionLength, ref offset);
+				BitUtils.WriteFloat(data, yPos, _precisionCorrection, PositionLength, ref offset);
 			}
 
 			if (!syncRotation) return true;
 
-			int zRot = (int)(transform.rotation.eulerAngles.z * TransformUtils.Deg2Byte);
-			BitUtils.WriteBits(data, zRot, 8, ref offset);
-
+			float zRot = transform.rotation.eulerAngles.z;
+			BitUtils.WriteFloat(data, zRot, BitUtils.Deg2Byte, RotationLength, ref offset);
 			return true;
 		}
 
@@ -70,15 +70,13 @@ namespace Networking
 		{
 			if (syncPosition)
 			{
-				int xPos = BitUtils.ReadBits(data, 12, ref offset);
-				int yPos = BitUtils.ReadBits(data, 12, ref offset);
-
-				_correctPos = new Vector2(xPos, yPos) / _precisionCorrection;
+				_correctPos.x = BitUtils.ReadFloat(data, _precisionCorrection, PositionLength, ref offset);
+				_correctPos.y = BitUtils.ReadFloat(data, _precisionCorrection, PositionLength, ref offset);
 			}
 
 			if (!syncRotation) return;
 
-			float zRot = BitUtils.ReadBits(data, 8, ref offset) / TransformUtils.Deg2Byte;
+			float zRot = BitUtils.ReadFloat(data, BitUtils.Deg2Byte, RotationLength, ref offset);
 			transform.rotation = Quaternion.AngleAxis(zRot, Vector3.forward);
 		}
 

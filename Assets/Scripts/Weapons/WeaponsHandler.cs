@@ -45,26 +45,25 @@ namespace Weapons
 
 		public bool Serialize(byte[] data, ref int offset)
 		{
-			int zRot = (int)(playerSprite.localRotation.eulerAngles.z * TransformUtils.Deg2Byte);
-			BitUtils.WriteBits(data, zRot, 8, ref offset);
+			float zRot = playerSprite.localRotation.eulerAngles.z;
+			BitUtils.WriteFloat(data, zRot, BitUtils.Deg2Byte, 8, ref offset);
 
 			if (_currentWeapon == null) return true;
 
-			int mouseDist = (int)(_mouseDist * MouseDistPrecision);
-			BitUtils.WriteBits(data, mouseDist, 8, ref offset);
+			BitUtils.WriteFloat(data, _mouseDist, MouseDistPrecision, 8, ref offset);
 
 			return true;
 		}
 
 		public void Deserialize(byte[] data, ref int offset)
 		{
-			float zRot = BitUtils.ReadBits(data, 8, ref offset) / TransformUtils.Deg2Byte;
+			float zRot = BitUtils.ReadFloat(data, BitUtils.Deg2Byte, 8, ref offset);
 			playerSprite.localRotation = Quaternion.AngleAxis(zRot, Vector3.forward);
 
 			if (_currentWeapon == null) return;
 
-			float mouseDist = BitUtils.ReadBits(data, 8, ref offset);
-			_currentWeapon.FaceMouse(mouseDist / MouseDistPrecision);
+			float mouseDist = BitUtils.ReadFloat(data, MouseDistPrecision, 8, ref offset);
+			_currentWeapon.FaceMouse(mouseDist);
 		}
 
 		public void FireAction(InputAction.CallbackContext context)
