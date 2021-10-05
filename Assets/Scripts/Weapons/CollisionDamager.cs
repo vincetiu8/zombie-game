@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Photon.Pun;
 using UnityEngine;
 using Utils;
 
@@ -16,10 +17,16 @@ namespace Weapons
 		public float damageCooldown;
 
 		[Description("The layers the collision will affect")] [SerializeField]
-		private LayerMask layerMask;
+		protected LayerMask layerMask;
 
-		// The current damage cooldown
 		private float _cooldown;
+
+		private PhotonView _photonView;
+
+		protected virtual void Start()
+		{
+			_photonView = GetComponentInParent<PhotonView>();
+		}
 
 		protected virtual void Update()
 		{
@@ -27,8 +34,10 @@ namespace Weapons
 			if (_cooldown > 0) _cooldown -= Time.deltaTime;
 		}
 
-		protected virtual void OnCollisionStay2D(Collision2D other)
+		protected virtual void OnTriggerStay2D(Collider2D other)
 		{
+			if (!_photonView.IsMine) return;
+
 			// Make sure cooldown is complete and the collision is in the layermask to deal damage
 			if (_cooldown > 0 || !MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
 
