@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using System.Linq;
 using Networking;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Weapons;
 
 namespace Interact
 {
@@ -14,7 +16,7 @@ namespace Interact
 	[RequireComponent(typeof(Collider2D))]
 	public abstract class Interactable : MonoBehaviourPun
     {
-        protected bool _cancelledAlready = true;
+       
         // Added for debugging convenience
 		protected virtual void Start()
 		{
@@ -41,35 +43,39 @@ namespace Interact
 		/// </summary>
 		public abstract void Interact(bool contextPerformed);
 
-        public virtual void CancelInteraction()
-        {
-            
-        }
+        public virtual void CancelInteraction() { }
     }
     
     public abstract class HoldInteractable : Interactable
     {
         private                  PlayerInput _playerInput;
+        private WeaponsHandler _playerWeaponHandler;
         
+        private bool _cancelledAlready = true;
+
         protected override void Start()
         {
             base.Start();
-                 
+            StartCoroutine(LateStart());
+        }
+
+        private IEnumerator LateStart()
+        {
+            yield return new WaitUntil(() => GameManager.instance.localPlayerInstance != null);
+            Debug.Log("found the player");
+            _playerInput = GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>();
+            _playerWeaponHandler = GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>();
         }
 
         public override void Interact(bool contextPerformed)
         {
-            if (_playerInput == null)
-            {
-                _playerInput = GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>();
-            }  
-           // (contextPerformed ? (Action)StartInteraction : CancelInteraction)();
-           StartInteraction();
+          StartInteraction();
         }
 
         protected virtual void StartInteraction()
         {
             Utils.ToggleInput(Utils.ActionMapOptions.InAnimation, _playerInput);
+            _playerWeaponHandler.ToggleFireEnabled(false);
             _cancelledAlready = false;
         }
 
@@ -78,6 +84,7 @@ namespace Interact
             if (_cancelledAlready)  throw new Exception("You cannot cancel multiple times in a row");
             _cancelledAlready = true;
             Utils.ToggleInput(Utils.ActionMapOptions.Game, _playerInput);
+            _playerWeaponHandler.ToggleFireEnabled(true);
         }
     }
     

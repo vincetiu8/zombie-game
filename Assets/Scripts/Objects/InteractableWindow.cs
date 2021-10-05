@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Interact;
 using UnityEngine;
 
@@ -58,6 +57,8 @@ namespace Objects
         /*
 		private void Update()
 		{
+            if (!_fixingWindow || _windowController.zombieAtWindow) return;
+
             if (_cooldown > 0)
             {
                 _cooldown -= Time.deltaTime;
@@ -79,4 +80,3 @@ namespace Objects
         }*/
     }
 }
-	

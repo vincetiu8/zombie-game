@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Weapons;
 
 namespace Interact
 {
@@ -14,9 +16,8 @@ namespace Interact
 		/// </summary>
 		private readonly List<GameObject> _interactPriorityList = new List<GameObject>();
         private GameObject _closestObject;
-
         
-		public void AddInteractableObject(GameObject interact)
+        public void AddInteractableObject(GameObject interact)
 		{
 			_interactPriorityList.Add(interact);
 		}
@@ -42,7 +43,6 @@ namespace Interact
 			}
 
 			if (_closestObject == null) return;
-
             _closestObject.GetComponent<Interactable>().Interact(context.performed);
         }
 
@@ -52,6 +52,9 @@ namespace Interact
             CancelHoldInteraction();
         }
 
+        /// <summary>
+        /// Any script can call this to cancel the current player interaction
+        /// </summary>
         public void CancelHoldInteraction()
         {
             if (!_closestObject) return;
