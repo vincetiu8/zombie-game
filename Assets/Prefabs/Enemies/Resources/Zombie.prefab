@@ -205,8 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6235af2f4a344af8f26c32f17e8d4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
-  damageCooldown: 0.5
+  damage: 15
+  damageCooldown: 0.75
   layerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -277,7 +277,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.48776
-  m_Speed: 1.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 0
