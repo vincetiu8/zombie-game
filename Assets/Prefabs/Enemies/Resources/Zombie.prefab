@@ -455,7 +455,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.42
+  m_Radius: 0.33
 --- !u!114 &3148990426618924570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 9027714350541001172}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.48776
+  m_Radius: 0.75
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -513,8 +513,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.42
+  m_Height: 1.25
+  m_BaseOffset: 0.625
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &5681390954276889052
@@ -532,7 +532,7 @@ MonoBehaviour:
   movementSpeed: 0.75
   turningSmoothing: 0.15
   updateCooldown: 0.2
-  minimumProximity: 1
+  minimumProximity: 0.25
 --- !u!114 &5244440003923760079
 MonoBehaviour:
   m_ObjectHideFlags: 0

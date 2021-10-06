@@ -17,7 +17,7 @@ namespace Enemy
 		{
 			base.Start();
 			_animator = GetComponent<Animator>();
-			_animator.SetFloat(AttackSpeedProperty, 2 / damageCooldown);
+			_animator.SetFloat(AttackSpeedProperty, 0.5f / damageCooldown);
 			_numPlayersInRange = 0;
 		}
 
