@@ -8,6 +8,8 @@ namespace Enemy
 	/// </summary>
 	public abstract class ChaserAI : MonoBehaviour
 	{
+		private static readonly int MovementSpeedProperty = Animator.StringToHash("Movement Speed");
+
 		[Header("Chasing Settings")] [SerializeField] [Range(0.1f, 2.5f)]
 		private float movementSpeed = 1;
 
@@ -18,9 +20,16 @@ namespace Enemy
 
 		protected Transform TrackingPlayer;
 
+
 		protected virtual void Awake()
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
+		}
+
+		protected void Start()
+		{
+			Animator animator = GetComponentInChildren<Animator>();
+			animator.SetFloat(MovementSpeedProperty, movementSpeed);
 		}
 
 		protected virtual void FixedUpdate()

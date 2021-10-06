@@ -6,15 +6,18 @@ namespace Enemy
 {
 	public class AnimatedCollisionDamager : CollisionDamager
 	{
-		private static readonly int Attacking = Animator.StringToHash("Attacking");
+		private static readonly int AttackingProperty   = Animator.StringToHash("Attacking");
+		private static readonly int AttackSpeedProperty = Animator.StringToHash("Attack Speed");
 
 		private Animator _animator;
 		private int      _numPlayersInRange;
+
 
 		protected override void Start()
 		{
 			base.Start();
 			_animator = GetComponent<Animator>();
+			_animator.SetFloat(AttackSpeedProperty, 2 / damageCooldown);
 			_numPlayersInRange = 0;
 		}
 
@@ -22,7 +25,7 @@ namespace Enemy
 		{
 			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
 
-			_animator.SetBool(Attacking, true);
+			_animator.SetBool(AttackingProperty, true);
 			_numPlayersInRange++;
 		}
 
@@ -31,7 +34,7 @@ namespace Enemy
 			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
 
 			_numPlayersInRange--;
-			_animator.SetBool(Attacking, _numPlayersInRange > 0);
+			_animator.SetBool(AttackingProperty, _numPlayersInRange > 0);
 		}
 	}
 }
