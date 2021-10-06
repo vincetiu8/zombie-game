@@ -26,7 +26,7 @@ namespace Enemy
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 		}
 
-		protected void Start()
+		protected virtual void Start()
 		{
 			Animator animator = GetComponentInChildren<Animator>();
 			animator.SetFloat(MovementSpeedProperty, movementSpeed);

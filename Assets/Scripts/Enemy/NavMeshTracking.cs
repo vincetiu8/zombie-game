@@ -30,8 +30,9 @@ namespace Enemy
 			_path = new NavMeshPath();
 		}
 
-		private void Start()
+		protected override void Start()
 		{
+			base.Start();
 			_navMeshAgent.isStopped = true;
 			_navMeshAgent.updateUpAxis = false;
 		}

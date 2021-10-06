@@ -10,16 +10,17 @@ namespace Objects
 	/// </summary>
 	public class WindowController : HealthController
 	{
-		[SerializeField] private Transform barricadeGraphics;
+		[Header("Barricade Settings")] [SerializeField]
+		private Transform barricadeGraphics;
+
+		[SerializeField] [Range(0, 500)] private int maxHealth;
 
 		private int              _activeBarricade;
 		private List<GameObject> _barricades;
 		private int              _healthPerBarricade;
 
-		protected override void Awake()
+		private void Start()
 		{
-			base.Awake();
-
 			_barricades = new List<GameObject>();
 			foreach (Transform barricade in barricadeGraphics)
 			{
@@ -28,13 +29,17 @@ namespace Objects
 			}
 
 			_activeBarricade = _barricades.Count - 1;
-			_healthPerBarricade = Mathf.CeilToInt((float)initialHealth / _barricades.Count);
+			_healthPerBarricade = Mathf.CeilToInt((float)maxHealth / _barricades.Count);
+
+			// Update the barricade graphics
+			Health = maxHealth;
+			RPCChangeHealth(initialHealth);
 		}
 
 		public override void ChangeHealth(int change)
 		{
 			int previousHealth = Health;
-			int newHealth = Mathf.Clamp(Health + change, 0, initialHealth);
+			int newHealth = Mathf.Clamp(Health + change, 0, maxHealth);
 			if (previousHealth == newHealth) return;
 
 			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
@@ -48,6 +53,8 @@ namespace Objects
 			int min = Math.Min(_activeBarricade, newActiveBarricade);
 			int max = Math.Max(_activeBarricade, newActiveBarricade);
 
+			Debug.Log(min);
+			Debug.Log(max);
 			for (int i = min + 1; i <= max; i++) _barricades[i].SetActive(newActiveBarricade > _activeBarricade);
 
 			_activeBarricade = newActiveBarricade;

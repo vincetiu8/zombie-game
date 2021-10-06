@@ -179,7 +179,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 1.5}
+  m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &2704101938627975011
 MonoBehaviour:
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cada680ca432414bbbe271b486dd0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barricadeFixRate: 0
+  barricadeFixRate: 10
 --- !u!114 &2762703297160124035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,8 +206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d901bf0007cddd14f81db6f4a42180d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 500
+  initialHealth: 0
   barricadeGraphics: {fileID: 4149290357387999076}
+  maxHealth: 100
 --- !u!114 &2520550576081584813
 MonoBehaviour:
   m_ObjectHideFlags: 0

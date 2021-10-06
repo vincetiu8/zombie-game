@@ -21,15 +21,19 @@ namespace Objects
 			_windowController = GetComponentInChildren<WindowController>();
 		}
 
-		private void OnTriggerEnter2D(Collider2D other)
+		protected override void OnTriggerEnter2D(Collider2D other)
 		{
+			base.OnTriggerEnter2D(other);
+
 			if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
 
 			_zombiesAtWindow++;
 		}
 
-		private void OnTriggerExit2D(Collider2D other)
+		protected override void OnTriggerExit2D(Collider2D other)
 		{
+			base.OnTriggerExit2D(other);
+
 			if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
 
 			_zombiesAtWindow--;

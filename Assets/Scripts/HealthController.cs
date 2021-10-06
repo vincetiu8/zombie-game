@@ -7,9 +7,8 @@ using UnityEngine;
 /// </summary>
 public class HealthController : MonoBehaviourPun
 {
-	[SerializeField] protected int initialHealth;
-
-	protected int Health;
+	[SerializeField] [Range(0, 500)] protected int initialHealth;
+	protected                                  int Health;
 
 	protected virtual void Awake()
 	{
