@@ -66,6 +66,8 @@ namespace Objects
             }
             if (!_fixingWindow || _windowController.zombieAtWindow) return;
             _windowController.ChangeHealth(1);
+            // Cancels interaction if window fixed
+            if (_windowController.IsWindowFixed()) CancelInteraction();
             _cooldown += barricadeFixTime;
         }
         protected override void StartInteraction()

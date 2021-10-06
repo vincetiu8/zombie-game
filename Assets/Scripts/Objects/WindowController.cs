@@ -58,5 +58,10 @@ namespace Objects
 			_activeBarricade = newActiveBarricade;
 			Health = newHealth;
 		}
+
+        public bool IsWindowFixed()
+        {
+            return (Health == initialHealth);
+        }
 	}
 }
