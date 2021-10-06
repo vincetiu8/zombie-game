@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5221598095173118916}
   - component: {fileID: 9206374881851240513}
   - component: {fileID: 8474994737807135849}
+  - component: {fileID: -3140313452772274701}
   m_Layer: 0
   m_Name: Movable Crate
   m_TagString: Untagged
@@ -196,3 +197,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkedComponents:
   - {fileID: 9206374881851240513}
+--- !u!208 &-3140313452772274701
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706817818639944334}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.56, y: 2.5600002, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

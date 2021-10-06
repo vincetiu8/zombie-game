@@ -13,6 +13,7 @@ namespace Enemy
 
 		protected override void Start()
 		{
+			base.Start();
 			_animator = GetComponent<Animator>();
 			_numPlayersInRange = 0;
 		}

@@ -427,11 +427,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9027714350541001172}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 0.5541769
+  m_UseAutoMass: 0
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -492,6 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 100
+  goldDropAmount: 0
   itemDict:
     m_keys: 32000000
     m_values:
@@ -530,7 +531,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.84
+  m_Height: 1
   m_BaseOffset: 0.42
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -546,6 +547,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f4afd1cf8c62b44b46af4d77807511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 0.75
+  turningSmoothing: 0.15
+  updateCooldown: 0.2
+  minimumProximity: 1
 --- !u!114 &5244440003923760079
 MonoBehaviour:
   m_ObjectHideFlags: 0

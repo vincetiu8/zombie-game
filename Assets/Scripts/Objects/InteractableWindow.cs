@@ -28,7 +28,7 @@ namespace Objects
 		public override void Interact()
 		{
 			// Don't allow window to be repaired if a zombie is currently attacking it
-			if (_windowController.zombieAtWindow || _cooldown > 0) return;
+			if (_windowController.zombiesAtWindow > 0 || _cooldown > 0) return;
 
 			_windowController.ChangeHealth(1);
 			_cooldown += barricadeFixTime;
