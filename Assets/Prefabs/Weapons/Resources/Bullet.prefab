@@ -119,7 +119,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -141,8 +141,8 @@ MonoBehaviour:
   damageCooldown: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
-  lifetime: 0
+    m_Bits: 64
+  lifetime: 1
 --- !u!114 &1432313196629135484
 MonoBehaviour:
   m_ObjectHideFlags: 0

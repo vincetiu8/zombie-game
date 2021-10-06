@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6233939105016883066}
   - component: {fileID: 8136742857256788790}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Left Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6380682498644857757}
   - component: {fileID: 3815519005420590595}
   - component: {fileID: 1431907653935465614}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Zombie Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,8 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615aa2cac67d4e4cb70cf2e27f2e5505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  damageCooldown: 0.15
+  damage: 20
+  damageCooldown: 0.5
   layerMask:
     serializedVersion: 2
     m_Bits: 4104
@@ -243,7 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4469581363547790765}
   - component: {fileID: 5179428240469736124}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Right Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,12 +390,12 @@ GameObject:
   - component: {fileID: 9027714350541001175}
   - component: {fileID: 9027714350541001169}
   - component: {fileID: 3148990426618924570}
-  - component: {fileID: 3719824534238069527}
   - component: {fileID: 8087625155460507899}
   - component: {fileID: 822240581223566717}
   - component: {fileID: 5681390954276889052}
   - component: {fileID: 5244440003923760079}
   - component: {fileID: -408532418148889997}
+  - component: {fileID: 6894607565039686711}
   m_Layer: 6
   m_Name: Zombie
   m_TagString: Enemy
@@ -431,7 +431,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -479,24 +479,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &3719824534238069527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9027714350541001172}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6698ca512d86adf478231fcc297b1407, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 100
-  goldDropAmount: 0
-  itemDict:
-    m_keys: 32000000
-    m_values:
-    - {fileID: 5774804764515098991, guid: 41c5e7222100dbe4eb1d6a315b1112a0, type: 3}
 --- !u!114 &8087625155460507899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,7 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentsToDisableIfNotMasterClient:
-  - {fileID: 3719824534238069527}
+  - {fileID: 0}
   - {fileID: 822240581223566717}
   - {fileID: 5681390954276889052}
 --- !u!195 &822240581223566717
@@ -547,7 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f4afd1cf8c62b44b46af4d77807511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
+  movementSpeed: 0.75
   turningSmoothing: 0.15
   updateCooldown: 0.2
   minimumProximity: 1
@@ -582,3 +564,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkedComponents:
   - {fileID: 5244440003923760079}
+--- !u!114 &6894607565039686711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027714350541001172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a987ea837b1a4bb39191fda9ee4d82d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 80
+  goldDropAmount: 10

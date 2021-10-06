@@ -21,11 +21,6 @@ public class HealthController : MonoBehaviourPun
 		return Health;
 	}
 
-	public int GetRoundedHealth()
-	{
-		return Mathf.RoundToInt(Health);
-	}
-
 	public virtual void ChangeHealth(int change)
 	{
 		Health += change;

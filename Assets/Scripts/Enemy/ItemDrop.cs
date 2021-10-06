@@ -21,8 +21,10 @@ namespace Enemy
 		[Header("Item Drops")] [Description("Item drops for this enemy")] [SerializeField]
 		private ItemDict itemDict;
 
-		private void Awake()
+		protected override void Awake()
 		{
+			base.Awake();
+
 			if (itemDict == null || itemDict.Count == 0)
 				Debug.LogWarning("No items to be dropped, prefer using the base Health script instead");
 		}

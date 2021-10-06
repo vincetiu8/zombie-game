@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d2f559143d48157be6a3a7b0aab6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 10000
+  initialHealth: 100
 --- !u!114 &5989146994798338574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,11 +614,11 @@ MonoBehaviour:
     m_keys: 000000000100000002000000
     m_values:
     - maxCapacity: 100
-      currentStock: 0
+      currentStock: 20
     - maxCapacity: 50
-      currentStock: 0
+      currentStock: 10
     - maxCapacity: 25
-      currentStock: 0
+      currentStock: 5
 --- !u!114 &3014086736208035401
 MonoBehaviour:
   m_ObjectHideFlags: 0
