@@ -11,7 +11,7 @@ public class HealthController : MonoBehaviourPun
 
 	protected int Health;
 
-	private void Awake()
+	protected virtual void Awake()
 	{
 		Health = initialHealth;
 	}

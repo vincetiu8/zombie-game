@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Photon.Pun;
 using UnityEngine;
 
@@ -11,21 +10,16 @@ namespace Objects
 	/// </summary>
 	public class WindowController : HealthController
 	{
-		[HideInInspector] public int zombiesAtWindow;
+		[SerializeField] private Transform barricadeGraphics;
 
-		[Header("Window Settings")] [Description("The graphics for each barricade")] [SerializeField]
-		private Transform barricadeGraphics;
-
-		[Description("The rate at which health is decreased")] [SerializeField] [Range(0, 1000)]
-		private int barricadeBreakRate;
-
-		private int _activeBarricade;
-
+		private int              _activeBarricade;
 		private List<GameObject> _barricades;
-		private float            _carryHealth;
+		private int              _healthPerBarricade;
 
-		private void Start()
+		protected override void Awake()
 		{
+			base.Awake();
+
 			_barricades = new List<GameObject>();
 			foreach (Transform barricade in barricadeGraphics)
 			{
@@ -34,32 +28,7 @@ namespace Objects
 			}
 
 			_activeBarricade = _barricades.Count - 1;
-		}
-
-
-		private void OnCollisionStay2D(Collision2D collision)
-		{
-			if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
-			Debug.Log("Colliding with enemy!");
-
-			_carryHealth -= Time.deltaTime * barricadeBreakRate;
-			int healthChange = (int)_carryHealth;
-			ChangeHealth(healthChange);
-			_carryHealth -= healthChange;
-		}
-
-		private void OnTriggerEnter2D(Collider2D other)
-		{
-			if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
-
-			zombiesAtWindow++;
-		}
-
-		private void OnTriggerExit2D(Collider2D other)
-		{
-			if (other.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
-
-			zombiesAtWindow--;
+			_healthPerBarricade = Mathf.CeilToInt((float)initialHealth / _barricades.Count);
 		}
 
 		public override void ChangeHealth(int change)
@@ -71,14 +40,17 @@ namespace Objects
 			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
 		}
 
+		[PunRPC]
 		private void RPCChangeHealth(int newHealth)
 		{
-			int newActiveBarricade = Math.Min((newHealth + 1) / _barricades.Count, _barricades.Count - 1);
+			int newActiveBarricade = (newHealth + _healthPerBarricade - 1) / _healthPerBarricade - 1;
 
 			int min = Math.Min(_activeBarricade, newActiveBarricade);
 			int max = Math.Max(_activeBarricade, newActiveBarricade);
-			for (int i = min; i < max; i++) _barricades[i].SetActive(newActiveBarricade > _activeBarricade);
 
+			for (int i = min + 1; i <= max; i++) _barricades[i].SetActive(newActiveBarricade > _activeBarricade);
+
+			_activeBarricade = newActiveBarricade;
 			Health = newHealth;
 		}
 	}

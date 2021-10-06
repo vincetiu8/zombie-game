@@ -21,13 +21,13 @@ namespace Interact
 
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
-			if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+			if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
 				collision.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
 		}
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
-			if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+			if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
 				collision.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
 		}
 

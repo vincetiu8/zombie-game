@@ -11,16 +11,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - Players
   - Water
   - UI
-  - Enemy
-  - EnemyTracker
+  - Enemies
+  - EnemyTrackers
   - Obstacles
   - Projectiles
   - Objects
-  - Weapon
-  - 
+  - Weapons
+  - Barricades
   - 
   - 
   - 

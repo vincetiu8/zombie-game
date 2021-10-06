@@ -228,11 +228,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615aa2cac67d4e4cb70cf2e27f2e5505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 15
+  damage: 1
   damageCooldown: 0.15
   layerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 4104
 --- !u!1 &7751290988691592679
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f4afd1cf8c62b44b46af4d77807511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.75
+  movementSpeed: 2
   turningSmoothing: 0.15
   updateCooldown: 0.2
   minimumProximity: 1
