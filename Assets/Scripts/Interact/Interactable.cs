@@ -68,18 +68,24 @@ namespace Interact
             _playerWeaponHandler = GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>();
         }
 
-        protected internal override void Interact( )
+        protected internal override void Interact()
         {
           StartInteraction();
         }
-
+        
+        /// <summary>
+        /// Prevents the player from firing and moving
+        /// </summary>
         protected virtual void StartInteraction()
         {
             MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.InAnimation, _playerInput);
             _playerWeaponHandler.ToggleFireEnabled(false);
             _cancelledAlready = false;
         }
-
+        
+        /// <summary>
+        /// Allows the player to move normally again, execption used to make sure this can only get called once to avoid repeat problems
+        /// </summary>
         public override void CancelInteraction()
         {
             if (_cancelledAlready)  throw new Exception("You cannot cancel multiple times in a row");

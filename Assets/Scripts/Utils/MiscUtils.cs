@@ -9,7 +9,10 @@ namespace Utils
 		{
 			return (layerMask.value & (1 << layer)) > 0;
 		}
-
+        
+        /// <summary>
+        /// Switch to action map, Enums should reflect actions maps that actually exists
+        /// </summary>
         public enum ActionMapOptions {UI, Game, InAnimation}
         public static ActionMapOptions ToggleInput(ActionMapOptions actionMap, PlayerInput input)
         {
