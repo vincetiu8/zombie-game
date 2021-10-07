@@ -106,11 +106,18 @@ Steps to review a PR:
 1. Pull the branch locally.
 2. Test out the game. Do the actual changes line up with what you expected from the PR? Is anything off? Are there any
    bugs?
-    - Try and test edge cases: what if the player has no ammo left? Does it sync on multiplayer?
+	- Try and test edge cases: what if the player has no ammo left? Does it sync on multiplayer?
 3. Read every line of C# code. Comment on anything that differs from how you would implement the feature.
-    - If you don't understand something, leave a comment asking them to explain it.
-    - Comment on any repetition.
-    - Would this code be easy to build on in the future? How easy would it be to make a change?
+	- If you don't understand something, leave a comment asking them to explain it.
+	- Comment on any repetition.
+	- Would this code be easy to build on in the future? How easy would it be to make a change?
 4. Add any comments about the game or non-script stuff in the review comment.
 5. If something is implemented well, say so! Don't just be critical!
 6. If everything looks good, approve it. Otherwise, request changes.
+
+If everything seems to break, don't immediately blame it on the PR. Instead, do these things first:
+
+- Check you've fetched **and** pulled the branch. On rider you need to press the blue arrow to fetch the repository
+  before pulling.
+- Restart Rider and Unity
+	- Important if you're getting `Missing Reference` errors in Rider or any spam errors in Unity.

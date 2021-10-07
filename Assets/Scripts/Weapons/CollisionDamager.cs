@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using Utils;
@@ -16,24 +17,58 @@ namespace Weapons
 		public float damageCooldown;
 
 		[Description("The layers the collision will affect")] [SerializeField]
-		private LayerMask layerMask;
+		protected LayerMask layerMask;
 
-		// The current damage cooldown
 		private float _cooldown;
+
+		protected List<HealthController> HealthControllers;
+
+		private void Awake()
+		{
+			HealthControllers = new List<HealthController>();
+		}
 
 		protected virtual void Update()
 		{
+			if (HealthControllers.Count == 0) return;
+
 			// Reduce cooldown by time
-			if (_cooldown > 0) _cooldown -= Time.deltaTime;
+			if (_cooldown > 0)
+			{
+				_cooldown -= Time.deltaTime;
+				return;
+			}
+
+			HealthControllers.RemoveAll(item => item == null);
+
+			foreach (HealthController healthController in HealthControllers.ToArray())
+				healthController.ChangeHealth(-damage);
+
+			_cooldown = damageCooldown;
 		}
 
-		protected virtual void OnCollisionStay2D(Collision2D other)
+		protected virtual void OnTriggerEnter2D(Collider2D other)
 		{
-			// Make sure cooldown is complete and the collision is in the layermask to deal damage
-			if (_cooldown > 0 || !MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
+			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
 
-			other.gameObject.GetComponent<HealthController>().ChangeHealth(-damage);
-			_cooldown = damageCooldown;
+			HealthController healthController = other.GetComponentInParent<HealthController>();
+
+			if (healthController == null) return;
+
+			if (HealthControllers.Count == 0) _cooldown = damageCooldown / 3;
+
+			HealthControllers.Add(healthController);
+		}
+
+		protected virtual void OnTriggerExit2D(Collider2D other)
+		{
+			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
+
+			HealthController healthController = other.GetComponentInParent<HealthController>();
+
+			if (healthController == null) return;
+
+			HealthControllers.Remove(healthController);
 		}
 	}
 }

@@ -11,16 +11,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - Players
   - Water
   - UI
-  - Enemy
-  - EnemyTracker
+  - Enemies
+  - EnemyTrackers
   - Obstacles
   - Projectiles
   - Objects
-  - Weapon
-  - 
+  - Weapons
+  - Barricades
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Objects
     uniqueID: 1036530043
+    locked: 0
+  - name: Actors
+    uniqueID: 549690393
     locked: 0

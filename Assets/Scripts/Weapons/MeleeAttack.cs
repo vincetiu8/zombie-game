@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Enemy;
 using Photon.Pun;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ namespace Weapons
 			photonView.RPC("RpcMeleeAnimation", RpcTarget.All);
 
 			foreach (Collider2D correctedEnemy in _meleePoint.GetEnemiesInCollider())
-				correctedEnemy.GetComponent<HealthController>().ChangeHealth(-currentAttributes.damage);
+				correctedEnemy.GetComponent<EnemyHealth>().ChangeHealth(-currentAttributes.damage);
 		}
 
 		[PunRPC]

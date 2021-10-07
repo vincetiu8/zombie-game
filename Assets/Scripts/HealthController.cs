@@ -7,11 +7,10 @@ using UnityEngine;
 /// </summary>
 public class HealthController : MonoBehaviourPun
 {
-	[SerializeField] protected int initialHealth;
+	[SerializeField] [Range(0, 500)] protected int initialHealth;
+	protected                                  int Health;
 
-	protected int Health;
-
-	private void Awake()
+	protected virtual void Awake()
 	{
 		Health = initialHealth;
 	}
@@ -21,18 +20,7 @@ public class HealthController : MonoBehaviourPun
 		return Health;
 	}
 
-	public int GetRoundedHealth()
-	{
-		return Mathf.RoundToInt(Health);
-	}
-
-	public void ChangeHealth(int change)
-	{
-		photonView.RPC("RPCChangeHealth", RpcTarget.All, change);
-	}
-
-	[PunRPC]
-	protected virtual void RPCChangeHealth(int change)
+	public virtual void ChangeHealth(int change)
 	{
 		Health += change;
 
@@ -43,11 +31,11 @@ public class HealthController : MonoBehaviourPun
 
 	protected virtual void OnDeath()
 	{
-		photonView.RPC("RpcOnDeath", RpcTarget.All);
+		photonView.RPC("RPCOnDeath", RpcTarget.All);
 	}
 
 	[PunRPC]
-	protected void RpcOnDeath()
+	protected void RPCOnDeath()
 	{
 		Destroy(gameObject);
 	}

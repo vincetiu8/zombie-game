@@ -11,6 +11,66 @@ TextureImporter:
   - first:
       213: 1863022367390955774
     second: player-and-enemies_2
+  - first:
+      213: -8122009008315846099
+    second: player-and-enemies_3
+  - first:
+      213: 3247233815640111391
+    second: player-and-enemies_4
+  - first:
+      213: -9093006258709163888
+    second: player-and-enemies_5
+  - first:
+      213: 7303977586016268066
+    second: player-and-enemies_6
+  - first:
+      213: -8491490064591732213
+    second: player-and-enemies_7
+  - first:
+      213: 2566143490575769965
+    second: player-and-enemies_8
+  - first:
+      213: -738929849089178748
+    second: player-and-enemies_9
+  - first:
+      213: 1432502927904820471
+    second: player-and-enemies_10
+  - first:
+      213: -6936444952000552882
+    second: player-and-enemies_11
+  - first:
+      213: -5523502552944629637
+    second: player-and-enemies_12
+  - first:
+      213: -7908644798474918179
+    second: player-and-enemies_13
+  - first:
+      213: 2475053469519407049
+    second: player-and-enemies_14
+  - first:
+      213: -4100458631141026636
+    second: player-and-enemies_15
+  - first:
+      213: 7547520820307862170
+    second: player-and-enemies_16
+  - first:
+      213: 8360161228296898057
+    second: player-and-enemies_17
+  - first:
+      213: 2629594186054255048
+    second: player-and-enemies_18
+  - first:
+      213: 5041417559927609403
+    second: player-and-enemies_19
+  - first:
+      213: -8272654275653180720
+    second: player-and-enemies_20
+  - first:
+      213: -8984857344432011293
+    second: player-and-enemies_21
+  - first:
+      213: 5590485988366569340
+    second: player-and-enemies_22
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -55,7 +115,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 512
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,12 +163,12 @@ TextureImporter:
       name: player-and-enemies_0
       rect:
         serializedVersion: 2
-        x: 22
-        y: 150
-        width: 84
-        height: 84
+        x: 89
+        y: 1625
+        width: 334
+        height: 334
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -124,12 +184,12 @@ TextureImporter:
       name: player-and-enemies_1
       rect:
         serializedVersion: 2
-        x: 25
-        y: 19
-        width: 91
-        height: 84
-      alignment: 9
-      pivot: {x: 0.464, y: 0.5}
+        x: 376
+        y: 1419
+        width: 226
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -145,12 +205,12 @@ TextureImporter:
       name: player-and-enemies_2
       rect:
         serializedVersion: 2
-        x: 153
-        y: 18
-        width: 92
-        height: 85
-      alignment: 9
-      pivot: {x: 0.464, y: 0.5}
+        x: 601
+        y: 1625
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -158,6 +218,426 @@ TextureImporter:
       bones: []
       spriteID: ef8f1f0f8f8cad910800000000000000
       internalID: 1863022367390955774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_3
+      rect:
+        serializedVersion: 2
+        x: 1113
+        y: 1625
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d22bfc4d6d3d84f80800000000000000
+      internalID: -8122009008315846099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_4
+      rect:
+        serializedVersion: 2
+        x: 1625
+        y: 1615
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f197dd363fd701d20800000000000000
+      internalID: 3247233815640111391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_5
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 1433
+        width: 129
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0909c390cf62fc180800000000000000
+      internalID: -9093006258709163888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_6
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 1100
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22f2ae59ae0fc5560800000000000000
+      internalID: 7303977586016268066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_7
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 1100
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b02404ea6ca282a80800000000000000
+      internalID: -8491490064591732213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_8
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 1433
+        width: 129
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d61237e98e5cc9320800000000000000
+      internalID: 2566143490575769965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_9
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 1100
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4834b1f973bceb5f0800000000000000
+      internalID: -738929849089178748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_10
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 998
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fc497db2d541e310800000000000000
+      internalID: 1432502927904820471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_11
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 921
+        width: 129
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e40a4f7211cccbf90800000000000000
+      internalID: -6936444952000552882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_12
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 563
+        width: 411
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b78a5cf51b39853b0800000000000000
+      internalID: -5523502552944629637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_13
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 588
+        width: 334
+        height: 335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd669242579de3290800000000000000
+      internalID: -7908644798474918179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_14
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 588
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c76dc26408295220800000000000000
+      internalID: 2475053469519407049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_15
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 588
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b497a2a99e3817c0800000000000000
+      internalID: -4100458631141026636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_16
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 76
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a92a055923e2eb860800000000000000
+      internalID: 7547520820307862170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_17
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 409
+        width: 129
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90641a5d752450470800000000000000
+      internalID: 8360161228296898057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_18
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 76
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c14233eaf13e7420800000000000000
+      internalID: 2629594186054255048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_19
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 76
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b38d6e76f86b6f540800000000000000
+      internalID: 5041417559927609403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_20
+      rect:
+        serializedVersion: 2
+        x: 1126
+        y: 409
+        width: 129
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d2631644c0a13d80800000000000000
+      internalID: -8272654275653180720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_21
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 76
+        width: 334
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e7029b59df5f4380800000000000000
+      internalID: -8984857344432011293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-and-enemies_22
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 409
+        width: 129
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7f43620365659d40800000000000000
+      internalID: 5590485988366569340
       vertices: []
       indices: 
       edges: []

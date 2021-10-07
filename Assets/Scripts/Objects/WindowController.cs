@@ -1,4 +1,6 @@
-using System.ComponentModel;
+using System;
+using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Objects
@@ -8,50 +10,53 @@ namespace Objects
 	/// </summary>
 	public class WindowController : HealthController
 	{
-		[HideInInspector] public bool zombieAtWindow;
+		[Header("Barricade Settings")] [SerializeField]
+		private Transform barricadeGraphics;
 
-		[Header("Window Settings")] [Description("The graphics for each barricade")] [SerializeField]
-		private GameObject barricadesGraphics;
+		[SerializeField] [Range(0, 500)] private int maxHealth;
 
-		[Description("The window's collider")] [SerializeField]
-		private GameObject windowCollider;
+		private int              _activeBarricade;
+		private List<GameObject> _barricades;
+		private int              _healthPerBarricade;
 
-		[Description("The rate at which health is decreased")] [SerializeField] [Range(0, 1000)]
-		private int barricadeBreakRate;
-
-		private float _carryHealth;
-
-		private void OnTriggerExit2D(Collider2D collision)
+		private void Start()
 		{
-			if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
+			_barricades = new List<GameObject>();
+			foreach (Transform barricade in barricadeGraphics)
+			{
+				_barricades.Add(barricade.gameObject);
+				barricade.gameObject.SetActive(true);
+			}
 
-			zombieAtWindow = false;
+			_activeBarricade = _barricades.Count - 1;
+			_healthPerBarricade = Mathf.CeilToInt((float)maxHealth / _barricades.Count);
+
+			// Update the barricade graphics
+			Health = maxHealth;
+			RPCChangeHealth(initialHealth);
 		}
 
-
-		private void OnTriggerStay2D(Collider2D collision)
+		public override void ChangeHealth(int change)
 		{
-			if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy")) return;
-			_carryHealth -= Time.deltaTime * barricadeBreakRate;
-			int healthChange = (int)_carryHealth;
-			ChangeHealth(healthChange);
-			_carryHealth -= healthChange;
-			zombieAtWindow = true;
+			int newHealth = Mathf.Clamp(Health + change, 0, maxHealth);
+
+			if (Health == newHealth) return;
+
+			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
 		}
 
-		protected override void RPCChangeHealth(int change)
+		[PunRPC]
+		private void RPCChangeHealth(int newHealth)
 		{
-			int previousHealth = Health;
-			Health = Mathf.Clamp(Health + change, 0, initialHealth);
-			if (previousHealth == Health)
-				return; // If zombies hitting an already destroyed window or player fixing an already fixed window
+			int newActiveBarricade = (newHealth + _healthPerBarricade - 1) / _healthPerBarricade - 1;
 
-			windowCollider.SetActive(Health != 0);
+			int min = Math.Min(_activeBarricade, newActiveBarricade);
+			int max = Math.Max(_activeBarricade, newActiveBarricade);
 
-			if (Health - previousHealth < 0 && Mathf.CeilToInt(Health) != 6)
-				barricadesGraphics.transform.GetChild(Mathf.CeilToInt(Health)).gameObject.SetActive(false);
-			else if (Health - previousHealth > 0)
-				barricadesGraphics.transform.GetChild(Health - 1).gameObject.SetActive(true);
+			for (int i = min + 1; i <= max; i++) _barricades[i].SetActive(newActiveBarricade > _activeBarricade);
+
+			_activeBarricade = newActiveBarricade;
+			Health = newHealth;
 		}
 	}
 }
