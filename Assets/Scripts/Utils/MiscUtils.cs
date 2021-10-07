@@ -9,7 +9,14 @@ namespace Utils
 		{
 			return (layerMask.value & (1 << layer)) > 0;
 		}
-       
+
+		/*public static bool ToggleInput(bool isPaused, PlayerInput input)
+		{
+			string actionMap = isPaused ? "UI" : "Game";
+			input.SwitchCurrentActionMap(actionMap);
+			return isPaused;
+		}*/
+        
         public enum ActionMapOptions {UI, Game, InAnimation}
         public static ActionMapOptions ToggleInput(ActionMapOptions actionMap, PlayerInput input)
         {
