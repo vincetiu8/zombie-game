@@ -19,8 +19,8 @@ namespace Weapons
 		[Description("The layers the collision will affect")] [SerializeField]
 		protected LayerMask layerMask;
 
-		private float _cooldown;
-
+		private int        _colliderCount;
+		private float      _cooldown;
 		private PhotonView _photonView;
 
 		protected virtual void Start()
@@ -31,7 +31,25 @@ namespace Weapons
 		protected virtual void Update()
 		{
 			// Reduce cooldown by time
-			if (_cooldown > 0) _cooldown -= Time.deltaTime;
+			if (_colliderCount > 0 && _cooldown > 0) _cooldown -= Time.deltaTime;
+		}
+
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
+
+			_colliderCount++;
+		}
+
+		private void OnTriggerExit2D(Collider2D other)
+		{
+			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
+
+			_colliderCount--;
+
+			if (_colliderCount > 0) return;
+
+			_cooldown = damageCooldown / 3;
 		}
 
 		protected virtual void OnTriggerStay2D(Collider2D other)

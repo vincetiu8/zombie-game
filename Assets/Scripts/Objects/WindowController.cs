@@ -53,8 +53,6 @@ namespace Objects
 			int min = Math.Min(_activeBarricade, newActiveBarricade);
 			int max = Math.Max(_activeBarricade, newActiveBarricade);
 
-			Debug.Log(min);
-			Debug.Log(max);
 			for (int i = min + 1; i <= max; i++) _barricades[i].SetActive(newActiveBarricade > _activeBarricade);
 
 			_activeBarricade = newActiveBarricade;

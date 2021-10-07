@@ -8,7 +8,7 @@ namespace Enemy
 	/// </summary>
 	public abstract class ChaserAI : MonoBehaviour
 	{
-		private static readonly int MovementSpeedProperty = Animator.StringToHash("Movement Speed");
+		private static readonly int MovementSpeedProperty = Animator.StringToHash("Move Speed");
 
 		[Header("Chasing Settings")] [SerializeField] [Range(0.1f, 2.5f)]
 		private float movementSpeed = 1;
