@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3941757315853924774
 Transform:
   m_ObjectHideFlags: 0
@@ -50,11 +50,11 @@ MonoBehaviour:
   ammoType: 0
   weaponLevels:
   - description: Sniper
-    damage: 25
-    fireCooldown: 1
+    damage: 100
+    fireCooldown: 1.5
     fullAuto: 0
     magazineSize: 5
-    reloadTime: 2.5
+    reloadTime: 3
   firepoint: {fileID: 6801910507221268516}
   shotDistance: 15
   tracerPrefab: {fileID: 2008120741083104990, guid: 98ac1e2b6135aedc0b5e5db844c0b611,
@@ -96,9 +96,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1036530043
-  m_SortingLayer: 3
-  m_SortingOrder: 3
+  m_SortingLayerID: 549690393
+  m_SortingLayer: 4
+  m_SortingOrder: 2
   m_Sprite: {fileID: 853742892412031643, guid: 92aa031c64efb71d9a518e107694d2c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

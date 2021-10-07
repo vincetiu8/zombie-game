@@ -20,7 +20,7 @@ namespace Weapons
 
 		private void Awake()
 		{
-			_layerMask = LayerMask.GetMask("Enemy", "Objects", "Obstacles", "Player");
+			_layerMask = LayerMask.GetMask("Enemies", "Objects", "Obstacles", "Players");
 		}
 
 		protected override void FireBullet(float angle)

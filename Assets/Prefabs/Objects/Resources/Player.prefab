@@ -888,7 +888,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 000000008fc791f3310a6a8f7b31c83d
+  m_ApplyToSortingLayers: 000000008fc791f3310a6a8f7b31c83d199cc320
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 1
   m_LightOrder: 0
@@ -978,6 +978,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stabbystab
       objectReference: {fileID: 0}
+    - target: {fileID: 9004224348638097280, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622303937f0556e409efd41e73a2cd6f, type: 3}
 --- !u!4 &7931540934567515583 stripped
@@ -1058,6 +1063,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d2ada47266bc9cac8c5eb6699945401, type: 3}
@@ -1140,6 +1150,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sniper
       objectReference: {fileID: 0}
+    - target: {fileID: 7615179612898092161, guid: 363a07bf4b92d5c4b806ba0e1034100e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 363a07bf4b92d5c4b806ba0e1034100e, type: 3}
 --- !u!4 &6919170688552022848 stripped
@@ -1165,6 +1180,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 4604939237133819797, guid: eed4dd8aa8da347478087c9cc3cf765e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8144691297433904858, guid: eed4dd8aa8da347478087c9cc3cf765e,
         type: 3}
@@ -1265,7 +1285,7 @@ PrefabInstance:
     - target: {fileID: 4305294550502302816, guid: 2090b7535c5ac514ebd1ea4d85bd9282,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9999975
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4305294550502302816, guid: 2090b7535c5ac514ebd1ea4d85bd9282,
         type: 3}
@@ -1280,7 +1300,7 @@ PrefabInstance:
     - target: {fileID: 4305294550502302816, guid: 2090b7535c5ac514ebd1ea4d85bd9282,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.002242733
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4305294550502302816, guid: 2090b7535c5ac514ebd1ea4d85bd9282,
         type: 3}
@@ -1295,12 +1315,17 @@ PrefabInstance:
     - target: {fileID: 4305294550502302816, guid: 2090b7535c5ac514ebd1ea4d85bd9282,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -0.257
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5424163015042692280, guid: 2090b7535c5ac514ebd1ea4d85bd9282,
         type: 3}
       propertyPath: m_Name
       value: Revolver
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424163015042692280, guid: 2090b7535c5ac514ebd1ea4d85bd9282,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2090b7535c5ac514ebd1ea4d85bd9282, type: 3}
