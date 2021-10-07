@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialHealth: 0
   barricadeGraphics: {fileID: 4149290357387999076}
-  maxHealth: 100
+  maxHealth: 200
 --- !u!114 &2520550576081584813
 MonoBehaviour:
   m_ObjectHideFlags: 0

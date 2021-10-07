@@ -38,9 +38,9 @@ namespace Objects
 
 		public override void ChangeHealth(int change)
 		{
-			int previousHealth = Health;
 			int newHealth = Mathf.Clamp(Health + change, 0, maxHealth);
-			if (previousHealth == newHealth) return;
+
+			if (Health == newHealth) return;
 
 			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
 		}

@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using System.ComponentModel;
-using Photon.Pun;
 using UnityEngine;
 using Utils;
 
@@ -19,48 +19,56 @@ namespace Weapons
 		[Description("The layers the collision will affect")] [SerializeField]
 		protected LayerMask layerMask;
 
-		private int        _colliderCount;
-		private float      _cooldown;
-		private PhotonView _photonView;
+		private float _cooldown;
 
-		protected virtual void Start()
+		protected List<HealthController> HealthControllers;
+
+		private void Awake()
 		{
-			_photonView = GetComponentInParent<PhotonView>();
+			HealthControllers = new List<HealthController>();
 		}
 
 		protected virtual void Update()
 		{
+			if (HealthControllers.Count == 0) return;
+
 			// Reduce cooldown by time
-			if (_colliderCount > 0 && _cooldown > 0) _cooldown -= Time.deltaTime;
-		}
+			if (_cooldown > 0)
+			{
+				_cooldown -= Time.deltaTime;
+				return;
+			}
 
-		private void OnTriggerEnter2D(Collider2D other)
-		{
-			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
+			HealthControllers.RemoveAll(item => item == null);
 
-			_colliderCount++;
-		}
+			foreach (HealthController healthController in HealthControllers.ToArray())
+				healthController.ChangeHealth(-damage);
 
-		private void OnTriggerExit2D(Collider2D other)
-		{
-			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
-
-			_colliderCount--;
-
-			if (_colliderCount > 0) return;
-
-			_cooldown = damageCooldown / 3;
-		}
-
-		protected virtual void OnTriggerStay2D(Collider2D other)
-		{
-			if (!_photonView.IsMine) return;
-
-			// Make sure cooldown is complete and the collision is in the layermask to deal damage
-			if (_cooldown > 0 || !MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
-
-			other.gameObject.GetComponentInParent<HealthController>().ChangeHealth(-damage);
 			_cooldown = damageCooldown;
+		}
+
+		protected virtual void OnTriggerEnter2D(Collider2D other)
+		{
+			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
+
+			HealthController healthController = other.GetComponentInParent<HealthController>();
+
+			if (healthController == null) return;
+
+			if (HealthControllers.Count == 0) _cooldown = damageCooldown / 3;
+
+			HealthControllers.Add(healthController);
+		}
+
+		protected virtual void OnTriggerExit2D(Collider2D other)
+		{
+			if (!MiscUtils.IsInLayerMask(layerMask, other.gameObject.layer)) return;
+
+			HealthController healthController = other.GetComponentInParent<HealthController>();
+
+			if (healthController == null) return;
+
+			HealthControllers.Remove(healthController);
 		}
 	}
 }
