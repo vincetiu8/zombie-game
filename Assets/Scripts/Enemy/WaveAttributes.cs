@@ -42,4 +42,6 @@ namespace Enemy
         public int        enemyCount;
         public float      spawnDelay;
     }
+
 }
+
