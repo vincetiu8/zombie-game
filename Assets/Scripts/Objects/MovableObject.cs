@@ -10,7 +10,7 @@ namespace Objects
 	/// <summary>
 	///     Movable object represents an object the player can pickup and move.
 	/// </summary>
-	public class MovableObject : PressInteractable
+	public class MovableObject : Interactable
 	{
 		private Collider2D[] _colList;
 		private bool         _isHolding;

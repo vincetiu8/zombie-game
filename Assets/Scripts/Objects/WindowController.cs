@@ -48,7 +48,6 @@ namespace Objects
 		[PunRPC]
 		protected override void RPCChangeHealth(int newHealth)
 		{
-            Debug.Log("RPC change health called");
 			int newActiveBarricade = (newHealth + _healthPerBarricade - 1) / _healthPerBarricade - 1;
 
 			int min = Math.Min(_activeBarricade, newActiveBarricade);

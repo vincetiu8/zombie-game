@@ -12,7 +12,7 @@ namespace Interact
 	/// <summary>
 	///     Handles ammo machine interactions
 	/// </summary>
-	public class AmmoMachine : PressInteractable
+	public class AmmoMachine : Interactable
 	{
 		[SerializeField] private AmmoType ammoType;
 

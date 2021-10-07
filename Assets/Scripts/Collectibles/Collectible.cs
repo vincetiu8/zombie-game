@@ -8,7 +8,7 @@ namespace Collectibles
 	/// <summary>
 	///     Represents an object that is destroyed when the player interacts (collects) it.
 	/// </summary>
-	public abstract class Collectible : PressInteractable
+	public abstract class Collectible : Interactable
 	{
         protected internal override void Interact()
 		{

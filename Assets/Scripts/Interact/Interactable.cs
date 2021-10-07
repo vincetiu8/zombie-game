@@ -59,7 +59,7 @@ namespace Interact
             base.Start();
             StartCoroutine(LateStart());
         }
-
+        // Done to fix script execution order problems
         private IEnumerator LateStart()
         {
             yield return new WaitUntil(() => GameManager.instance.localPlayerInstance != null);
@@ -88,14 +88,5 @@ namespace Interact
             _playerWeaponHandler.ToggleFireEnabled(true);
         }
     }
-    
-    public abstract class PressInteractable : Interactable
-    {
-        //public override void Interact( )
-        //{
-        //    if (!contextPerformed) return;
-        //    Interact();
-        //}
-        //protected abstract void PressInteract();
-    }
+
 }

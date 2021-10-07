@@ -10,7 +10,7 @@ namespace Objects
 	/// <summary>
 	///     Handles changing and syncing the lighting of the lanterns.
 	/// </summary>
-	public class Lantern : PressInteractable
+	public class Lantern : Interactable
 	{
 		[Header("Lantern Settings")] [Description("The duration the lantern stays on")] [SerializeField]
 		private float duration;

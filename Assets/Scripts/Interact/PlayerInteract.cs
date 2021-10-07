@@ -43,7 +43,6 @@ namespace Interact
 			}
 
 			if (_closestObject == null) return;
-            Debug.Log(_closestObject);
             _closestObject.GetComponent<Interactable>().Interact();
         }
 
