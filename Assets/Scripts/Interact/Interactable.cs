@@ -42,7 +42,7 @@ namespace Interact
 		///     Callback when the player interacts with an object.
 		///     We don't pass in the player, but it can be assumed that the interacting player is the local player.
 		/// </summary>
-		public abstract void Interact(bool contextPerformed);
+        protected internal abstract void Interact( );
 
         public virtual void CancelInteraction() { }
     }
@@ -68,7 +68,7 @@ namespace Interact
             _playerWeaponHandler = GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>();
         }
 
-        public override void Interact(bool contextPerformed)
+        protected internal override void Interact( )
         {
           StartInteraction();
         }
@@ -91,11 +91,11 @@ namespace Interact
     
     public abstract class PressInteractable : Interactable
     {
-        public override void Interact(bool contextPerformed)
-        {
-            if (!contextPerformed) return;
-            Interact();
-        }
-        protected abstract void Interact();
+        //public override void Interact( )
+        //{
+        //    if (!contextPerformed) return;
+        //    Interact();
+        //}
+        //protected abstract void PressInteract();
     }
 }

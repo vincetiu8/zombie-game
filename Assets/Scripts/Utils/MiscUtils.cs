@@ -21,6 +21,7 @@ namespace Utils
         public static ActionMapOptions ToggleInput(ActionMapOptions actionMap, PlayerInput input)
         {
             input.SwitchCurrentActionMap(actionMap.ToString());
+                Debug.Log(actionMap);
             return actionMap;
         }
     }

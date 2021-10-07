@@ -39,15 +39,16 @@ namespace Objects
 		public override void ChangeHealth(int change)
 		{
 			int newHealth = Mathf.Clamp(Health + change, 0, maxHealth);
-
-			if (Health == newHealth) return;
-
+            
+            if (Health == newHealth) return;
+            
 			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
 		}
 
 		[PunRPC]
 		protected override void RPCChangeHealth(int newHealth)
 		{
+            Debug.Log("RPC change health called");
 			int newActiveBarricade = (newHealth + _healthPerBarricade - 1) / _healthPerBarricade - 1;
 
 			int min = Math.Min(_activeBarricade, newActiveBarricade);
@@ -61,7 +62,7 @@ namespace Objects
 
         public bool IsWindowFixed()
         {
-            return (Health == initialHealth);
+            return (Health == maxHealth);
         }
-	}
+    }
 }

@@ -10,7 +10,7 @@ namespace Collectibles
 	/// </summary>
 	public abstract class Collectible : PressInteractable
 	{
-        protected override void Interact()
+        protected internal override void Interact()
 		{
 			// We pass the player in here for convenience
 			Pickup(GameManager.instance.localPlayerInstance);

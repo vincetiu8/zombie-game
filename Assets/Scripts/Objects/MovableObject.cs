@@ -20,7 +20,7 @@ namespace Objects
 			_colList = transform.GetComponentsInChildren<Collider2D>();
 		}
 
-        protected override void Interact()
+        protected internal override void Interact()
 		{
 			_isHolding = !_isHolding;
 			photonView.RPC("RPCInteract", RpcTarget.All, _isHolding);

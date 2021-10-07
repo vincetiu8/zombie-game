@@ -43,7 +43,8 @@ namespace Interact
 			}
 
 			if (_closestObject == null) return;
-            _closestObject.GetComponent<Interactable>().Interact(context.performed);
+            Debug.Log(_closestObject);
+            _closestObject.GetComponent<Interactable>().Interact();
         }
 
         public void CancelHoldInteractionInput(InputAction.CallbackContext context)
