@@ -53,3 +53,6 @@ TagManager:
   - name: Objects
     uniqueID: 1036530043
     locked: 0
+  - name: Actors
+    uniqueID: 549690393
+    locked: 0
