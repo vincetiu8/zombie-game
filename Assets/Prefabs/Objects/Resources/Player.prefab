@@ -511,7 +511,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3014086736208035401}
         m_TargetAssemblyTypeName: Interact.PlayerInteract, Scripts
-        m_MethodName: CancelHoldInteractionInput
+        m_MethodName: CancelHoldInteractionAction
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

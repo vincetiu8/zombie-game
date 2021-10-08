@@ -49,24 +49,7 @@ namespace Interact
     
     public abstract class HoldInteractable : Interactable
     {
-        private                  PlayerInput _playerInput;
-        private WeaponsHandler _playerWeaponHandler;
-        
         private bool _cancelledAlready = true;
-
-        protected override void Start()
-        {
-            base.Start();
-            StartCoroutine(LateStart());
-        }
-        // Done to fix script execution order problems
-        private IEnumerator LateStart()
-        {
-            yield return new WaitUntil(() => GameManager.instance.localPlayerInstance != null);
-            Debug.Log("found the player");
-            _playerInput = GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>();
-            _playerWeaponHandler = GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>();
-        }
 
         protected internal override void Interact()
         {
@@ -78,8 +61,8 @@ namespace Interact
         /// </summary>
         protected virtual void StartInteraction()
         {
-            MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.InAnimation, _playerInput);
-            _playerWeaponHandler.ToggleFireEnabled(false);
+            MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.InAnimation, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
+            GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(false);
             _cancelledAlready = false;
         }
         
@@ -90,8 +73,8 @@ namespace Interact
         {
             if (_cancelledAlready)  throw new Exception("You cannot cancel multiple times in a row");
             _cancelledAlready = true;
-            MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.Game, _playerInput);
-            _playerWeaponHandler.ToggleFireEnabled(true);
+            MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.Game, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
+            GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(true);
         }
     }
 

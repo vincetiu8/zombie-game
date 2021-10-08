@@ -42,7 +42,7 @@ public class HealthController : MonoBehaviourPun
 	protected virtual void OnDeath()
 	{
         // Makes sure any on trigger exit works
-        GetComponent<SphereCollider>().radius = 0f;
+        transform.gameObject.SetActive(false);
 		PhotonNetwork.Destroy(gameObject);
 	}
 }

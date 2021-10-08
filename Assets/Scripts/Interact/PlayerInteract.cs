@@ -46,7 +46,7 @@ namespace Interact
             _closestObject.GetComponent<Interactable>().Interact();
         }
 
-        public void CancelHoldInteractionInput(InputAction.CallbackContext context)
+        public void CancelHoldInteractionAction(InputAction.CallbackContext context)
         {
             if (!context.canceled) return;
             CancelHoldInteraction();
