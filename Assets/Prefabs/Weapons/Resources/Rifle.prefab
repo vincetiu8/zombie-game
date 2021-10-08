@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4972648998669856786
+--- !u!1001 &1392085758258984662
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -70,53 +70,48 @@ PrefabInstance:
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: weaponName
-      value: Sniper
-      objectReference: {fileID: 0}
-    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
-        type: 3}
-      propertyPath: shotDistance
-      value: 15
+      value: Rifle
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].damage
-      value: 80
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
-      propertyPath: weaponLevels.Array.data[0].reloadTime
-      value: 3
+      propertyPath: weaponLevels.Array.data[0].fullAuto
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].description
-      value: Sniper
+      value: Rifle
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].fireCooldown
-      value: 1.5
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].magazineSize
-      value: 8
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3909993537624026819, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 853742892412031643, guid: 92aa031c64efb71d9a518e107694d2c4,
+      objectReference: {fileID: 2920547695714349933, guid: 92aa031c64efb71d9a518e107694d2c4,
         type: 3}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Name
-      value: Sniper
+      value: Rifle
       objectReference: {fileID: 0}
     - target: {fileID: 6581261222417765288, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.75
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d2ada47266bc9cac8c5eb6699945401, type: 3}
