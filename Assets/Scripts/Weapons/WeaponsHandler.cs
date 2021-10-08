@@ -137,7 +137,10 @@ namespace Weapons
 
 			int keypressed = (int)context.ReadValue<float>();
 			int selectedWeaponIndex = keypressed - 1;
-			SelectWeapon(selectedWeaponIndex);
+			if (keypressed > availableWeapons.Length) {
+				return;
+			}
+			SelectWeapon(selectedWeaponIndex);	
 		}
 
 		private void SelectWeapon(int selectedIndex)

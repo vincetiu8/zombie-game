@@ -262,6 +262,83 @@
                     "action": "WeaponSwitching",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "febf9e46-bbaf-40a4-bf9e-32ba40e23d78",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "Clamp(min=4,max=4)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20729848-b146-4bf7-8319-83563f445556",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "Clamp(min=5,max=5)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "75967f04-2c67-41d3-be36-725e938d32a6",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "Clamp(min=6,max=6)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a30975b-4f9e-447b-bf30-3a7ade15b979",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "Clamp(min=7,max=7)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00d4a565-68a1-4b90-97dd-d98efeb69ef1",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "Clamp(min=8,max=8)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b51fdf3-8647-45cb-80de-adff6852c493",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "Clamp(min=9,max=9)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "45a62e6f-a2eb-4d01-9a9b-527f1846f56a",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "Clamp(min=10,max=10)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
