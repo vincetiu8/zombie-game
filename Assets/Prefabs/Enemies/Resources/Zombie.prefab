@@ -576,5 +576,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 80
-  Health: 0
   goldDropAmount: 10
