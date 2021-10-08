@@ -31,7 +31,13 @@ namespace Objects
         private void Update()
         {
             if (!_fixingWindow || _zombiesAtWindow > 0) return;
-            
+
+            if (_windowController.IsWindowFixed())
+            {
+                CancelInteraction();
+                return;
+            }
+
             if (_cooldown > 0)
             {
                 _cooldown -= Time.deltaTime;
@@ -39,7 +45,6 @@ namespace Objects
             }
             _windowController.ChangeHealth(barricadeFixAmount);
             // Cancels interaction if window fixed
-            if (_windowController.IsWindowFixed()) CancelInteraction();
             _cooldown += barricadeFixRate;
         }
 
