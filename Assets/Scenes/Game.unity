@@ -9391,6 +9391,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
+        type: 3}
+      propertyPath: barricadeFixRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4149290357751621186, guid: d9c72e929041f9747a4dec8ad4002434,
         type: 3}
       propertyPath: m_RootOrder
@@ -9989,6 +9994,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneViewId
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
+        type: 3}
+      propertyPath: barricadeFixRate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4149290357751621186, guid: d9c72e929041f9747a4dec8ad4002434,
         type: 3}
