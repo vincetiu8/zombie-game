@@ -17,6 +17,8 @@ namespace Interact
 		private readonly List<GameObject> _interactPriorityList = new List<GameObject>();
         private GameObject _closestObject;
         
+        private bool _inInteraction;
+
         public void AddInteractableObject(GameObject interact)
 		{
 			_interactPriorityList.Add(interact);
@@ -44,6 +46,8 @@ namespace Interact
 
 			if (_closestObject == null) return;
             _closestObject.GetComponent<Interactable>().Interact();
+            _inInteraction = true;
+            Debug.Log("start interaction called");
         }
 
         public void CancelHoldInteractionAction(InputAction.CallbackContext context)
@@ -57,7 +61,16 @@ namespace Interact
         /// </summary>
         public void CancelHoldInteraction()
         {
+            Debug.Log("cancel interaction called");
+            if (!_inInteraction)
+            {
+                Debug.Log("Not in interaction");
+                return;
+            }
+
             if (!_closestObject) return;
+
+            _inInteraction = false;
             _closestObject.GetComponent<Interactable>().CancelInteraction();
         }
 	}

@@ -49,7 +49,6 @@ namespace Interact
     
     public abstract class HoldInteractable : Interactable
     {
-        private bool _cancelledAlready = true;
 
         protected internal override void Interact()
         {
@@ -63,7 +62,6 @@ namespace Interact
         {
             MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.InAnimation, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
             GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(false);
-            _cancelledAlready = false;
         }
         
         /// <summary>
@@ -71,8 +69,6 @@ namespace Interact
         /// </summary>
         public override void CancelInteraction()
         {
-            if (_cancelledAlready)  throw new Exception("You cannot cancel multiple times in a row");
-            _cancelledAlready = true;
             MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.Game, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
             GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(true);
         }
