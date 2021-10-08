@@ -9391,26 +9391,6 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: barricadeFixRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: barricadeFixAmount
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762703297160124035, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: maxHealth
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2762703297160124035, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: initialHealth
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 4149290357751621186, guid: d9c72e929041f9747a4dec8ad4002434,
         type: 3}
       propertyPath: m_RootOrder
@@ -10009,16 +9989,6 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneViewId
       value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: barricadeFixRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: barricadeFixAmount
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4149290357751621186, guid: d9c72e929041f9747a4dec8ad4002434,
         type: 3}
@@ -13181,22 +13151,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0d43e97a-c586-466a-aec0-c54b5789d4b1
     m_ActionName: Game/Debug Get Gold[/Keyboard/f3]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d3ed478d-6ec1-4528-bec3-8d7a7c46a7f0
-    m_ActionName: Game/WeaponSwitchingScroll[/Mouse/scroll/y]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 62c29ec4-9e74-4899-99b7-34ccfdd47976
-    m_ActionName: Game/WeaponSwitching[/Keyboard/1,/Keyboard/2,/Keyboard/3]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 89807b38-1802-4035-afa4-359a69e5df7c
-    m_ActionName: InAnimation/Interact[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f239aaac-713d-4545-8d81-0f072f9d9745
-    m_ActionName: InAnimation/SkillCheck[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
