@@ -262,6 +262,39 @@
                     "action": "WeaponSwitching",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "febf9e46-bbaf-40a4-bf9e-32ba40e23d78",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "Clamp(min=4,max=4)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20729848-b146-4bf7-8319-83563f445556",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "Clamp(min=5,max=5)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "75967f04-2c67-41d3-be36-725e938d32a6",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "Clamp(min=6,max=6)",
+                    "groups": "",
+                    "action": "WeaponSwitching",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
