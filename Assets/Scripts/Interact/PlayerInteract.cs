@@ -46,8 +46,8 @@ namespace Interact
 
 			if (_closestObject == null) return;
             _closestObject.GetComponent<Interactable>().Interact();
+            
             _inInteraction = true;
-            Debug.Log("start interaction called");
         }
 
         public void CancelHoldInteractionAction(InputAction.CallbackContext context)
@@ -61,15 +61,7 @@ namespace Interact
         /// </summary>
         public void CancelHoldInteraction()
         {
-            Debug.Log("cancel interaction called");
-            if (!_inInteraction)
-            {
-                Debug.Log("Not in interaction");
-                return;
-            }
-
-            if (!_closestObject) return;
-
+            if (!_inInteraction || !_closestObject) return;
             _inInteraction = false;
             _closestObject.GetComponent<Interactable>().CancelInteraction();
         }
