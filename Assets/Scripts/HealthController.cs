@@ -7,36 +7,40 @@ using UnityEngine;
 /// </summary>
 public class HealthController : MonoBehaviourPun
 {
-	[SerializeField] [Range(0, 500)] protected int initialHealth;
-	protected                                  int Health;
+	[Header("Health Settings")] [SerializeField] [Range(0, 500)]
+	protected int initialHealth;
+
+	protected int Health;
 
 	protected virtual void Awake()
 	{
 		Health = initialHealth;
 	}
 
-	public int GetHealth()
-	{
-		return Health;
-	}
-
 	public virtual void ChangeHealth(int change)
 	{
-		Health += change;
+		// Can't directly set health because RPCChangeHealth may be overridden
+		// We want to ensure we also call it on the client to process changes
+		int newHealth = Health + change;
 
-		if (Health > 0) return;
+		if (newHealth > 0)
+		{
+			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
+			return;
+		}
 
 		OnDeath();
 	}
 
-	protected virtual void OnDeath()
+	[PunRPC]
+	protected virtual void RPCChangeHealth(int newHealth)
 	{
-		photonView.RPC("RPCOnDeath", RpcTarget.All);
+		Debug.Log(newHealth);
+		Health = newHealth;
 	}
 
-	[PunRPC]
-	protected void RPCOnDeath()
+	protected virtual void OnDeath()
 	{
-		Destroy(gameObject);
+		PhotonNetwork.Destroy(gameObject);
 	}
 }

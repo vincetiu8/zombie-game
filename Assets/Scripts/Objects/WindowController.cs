@@ -46,7 +46,7 @@ namespace Objects
 		}
 
 		[PunRPC]
-		private void RPCChangeHealth(int newHealth)
+		protected override void RPCChangeHealth(int newHealth)
 		{
 			int newActiveBarricade = (newHealth + _healthPerBarricade - 1) / _healthPerBarricade - 1;
 

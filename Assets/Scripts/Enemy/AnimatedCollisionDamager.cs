@@ -20,12 +20,16 @@ namespace Enemy
 		{
 			base.OnTriggerEnter2D(other);
 
+			if (_animator == null) return;
+
 			_animator.SetBool(AttackingProperty, HealthControllers.Count > 0);
 		}
 
 		protected override void OnTriggerExit2D(Collider2D other)
 		{
 			base.OnTriggerExit2D(other);
+
+			if (_animator == null) return;
 
 			_animator.SetBool(AttackingProperty, HealthControllers.Count > 0);
 		}
