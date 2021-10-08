@@ -17,10 +17,9 @@ namespace Interact
 	[RequireComponent(typeof(Collider2D))]
 	public abstract class Interactable : MonoBehaviourPun
     {
-       
         // Added for debugging convenience
 		protected virtual void Start()
-		{
+		{ 
             Collider2D[] cols = GetComponents<Collider2D>();
 			if (!cols.Any(col => col.isTrigger))
 				Debug.LogError("No trigger colliders attached to interactable object, can't interact");
@@ -49,7 +48,8 @@ namespace Interact
     
     public abstract class HoldInteractable : Interactable
     {
-
+        protected bool _currentlyInteracting;
+        
         protected internal override void Interact()
         {
           StartInteraction();
@@ -62,6 +62,7 @@ namespace Interact
         {
             MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.InAnimation, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
             GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(false);
+            _currentlyInteracting = true;
         }
         
         /// <summary>
@@ -71,6 +72,7 @@ namespace Interact
         {
             MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.Game, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
             GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(true);
+            _currentlyInteracting = false;
         }
     }
 

@@ -10,14 +10,14 @@ namespace Objects
 	public class InteractableWindow : HoldInteractable
 	{
 		[Description("How fast health is restored to the barricade")] [SerializeField] [Range(1, 100)]
-		private int barricadeFixRate;
+		private int barricadeFixDuration;
         
         
         [Description("How much health is restored to the barricade each tick")] [SerializeField] [Range(1, 100)]
         private int barricadeFixAmount = 20;
 
         private                  float _cooldown;
-        private bool _fixingWindow;
+        //private bool _fixingWindow;
 
 		private WindowController _windowController;
 		private int              _zombiesAtWindow;
@@ -30,7 +30,7 @@ namespace Objects
 
         private void Update()
         {
-            if (!_fixingWindow || _zombiesAtWindow > 0) return;
+            if (!_currentlyInteracting || _zombiesAtWindow > 0) return;
 
             if (_windowController.IsWindowFixed())
             {
@@ -38,14 +38,15 @@ namespace Objects
                 return;
             }
 
+            // Cooldown only decreases when player is actively fixing the window
+            // Done to prevent players from tapping E every cooldown 0 to insta fix a barricade while being able to shoot their guns
             if (_cooldown > 0)
             {
                 _cooldown -= Time.deltaTime;
                 return;
             }
             _windowController.ChangeHealth(barricadeFixAmount);
-            // Cancels interaction if window fixed
-            _cooldown += barricadeFixRate;
+            _cooldown += barricadeFixDuration;
         }
 
         protected override void OnTriggerEnter2D(Collider2D other)
@@ -69,12 +70,15 @@ namespace Objects
         protected override void StartInteraction()
         {
             base.StartInteraction();
-            _fixingWindow = true;
+            //_fixingWindow = true;
         }
         public override void CancelInteraction()
         {
+            // Done to prevent player from 99ing window fixes
+            _cooldown = barricadeFixDuration;
+            
             base.CancelInteraction();
-            _fixingWindow = false;
+            //_fixingWindow = false;
         }
     }
 }
