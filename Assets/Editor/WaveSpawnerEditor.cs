@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Enemy;
 using UnityEditor;
+using UnityEngine;
 
 namespace Editor
 {
@@ -15,48 +17,26 @@ namespace Editor
         {
             WaveSpawner waveSpawner = target as WaveSpawner;
 
-            waveSpawner.useRandomWaves = EditorGUILayout.Toggle("Random Waves", waveSpawner.useRandomWaves);
-            waveSpawner.fixedMultiplier = EditorGUILayout.Toggle("Fixed Multiplier", waveSpawner.fixedMultiplier);
+            waveSpawner.useRandomWaves = EditorGUILayout.Toggle("Use Random Waves", waveSpawner.useRandomWaves);
+            waveSpawner.fixedMultiplier = EditorGUILayout.Toggle("Use Fixed Multiplier", waveSpawner.fixedMultiplier);
             
             using (var randomWaveGroup = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(waveSpawner.useRandomWaves)))
             {
                 if (randomWaveGroup.visible)
                 {
-                    serializedObject.Update();
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("randomWaves"), true);
-                    serializedObject.ApplyModifiedProperties();
+                    SerializeVariable(new string[] {"randomWaves"});
                 }
             }
             using (var fixedWaveGroup = new EditorGUILayout.FadeGroupScope(Convert.ToSingle(!waveSpawner.useRandomWaves)))
             {
                 if (fixedWaveGroup.visible)
                 {
-                    serializedObject.Update();
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("waves"), true);
-                    serializedObject.ApplyModifiedProperties();
+                    SerializeVariable(new string[] {"waves"});
                 }
             }
             
-            serializedObject.Update();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("spawnpoints"), true);
-            serializedObject.ApplyModifiedProperties();
-            
-            serializedObject.Update();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("waveDelay"), true);
-            serializedObject.ApplyModifiedProperties();
+            SerializeVariable(new string[] {"spawnpoints", "waveDelay", "searchIntervalAmount", "increaseStats", "resetStatIncrease"});
 
-            serializedObject.Update();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("searchIntervalAmount"), true);
-            serializedObject.ApplyModifiedProperties();
-        
-            serializedObject.Update();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("increaseStats"), true);
-            serializedObject.ApplyModifiedProperties();
-
-            serializedObject.Update();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("resetStatIncrease"), true);
-            serializedObject.ApplyModifiedProperties();
-            
             using (var randomStatGroup =                            
                 new EditorGUILayout.FadeGroupScope(Convert.ToSingle(!waveSpawner.fixedMultiplier)))
             {   
@@ -64,21 +44,7 @@ namespace Editor
                 // Means I have to create a new group for fixed and random vars
                 if (randomStatGroup.visible)
                 {
-                    serializedObject.Update();
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("randomStatMin"), true);
-                    serializedObject.ApplyModifiedProperties();
-                
-                    serializedObject.Update();
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("randomStatMax"), true);
-                    serializedObject.ApplyModifiedProperties();
-                
-                    serializedObject.Update();
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("randomMinIncrement"), true);
-                    serializedObject.ApplyModifiedProperties();
-                    
-                    serializedObject.Update();
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("randomMaxIncrement"), true);
-                    serializedObject.ApplyModifiedProperties();
+                    SerializeVariable(new string[] {"randomStatMin", "randomStatMax", "randomMinIncrement", "randomMaxIncrement"});
                 }
             }
 
@@ -87,19 +53,22 @@ namespace Editor
             {
                 if (fixedStatGroup.visible)
                 {
+                    SerializeVariable(new string[] {"fixedStatMultiplier", "fixedStatDivider", "fixedStatIncrement"});
+                }
+            }
+            
+            void SerializeVariable(IEnumerable<string> variableNames)
+            {
+                foreach (string name in variableNames)
+                {
                     serializedObject.Update();
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("fixedStatMultiplier"), true);
-                    serializedObject.ApplyModifiedProperties();
-                    
-                    serializedObject.Update();
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("fixedStatDivider"), true);
-                    serializedObject.ApplyModifiedProperties();
-
-                    serializedObject.Update();
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("fixedStatIncrement"), true);
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty(name), true);
                     serializedObject.ApplyModifiedProperties();
                 }
             }
+            
+            EditorUtility.SetDirty(waveSpawner);
+            
         }
     }
 }
