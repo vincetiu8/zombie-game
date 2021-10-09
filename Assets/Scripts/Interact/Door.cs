@@ -9,13 +9,14 @@ namespace Interact
     public class Door : Unlockable
     {
         private Collider2D[] _myColList;
-        [SerializeField] private UnlockableAreas unlockableArea;
+        private UnlockableAreas unlockableArea;
 
         
         protected override void Start()
         {
             base.Start();
             _myColList = transform.GetComponentsInChildren<Collider2D>();
+            unlockableArea = GameObject.FindObjectOfType<UnlockableAreas>();
         }
         
         private void SetAllCollidersStatus(bool active)
