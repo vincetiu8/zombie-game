@@ -66,12 +66,6 @@ namespace Objects
 
             _zombiesAtWindow--;
         }
-
-        protected override void StartInteraction()
-        {
-            base.StartInteraction();
-            //_fixingWindow = true;
-        }
         public override void CancelInteraction()
         {
             // Done to prevent player from 99ing window fixes

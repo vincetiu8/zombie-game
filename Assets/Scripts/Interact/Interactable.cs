@@ -41,7 +41,7 @@ namespace Interact
 		///     Callback when the player interacts with an object.
 		///     We don't pass in the player, but it can be assumed that the interacting player is the local player.
 		/// </summary>
-        protected internal abstract void Interact( );
+        protected internal abstract void StartInteraction( );
 
         public virtual void CancelInteraction() { }
     }
@@ -49,17 +49,19 @@ namespace Interact
     public abstract class HoldInteractable : Interactable
     {
         protected bool _currentlyInteracting;
-        
-        protected internal override void Interact()
+        private MiscUtils.ActionMapOptions _currentActionMap;
+
+/*        public override void StartInteraction()
         {
           StartInteraction();
-        }
+        }*/
         
         /// <summary>
         /// Prevents the player from firing and moving
         /// </summary>
-        protected virtual void StartInteraction()
+        protected internal override void StartInteraction()
         {
+            _currentActionMap = MiscUtils.ActionMapOptions.InAnimation;
             MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.InAnimation, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
             GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(false);
             _currentlyInteracting = true;
@@ -70,6 +72,10 @@ namespace Interact
         /// </summary>
         public override void CancelInteraction()
         {
+            // Already works without this, but done to stop unity from giving errors, using _currentyInteracting doesn't seem to work
+            if (_currentActionMap == MiscUtils.ActionMapOptions.Game) return;
+
+            _currentActionMap = MiscUtils.ActionMapOptions.Game;
             MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.Game, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
             GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(true);
             _currentlyInteracting = false;

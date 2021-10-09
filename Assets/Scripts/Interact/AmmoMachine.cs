@@ -62,7 +62,7 @@ namespace Interact
 			CheckPlayerSufficientMoney();
 		}
 
-        protected internal override void Interact()
+        protected internal override void StartInteraction()
 		{
 			CheckPlayerSufficientMoney();
 

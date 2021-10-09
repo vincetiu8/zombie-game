@@ -45,7 +45,7 @@ namespace Interact
 			}
 
 			if (_closestObject == null) return;
-            _closestObject.GetComponent<Interactable>().Interact();
+            _closestObject.GetComponent<Interactable>().StartInteraction();
             
             _inInteraction = true;
         }
