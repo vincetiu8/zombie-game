@@ -12,6 +12,7 @@ namespace Networking
 		private int         _currentPlayerIndex;
 		private GameManager _gameManager;
 		private bool        _playerAlive;
+		private PlayerInput _playerInput;
 
 		private void Awake()
 		{
@@ -22,11 +23,17 @@ namespace Networking
 		{
 			_gameManager = GetComponent<GameManager>();
 			_currentPlayerIndex = PhotonNetwork.LocalPlayer.GetPlayerNumber();
+			_playerInput = GetComponent<PlayerInput>();
+			_playerInput.enabled = false;
 		}
 
 		public void OnPlayerDeath(int playerIndex)
 		{
-			_playerAlive = false;
+			if (playerIndex == _currentPlayerIndex)
+			{
+				_playerAlive = false;
+				_playerInput.enabled = true;
+			}
 
 			if (playerIndex == _currentPlayerIndex) SetNewPlayer(1);
 		}

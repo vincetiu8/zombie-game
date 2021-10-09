@@ -1,54 +1,57 @@
 using Photon.Pun;
 using UnityEngine;
 
-/// <summary>
-///     Health is the base class for all destructible objects.
-///     Once an object's health reaches 0, it is normally destroyed.
-/// </summary>
-public class HealthController : MonoBehaviourPun
+namespace Objects
 {
-	[Header("Health Settings")] [SerializeField] [Range(0, 500)]
-	protected int initialHealth;
-
-	protected int Health;
-
-	protected virtual void Awake()
+	/// <summary>
+	///     Health is the base class for all destructible objects.
+	///     Once an object's health reaches 0, it is normally destroyed.
+	/// </summary>
+	public class HealthController : MonoBehaviourPun
 	{
-		Health = initialHealth;
-	}
+		[Header("Health Settings")] [SerializeField] [Range(0, 500)]
+		protected int initialHealth;
 
-	public virtual void ChangeHealth(int change)
-	{
-		// Can't directly set health because RPCChangeHealth may be overridden
-		// We want to ensure we also call it on the client to process changes
-		int newHealth = Health + change;
+		protected int Health;
 
-		if (newHealth > 0)
+		protected virtual void Awake()
 		{
-			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
-			return;
+			Health = initialHealth;
 		}
 
-		OnDeath();
-	}
+		public virtual void ChangeHealth(int change)
+		{
+			// Can't directly set health because RPCChangeHealth may be overridden
+			// We want to ensure we also call it on the client to process changes
+			int newHealth = Health + change;
 
-	[PunRPC]
-	protected virtual void RPCChangeHealth(int newHealth)
-	{
-		Health = newHealth;
-	}
+			if (newHealth > 0)
+			{
+				photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
+				return;
+			}
 
-	protected virtual void OnDeath()
-	{
-		photonView.RPC("RPCOnDeath", RpcTarget.MasterClient);
-	}
+			OnDeath();
+		}
 
-	// Called on master as only master can destroy 
-	[PunRPC]
-	private void RPCOnDeath()
-	{
-		// Makes sure any on trigger exit works
-		transform.gameObject.SetActive(false);
-		PhotonNetwork.Destroy(gameObject);
+		[PunRPC]
+		protected virtual void RPCChangeHealth(int newHealth)
+		{
+			Health = newHealth;
+		}
+
+		protected virtual void OnDeath()
+		{
+			photonView.RPC("RPCOnDeath", photonView.Owner);
+		}
+
+		// Called on master as only master can destroy 
+		[PunRPC]
+		protected void RPCOnDeath()
+		{
+			// Makes sure any on trigger exit works
+			transform.gameObject.SetActive(false);
+			PhotonNetwork.Destroy(gameObject);
+		}
 	}
 }

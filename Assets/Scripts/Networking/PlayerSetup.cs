@@ -37,10 +37,5 @@ namespace Networking
 
 			foreach (Behaviour behaviour in componentsToDisableIfNotMine) behaviour.enabled = false;
 		}
-
-		public int GetActorNumber()
-		{
-			return _actorNumber;
-		}
 	}
 }
