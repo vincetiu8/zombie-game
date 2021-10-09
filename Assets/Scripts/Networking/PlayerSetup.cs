@@ -15,16 +15,17 @@ namespace Networking
 
 		public void OnPreNetDestroy(PhotonView rootView)
 		{
+			Debug.Log("dying...");
 			GameManager.Instance.RemovePlayerInstance(rootView.Owner.GetPlayerNumber());
+			GameManager.Instance.GetComponent<SpectatorManager>().enabled = true;
 		}
 
 		public void OnPhotonInstantiate(PhotonMessageInfo info)
 		{
-			if (photonView.IsMine)
-			{
-				PlayerNumbering.OnPlayerNumberingChanged += SetupPlayer;
-				return;
-			}
+			photonView.AddCallbackTarget(this);
+			GameManager.Instance.SetPlayerInstance(info.Sender.GetPlayerNumber(), gameObject);
+
+			if (photonView.IsMine) return;
 
 			// Will be false by default
 			nameText.gameObject.SetActive(true);
@@ -33,18 +34,6 @@ namespace Networking
 			nameText.text = PhotonNetwork.NickName;
 
 			foreach (Behaviour behaviour in componentsToDisableIfNotMine) behaviour.enabled = false;
-		}
-
-		private void SetupPlayer()
-		{
-			photonView.RPC("RPCSetupPlayer", RpcTarget.All);
-		}
-
-		[PunRPC]
-		private void RPCSetupPlayer(PhotonMessageInfo info)
-		{
-			if (info.Sender.GetPlayerNumber() < 0) return;
-			GameManager.Instance.SetPlayerInstance(info.Sender.GetPlayerNumber(), gameObject);
 		}
 	}
 }

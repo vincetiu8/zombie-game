@@ -1,5 +1,6 @@
 using System;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Shop;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace Networking
 		[SerializeField] private GameObject  playerPrefab;
 		[SerializeField] private Transform[] spawnpoints;
 
+		private SpectatorManager _spectatorManager;
+
 		private void Awake()
 		{
 			if (Instance != null) Destroy(this);
@@ -23,13 +26,13 @@ namespace Networking
 			Instance = this;
 			playerInstances = Array.Empty<GameObject>();
 			goldSystem = GetComponentInChildren<GoldSystem>();
+			_spectatorManager = GetComponent<SpectatorManager>();
 		}
 
 		private void Start()
-		{
-			// Player numbers start indexing at 1, need to correct for array
-			int correctedPlayerNumber = PhotonNetwork.LocalPlayer.ActorNumber - 1;
-			Vector3 spawnPosition = spawnpoints[correctedPlayerNumber].position;
+			{
+				int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
+			Vector3 spawnPosition = spawnpoints[playerNumber].position;
 			localPlayerInstance = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
 		}
 
@@ -50,6 +53,10 @@ namespace Networking
 		public void RemovePlayerInstance(int playerNumber)
 		{
 			playerInstances[playerNumber] = null;
+
+			if (playerNumber != PhotonNetwork.LocalPlayer.GetPlayerNumber()) return;
+
+			_spectatorManager.OnPlayerDeath();
 		}
 	}
 }
