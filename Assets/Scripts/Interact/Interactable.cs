@@ -51,11 +51,6 @@ namespace Interact
         protected bool _currentlyInteracting;
         private MiscUtils.ActionMapOptions _currentActionMap;
 
-/*        public override void StartInteraction()
-        {
-          StartInteraction();
-        }*/
-        
         /// <summary>
         /// Prevents the player from firing and moving
         /// </summary>
