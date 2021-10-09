@@ -40,9 +40,15 @@ namespace Interact
 		/// <summary>
 		///     Callback when the player interacts with an object.
 		///     We don't pass in the player, but it can be assumed that the interacting player is the local player.
+		///     Abstract as all interactions will require script
 		/// </summary>
         protected internal abstract void StartInteraction( );
 
+        /// <summary>
+        ///     Only used by HoldInteractable.
+        ///     Is virtual because if it's abstract,
+        ///         every script that inherits it will need to throw the method exception even if they don't use it
+        /// </summary>
         public virtual void CancelInteraction() { }
     }
     
@@ -56,25 +62,33 @@ namespace Interact
         /// </summary>
         protected internal override void StartInteraction()
         {
-            _currentActionMap = MiscUtils.ActionMapOptions.InAnimation;
-            MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.InAnimation, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
-            GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(false);
-            _currentlyInteracting = true;
+            ToggleInteraction(true);
         }
         
         /// <summary>
-        /// Allows the player to move normally again, execption used to make sure this can only get called once to avoid repeat problems
+        /// Allows the player to move normally again, exception used to make sure this can only get called once to avoid repeat problems
         /// </summary>
         public override void CancelInteraction()
         {
-            // Already works without this, but done to stop unity from giving errors, using _currentyInteracting doesn't seem to work
-            if (_currentActionMap == MiscUtils.ActionMapOptions.Game) return;
+            ToggleInteraction(false);
+        }
 
-            _currentActionMap = MiscUtils.ActionMapOptions.Game;
-            MiscUtils.ToggleInput(MiscUtils.ActionMapOptions.Game, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
-            GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(true);
-            _currentlyInteracting = false;
+        private void ToggleInteraction(bool startInteraction)
+        {
+            MiscUtils.ActionMapOptions actionMap = 
+                startInteraction ? MiscUtils.ActionMapOptions.InAnimation : MiscUtils.ActionMapOptions.Game;
+            
+            // If actionMap to change is already current action map, cancel call
+            if (_currentActionMap == actionMap) return;
+            
+            _currentActionMap = actionMap;
+            
+            // Change player action map
+            MiscUtils.ToggleInput(actionMap, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
+            
+            // Disable / enable player weapons
+            GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(!startInteraction);
+            _currentlyInteracting = startInteraction;
         }
     }
-
 }
