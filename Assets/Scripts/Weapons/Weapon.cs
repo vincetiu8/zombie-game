@@ -45,9 +45,14 @@ namespace Weapons
 			if (currentAttributes.fullAuto && _isFiring) Fire();
 		}
 
-		public void Setup(AmmoInventory inventory)
+		public virtual void Setup(AmmoInventory inventory)
 		{
 			ammoInventory = inventory;
+			foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
+			{
+				spriteRenderer.sortingLayerName = "Actors";
+				spriteRenderer.sortingOrder = 2;
+			}
 		}
 
 		/// <summary>

@@ -14,13 +14,13 @@ namespace Collectibles
 		{
 			// We pass the player in here for convenience
 			Pickup(GameManager.Instance.localPlayerInstance);
-			photonView.RPC("RPCInteract", RpcTarget.All);
+			photonView.RPC("RPCInteract", RpcTarget.MasterClient);
 		}
 
 		[PunRPC]
 		protected void RPCInteract()
 		{
-			Destroy(gameObject);
+			PhotonNetwork.Destroy(gameObject);
 		}
 
 		protected abstract void Pickup(GameObject player);
