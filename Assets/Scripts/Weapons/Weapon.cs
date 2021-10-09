@@ -48,11 +48,6 @@ namespace Weapons
 		public virtual void Setup(AmmoInventory inventory)
 		{
 			ammoInventory = inventory;
-			foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
-			{
-				spriteRenderer.sortingLayerName = "Actors";
-				spriteRenderer.sortingOrder = 2;
-			}
 		}
 
 		/// <summary>

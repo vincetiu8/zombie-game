@@ -72,7 +72,7 @@ namespace Weapons
 
 		public void FireAction(InputAction.CallbackContext context)
 		{
-			if (!photonView.IsMine || _preventFire) return;
+			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
 
 			// When the mouse is pressed down, two actions are sent: started and performed
 			// We'll use performed here to check for the press
@@ -89,7 +89,7 @@ namespace Weapons
 
 		public void ReloadAction(InputAction.CallbackContext context)
 		{
-			if (!photonView.IsMine || _preventFire) return;
+			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
 
 			// Make sure this is only when the reload button is pressed
 			if (!context.performed) return;
@@ -127,8 +127,7 @@ namespace Weapons
 			}
 
 			int scrollDirection = (int)context.ReadValue<float>();
-			int selectedWeaponIndex = _currentWeaponIndex + scrollDirection + availableWeapons.Count;
-			selectedWeaponIndex %= availableWeapons.Count;
+			int selectedWeaponIndex = _currentWeaponIndex + scrollDirection;
 			SelectWeapon(selectedWeaponIndex);
 		}
 
@@ -148,6 +147,9 @@ namespace Weapons
 
 		private void SelectWeapon(int selectedIndex)
 		{
+			if (availableWeapons.Count == 0) return;
+
+			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
 		}
 
@@ -155,8 +157,13 @@ namespace Weapons
 		private void RPCSelectWeapon(int selectedIndex)
 		{
 			availableWeapons[_currentWeaponIndex].SetActive(false);
-			availableWeapons[selectedIndex].SetActive(true);
 			_currentWeaponIndex = selectedIndex;
+			ActivateCurrentWeapon();
+		}
+
+		private void ActivateCurrentWeapon()
+		{
+			availableWeapons[_currentWeaponIndex].SetActive(true);
 			_currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();
 			_currentWeapon.FaceMouse(_mouseDist);
 		}
@@ -176,11 +183,24 @@ namespace Weapons
 
 		public void DropCurrentWeaponAction(InputAction.CallbackContext context)
 		{
-			if (!context.performed) return;
+			if (!context.performed || _currentWeapon == null) return;
+
+			photonView.RPC("RPCDropCurrentWeapon", RpcTarget.All);
 		}
 
-		public void DropCurrentWeapon()
+		[PunRPC]
+		private void RPCDropCurrentWeapon()
 		{
+			_currentWeapon.GetComponent<WeaponPickup>().DropWeapon();
+			availableWeapons.Remove(_currentWeapon.gameObject);
+			if (availableWeapons.Count == 0)
+			{
+				_currentWeapon = null;
+				return;
+			}
+
+			_currentWeaponIndex = (_currentWeaponIndex - 1 + availableWeapons.Count) % availableWeapons.Count;
+			ActivateCurrentWeapon();
 		}
 	}
 }

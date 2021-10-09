@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1821228304949575301}
   - component: {fileID: 4966718255524894617}
   - component: {fileID: 4065469881926488048}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: MeleePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 4371919063578969868}
   - component: {fileID: 7953324660163104635}
   - component: {fileID: 8753486403994033469}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,9 @@ GameObject:
   - component: {fileID: 6665705036354136277}
   - component: {fileID: 5737561027745860989}
   - component: {fileID: 6430018366674950792}
-  m_Layer: 11
+  - component: {fileID: 662938872537925858}
+  - component: {fileID: 5242127807429692485}
+  m_Layer: 10
   m_Name: Stabbystab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,3 +249,31 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!58 &662938872537925858
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004224348638097280}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.75
+--- !u!114 &5242127807429692485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004224348638097280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0efcd33fd675f5c0db24f18dec85563c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

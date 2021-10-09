@@ -8,22 +8,48 @@ namespace Weapons
 {
 	public class WeaponPickup : Interactable
 	{
-		public Vector3 offset;
+		private Vector3        _offset;
+		private WeaponsHandler _weaponsHandler;
 
 		public override void Interact()
 		{
-			photonView.RPC("RPCPickup", RpcTarget.All);
+			photonView.RPC("RPCPickupWeapon", RpcTarget.All);
 		}
 
 		[PunRPC]
-		private void RPCPickup(PhotonMessageInfo info)
+		private void RPCPickupWeapon(PhotonMessageInfo info)
 		{
 			int playerNumber = info.Sender.GetPlayerNumber();
 			GameObject player = GameManager.instance.playerInstances[playerNumber];
 			transform.parent = player.transform.Find("PlayerObject").Find("Weapons");
-			transform.localPosition = offset;
+			transform.localPosition = _offset;
 			GetComponent<Collider2D>().enabled = false;
-			player.GetComponent<WeaponsHandler>().AddWeapon(gameObject);
+			foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
+			{
+				spriteRenderer.sortingLayerID = SortingLayer.NameToID("Actors");
+				spriteRenderer.sortingOrder = 2;
+			}
+
+			_weaponsHandler = player.GetComponent<WeaponsHandler>();
+			_weaponsHandler.AddWeapon(gameObject);
+		}
+
+		public void DropWeapon()
+		{
+			photonView.RPC("RPCDropWeapon", RpcTarget.All);
+		}
+
+		[PunRPC]
+		private void RPCDropWeapon(PhotonMessageInfo info)
+		{
+			_offset = transform.localPosition;
+			transform.parent = null;
+			GetComponent<Collider2D>().enabled = true;
+			foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
+			{
+				spriteRenderer.sortingLayerID = SortingLayer.NameToID("Objects");
+				spriteRenderer.sortingOrder = 1;
+			}
 		}
 	}
 }
