@@ -11,6 +11,12 @@ namespace Weapons
 		private Vector3        _offset;
 		private WeaponsHandler _weaponsHandler;
 
+		protected override void Start()
+		{
+			base.Start();
+			_offset = transform.localPosition;
+		}
+
 		public override void Interact()
 		{
 			photonView.RPC("RPCPickupWeapon", RpcTarget.All);
@@ -42,7 +48,6 @@ namespace Weapons
 		[PunRPC]
 		private void RPCDropWeapon(PhotonMessageInfo info)
 		{
-			_offset = transform.localPosition;
 			transform.parent = null;
 			GetComponent<Collider2D>().enabled = true;
 			foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
