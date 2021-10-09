@@ -25,7 +25,7 @@ namespace Menus_UI
 			if (_playerInput == null)
 			{
 				// Still causes an error in main menu, that's fine
-				_playerInput = GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>();
+				_playerInput = GameManager.Instance.localPlayerInstance.GetComponent<PlayerInput>();
 			}
 		}
 

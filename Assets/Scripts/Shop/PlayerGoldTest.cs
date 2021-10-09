@@ -19,14 +19,14 @@ namespace Shop
 			if (!context.performed) return;
 
 			int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
-			GameManager.instance.goldSystem.AddGold(10, playerNumber);
+			GameManager.Instance.goldSystem.AddGold(10, playerNumber);
 		}
 
 		public void WithdrawGoldAction(InputAction.CallbackContext context)
 		{
 			if (!context.performed) return;
 
-			GameManager.instance.goldSystem.WithdrawPlayerGold(10);
+			GameManager.Instance.goldSystem.WithdrawPlayerGold(10);
 		}
 
 		public void GetPlayerGoldAction(InputAction.CallbackContext context)
@@ -34,7 +34,7 @@ namespace Shop
 			if (!context.performed) return;
 
 			int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
-			int gold = GameManager.instance.goldSystem.GetPlayerGold(playerNumber);
+			int gold = GameManager.Instance.goldSystem.GetPlayerGold(playerNumber);
 			Debug.Log($"Player {playerNumber} has {gold} gold");
 		}
 	}

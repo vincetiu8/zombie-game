@@ -7,7 +7,7 @@ namespace Networking
 {
 	public class GameManager : MonoBehaviourPunCallbacks
 	{
-		public static GameManager instance;
+		public static GameManager Instance;
 
 		[HideInInspector] public GoldSystem   goldSystem;
 		[HideInInspector] public GameObject[] playerInstances;
@@ -18,9 +18,9 @@ namespace Networking
 
 		private void Awake()
 		{
-			if (instance != null) Destroy(this);
+			if (Instance != null) Destroy(this);
 
-			instance = this;
+			Instance = this;
 			playerInstances = Array.Empty<GameObject>();
 			goldSystem = GetComponentInChildren<GoldSystem>();
 		}
@@ -45,6 +45,11 @@ namespace Networking
 		public GameObject GetPlayerInstance(int playerNumber)
 		{
 			return playerInstances[playerNumber];
+		}
+
+		public void RemovePlayerInstance(int playerNumber)
+		{
+			playerInstances[playerNumber] = null;
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace Collectibles
 		public override void StartInteraction()
 		{
 			// We pass the player in here for convenience
-			Pickup(GameManager.instance.localPlayerInstance);
+			Pickup(GameManager.Instance.localPlayerInstance);
 			photonView.RPC("RPCInteract", RpcTarget.All);
 		}
 
