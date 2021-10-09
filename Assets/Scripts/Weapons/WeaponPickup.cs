@@ -29,6 +29,7 @@ namespace Weapons
 			GameObject player = GameManager.instance.playerInstances[playerNumber];
 			transform.parent = player.transform.Find("PlayerObject").Find("Weapons");
 			transform.localPosition = _offset;
+			transform.localRotation = Quaternion.identity;
 			GetComponent<Collider2D>().enabled = false;
 			foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
 			{
