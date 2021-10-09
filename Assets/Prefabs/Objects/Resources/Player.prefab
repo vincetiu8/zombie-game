@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: -8689278816103194599}
   - component: {fileID: -9158953098095830167}
   - component: {fileID: -6061700734141258256}
-  - component: {fileID: 9088729507219513655}
+  - component: {fileID: -4576557529602093801}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -507,6 +507,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 62c29ec4-9e74-4899-99b7-34ccfdd47976
     m_ActionName: Game/WeaponSwitching[/Keyboard/1,/Keyboard/2,/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bbff7ff7-c330-4298-9704-d293de202726
+    m_ActionName: Spectator/Next Player[/Mouse/leftButton,/Keyboard/rightArrow,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cf9a8ee8-c471-4492-b601-1a6fc0aa74d3
+    m_ActionName: Spectator/Previous Player[/Mouse/rightButton,/Keyboard/leftArrow,/Keyboard/a]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game
@@ -665,7 +673,7 @@ MonoBehaviour:
   syncRotation: 0
   smooth: 1
   smoothingSpeed: 10
---- !u!114 &9088729507219513655
+--- !u!114 &-4576557529602093801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -674,7 +682,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5676611098347806923}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0f6b43b6002f48289d932dc11e54a38, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d89421c0e6742f8a908372f62d5a825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 200

@@ -13,15 +13,17 @@ namespace Networking
 		[SerializeField] private Behaviour[] componentsToDisableIfNotMine;
 		[SerializeField] private Text        nameText;
 
+		private int _actorNumber;
+
 		public void OnPreNetDestroy(PhotonView rootView)
 		{
-			Debug.Log("dying...");
 			GameManager.Instance.RemovePlayerInstance(rootView.Owner.GetPlayerNumber());
 			GameManager.Instance.GetComponent<SpectatorManager>().enabled = true;
 		}
 
 		public void OnPhotonInstantiate(PhotonMessageInfo info)
 		{
+			_actorNumber = info.Sender.ActorNumber;
 			photonView.AddCallbackTarget(this);
 			GameManager.Instance.SetPlayerInstance(info.Sender.GetPlayerNumber(), gameObject);
 
@@ -34,6 +36,11 @@ namespace Networking
 			nameText.text = PhotonNetwork.NickName;
 
 			foreach (Behaviour behaviour in componentsToDisableIfNotMine) behaviour.enabled = false;
+		}
+
+		public int GetActorNumber()
+		{
+			return _actorNumber;
 		}
 	}
 }

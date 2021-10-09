@@ -45,18 +45,10 @@ namespace Networking
 			playerInstances[playerNumber] = player;
 		}
 
-		public GameObject GetPlayerInstance(int playerNumber)
-		{
-			return playerInstances[playerNumber];
-		}
-
 		public void RemovePlayerInstance(int playerNumber)
 		{
 			playerInstances[playerNumber] = null;
-
-			if (playerNumber != PhotonNetwork.LocalPlayer.GetPlayerNumber()) return;
-
-			_spectatorManager.OnPlayerDeath();
+			_spectatorManager.OnPlayerDeath(playerNumber);
 		}
 	}
 }

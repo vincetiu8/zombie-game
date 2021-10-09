@@ -53,7 +53,7 @@ namespace Objects
 			SetAllCollidersStatus(!_isHolding);
 			if (_isHolding)
 			{
-				GameObject player = GameManager.Instance.GetPlayerInstance(info.Sender.GetPlayerNumber());
+				GameObject player = GameManager.Instance.playerInstances[info.Sender.GetPlayerNumber()];
 				transform.SetParent(player.transform.Find("PlayerObject"));
 				return;
 			}

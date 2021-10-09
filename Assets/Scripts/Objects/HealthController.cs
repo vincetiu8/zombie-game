@@ -35,14 +35,20 @@ public class HealthController : MonoBehaviourPun
 	[PunRPC]
 	protected virtual void RPCChangeHealth(int newHealth)
 	{
-		Debug.Log(newHealth);
 		Health = newHealth;
 	}
 
 	protected virtual void OnDeath()
 	{
-        // Makes sure any on trigger exit works
-        transform.gameObject.SetActive(false);
+		photonView.RPC("RPCOnDeath", RpcTarget.MasterClient);
+	}
+
+	// Called on master as only master can destroy 
+	[PunRPC]
+	private void RPCOnDeath()
+	{
+		// Makes sure any on trigger exit works
+		transform.gameObject.SetActive(false);
 		PhotonNetwork.Destroy(gameObject);
 	}
 }
