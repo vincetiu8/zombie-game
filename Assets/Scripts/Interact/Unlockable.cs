@@ -35,14 +35,13 @@ namespace Interact
 
         public override void Interact()
         {
-
-            if (GameManager.instance.goldSystem.WithdrawPlayerGold(purchasePrice))
-            {
-                Unlock();
-                return;
-            }
-            // Is an exception to prevent code from further running in overridden methods
-            throw new Exception("Player does not have enough money");
+            if (!GameManager.instance.goldSystem.WithdrawPlayerGold(purchasePrice)) return;
+            EnoughMoneyInteract();
+        }
+        
+        protected virtual void EnoughMoneyInteract()
+        {
+            Unlock();
         }
 
         protected virtual void Unlock()

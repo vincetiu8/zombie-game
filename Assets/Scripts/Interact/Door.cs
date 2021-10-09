@@ -24,7 +24,7 @@ namespace Interact
             foreach (Collider2D colliders in _myColList) colliders.enabled = active;
         }
 
-        public override void Interact()
+        protected override void EnoughMoneyInteract()
         {
             base.Interact();
             photonView.RPC("RpcUnlockDoor", RpcTarget.All);
