@@ -492,7 +492,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentsToDisableIfNotMasterClient:
-  - {fileID: 0}
   - {fileID: 822240581223566717}
   - {fileID: 5681390954276889052}
 --- !u!195 &822240581223566717

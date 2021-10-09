@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using Photon.Pun;
 using UnityEngine;
 using Utils;
 
@@ -21,16 +22,19 @@ namespace Weapons
 
 		private float _cooldown;
 
+		private PhotonView _photonView;
+
 		protected List<HealthController> HealthControllers;
 
 		private void Awake()
 		{
+			_photonView = GetComponentInParent<PhotonView>();
 			HealthControllers = new List<HealthController>();
 		}
 
 		protected virtual void Update()
 		{
-			if (HealthControllers.Count == 0) return;
+			if (!_photonView.IsMine || HealthControllers.Count == 0) return;
 
 			// Reduce cooldown by time
 			if (_cooldown > 0)

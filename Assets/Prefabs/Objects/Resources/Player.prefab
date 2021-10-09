@@ -247,7 +247,6 @@ GameObject:
   - component: {fileID: 4652404444932287600}
   - component: {fileID: 2475852923928295786}
   - component: {fileID: 6455594554168295160}
-  - component: {fileID: 1257494630980918847}
   - component: {fileID: 5989146994798338574}
   - component: {fileID: 1890970094835804043}
   - component: {fileID: 5960631646741268416}
@@ -256,6 +255,7 @@ GameObject:
   - component: {fileID: -8689278816103194599}
   - component: {fileID: -9158953098095830167}
   - component: {fileID: -6061700734141258256}
+  - component: {fileID: 9088729507219513655}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -292,7 +292,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.5541769
+  m_Mass: 0.3421195
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -316,7 +316,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.42
+  m_Radius: 0.33
 --- !u!114 &2475852923928295786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,19 +533,6 @@ MonoBehaviour:
   - {fileID: 4451629114269257111}
   - {fileID: 2219715388382248968}
   - {fileID: 5649281158241407722}
---- !u!114 &1257494630980918847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5676611098347806923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18d2f559143d48157be6a3a7b0aab6e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 200
 --- !u!114 &5989146994798338574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,6 +664,24 @@ MonoBehaviour:
   syncRotation: 0
   smooth: 1
   smoothingSpeed: 10
+--- !u!114 &9088729507219513655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676611098347806923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f6b43b6002f48289d932dc11e54a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 200
+  sprites:
+  - {fileID: 3247233815640111391, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
+  - {fileID: -8122009008315846099, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
+  - {fileID: 1863022367390955774, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
+  - {fileID: -6121086664708760571, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
 --- !u!1 &5730595962619871849
 GameObject:
   m_ObjectHideFlags: 0
