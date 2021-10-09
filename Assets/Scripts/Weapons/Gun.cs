@@ -94,13 +94,13 @@ namespace Weapons
 		{
 			_gunOffsetAdjustment = -transform.localPosition;
 			_gunOffsetAdjustment.y -= firepoint.localPosition.y;
-			Debug.Log(_gunOffsetAdjustment);
 		}
 
 		public override void FaceMouse(float distance)
 		{
 			// Gets the adjustment angle that the weaponPivot needs the rotate
 			// This lines up the weapon with the mouse properly
+			Debug.Log(distance);
 			float angle = Mathf.Atan2(_gunOffsetAdjustment.y, distance + _gunOffsetAdjustment.x) * Mathf.Rad2Deg;
 
 			transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);

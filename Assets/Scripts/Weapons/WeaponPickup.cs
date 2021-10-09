@@ -20,7 +20,7 @@ namespace Weapons
 		{
 			int playerNumber = info.Sender.GetPlayerNumber();
 			GameObject player = GameManager.instance.playerInstances[playerNumber];
-			transform.parent = player.transform.Find("Weapons");
+			transform.parent = player.transform.Find("PlayerObject").Find("Weapons");
 			transform.localPosition = offset;
 			GetComponent<Collider2D>().enabled = false;
 			player.GetComponent<WeaponsHandler>().AddWeapon(gameObject);

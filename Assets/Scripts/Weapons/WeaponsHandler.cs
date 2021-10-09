@@ -149,7 +149,6 @@ namespace Weapons
 		private void SelectWeapon(int selectedIndex)
 		{
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
-			_currentWeapon = availableWeapons[selectedIndex].GetComponent<Weapon>();
 		}
 
 		[PunRPC]
@@ -158,6 +157,8 @@ namespace Weapons
 			availableWeapons[_currentWeaponIndex].SetActive(false);
 			availableWeapons[selectedIndex].SetActive(true);
 			_currentWeaponIndex = selectedIndex;
+			_currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();
+			_currentWeapon.FaceMouse(_mouseDist);
 		}
 
 		public void ToggleFireEnabled(bool preventFire)
@@ -171,11 +172,6 @@ namespace Weapons
 			availableWeapons.Add(weapon);
 			weapon.GetComponent<Weapon>().Setup(_ammoInventory);
 			SelectWeapon(availableWeapons.Count - 1);
-		}
-
-		[PunRPC]
-		private void RPCAddWeapon()
-		{
 		}
 
 		public void DropCurrentWeaponAction(InputAction.CallbackContext context)
