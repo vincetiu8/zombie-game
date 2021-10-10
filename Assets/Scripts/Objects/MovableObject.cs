@@ -10,7 +10,7 @@ namespace Objects
 	/// <summary>
 	///     Movable object represents an object the player can pickup and move.
 	/// </summary>
-	public class MovableObject : Interactable
+	public class MovableObject : IconInteractable
 	{
 		private Collider2D[] _colList;
 		private bool         _isHolding;
@@ -36,11 +36,11 @@ namespace Objects
 			// Therefore, it is suggested to make the interactable trigger as small as possible
 			if (_isHolding)
 			{
-				player.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
+				player.GetComponent<PlayerInteract>().AddInteractable(gameObject);
 				return;
 			}
 
-			player.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
+			player.GetComponent<PlayerInteract>().RemoveInteractable(gameObject);
 
 			if (photonView.IsMine) return;
 

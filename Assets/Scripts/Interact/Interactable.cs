@@ -25,17 +25,18 @@ namespace Interact
 				Debug.LogError("No trigger colliders attached to interactable object, can't interact");
 		}
 
-		protected virtual void OnTriggerEnter2D(Collider2D collision)
-		{
-			if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
-				collision.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
-		}
+		/// <summary>
+		///     Callback when this interactable is the closest one to the player.
+		///     Used to display icons/gui, should show something to indicate interactable exists.
+		/// </summary>
+		public abstract void OnClosestInteractable();
 
-		protected virtual void OnTriggerExit2D(Collider2D collision)
-		{
-			if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
-				collision.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
-		}
+
+		/// <summary>
+		///     Callback when this interactable is not the closest one to the player.
+		///     Used to remove icons/gui from when this was the closest interactable.
+		/// </summary>
+		public abstract void OnNotClosestInteractable();
 
 		/// <summary>
 		///     Callback when the player interacts with an object.

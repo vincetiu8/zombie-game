@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7330685861903143323}
   m_Layer: 10
   m_Name: Normal Ammo Machine
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,16 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9641aa0f6b4667e46ba1b001fdefecdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemCost: 10
+  itemName: Primary Ammo (x5)
   ammoType: 0
-  purchaseAmountMultiplier: 2
-  ammoTypeText: {fileID: 0}
-  purchaseAmountInput: {fileID: 0}
-  purchaseSliderValue: {fileID: 0}
-  priceRatioText: {fileID: 0}
-  totalPurchaseAmount: {fileID: 0}
-  errorText: {fileID: 0}
-  sliderContainer: {fileID: 0}
-  buttonContainer: {fileID: 0}
+  ammoAmount: 5
 --- !u!61 &7330685861903143323
 BoxCollider2D:
   m_ObjectHideFlags: 0

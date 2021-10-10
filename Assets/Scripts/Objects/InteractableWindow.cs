@@ -7,17 +7,10 @@ namespace Objects
 	/// <summary>
 	///     InteractableWindow implements the repair mechanic on windows.
 	/// </summary>
-	public class InteractableWindow : HoldInteractable
+	public class InteractableWindow : IconInteractable
 	{
 		[Description("How fast health is restored to the barricade")] [SerializeField] [Range(1, 100)]
-		private int barricadeFixDuration;
-        
-        
-        [Description("How much health is restored to the barricade each tick")] [SerializeField] [Range(1, 100)]
-        private int barricadeFixAmount = 20;
-
-        private                  float _cooldown;
-        //private bool _fixingWindow;
+		private int barricadeFixRate;
 
 		private WindowController _windowController;
 		private int              _zombiesAtWindow;
@@ -28,51 +21,27 @@ namespace Objects
 			_windowController = GetComponentInChildren<WindowController>();
 		}
 
-        private void Update()
-        {
-            if (!_locallyInteracting || _zombiesAtWindow > 0) return;
+		protected void OnTriggerEnter2D(Collider2D other)
+		{
+			if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
 
-            if (_windowController.IsWindowFixed())
-            {
-                CancelInteraction();
-                return;
-            }
+			_zombiesAtWindow++;
+		}
 
-            // Cooldown only decreases when player is actively fixing the window
-            // Done to prevent players from tapping E every cooldown 0 to insta fix a barricade while being able to shoot their guns
-            if (_cooldown > 0)
-            {
-                _cooldown -= Time.deltaTime;
-                return;
-            }
-            _windowController.ChangeHealth(barricadeFixAmount);
-            _cooldown += barricadeFixDuration;
-        }
+		protected void OnTriggerExit2D(Collider2D other)
+		{
+			if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
 
-        protected override void OnTriggerEnter2D(Collider2D other)
-        {
-            base.OnTriggerEnter2D(other);
+			_zombiesAtWindow--;
+		}
 
-            if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
+		public override void Interact()
+		{
+			// Don't allow window to be repaired if a zombie is currently attacking it
+			if (_zombiesAtWindow > 0) return;
 
-            _zombiesAtWindow++;
-        }
-
-        protected override void OnTriggerExit2D(Collider2D other)
-        {
-            base.OnTriggerExit2D(other);
-
-            if (other.gameObject.layer != LayerMask.NameToLayer("Enemies")) return;
-
-            _zombiesAtWindow--;
-        }
-        public override void CancelInteraction()
-        {
-            // Done to prevent player from 99ing window fixes
-            _cooldown = barricadeFixDuration;
-            
-            base.CancelInteraction();
-            //_fixingWindow = false;
-        }
-    }
+			// todo: fix this later to use hold interact
+			_windowController.ChangeHealth(barricadeFixRate);
+		}
+	}
 }

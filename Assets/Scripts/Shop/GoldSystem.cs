@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Shop
 {
@@ -11,6 +12,8 @@ namespace Shop
 	/// </summary>
 	public class GoldSystem : MonoBehaviourPunCallbacks
 	{
+		public UnityEvent playerGoldChanged;
+
 		// Dictionary that contains all the players and the gold they have
 		// Makes it easier to display all player's gold on the UI as well
 		private List<int> _playerGoldAmounts;
@@ -19,6 +22,8 @@ namespace Shop
 		{
 			_playerGoldAmounts = new List<int>();
 			for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) _playerGoldAmounts.Add(0);
+
+			playerGoldChanged = new UnityEvent();
 		}
 
 		private bool IsInvalidPlayer(int playerNumber)
@@ -81,6 +86,7 @@ namespace Shop
 		private void RPCAddPlayerGold(int goldAmount, int playerNumber)
 		{
 			_playerGoldAmounts[playerNumber] += goldAmount;
+			playerGoldChanged.Invoke();
 			Debug.Log($"Added {goldAmount} gold to player {playerNumber}");
 		}
 
@@ -114,7 +120,17 @@ namespace Shop
 		{
 			int playerNumber = info.Sender.GetPlayerNumber();
 			_playerGoldAmounts[playerNumber] -= goldAmount;
+			playerGoldChanged.Invoke();
 			Debug.Log($"Player {playerNumber} successfully withdrew {goldAmount} gold");
+		}
+
+		/// <summary>
+		///     Gets the amount of gold the local player has.
+		/// </summary>
+		/// <returns>The amount of gold the local player has</returns>
+		public int GetPlayerGold()
+		{
+			return GetPlayerGold(PhotonNetwork.LocalPlayer.GetPlayerNumber());
 		}
 
 		/// <summary>
