@@ -5,6 +5,12 @@ using Enemy;
 using Networking;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 namespace Interact
 {
@@ -13,6 +19,8 @@ namespace Interact
     /// </summary>
     public class Door : Unlockable
     {
+        #region Script
+        
         private WaveSpawner _waveSpawner;
         
         // Should be the enemySpawnpoint of the room being opened
@@ -82,5 +90,96 @@ namespace Interact
             itemPriceUI.gameObject.SetActive(doDisplay);
             Debug.Log("setting active: " + doDisplay);
         }
+        
+        #endregion
+
+        #region Editor
+    #if UNITY_EDITOR
+        
+        [CustomEditor(typeof(Door))]
+        public class DoorEditor : Editor
+        {
+            
+            public override void OnInspectorGUI()
+            {
+                //base.OnInspectorGUI();
+                
+                EditorGUIUtility.labelWidth = 220;
+
+                Door door = (Door)target;
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Info to display", EditorStyles.boldLabel);
+                
+                EditorGUILayout.BeginHorizontal();
+                
+                EditorGUILayout.LabelField("Name of room", GUILayout.MaxWidth(120));
+                door.itemName = EditorGUILayout.TextField(door.itemName, GUILayout.MaxWidth(100));
+                
+                EditorGUILayout.LabelField("Cost to open door", GUILayout.MaxWidth(120));
+                door.purchasePrice = EditorGUILayout.IntField(door.purchasePrice, GUILayout.MaxWidth(100));
+                
+                EditorGUILayout.EndHorizontal();
+                
+
+                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+                // Begin sprite area
+                door._hasSprite = EditorGUILayout.Toggle("Has Sprite?", door._hasSprite, GUILayout.MaxWidth(150));
+                if (door._hasSprite)
+                {
+                    EditorGUI.indentLevel++;
+                    
+                    door.spriteRenderer = (SpriteRenderer) EditorGUILayout.ObjectField("Sprite Renderer", door
+                    .spriteRenderer, typeof(SpriteRenderer));
+                    
+                    door.beforeUnlock = (Sprite) EditorGUILayout.ObjectField("Sprite before unlock", door
+                        .beforeUnlock, typeof(Sprite), GUILayout.Height(200));
+                    
+                    door.afterUnlock = (Sprite) EditorGUILayout.ObjectField("Sprite before unlock", door
+                        .afterUnlock, typeof(Sprite), GUILayout.Height(200));
+                    
+                    EditorGUI.indentLevel--;
+
+                    EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+                }
+
+                // Begin Canvas area
+                door._hasCanvas = EditorGUILayout.Toggle("Has Canvas?", door._hasCanvas, GUILayout.MaxWidth(150));
+                if (door._hasCanvas)
+                {
+                    EditorGUI.indentLevel++;
+
+                    door.myCanvas = (Canvas) EditorGUILayout.ObjectField("This side of the door's Canvas", door
+                        .myCanvas, typeof(Canvas));
+                    
+                    door.itemNameUI = (Text) EditorGUILayout.ObjectField("Text object to display area name", door
+                        .itemNameUI, typeof(Text));
+                    
+                    door.itemPriceUI = (Text) EditorGUILayout.ObjectField("Text object to display area price", door
+                        .itemPriceUI, typeof(Text));
+
+                    EditorGUI.indentLevel--;
+                    
+                    EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+                }
+                
+                // Begin enemy spawnpoint area
+                door._noEnemySpawnpoint = EditorGUILayout.Toggle("Enemy Spawnpoint in new area?", door._noEnemySpawnpoint, GUILayout.MaxWidth(150));
+                if (door._noEnemySpawnpoint)
+                {
+                    EditorGUI.indentLevel++;
+
+                    door.enemySpawnpoint = (Transform) EditorGUILayout.ObjectField("Enemy Spawn Points Gameobject", door.enemySpawnpoint, typeof
+                    (Transform));
+                    
+                    EditorGUI.indentLevel--;
+                }
+            }
+        }
+        
+    #endif
+        #endregion
+        
     }
 }

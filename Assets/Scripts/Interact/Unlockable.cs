@@ -12,12 +12,14 @@ namespace Interact
     public class Unlockable : Interactable
     {
         [SerializeField] protected string itemName;
-        [SerializeField] private int purchasePrice;
+        [SerializeField] protected int purchasePrice;
 
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Sprite beforeUnlock;
-        [SerializeField] private Sprite afterUnlock;
+        [SerializeField] protected bool _hasSprite;
+        [SerializeField] protected SpriteRenderer spriteRenderer;
+        [SerializeField] protected Sprite beforeUnlock;
+        [SerializeField] protected Sprite afterUnlock;
 
+        [SerializeField] protected bool _hasCanvas;
         [SerializeField] protected Canvas myCanvas;
         [SerializeField] protected Text itemNameUI;
         [SerializeField] protected Text itemPriceUI;
@@ -29,6 +31,8 @@ namespace Interact
             base.Start();
             itemNameUI.text = itemName;
             itemPriceUI.text = purchasePrice.ToString();
+            
+            if (!_hasSprite) return;
             spriteRenderer.sprite = beforeUnlock;
         }
 
@@ -48,6 +52,7 @@ namespace Interact
             if (_isUnlocked) return;
             _isUnlocked = true;
             
+            if (!_hasSprite) return;
             spriteRenderer.sprite = afterUnlock;
         }
         
@@ -59,6 +64,7 @@ namespace Interact
         {
             _isUnlocked = false;
             
+            if (!_hasSprite) return;
             spriteRenderer.sprite = beforeUnlock;
         }
   
