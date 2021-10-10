@@ -105,22 +105,21 @@ namespace Interact
                 
                 EditorGUIUtility.labelWidth = 220;
 
+                // Add reference to script
                 Door door = (Door)target;
-
-                EditorGUILayout.Space();
+                
                 EditorGUILayout.LabelField("Info to display", EditorStyles.boldLabel);
                 
                 EditorGUILayout.BeginHorizontal();
                 
-                EditorGUILayout.LabelField("Name of room", GUILayout.MaxWidth(120));
-                door.itemName = EditorGUILayout.TextField(door.itemName, GUILayout.MaxWidth(100));
+                    EditorGUILayout.LabelField("Name of room", GUILayout.MaxWidth(120));
+                    door.itemName = EditorGUILayout.TextField(door.itemName, GUILayout.MaxWidth(100));
                 
-                EditorGUILayout.LabelField("Cost to open door", GUILayout.MaxWidth(120));
-                door.purchasePrice = EditorGUILayout.IntField(door.purchasePrice, GUILayout.MaxWidth(100));
+                    EditorGUILayout.LabelField("Cost to open door", GUILayout.MaxWidth(120));
+                    door.purchasePrice = EditorGUILayout.IntField(door.purchasePrice, GUILayout.MaxWidth(100));
                 
                 EditorGUILayout.EndHorizontal();
-                
-
+                // Add separator
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
                 // Begin sprite area
