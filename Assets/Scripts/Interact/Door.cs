@@ -24,8 +24,8 @@ namespace Interact
         private WaveSpawner _waveSpawner;
         
         // Should be the enemySpawnpoint of the room being opened
+        [SerializeField] private bool _enemySpawnpoint;
         [SerializeField] private Transform enemySpawnpoint;
-        private bool _noEnemySpawnpoint;
 
         private Collider2D[] _allColList;
         private Canvas[] _allCanvas;
@@ -37,7 +37,6 @@ namespace Interact
             _allColList = parent.GetComponentsInChildren<Collider2D>();
             _allCanvas = parent.GetComponentsInChildren<Canvas>();
             _waveSpawner = GameManager.instance.GetComponent<WaveSpawner>();
-            if (enemySpawnpoint == null) _noEnemySpawnpoint = true;
         }
         
         private void SetAllCollidersStatus(bool active)
@@ -63,7 +62,7 @@ namespace Interact
             
             Debug.Log("adding spawnpoints");
             
-            if (_noEnemySpawnpoint) return;
+            if (!_enemySpawnpoint) return;
             // Take all the transforms of the children found in "Enemy" into a list (Enemy should already be active by default)
             List<Transform> enemySpawnPoints = enemySpawnpoint.Cast<Transform>().ToList();
             
@@ -99,7 +98,7 @@ namespace Interact
         [CustomEditor(typeof(Door))]
         public class DoorEditor : Editor
         {
-            
+            ///*
             public override void OnInspectorGUI()
             {
                 //base.OnInspectorGUI();
@@ -165,8 +164,8 @@ namespace Interact
                 }
                 
                 // Begin enemy spawnpoint area
-                door._noEnemySpawnpoint = EditorGUILayout.Toggle("Enemy Spawnpoint in new area?", door._noEnemySpawnpoint, GUILayout.MaxWidth(150));
-                if (door._noEnemySpawnpoint)
+                door._enemySpawnpoint = EditorGUILayout.Toggle("Enemy Spawnpoint in new area?", door._enemySpawnpoint, GUILayout.MaxWidth(150));
+                if (door._enemySpawnpoint)
                 {
                     EditorGUI.indentLevel++;
 
@@ -174,8 +173,11 @@ namespace Interact
                     (Transform));
                     
                     EditorGUI.indentLevel--;
+                    
                 }
-            }
+                // Saves all settings to script (VERY IMPORTANT)
+                EditorUtility.SetDirty(door);
+            }//*/
         }
         
     #endif

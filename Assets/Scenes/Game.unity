@@ -541,13 +541,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449162398547896120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
         type: 3}
+      propertyPath: _hasCanvas
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449162398547896120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
+      propertyPath: _hasSprite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449162398547896120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
       propertyPath: purchasePrice
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449162398547896120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
+      propertyPath: _enemySpawnpoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775197907436305500, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
         type: 3}
       propertyPath: itemName
       value: Room2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775197907436305500, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
+      propertyPath: _hasCanvas
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775197907436305500, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
+      propertyPath: _hasSprite
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1775197907436305500, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
         type: 3}
@@ -559,6 +584,11 @@ PrefabInstance:
       propertyPath: enemySpawnpoint
       value: 
       objectReference: {fileID: 535082553}
+    - target: {fileID: 1775197907436305500, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
+      propertyPath: _enemySpawnpoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3235206398626196254, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1424,9 +1454,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449162398547896120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
         type: 3}
+      propertyPath: _hasCanvas
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449162398547896120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
+      propertyPath: _hasSprite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449162398547896120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
       propertyPath: enemySpawnpoint
       value: 
       objectReference: {fileID: 535082553}
+    - target: {fileID: 1449162398547896120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
+      propertyPath: _enemySpawnpoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1539871191449901957, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
         type: 3}
       propertyPath: itemName
@@ -1449,9 +1494,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1775197907436305500, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
         type: 3}
+      propertyPath: _hasCanvas
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775197907436305500, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
+      propertyPath: _hasSprite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775197907436305500, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
       propertyPath: enemySpawnpoint
       value: 
       objectReference: {fileID: 842126254}
+    - target: {fileID: 1775197907436305500, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
+        type: 3}
+      propertyPath: _enemySpawnpoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1864499186841911521, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
         type: 3}
       propertyPath: itemName
@@ -2248,13 +2308,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5970944385754834270, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
+      propertyPath: _hasCanvas
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5970944385754834270, guid: 47eea2ed8a135d84eb76609ad8ae086a,
+        type: 3}
+      propertyPath: _hasSprite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5970944385754834270, guid: 47eea2ed8a135d84eb76609ad8ae086a,
+        type: 3}
       propertyPath: enemySpawnpoint
       value: 
       objectReference: {fileID: 842126254}
+    - target: {fileID: 5970944385754834270, guid: 47eea2ed8a135d84eb76609ad8ae086a,
+        type: 3}
+      propertyPath: _enemySpawnpoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6801489705420111418, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: itemName
       value: SpawnRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801489705420111418, guid: 47eea2ed8a135d84eb76609ad8ae086a,
+        type: 3}
+      propertyPath: _hasCanvas
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801489705420111418, guid: 47eea2ed8a135d84eb76609ad8ae086a,
+        type: 3}
+      propertyPath: _hasSprite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801489705420111418, guid: 47eea2ed8a135d84eb76609ad8ae086a,
+        type: 3}
+      propertyPath: _enemySpawnpoint
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47eea2ed8a135d84eb76609ad8ae086a, type: 3}
