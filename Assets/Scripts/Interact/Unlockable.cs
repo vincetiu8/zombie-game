@@ -14,23 +14,22 @@ namespace Interact
         [SerializeField] protected string itemName;
         [SerializeField] private int purchasePrice;
 
-        private SpriteRenderer _spriteRenderer;
+        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite beforeUnlock;
         [SerializeField] private Sprite afterUnlock;
 
-        [SerializeField] protected Canvas canvas;
-        [SerializeField] private Text itemNameUI;
-        [SerializeField] private Text itemPriceUI;
+        [SerializeField] protected Canvas myCanvas;
+        [SerializeField] protected Text itemNameUI;
+        [SerializeField] protected Text itemPriceUI;
 
         private bool _isUnlocked;
         
         protected override void Start()
         {
             base.Start();
-            _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            _spriteRenderer.sprite = beforeUnlock;
             itemNameUI.text = itemName;
             itemPriceUI.text = purchasePrice.ToString();
+            spriteRenderer.sprite = beforeUnlock;
         }
 
         public override void Interact()
@@ -47,8 +46,9 @@ namespace Interact
         protected virtual void Unlock()
         {
             if (_isUnlocked) return;
-            _spriteRenderer.sprite = afterUnlock;
             _isUnlocked = true;
+            
+            spriteRenderer.sprite = afterUnlock;
         }
         
         /// <summary>
@@ -57,8 +57,9 @@ namespace Interact
         /// </summary>
         public virtual void Relock()
         {
-            _spriteRenderer.sprite = beforeUnlock;
             _isUnlocked = false;
+            
+            spriteRenderer.sprite = beforeUnlock;
         }
   
     }

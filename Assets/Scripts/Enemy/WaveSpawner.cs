@@ -158,7 +158,7 @@ namespace Enemy
 			return GameObject.FindGameObjectWithTag("Enemy");
 		}
 
-        public void AddSpawnPoints(List<Transform> additionalSpawnPoints)
+        public void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
         {
             // Only adds SpawnPoints that do not already exist to prevent accidentally adding the same points multiple times
             foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint => !spawnpoints.Contains(addedSpawnPoint)))
