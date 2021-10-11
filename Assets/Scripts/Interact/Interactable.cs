@@ -56,13 +56,16 @@ namespace Interact
     {
         protected bool _currentlyInteracting;
         private MiscUtils.ActionMapOptions _currentActionMap;
+        private bool _avaliableForInteract = true;
 
         /// <summary>
         /// Prevents the player from firing and moving
         /// </summary>
         protected internal override void StartInteraction()
         {
+            if (!_avaliableForInteract) return;
             ToggleInteraction(true);
+            photonView.RPC("RPcAvailableForInteract", RpcTarget.All, false);
         }
         
         /// <summary>
@@ -71,6 +74,7 @@ namespace Interact
         public override void CancelInteraction()
         {
             ToggleInteraction(false);
+            photonView.RPC("RPcAvailableForInteract", RpcTarget.All, true);
         }
 
         private void ToggleInteraction(bool startInteraction)
@@ -89,6 +93,12 @@ namespace Interact
             // Disable / enable player weapons
             GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(!startInteraction);
             _currentlyInteracting = startInteraction;
+        }
+        
+        [PunRPC]
+        private void RPcAvailableForInteract(bool availableForInteract)
+        {
+            _avaliableForInteract = availableForInteract;
         }
     }
 }
