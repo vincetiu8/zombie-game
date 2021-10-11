@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 namespace Editor
 {
@@ -12,37 +13,41 @@ namespace Editor
 
             base.OnInspectorGUI();
             ShowVariablesOnBool("showStuff", new string[] {"number", "text"});
-
-            //script.showStuff = EditorGUILayout.Toggle("yee", script.showStuff);
-            //ShowIfBool(script.showStuff, new string[] {"number", "text"});
-
         }
-
-        private void ShowVariablesOnBool(string boolName, IEnumerable<string> listOfVariablesToShow)
+/// <summary>
+///  <para>Are all strings because there is no script to be inheriting from in the base editor.</para>
+///  <para>Any variables called here MUST be serialized.</para>
+///  <example><code> ShowVariablesOnBool("boolToShowStuff", new string[] {"number", "text"}); </code>></example>
+/// </summary>
+/// <param name="boolName"> Name of the bool you want to tie the variables to</param>
+/// <param name="listOfVariablesToShow"> List of all the variables you want to display, datatype does not matter</param>
+protected void ShowVariablesOnBool(string boolName, IEnumerable<string> listOfVariablesToShow)
         {
+            // Displays bool in custom inspector
             SerializableVariable(boolName);
-            bool showList = serializedObject.FindProperty(boolName).boolValue;
-            ShowIfBool(showList, listOfVariablesToShow);
+            
+            // Show elements depending on the value of the bool
+            ShowIfBool(serializedObject.FindProperty(boolName).boolValue, listOfVariablesToShow);
 
             //EditorGUILayout.LabelField(serializedObject.FindProperty(variable).boolValue.ToString());
         }
 
-        private void ShowIfBool(bool show, IEnumerable<string> variableList)
+        protected void ShowIfBool(bool show, IEnumerable<string> variableList)
         {
-            if (show)
-            {
-                
-                SerializableVariable(variableList);
-            }
+            if (!show) return;
+            EditorGUI.indentLevel++;
+            SerializableVariable(variableList);
+            EditorGUI.indentLevel--;
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         }
         
-        private void SerializableVariable(string variableName)
+        protected void SerializableVariable(string variableName)
         {
             serializedObject.Update();
             EditorGUILayout.PropertyField(serializedObject.FindProperty(variableName), true);
             serializedObject.ApplyModifiedProperties();
         }
-        private void SerializableVariable(IEnumerable<string> variableNames)
+        protected void SerializableVariable(IEnumerable<string> variableNames)
         {
             serializedObject.Update();
             foreach (string varName in variableNames)
