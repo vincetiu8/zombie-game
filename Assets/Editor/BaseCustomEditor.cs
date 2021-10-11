@@ -11,13 +11,30 @@ namespace Editor
             plzDeleteScript script = (plzDeleteScript)target;
 
             base.OnInspectorGUI();
-            TieShowToBool();
+            TieShowToBool(script.showStuff, new string[] {"number", "text"});
+            
+           
         }
 
-        void TieShowToBool(string variable, IEnumerable<string> variableList)
+        void TieShowToBool(bool variable, IEnumerable<string> variableList)
         {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(variable), true);
-            ShowIfBool(variable, variableList);
+            //bool show = EditorGUILayout.PropertyField(serializedObject.FindProperty(variable), true);
+            
+            System.Reflection.PropertyInfo propName = script.GetType().GetProperty( "name" );
+            if( propName != null )
+            {
+                propName.SetValue(     
+                    this, // So we specify who owns the object
+                    "blorp", // A C# object as the value, will be casted (if possible)
+                    null
+                );
+ 
+                // And GetValue can be used in a similar fassion.
+                // Equivalent of Debug.log( "..." + this.name )
+                //Debug.Log( "The name is " + propName.GetValue( this, null ) );
+            }
+            
+            ShowIfBool(show, variableList);
         }
 
         void ShowIfBool(bool show, IEnumerable<string> variableList)
