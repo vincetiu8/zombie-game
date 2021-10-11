@@ -243,6 +243,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 301593376}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &301593378 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4706817818639944334, guid: 73bda815fe8ed254abf01bc9845b8e4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 301593376}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &301593379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301593378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71aff97ef1593a469a8fc4393685870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &387041324
 GameObject:
   m_ObjectHideFlags: 0
@@ -13151,6 +13169,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0d43e97a-c586-466a-aec0-c54b5789d4b1
     m_ActionName: Game/Debug Get Gold[/Keyboard/f3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d3ed478d-6ec1-4528-bec3-8d7a7c46a7f0
+    m_ActionName: Game/WeaponSwitchingScroll[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 62c29ec4-9e74-4899-99b7-34ccfdd47976
+    m_ActionName: Game/WeaponSwitching[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4,/Keyboard/5,/Keyboard/6,/Keyboard/7,/Keyboard/8,/Keyboard/9,/Keyboard/0]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
