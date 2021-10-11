@@ -54,7 +54,7 @@ namespace Interact
     
     public abstract class HoldInteractable : Interactable
     {
-        protected bool _currentlyInteracting;
+        protected bool _performInteraction;
         private MiscUtils.ActionMapOptions _currentActionMap;
         private bool _avaliableForInteract = true;
 
@@ -92,11 +92,11 @@ namespace Interact
             
             // Disable / enable player weapons
             GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(!startInteraction);
-            _currentlyInteracting = startInteraction;
+            _performInteraction = startInteraction;
         }
         
         [PunRPC]
-        private void RPcAvailableForInteract(bool availableForInteract)
+        protected void RPcAvailableForInteract(bool availableForInteract)
         {
             _avaliableForInteract = availableForInteract;
         }
