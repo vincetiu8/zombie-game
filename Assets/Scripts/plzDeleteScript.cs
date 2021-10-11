@@ -5,7 +5,7 @@ using UnityEngine;
 public class plzDeleteScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private bool showStuff;
+    [SerializeField] protected bool showStuff;
     [SerializeField] private int number;
     [SerializeField] private string text;
     

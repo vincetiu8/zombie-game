@@ -8,13 +8,15 @@ namespace Editor
     {
         public override void OnInspectorGUI()
         {
+            plzDeleteScript script = (plzDeleteScript)target;
+
             base.OnInspectorGUI();
             TieShowToBool();
         }
 
-        void TieShowToBool(bool variable, IEnumerable<string> variableList)
+        void TieShowToBool(string variable, IEnumerable<string> variableList)
         {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(variable)), true);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(variable), true);
             ShowIfBool(variable, variableList);
         }
 
