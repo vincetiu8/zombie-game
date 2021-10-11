@@ -30,7 +30,7 @@ namespace Objects
 
         private void Update()
         {
-            if (!_performInteraction || _zombiesAtWindow > 0) return;
+            if (!_locallyInteracting || _zombiesAtWindow > 0) return;
 
             if (_windowController.IsWindowFixed())
             {

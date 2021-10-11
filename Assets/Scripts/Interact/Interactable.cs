@@ -54,7 +54,7 @@ namespace Interact
     
     public abstract class HoldInteractable : Interactable
     {
-        protected bool _performInteraction;
+        protected bool _locallyInteracting;
         private MiscUtils.ActionMapOptions _currentActionMap;
         private bool _avaliableForInteract = true;
 
@@ -65,7 +65,6 @@ namespace Interact
         {
             if (!_avaliableForInteract) return;
             ToggleInteraction(true);
-            photonView.RPC("RPcAvailableForInteract", RpcTarget.All, false);
         }
         
         /// <summary>
@@ -74,7 +73,6 @@ namespace Interact
         public override void CancelInteraction()
         {
             ToggleInteraction(false);
-            photonView.RPC("RPcAvailableForInteract", RpcTarget.All, true);
         }
 
         private void ToggleInteraction(bool startInteraction)
@@ -92,11 +90,13 @@ namespace Interact
             
             // Disable / enable player weapons
             GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(!startInteraction);
-            _performInteraction = startInteraction;
+            _locallyInteracting = startInteraction;
+            photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, !startInteraction);
+
         }
         
         [PunRPC]
-        protected void RPcAvailableForInteract(bool availableForInteract)
+        protected void RPCSetAvailableForInteract(bool availableForInteract)
         {
             _avaliableForInteract = availableForInteract;
         }
