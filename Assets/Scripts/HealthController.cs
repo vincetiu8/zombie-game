@@ -41,6 +41,8 @@ public class HealthController : MonoBehaviourPun
 
 	protected virtual void OnDeath()
 	{
+        // Makes sure any on trigger exit works
+        transform.gameObject.SetActive(false);
 		PhotonNetwork.Destroy(gameObject);
 	}
 }

@@ -10,7 +10,7 @@ namespace Collectibles
 	/// </summary>
 	public abstract class Collectible : Interactable
 	{
-		public override void Interact()
+        protected internal override void StartInteraction()
 		{
 			// We pass the player in here for convenience
 			Pickup(GameManager.instance.localPlayerInstance);

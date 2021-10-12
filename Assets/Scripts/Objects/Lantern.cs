@@ -25,7 +25,7 @@ namespace Objects
 			_light2D.intensity = 0;
 		}
 
-		public override void Interact()
+		protected internal override void StartInteraction()
 		{
 			photonView.RPC("RpcStartLightingCoroutine", RpcTarget.All);
 		}

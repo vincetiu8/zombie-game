@@ -179,7 +179,7 @@
                     "name": "",
                     "id": "0050ab16-5e7e-4c70-ac25-f42f20097736",
                     "path": "<Keyboard>/e",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
@@ -364,6 +364,52 @@
                     "processors": "",
                     "groups": "Computer",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "InAnimation",
+            "id": "93d131dd-9db1-4e11-ba6f-7687c037504c",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Value",
+                    "id": "89807b38-1802-4035-afa4-359a69e5df7c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SkillCheck",
+                    "type": "Value",
+                    "id": "f239aaac-713d-4545-8d81-0f072f9d9745",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cc0916dc-f66e-427a-998d-f796870f46d0",
+                    "path": "<Keyboard>/e",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "49c08be7-d693-4f30-a1d6-9f95397fb8c5",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkillCheck",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

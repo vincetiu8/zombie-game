@@ -39,10 +39,8 @@ namespace Objects
 		public override void ChangeHealth(int change)
 		{
 			int newHealth = Mathf.Clamp(Health + change, 0, maxHealth);
-
-			if (Health == newHealth) return;
-
-			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
+            if (Health == newHealth) return;
+            photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
 		}
 
 		[PunRPC]
@@ -58,5 +56,10 @@ namespace Objects
 			_activeBarricade = newActiveBarricade;
 			Health = newHealth;
 		}
-	}
+
+        public bool IsWindowFixed()
+        {
+            return (Health == maxHealth);
+        }
+    }
 }
