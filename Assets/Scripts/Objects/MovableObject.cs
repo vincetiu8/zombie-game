@@ -45,8 +45,6 @@ namespace Objects
 			if (photonView.IsMine) return;
 
 			photonView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
-
-			base.StartInteraction();
 		}
 
 		[PunRPC]

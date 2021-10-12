@@ -1,5 +1,4 @@
 using Photon.Pun;
-using UnityEngine;
 
 namespace Interact
 {
@@ -17,18 +16,17 @@ namespace Interact
 		{
 			if (!_availableForInteract) return;
 
-			Debug.Log("Starting Interaction!");
+			// Notifies the player the interaction has started
+			startInteraction.Invoke();
 
-			photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, true);
-			LocallyInteracting = true;
+			ToggleInteraction(true);
 		}
 
 		public override void CancelInteraction()
 		{
 			if (!LocallyInteracting) return;
 
-			photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, false);
-			LocallyInteracting = false;
+			ToggleInteraction(false);
 		}
 
 		/// <summary>
@@ -40,8 +38,13 @@ namespace Interact
 			// Notifies the player the interaction has finished
 			finishInteraction.Invoke();
 
-			photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, false);
-			LocallyInteracting = false;
+			ToggleInteraction(false);
+		}
+
+		private void ToggleInteraction(bool toggle)
+		{
+			photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, toggle);
+			LocallyInteracting = toggle;
 		}
 
 		[PunRPC]

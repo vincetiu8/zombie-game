@@ -9,7 +9,7 @@ namespace Interact
 
 		private float _elapsedDuration;
 
-		private void Update()
+		protected virtual void Update()
 		{
 			if (!LocallyInteracting) return;
 

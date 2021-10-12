@@ -14,6 +14,16 @@ namespace Interact
 	[RequireComponent(typeof(Collider2D))]
 	public abstract class Interactable : MonoBehaviourPun
 	{
+		/// <summary>
+		///     Used to signal the start of an interaction.
+		///     Only used for hold interactions to lock the player input.
+		/// </summary>
+		[HideInInspector] public UnityEvent startInteraction;
+
+		/// <summary>
+		///     Used to signal the end of an interaction.
+		///     Only used for hold interactions to unlock the player input.
+		/// </summary>
 		[HideInInspector] public UnityEvent finishInteraction;
 
 		// Added for debugging convenience
@@ -42,14 +52,11 @@ namespace Interact
 		///     We don't pass in the player, but it can be assumed that the interacting player is the local player.
 		///     Abstract as all interactables need to respond to a start message.
 		/// </summary>
-		public virtual void StartInteraction()
-		{
-			// By default, interactables automatically finish as soon as they start
-			finishInteraction.Invoke();
-		}
+		public abstract void StartInteraction();
 
 		/// <summary>
-		///     Only used by HoldInteractable.
+		///     Callback when the player cancels an interaction.
+		/// Only used for HoldInteractions.
 		/// </summary>
 		public virtual void CancelInteraction()
 		{

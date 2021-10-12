@@ -12,6 +12,10 @@ namespace Shop
 		[Header("Shop Settings")] [SerializeField]
 		private int itemCost;
 
+		[SerializeField] [Range(0.1f, 2f)] private float popupDelay = 1f;
+
+		private float _popupTimeRemaining;
+
 		protected override void Start()
 		{
 			base.Start();
@@ -19,18 +23,20 @@ namespace Shop
 			GameManager.instance.goldSystem.playerGoldChanged.AddListener(UpdateShopStatus);
 		}
 
+		protected override void Update()
+		{
+			base.Update();
+
+			if (_popupTimeRemaining > 0)
+			{
+				_popupTimeRemaining -= Time.deltaTime;
+				return;
+			}
+
+			if (!LocallyInteracting) ShopText.Instance.ToggleVisibility(false);
+		}
+
 		protected abstract string GetShopPrompt();
-
-		public override void OnClosestInteractable()
-		{
-			SetShopStatus();
-			ShopText.Instance.ToggleVisibility(true);
-		}
-
-		public override void OnNotClosestInteractable()
-		{
-			ShopText.Instance.ToggleVisibility(false);
-		}
 
 		/// <summary>
 		///     Used as the listener when player gold changes.
@@ -51,13 +57,15 @@ namespace Shop
 
 		public override void StartInteraction()
 		{
-			if (!SetShopStatus())
+			ShopText.Instance.ToggleVisibility(true);
+
+			// We only want to let the player start if they have already seen the popup and have enough money
+			if (SetShopStatus() && _popupTimeRemaining > 0)
 			{
-				finishInteraction.Invoke();
-				return;
+				base.StartInteraction();
 			}
 
-			base.StartInteraction();
+			_popupTimeRemaining = popupDelay;
 		}
 
 		protected override void FinishInteraction()
@@ -67,7 +75,8 @@ namespace Shop
 				OnPurchase();
 			}
 
-			SetShopStatus();
+			_popupTimeRemaining = popupDelay;
+			if (!SetShopStatus()) ShopText.Instance.ToggleVisibility(false);
 			base.FinishInteraction();
 		}
 

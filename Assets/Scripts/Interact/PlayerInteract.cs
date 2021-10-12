@@ -102,9 +102,9 @@ namespace Interact
 		{
 			if (!context.performed || _closestInteractable == null) return;
 
-			ToggleInteraction(true);
-			_closestInteractable.StartInteraction();
+			_closestInteractable.startInteraction.AddListener(OnStartInteraction);
 			_closestInteractable.finishInteraction.AddListener(OnFinishInteraction);
+			_closestInteractable.StartInteraction();
 		}
 
 		public void CancelInteractionAction(InputAction.CallbackContext context)
@@ -120,12 +120,20 @@ namespace Interact
 
 			ToggleInteraction(false);
 			_closestInteractable.CancelInteraction();
+			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
 			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
+		}
+
+		private void OnStartInteraction()
+		{
+			ToggleInteraction(true);
 		}
 
 		private void OnFinishInteraction()
 		{
 			ToggleInteraction(false);
+			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
+			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
 		}
 
 		private void ToggleInteraction(bool isInteracting)

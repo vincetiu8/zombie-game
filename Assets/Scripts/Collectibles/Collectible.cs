@@ -15,8 +15,6 @@ namespace Collectibles
 			// We pass the player in here for convenience
 			Pickup(GameManager.instance.localPlayerInstance);
 			photonView.RPC("RPCInteract", RpcTarget.All);
-
-			base.StartInteraction();
 		}
 
 		[PunRPC]
