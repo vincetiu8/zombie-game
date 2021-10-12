@@ -4,30 +4,29 @@ using UnityEngine;
 
 public class plzDeleteScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Variables to always show
+    [SerializeField] private string alwaysShow;
+    
+    // Variables tied to bool set 1
     [SerializeField] private bool showStuff;
+    [Tooltip("yee")] [Range(1,5)]
     [SerializeField] private int number;
     [SerializeField] private string text;
     
+    // Variables tied to bool set 2
+    [SerializeField] private bool showMoreStuff;
+    [SerializeField] private GameObject gameObject;
+    [SerializeField] private MonoBehaviour monoBehaviour;
+    [SerializeField] private Transform transform;
+    [SerializeField] private Vector2 vector2;
+    
     void Start()
     {
-        /*string WhatIsMyName = "Hello World";
-        string Hello = ExampleFunction(nameof(WhatIsMyName));
-        Debug.Log(Hello);
-        Debug.Log("hi");
-        Debug.Log(nameof(WhatIsMyName));*/
-        
+       Debug.Log("Text that always shows: " + alwaysShow);
+       
+       Debug.Log(showStuff ? "showStuff toggled : " + number + text : "ShowStuff not toggled");
+       
+       Debug.Log(showMoreStuff ? "showMoreStuff toggled: " + gameObject + monoBehaviour + transform + vector2 : "showMoreStuff not toggled");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
-    public string ExampleFunction(string variableName) {
-        //Construct your log statement using c# 6.0 string interpolation
-        return $"Error occurred in {variableName}";
-    }
-    
 }
