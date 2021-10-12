@@ -36,7 +36,7 @@ namespace Editor
         /// <param name="variableName"> Name of the variable you want to serialize (MUST already be serialized in the script as well)</param>
         protected void SerializableVariable(string variableName)
         {
-            //serializedObject.Update(); this line doesn't seem required
+            serializedObject.Update();
             EditorGUILayout.PropertyField(serializedObject.FindProperty(variableName), true);
             serializedObject.ApplyModifiedProperties();
         }
@@ -47,9 +47,9 @@ namespace Editor
         /// <param name="variableNames"> List of names of the variables you want to serialize (all of them MUST be serialized in the script as well) </param>
         protected void SerializableVariable(IEnumerable<string> variableNames)
         {
-            //serializedObject.Update();
             foreach (string varName in variableNames)
             {
+                serializedObject.Update();
                 EditorGUILayout.PropertyField(serializedObject.FindProperty(varName), true);
             }
             serializedObject.ApplyModifiedProperties();
