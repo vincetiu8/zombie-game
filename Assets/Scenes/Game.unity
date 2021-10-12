@@ -9168,25 +9168,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1749200140}
     m_Modifications:
-    - target: {fileID: 347352262564042130, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 2520550576081584813, guid: d9c72e929041f9747a4dec8ad4002434,
         type: 3}
       propertyPath: sceneViewId
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: barricadeFixRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: barricadeFixDuration
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4149290357751621186, guid: d9c72e929041f9747a4dec8ad4002434,
         type: 3}
@@ -9248,13 +9233,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barricadable Window
       objectReference: {fileID: 0}
-    - target: {fileID: 7221937777993444772, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 8
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5353674882872220511, guid: d9c72e929041f9747a4dec8ad4002434, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9c72e929041f9747a4dec8ad4002434, type: 3}
 --- !u!4 &1249590760 stripped
 Transform:
@@ -9777,25 +9756,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1749200140}
     m_Modifications:
-    - target: {fileID: 347352262564042130, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 2520550576081584813, guid: d9c72e929041f9747a4dec8ad4002434,
         type: 3}
       propertyPath: sceneViewId
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: barricadeFixRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2704101938627975011, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: barricadeFixDuration
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4149290357751621186, guid: d9c72e929041f9747a4dec8ad4002434,
         type: 3}
@@ -9856,11 +9820,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Barricadable Window (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7221937777993444772, guid: d9c72e929041f9747a4dec8ad4002434,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9c72e929041f9747a4dec8ad4002434, type: 3}
@@ -10048,6 +10007,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d541119c4616f41ab6c3d95362f83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerGoldChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1783782264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13267,6 +13229,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1749200140}
     m_Modifications:
+    - target: {fileID: -2455776681908347383, guid: aa2d10839b7665149ada865acbb043ca,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7330685861977877044, guid: aa2d10839b7665149ada865acbb043ca,
         type: 3}
       propertyPath: m_Name

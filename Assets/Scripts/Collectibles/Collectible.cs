@@ -10,11 +10,13 @@ namespace Collectibles
 	/// </summary>
 	public abstract class Collectible : IconInteractable
 	{
-        protected internal override void StartInteraction()
+		public override void StartInteraction()
 		{
 			// We pass the player in here for convenience
 			Pickup(GameManager.instance.localPlayerInstance);
 			photonView.RPC("RPCInteract", RpcTarget.All);
+
+			base.StartInteraction();
 		}
 
 		[PunRPC]

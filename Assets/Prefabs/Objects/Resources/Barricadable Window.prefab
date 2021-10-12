@@ -193,8 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cada680ca432414bbbe271b486dd0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
   canvas: {fileID: 0}
-  barricadeFixRate: 10
+  barricadeFixRate: 50
 --- !u!114 &2762703297160124035
 MonoBehaviour:
   m_ObjectHideFlags: 0

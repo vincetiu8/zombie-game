@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using Networking;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
+using Weapons;
 
 namespace Interact
 {
@@ -16,8 +19,14 @@ namespace Interact
 		/// </summary>
 		private readonly List<GameObject> _interactList = new List<GameObject>();
 
-		private Interactable _closestInteractable;
-		private float        _cooldown;
+		private Interactable   _closestInteractable;
+		private float          _cooldown;
+		private WeaponsHandler _weaponsHandler;
+
+		private void Start()
+		{
+			_weaponsHandler = GetComponent<WeaponsHandler>();
+		}
 
 		private void Update()
 		{
@@ -89,11 +98,46 @@ namespace Interact
 		}
 
 
-		public void CheckInteraction(InputAction.CallbackContext context)
+		public void StartInteractionAction(InputAction.CallbackContext context)
 		{
 			if (!context.performed || _closestInteractable == null) return;
 
-			_closestInteractable.Interact();
+			ToggleInteraction(true);
+			_closestInteractable.StartInteraction();
+			_closestInteractable.finishInteraction.AddListener(OnFinishInteraction);
+		}
+
+		public void CancelInteractionAction(InputAction.CallbackContext context)
+		{
+			if (!context.canceled) return;
+
+			CancelInteraction();
+		}
+
+		public void CancelInteraction()
+		{
+			if (_closestInteractable == null) return;
+
+			ToggleInteraction(false);
+			_closestInteractable.CancelInteraction();
+			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
+		}
+
+		private void OnFinishInteraction()
+		{
+			ToggleInteraction(false);
+		}
+
+		private void ToggleInteraction(bool isInteracting)
+		{
+			MiscUtils.ActionMapOptions actionMap =
+				isInteracting ? MiscUtils.ActionMapOptions.InAnimation : MiscUtils.ActionMapOptions.Game;
+
+			// Change player action map
+			MiscUtils.ToggleInput(actionMap, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
+
+			// Disable / enable player weapons
+			_weaponsHandler.ToggleFireEnabled(!isInteracting);
 		}
 	}
 }

@@ -7,10 +7,12 @@ namespace Objects
 	/// <summary>
 	///     InteractableWindow implements the repair mechanic on windows.
 	/// </summary>
-	public class InteractableWindow : IconInteractable
+	public class InteractableWindow : HoldInteractable
 	{
-		[Description("How fast health is restored to the barricade")] [SerializeField] [Range(1, 100)]
+		[Description("How fast health is restored to the barricade per second ")] [SerializeField] [Range(10, 100)]
 		private int barricadeFixRate;
+
+		private float _carryHealth;
 
 		private WindowController _windowController;
 		private int              _zombiesAtWindow;
@@ -19,6 +21,18 @@ namespace Objects
 		{
 			base.Start();
 			_windowController = GetComponentInChildren<WindowController>();
+		}
+
+		private void Update()
+		{
+			if (!LocallyInteracting || _zombiesAtWindow > 0) return;
+
+			_carryHealth += barricadeFixRate * Time.deltaTime;
+			int intHealth = (int)_carryHealth;
+			_windowController.ChangeHealth(intHealth);
+			_carryHealth -= intHealth;
+
+			if (_windowController.IsWindowFixed()) FinishInteraction();
 		}
 
 		protected void OnTriggerEnter2D(Collider2D other)
@@ -35,13 +49,17 @@ namespace Objects
 			_zombiesAtWindow--;
 		}
 
-		public override void Interact()
+		public override void StartInteraction()
 		{
-			// Don't allow window to be repaired if a zombie is currently attacking it
-			if (_zombiesAtWindow > 0) return;
+			if (_windowController.IsWindowFixed())
+			{
+				FinishInteraction();
+				return;
+			}
 
-			// todo: fix this later to use hold interact
-			_windowController.ChangeHealth(barricadeFixRate);
+			_carryHealth = 0;
+
+			base.StartInteraction();
 		}
 	}
 }

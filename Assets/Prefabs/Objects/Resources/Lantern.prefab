@@ -100,7 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8a2fbebe80e8647b1133b1183f5a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
   canvas: {fileID: 0}
+  interactDuration: 0.2
   duration: 5
 --- !u!114 &1681215358839380596
 MonoBehaviour:

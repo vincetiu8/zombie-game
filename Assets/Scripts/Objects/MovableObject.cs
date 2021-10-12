@@ -20,7 +20,7 @@ namespace Objects
 			_colList = transform.GetComponentsInChildren<Collider2D>();
 		}
 
-        protected internal override void StartInteraction()
+		public override void StartInteraction()
 		{
 			_isHolding = !_isHolding;
 			photonView.RPC("RPCInteract", RpcTarget.All, _isHolding);
@@ -45,7 +45,8 @@ namespace Objects
 			if (photonView.IsMine) return;
 
 			photonView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
-			Debug.Log("Getting ownership of movable object");
+
+			base.StartInteraction();
 		}
 
 		[PunRPC]
