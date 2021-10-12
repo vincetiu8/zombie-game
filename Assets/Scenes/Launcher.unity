@@ -882,7 +882,7 @@ MonoBehaviour:
   showStuff: 0
   number: 4
   text: yee
-  showMoreStuff: 1
+  showMoreStuff: 0
   gameObject: {fileID: 0}
   monoBehaviour: {fileID: 0}
   transform: {fileID: 0}

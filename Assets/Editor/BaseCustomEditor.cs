@@ -19,13 +19,18 @@ namespace Editor
             SerializableVariable(boolName);
             
             // Show elements depending on the value of the bool
-            if (!serializedObject.FindProperty(boolName).boolValue) return;
+            ShowIfBool(serializedObject.FindProperty(boolName).boolValue, listOfVariablesToShow);
+            
+            //EditorGUILayout.LabelField(serializedObject.FindProperty(variable).boolValue.ToString());
+        }
+
+        void ShowIfBool(bool show, IEnumerable<string> listOfVariablesToShow)
+        {
+            if (!show) return;
             EditorGUI.indentLevel++;
             SerializableVariable(listOfVariablesToShow);
             EditorGUI.indentLevel--;
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-
-            //EditorGUILayout.LabelField(serializedObject.FindProperty(variable).boolValue.ToString());
         }
 
         /// <summary>
