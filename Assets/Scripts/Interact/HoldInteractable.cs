@@ -1,4 +1,5 @@
 using Photon.Pun;
+using UnityEngine;
 
 namespace Interact
 {
@@ -24,6 +25,7 @@ namespace Interact
 
 		public override void CancelInteraction()
 		{
+			Debug.Log(LocallyInteracting);
 			if (!LocallyInteracting) return;
 
 			FinishInteraction();
@@ -43,7 +45,7 @@ namespace Interact
 
 		private void ToggleInteraction(bool toggle)
 		{
-			photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, toggle);
+			photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, !toggle);
 			LocallyInteracting = toggle;
 		}
 

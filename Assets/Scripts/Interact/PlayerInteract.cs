@@ -102,29 +102,27 @@ namespace Interact
 		}
 
 
-		public void StartInteractionAction(InputAction.CallbackContext context)
+		public void InteractionAction(InputAction.CallbackContext context)
 		{
-			Debug.Log("appmat");
-			if (!context.performed || _closestInteractable == null) return;
+			if (_closestInteractable == null || context.started) return;
+
+			if (context.canceled)
+			{
+				CancelInteraction();
+				return;
+			}
 
 			_closestInteractable.startInteraction.AddListener(OnStartInteraction);
 			_closestInteractable.finishInteraction.AddListener(OnFinishInteraction);
 			_closestInteractable.StartInteraction();
 		}
 
-		public void CancelInteractionAction(InputAction.CallbackContext context)
-		{
-			Debug.Log("heamh");
-			if (!context.canceled) return;
-
-			CancelInteraction();
-		}
-
 		public void CancelInteraction()
 		{
-			if (_closestInteractable == null) return;
-			;
+			if (!_interacting) return;
+
 			_closestInteractable.CancelInteraction();
+			Debug.Log("Cancelling!");
 		}
 
 		private void OnStartInteraction()
@@ -135,6 +133,7 @@ namespace Interact
 
 		private void OnFinishInteraction()
 		{
+			Debug.Log("Finished event received");
 			_interacting = false;
 			ToggleInteraction(false);
 			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
