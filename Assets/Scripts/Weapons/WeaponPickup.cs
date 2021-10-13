@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Weapons
 {
-	public class WeaponPickup : Interactable
+	public class WeaponPickup : TimedInteractable
 	{
 		private Vector3        _offset;
 		private WeaponsHandler _weaponsHandler;
@@ -17,9 +17,10 @@ namespace Weapons
 			_offset = transform.localPosition;
 		}
 
-		public override void Interact()
+		protected override void FinishInteraction()
 		{
 			photonView.RPC("RPCPickupWeapon", RpcTarget.All);
+			base.FinishInteraction();
 		}
 
 		[PunRPC]

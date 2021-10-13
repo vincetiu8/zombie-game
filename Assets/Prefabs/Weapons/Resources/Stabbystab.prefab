@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 5242127807429692485}
   m_Layer: 10
   m_Name: Stabbystab
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -277,3 +277,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0efcd33fd675f5c0db24f18dec85563c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  canvas: {fileID: 0}
+  interactDuration: 0
