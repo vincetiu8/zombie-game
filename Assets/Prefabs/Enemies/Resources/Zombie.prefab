@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 5244440003923760079}
   - component: {fileID: -408532418148889997}
   - component: {fileID: 6894607565039686711}
+  - component: {fileID: -4896693215522800873}
   m_Layer: 6
   m_Name: Zombie
   m_TagString: Enemy
@@ -529,7 +530,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.75
+  maxSpeed: 1
+  acceleration: 0.1
   turningSmoothing: 0.15
+  _startingBoost: 1
   updateCooldown: 0.2
   minimumProximity: 0.25
 --- !u!114 &5244440003923760079
@@ -577,3 +581,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialHealth: 80
   goldDropAmount: 10
+--- !u!114 &-4896693215522800873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027714350541001172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da095f14c754914f9eadbaf5a6acb72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackMultiplier: 140
