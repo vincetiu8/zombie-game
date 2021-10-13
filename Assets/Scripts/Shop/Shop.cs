@@ -20,7 +20,7 @@ namespace Shop
 		{
 			base.Start();
 
-			GameManager.instance.goldSystem.playerGoldChanged.AddListener(UpdateShopStatus);
+			GameManager.Instance.goldSystem.playerGoldChanged.AddListener(UpdateShopStatus);
 		}
 
 		protected override void Update()
@@ -49,7 +49,7 @@ namespace Shop
 
 		private bool SetShopStatus()
 		{
-			int gold = GameManager.instance.goldSystem.GetPlayerGold();
+			int gold = GameManager.Instance.goldSystem.GetPlayerGold();
 			bool canBuy = gold >= itemCost;
 			ShopText.Instance.SetText(GetShopPrompt() + $" ({itemCost})", canBuy ? Color.white : Color.red);
 			return canBuy;
@@ -70,7 +70,7 @@ namespace Shop
 
 		protected override void FinishInteraction()
 		{
-			if (GameManager.instance.goldSystem.WithdrawPlayerGold(itemCost))
+			if (GameManager.Instance.goldSystem.WithdrawPlayerGold(itemCost))
 			{
 				OnPurchase();
 			}
