@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: -3140313452772274701}
   m_Layer: 0
   m_Name: Movable Crate
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f637a1cb58b8657429e5eaab78df780c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
 --- !u!114 &301593380
 MonoBehaviour:
   m_ObjectHideFlags: 0

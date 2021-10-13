@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,54 +10,152 @@ namespace Interact
 	/// </summary>
 	public class PlayerInteract : MonoBehaviour
 	{
+		[SerializeField] private float closestInteractableUpdateInterval = 0.25f;
+
 		/// <summary>
 		///     List to keep track of how many interactable objects are in range.
 		/// </summary>
-		private readonly List<GameObject> _interactPriorityList = new List<GameObject>();
-        private GameObject _closestObject;
-        
-        public void AddInteractableObject(GameObject interact)
+		private readonly List<GameObject> _interactList = new List<GameObject>();
+
+		private Interactable _closestInteractable;
+		private float        _cooldown;
+		private bool         _interacting;
+
+		private PlayerInput    _playerInput;
+		private WeaponsHandler _weaponsHandler;
+
+		private void Start()
 		{
-			_interactPriorityList.Add(interact);
+			_weaponsHandler = GetComponent<WeaponsHandler>();
+			_playerInput = GetComponent<PlayerInput>();
 		}
 
-		public void RemoveInteractableObject(GameObject interact)
+		private void Update()
 		{
-			_interactPriorityList.Remove(interact);
-		}
-
-		public void CheckInteraction(InputAction.CallbackContext context)
-		{
-			if (!context.performed) return;
-			if (_interactPriorityList.Count <= 0) return;
-
-			// Check which object in the list is closest to the player
-			float closestDistance = Mathf.Infinity;
-			_closestObject = null;
-			foreach (GameObject obj in _interactPriorityList)
+			if (_cooldown > 0)
 			{
-				if (Vector2.Distance(obj.transform.position, transform.position) > closestDistance) continue;
-				closestDistance = Vector2.Distance(obj.transform.position, transform.position);
-				_closestObject = obj;
+				_cooldown -= Time.deltaTime;
+				return;
 			}
 
-			if (_closestObject == null) return;
-            _closestObject.GetComponent<Interactable>().StartInteraction();
-        }
+			UpdateClosestInteractable();
+		}
 
-        public void CancelHoldInteractionAction(InputAction.CallbackContext context)
-        {
-            if (!context.canceled) return;
-            CancelHoldInteraction();
-        }
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			if (!other.CompareTag("Interactable")) return;
+			AddInteractable(other.gameObject);
+		}
 
-        /// <summary>
-        /// Any script can call this to cancel the current player interaction
-        /// </summary>
-        public void CancelHoldInteraction()
-        {
-            if (!_closestObject) return;
-            _closestObject.GetComponent<Interactable>().CancelInteraction();
-        }
+		private void OnTriggerExit2D(Collider2D other)
+		{
+			if (!other.CompareTag("Interactable")) return;
+			RemoveInteractable(other.gameObject);
+		}
+
+		// Added when we manually need to add objects
+		// Hopefully we can remove this in the future, same as method below
+		public void AddInteractable(GameObject interactable)
+		{
+			_interactList.Add(interactable);
+			UpdateClosestInteractable();
+		}
+
+		public void RemoveInteractable(GameObject interactable)
+		{
+			_interactList.Remove(interactable);
+			UpdateClosestInteractable();
+		}
+
+		private void UpdateClosestInteractable()
+		{
+			if (_interacting) return;
+
+			_cooldown = closestInteractableUpdateInterval;
+
+			if (_interactList.Count == 0)
+			{
+				_closestInteractable = null;
+				return;
+			}
+
+			// Check which object in the list is closest to the player
+			GameObject closestObject = _interactList[0];
+			float closestDistance = Vector2.Distance(closestObject.transform.position, transform.position);
+			for (int index = 1; index < _interactList.Count; index++)
+			{
+				GameObject obj = _interactList[index];
+				if (Vector2.Distance(obj.transform.position, transform.position) > closestDistance) continue;
+				closestDistance = Vector2.Distance(obj.transform.position, transform.position);
+				closestObject = obj;
+			}
+
+			Interactable newClosestInteractable = closestObject.GetComponent<Interactable>();
+
+			if (_closestInteractable == newClosestInteractable) return;
+
+			if (_closestInteractable != null) _closestInteractable.OnNotClosestInteractable();
+
+			_closestInteractable = newClosestInteractable;
+			_closestInteractable.OnClosestInteractable();
+		}
+
+
+		public void InteractionAction(InputAction.CallbackContext context)
+		{
+			if (_closestInteractable == null || context.started) return;
+
+			if (context.canceled)
+			{
+				CancelInteraction();
+				return;
+			}
+
+			_closestInteractable.startInteraction.AddListener(OnStartInteraction);
+			_closestInteractable.finishInteraction.AddListener(OnFinishInteraction);
+			_closestInteractable.StartInteraction();
+		}
+
+		public void CancelInteraction()
+		{
+			if (!_interacting) return;
+
+			_closestInteractable.CancelInteraction();
+			Debug.Log("Cancelling!");
+		}
+
+		private void OnStartInteraction()
+		{
+			Debug.Log("Starting Interaction!");
+			_interacting = true;
+			ToggleInteraction(true);
+		}
+
+		private void OnFinishInteraction()
+		{
+			_interacting = false;
+			ToggleInteraction(false);
+			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
+			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
+		}
+
+		private void ToggleInteraction(bool isInteracting)
+		{
+			foreach (InputAction action in _playerInput.currentActionMap.actions)
+			{
+				if (action.name == "Interact") continue;
+
+				if (isInteracting)
+				{
+					action.Disable();
+					continue;
+				}
+
+				action.Enable();
+			}
+
+			// Disable / enable player weapons
+			_weaponsHandler.ToggleFireEnabled(!isInteracting);
+		}
 	}
 }

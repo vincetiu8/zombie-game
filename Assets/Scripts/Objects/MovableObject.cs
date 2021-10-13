@@ -10,7 +10,7 @@ namespace Objects
 	/// <summary>
 	///     Movable object represents an object the player can pickup and move.
 	/// </summary>
-	public class MovableObject : Interactable
+	public class MovableObject : IconInteractable
 	{
 		private Collider2D[] _colList;
 		private bool         _isHolding;
@@ -20,32 +20,30 @@ namespace Objects
 			_colList = transform.GetComponentsInChildren<Collider2D>();
 		}
 
-        protected internal override void StartInteraction()
+		public override void StartInteraction()
 		{
 			_isHolding = !_isHolding;
 			photonView.RPC("RPCInteract", RpcTarget.All, _isHolding);
 
 			GameObject player = GameManager.instance.localPlayerInstance;
 
-			// Prevent the player from using any weapons
-			player.GetComponent<WeaponsHandler>().ToggleFireEnabled(!_isHolding);
-
 			// When the colliders are disabled, it removes this from the interactable list
 			// We need to add it back so the local player can drop the item and vice versa
 			// This also means closer objects will be interacted with instead of dropping this objects
 			// Therefore, it is suggested to make the interactable trigger as small as possible
-			if (_isHolding)
+			if (!_isHolding)
 			{
-				player.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
+				player.GetComponent<PlayerInteract>().RemoveInteractable(gameObject);
+				finishInteraction.Invoke();
 				return;
 			}
 
-			player.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
+			player.GetComponent<PlayerInteract>().AddInteractable(gameObject);
+			player.GetComponent<WeaponsHandler>().ToggleFireEnabled(false);
 
 			if (photonView.IsMine) return;
 
 			photonView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
-			Debug.Log("Getting ownership of movable object");
 		}
 
 		[PunRPC]

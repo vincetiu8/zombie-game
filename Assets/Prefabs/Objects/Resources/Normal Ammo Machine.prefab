@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 7330685861977877047}
   - component: {fileID: 7330685861977877046}
   - component: {fileID: 7330685861903143323}
+  - component: {fileID: -2455776681908347383}
   m_Layer: 10
   m_Name: Normal Ammo Machine
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,16 +124,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9641aa0f6b4667e46ba1b001fdefecdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  canvas: {fileID: 0}
+  interactDuration: 0.25
+  itemCost: 10
+  itemName: Primary Ammo (x5)
   ammoType: 0
-  purchaseAmountMultiplier: 2
-  ammoTypeText: {fileID: 0}
-  purchaseAmountInput: {fileID: 0}
-  purchaseSliderValue: {fileID: 0}
-  priceRatioText: {fileID: 0}
-  totalPurchaseAmount: {fileID: 0}
-  errorText: {fileID: 0}
-  sliderContainer: {fileID: 0}
-  buttonContainer: {fileID: 0}
+  ammoAmount: 5
 --- !u!61 &7330685861903143323
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,3 +159,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-2455776681908347383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7330685861977877044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

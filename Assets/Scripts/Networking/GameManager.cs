@@ -22,12 +22,11 @@ namespace Networking
 
 			instance = this;
 			playerInstances = Array.Empty<GameObject>();
+			goldSystem = GetComponentInChildren<GoldSystem>();
 		}
 
 		private void Start()
 		{
-			goldSystem = GetComponentInChildren<GoldSystem>();
-
 			// Player numbers start indexing at 1, need to correct for array
 			int correctedPlayerNumber = PhotonNetwork.LocalPlayer.ActorNumber - 1;
 			Vector3 spawnPosition = spawnpoints[correctedPlayerNumber].position;

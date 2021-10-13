@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 2520550576081584813}
   m_Layer: 10
   m_Name: Barricadable Window
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,7 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cada680ca432414bbbe271b486dd0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barricadeFixRate: 10
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  canvas: {fileID: 0}
+  barricadeFixRate: 50
 --- !u!114 &2762703297160124035
 MonoBehaviour:
   m_ObjectHideFlags: 0

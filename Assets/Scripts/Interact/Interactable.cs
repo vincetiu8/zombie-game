@@ -1,104 +1,65 @@
-using System;
-using System.Collections;
 using System.Linq;
-using Networking;
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Utils;
-using Weapons;
+using UnityEngine.Events;
 
 namespace Interact
 {
 	/// <summary>
 	///     Interactable is the base class for all interactable objects.
 	///     It handles players entering and exiting the intractable trigger area.
+	///		All interactable objects have start and cancel methods.
+	///		When an interactable finishes interacting, it emits the finishInteraction event.
 	/// </summary>
 	[RequireComponent(typeof(Collider2D))]
 	public abstract class Interactable : MonoBehaviourPun
-    {
-        // Added for debugging convenience
+	{
+		/// <summary>
+		///     Used to signal the start of an interaction.
+		///     Only used for hold interactions to lock the player input.
+		/// </summary>
+		[HideInInspector] public UnityEvent startInteraction;
+
+		/// <summary>
+		///     Used to signal the end of an interaction.
+		///     Only used for hold interactions to unlock the player input.
+		/// </summary>
+		[HideInInspector] public UnityEvent finishInteraction;
+
+		// Added for debugging convenience
 		protected virtual void Start()
-		{ 
-            Collider2D[] cols = GetComponents<Collider2D>();
+		{
+			Collider2D[] cols = GetComponents<Collider2D>();
 			if (!cols.Any(col => col.isTrigger))
 				Debug.LogError("No trigger colliders attached to interactable object, can't interact");
 		}
 
-		protected virtual void OnTriggerEnter2D(Collider2D collision)
-		{
-			if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
-				collision.GetComponent<PlayerInteract>().AddInteractableObject(gameObject);
-		}
+		/// <summary>
+		///     Callback when this interactable is the closest one to the player.
+		///     Used to display icons/gui, should show something to indicate interactable exists.
+		/// </summary>
+		public abstract void OnClosestInteractable();
 
-		protected virtual void OnTriggerExit2D(Collider2D collision)
-		{
-			if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
-				collision.GetComponent<PlayerInteract>().RemoveInteractableObject(gameObject);
-		}
+
+		/// <summary>
+		///     Callback when this interactable is not the closest one to the player.
+		///     Used to remove icons/gui from when this was the closest interactable.
+		/// </summary>
+		public abstract void OnNotClosestInteractable();
 
 		/// <summary>
 		///     Callback when the player interacts with an object.
 		///     We don't pass in the player, but it can be assumed that the interacting player is the local player.
-		///     Abstract as all interactions will require script
+		///     Abstract as all interactables need to respond to a start message.
 		/// </summary>
-        protected internal abstract void StartInteraction( );
+		public abstract void StartInteraction();
 
-        /// <summary>
-        ///     Only used by HoldInteractable.
-        ///     Is virtual because if it's abstract,
-        ///         every script that inherits it will need to throw the method exception even if they don't use it
-        /// </summary>
-        public virtual void CancelInteraction() { }
-    }
-    
-    public abstract class HoldInteractable : Interactable
-    {
-        protected bool _locallyInteracting;
-        private MiscUtils.ActionMapOptions _currentActionMap;
-        private bool _avaliableForInteract = true;
-
-        /// <summary>
-        /// Prevents the player from firing and moving
-        /// </summary>
-        protected internal override void StartInteraction()
-        {
-            if (!_avaliableForInteract) return;
-            ToggleInteraction(true);
-        }
-        
-        /// <summary>
-        /// Allows the player to move normally again, exception used to make sure this can only get called once to avoid repeat problems
-        /// </summary>
-        public override void CancelInteraction()
-        {
-            ToggleInteraction(false);
-        }
-
-        private void ToggleInteraction(bool startInteraction)
-        {
-            MiscUtils.ActionMapOptions actionMap = 
-                startInteraction ? MiscUtils.ActionMapOptions.InAnimation : MiscUtils.ActionMapOptions.Game;
-            
-            // If actionMap to change is already current action map, cancel call
-            if (_currentActionMap == actionMap) return;
-            
-            _currentActionMap = actionMap;
-            
-            // Change player action map
-            MiscUtils.ToggleInput(actionMap, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
-            
-            // Disable / enable player weapons
-            GameManager.instance.localPlayerInstance.GetComponent<WeaponsHandler>().ToggleFireEnabled(!startInteraction);
-            _locallyInteracting = startInteraction;
-            photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, !startInteraction);
-
-        }
-        
-        [PunRPC]
-        protected void RPCSetAvailableForInteract(bool availableForInteract)
-        {
-            _avaliableForInteract = availableForInteract;
-        }
-    }
+		/// <summary>
+		///     Callback when the player cancels an interaction.
+		/// Only used for HoldInteractions.
+		/// </summary>
+		public virtual void CancelInteraction()
+		{
+		}
+	}
 }

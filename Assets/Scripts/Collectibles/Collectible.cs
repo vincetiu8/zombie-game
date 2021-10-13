@@ -8,9 +8,9 @@ namespace Collectibles
 	/// <summary>
 	///     Represents an object that is destroyed when the player interacts (collects) it.
 	/// </summary>
-	public abstract class Collectible : Interactable
+	public abstract class Collectible : IconInteractable
 	{
-        protected internal override void StartInteraction()
+		public override void StartInteraction()
 		{
 			// We pass the player in here for convenience
 			Pickup(GameManager.instance.localPlayerInstance);

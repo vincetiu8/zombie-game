@@ -1,7 +1,6 @@
 using Networking;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utils;
 
 namespace Menus_UI
 {
@@ -35,13 +34,7 @@ namespace Menus_UI
 			foreach (Menu menu in menus)
 			{
 				menu.Toggle(menu.menuName == menuName);
-				if (menu.freezeOnToggle)
-				{
-                    MiscUtils.ToggleInput(menu.inputToggle ? MiscUtils.ActionMapOptions.UI : MiscUtils.ActionMapOptions.Game, 
-                    _playerInput);
-                }
-
-
+				if (menu.freezeOnToggle) _playerInput.SwitchCurrentActionMap(menu.inputToggle ? "UI" : "Game");
 			}
 		}
 
