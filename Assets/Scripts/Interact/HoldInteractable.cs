@@ -26,7 +26,7 @@ namespace Interact
 		{
 			if (!LocallyInteracting) return;
 
-			ToggleInteraction(false);
+			FinishInteraction();
 		}
 
 		/// <summary>

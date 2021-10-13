@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using Networking;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utils;
 using Weapons;
 
 namespace Interact
@@ -19,13 +17,17 @@ namespace Interact
 		/// </summary>
 		private readonly List<GameObject> _interactList = new List<GameObject>();
 
-		private Interactable   _closestInteractable;
-		private float          _cooldown;
+		private Interactable _closestInteractable;
+		private float        _cooldown;
+		private bool         _interacting;
+
+		private PlayerInput    _playerInput;
 		private WeaponsHandler _weaponsHandler;
 
 		private void Start()
 		{
 			_weaponsHandler = GetComponent<WeaponsHandler>();
+			_playerInput = GetComponent<PlayerInput>();
 		}
 
 		private void Update()
@@ -67,6 +69,8 @@ namespace Interact
 
 		private void UpdateClosestInteractable()
 		{
+			if (_interacting) return;
+
 			_cooldown = closestInteractableUpdateInterval;
 
 			if (_interactList.Count == 0) return;
@@ -100,6 +104,7 @@ namespace Interact
 
 		public void StartInteractionAction(InputAction.CallbackContext context)
 		{
+			Debug.Log("appmat");
 			if (!context.performed || _closestInteractable == null) return;
 
 			_closestInteractable.startInteraction.AddListener(OnStartInteraction);
@@ -109,6 +114,7 @@ namespace Interact
 
 		public void CancelInteractionAction(InputAction.CallbackContext context)
 		{
+			Debug.Log("heamh");
 			if (!context.canceled) return;
 
 			CancelInteraction();
@@ -117,20 +123,19 @@ namespace Interact
 		public void CancelInteraction()
 		{
 			if (_closestInteractable == null) return;
-
-			ToggleInteraction(false);
+			;
 			_closestInteractable.CancelInteraction();
-			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
-			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
 		}
 
 		private void OnStartInteraction()
 		{
+			_interacting = true;
 			ToggleInteraction(true);
 		}
 
 		private void OnFinishInteraction()
 		{
+			_interacting = false;
 			ToggleInteraction(false);
 			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
 			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
@@ -138,11 +143,18 @@ namespace Interact
 
 		private void ToggleInteraction(bool isInteracting)
 		{
-			MiscUtils.ActionMapOptions actionMap =
-				isInteracting ? MiscUtils.ActionMapOptions.InAnimation : MiscUtils.ActionMapOptions.Game;
+			foreach (InputAction action in _playerInput.currentActionMap.actions)
+			{
+				if (action.name == "Interact") continue;
 
-			// Change player action map
-			MiscUtils.ToggleInput(actionMap, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
+				if (isInteracting)
+				{
+					action.Disable();
+					continue;
+				}
+
+				action.Enable();
+			}
 
 			// Disable / enable player weapons
 			_weaponsHandler.ToggleFireEnabled(!isInteracting);
