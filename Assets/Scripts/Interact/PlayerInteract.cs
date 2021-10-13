@@ -73,22 +73,21 @@ namespace Interact
 
 			_cooldown = closestInteractableUpdateInterval;
 
-			if (_interactList.Count == 0) return;
-
-			// Check which object in the list is closest to the player
-			float closestDistance = Mathf.Infinity;
-			GameObject closestObject = null;
-			foreach (GameObject obj in _interactList)
-			{
-				if (Vector2.Distance(obj.transform.position, transform.position) > closestDistance) continue;
-				closestDistance = Vector2.Distance(obj.transform.position, transform.position);
-				closestObject = obj;
-			}
-
-			if (closestObject == null)
+			if (_interactList.Count == 0)
 			{
 				_closestInteractable = null;
 				return;
+			}
+
+			// Check which object in the list is closest to the player
+			GameObject closestObject = _interactList[0];
+			float closestDistance = Vector2.Distance(closestObject.transform.position, transform.position);
+			for (int index = 1; index < _interactList.Count; index++)
+			{
+				GameObject obj = _interactList[index];
+				if (Vector2.Distance(obj.transform.position, transform.position) > closestDistance) continue;
+				closestDistance = Vector2.Distance(obj.transform.position, transform.position);
+				closestObject = obj;
 			}
 
 			Interactable newClosestInteractable = closestObject.GetComponent<Interactable>();
@@ -127,13 +126,13 @@ namespace Interact
 
 		private void OnStartInteraction()
 		{
+			Debug.Log("Starting Interaction!");
 			_interacting = true;
 			ToggleInteraction(true);
 		}
 
 		private void OnFinishInteraction()
 		{
-			Debug.Log("Finished event received");
 			_interacting = false;
 			ToggleInteraction(false);
 			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
