@@ -233,6 +233,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4104
+  knockBack: 5
 --- !u!1 &7751290988691592679
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +434,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 3
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -529,11 +530,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f4afd1cf8c62b44b46af4d77807511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.75
-  maxSpeed: 1
-  acceleration: 0.1
+  maxSpeed: 2
+  acceleration: 2.5
+  cornerTakingAngleMultiplier: 1
   turningSmoothing: 0.15
-  _startingBoost: 1
   updateCooldown: 0.2
   minimumProximity: 0.25
 --- !u!114 &5244440003923760079
@@ -593,4 +593,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da095f14c754914f9eadbaf5a6acb72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBackMultiplier: 140
+  knockBackMultiplier: 1

@@ -5,9 +5,9 @@ namespace Input
 {
 	public class PlayerMovement : MonoBehaviour
 	{
-		[SerializeField] private float movementSpeed;
-
-		private Vector2 _movementDirection;
+        [SerializeField] private float acceleration;
+        
+        private Vector2 _movementDirection;
 
 		private Rigidbody2D _rigidbody2D;
 
@@ -18,7 +18,7 @@ namespace Input
 
 		private void FixedUpdate()
 		{
-			_rigidbody2D.velocity = _movementDirection * movementSpeed;
+            _rigidbody2D.AddForce(_movementDirection * acceleration);
 		}
 
 		public void UpdateMovementDirection(InputAction.CallbackContext context)

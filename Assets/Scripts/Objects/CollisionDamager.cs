@@ -14,12 +14,14 @@ namespace Weapons
 	{
 		[Description("The damage per attack")] [Range(0, 1000)]
 		public int damage;
-
+        
 		[Description("The cooldown between damage reductions")]
 		public float damageCooldown;
 
 		[Description("The layers the collision will affect")] [SerializeField]
 		protected LayerMask layerMask;
+
+        [SerializeField] private float knockBack;
 
 		private float _cooldown;
 
@@ -46,8 +48,14 @@ namespace Weapons
 
 			HealthControllers.RemoveAll(item => item == null);
 
-			foreach (HealthController healthController in HealthControllers.ToArray())
-				healthController.ChangeHealth(-damage);
+            foreach (HealthController healthController in HealthControllers.ToArray())
+            {
+                healthController.ChangeHealth(-damage);
+
+                if (healthController.transform.GetComponent<KnockbackController>() == null) continue;
+                float angle = TransformUtils.Vector2ToDeg(healthController.transform.position - transform.position);
+                healthController.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, knockBack);
+            }
 
 			_cooldown = damageCooldown;
 		}

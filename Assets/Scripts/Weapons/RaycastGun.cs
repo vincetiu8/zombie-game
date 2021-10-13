@@ -46,7 +46,7 @@ namespace Weapons
 
             if (healthController.transform.GetComponent<KnockbackController>() == null) return;
             
-            healthController.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, 10);
+            healthController.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, currentAttributes.knockback);
             }
 
 		[PunRPC]
