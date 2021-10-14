@@ -1347,6 +1347,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911151390933760986}
     m_Modifications:
+    - target: {fileID: 2345202485471909834, guid: 095a40497e26818c496d8f1157ab98f4,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4345742403078963709, guid: 095a40497e26818c496d8f1157ab98f4,
         type: 3}
       propertyPath: m_RootOrder
@@ -1559,6 +1564,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911151390933760986}
     m_Modifications:
+    - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].fireCooldown
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2249583135430024779, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
         type: 3}
       propertyPath: m_RootOrder
