@@ -56,6 +56,7 @@ namespace Shop
         [PunRPC]
         private void RpcUnlockDoor()
         {
+            Debug.Log("rpc unlockdoor");
             SetAllCollidersStatus(false);
             foreach (Canvas canvases in _allCanvas)
             {
