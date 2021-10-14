@@ -11,7 +11,7 @@ using UnityEngine.UI;
 using UnityEditor;
 #endif
 
-
+/*
 namespace Interact
 {
     /// <summary>
@@ -180,11 +180,11 @@ namespace Interact
                 }
                 // Saves all settings to script (VERY IMPORTANT)
                 EditorUtility.SetDirty(door);
-            }//*/
+            }//
         }
         
     #endif
         #endregion
         
     }
-}
+}*/

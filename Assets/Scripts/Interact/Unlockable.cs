@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Interact
-{
+{/*
     /// <summary>
     /// Used for things you would realistically unlock only once, such as armor, perks, weapons, etc
     /// </summary>
@@ -68,5 +68,5 @@ namespace Interact
             spriteRenderer.sprite = beforeUnlock;
         }
   
-    }
+    }*/
 }

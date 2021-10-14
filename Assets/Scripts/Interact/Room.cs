@@ -4,7 +4,7 @@ using System.Linq;
 using Enemy;
 using Networking;
 using UnityEngine;
-
+/*
 namespace Interact
 {
     public class Room : MonoBehaviour
@@ -25,4 +25,4 @@ namespace Interact
 
         }
     }
-}
+}*/
