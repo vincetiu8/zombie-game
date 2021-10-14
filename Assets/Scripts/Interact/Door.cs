@@ -21,11 +21,12 @@ namespace Interact
     {
         #region Script
         
-        private WaveSpawner _waveSpawner;
+        //private WaveSpawner _waveSpawner;
         
         // Should be the enemySpawnpoint of the room being opened
         [SerializeField] private bool _enemySpawnpoint;
-        [SerializeField] private Transform enemySpawnpoint;
+        //[SerializeField] private Transform enemySpawnpoint;
+        [SerializeField] private Room roomToUnlock;
 
         private Collider2D[] _allColList;
         private Canvas[] _allCanvas;
@@ -36,7 +37,7 @@ namespace Interact
             Transform parent = transform.parent;
             _allColList = parent.GetComponentsInChildren<Collider2D>();
             _allCanvas = parent.GetComponentsInChildren<Canvas>();
-            _waveSpawner = GameManager.instance.GetComponent<WaveSpawner>();
+            //_waveSpawner = GameManager.instance.GetComponent<WaveSpawner>();
         }
         
         private void SetAllCollidersStatus(bool active)
@@ -64,9 +65,9 @@ namespace Interact
             
             if (!_enemySpawnpoint) return;
             // Take all the transforms of the children found in "Enemy" into a list (Enemy should already be active by default)
-            List<Transform> enemySpawnPoints = enemySpawnpoint.Cast<Transform>().ToList();
-            
-            _waveSpawner.AddSpawnPoints(enemySpawnPoints);
+            //List<Transform> enemySpawnPoints = enemySpawnpoint.Cast<Transform>().ToList();
+            roomToUnlock.UnlockRoom();
+            //_waveSpawner.AddSpawnPoints(enemySpawnPoints);
         }
 
         protected override void OnTriggerEnter2D(Collider2D collision)
@@ -168,8 +169,11 @@ namespace Interact
                 {
                     EditorGUI.indentLevel++;
 
-                    door.enemySpawnpoint = (Transform) EditorGUILayout.ObjectField("Enemy Spawn Points Gameobject", door.enemySpawnpoint, typeof
-                    (Transform));
+                    door.roomToUnlock =
+                        (Room) EditorGUILayout.ObjectField("Room to unlock", door.roomToUnlock, typeof(Room));
+
+                    //door.enemySpawnpoint = (Transform) EditorGUILayout.ObjectField("Enemy Spawn Points Gameobject", door.enemySpawnpoint, typeof
+                    //(Transform));
                     
                     EditorGUI.indentLevel--;
                     
