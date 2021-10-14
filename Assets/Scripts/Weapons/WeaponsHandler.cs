@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using Networking;
 using Photon.Pun;
@@ -18,11 +19,14 @@ namespace Weapons
 		[Description("The camera the player will see")] [SerializeField]
 		private Camera playerCamera;
 
-		[Description("The child object containing the player's sprite and weapons")] [SerializeField]
+		[Description("The child object containing the player's sprite")] [SerializeField]
 		private Transform playerSprite;
 
+		[Description("The child object containing the player's weapons")] [SerializeField]
+		private Transform weaponPivot;
+
 		[Description("List of available weapons the player can cycle through")] [SerializeField]
-		private GameObject[] availableWeapons;
+		private List<GameObject> availableWeapons;
 
 
 		private AmmoInventory _ammoInventory;
@@ -34,7 +38,7 @@ namespace Weapons
 		private void Start()
 		{
 			_ammoInventory = GetComponent<AmmoInventory>();
-			for (int i = 0; i < availableWeapons.Length; i++)
+			for (int i = 0; i < availableWeapons.Count; i++)
 			{
 				availableWeapons[i].GetComponent<Weapon>().Setup(_ammoInventory);
 				availableWeapons[i].SetActive(i == 0);
@@ -68,7 +72,7 @@ namespace Weapons
 
 		public void FireAction(InputAction.CallbackContext context)
 		{
-			if (!photonView.IsMine || _preventFire) return;
+			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
 
 			// When the mouse is pressed down, two actions are sent: started and performed
 			// We'll use performed here to check for the press
@@ -85,7 +89,7 @@ namespace Weapons
 
 		public void ReloadAction(InputAction.CallbackContext context)
 		{
-			if (!photonView.IsMine || _preventFire) return;
+			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
 
 			// Make sure this is only when the reload button is pressed
 			if (!context.performed) return;
@@ -123,8 +127,7 @@ namespace Weapons
 			}
 
 			int scrollDirection = (int)context.ReadValue<float>();
-			int selectedWeaponIndex = _currentWeaponIndex + scrollDirection + availableWeapons.Length;
-			selectedWeaponIndex %= availableWeapons.Length;
+			int selectedWeaponIndex = _currentWeaponIndex + scrollDirection;
 			SelectWeapon(selectedWeaponIndex);
 		}
 
@@ -135,32 +138,72 @@ namespace Weapons
 				return;
 			}
 
-			int keypressed = (int)context.ReadValue<float>();
-			int selectedWeaponIndex = keypressed - 1;
-			if (keypressed > availableWeapons.Length) {
-				return;
-			}
-			SelectWeapon(selectedWeaponIndex);	
+			int key = (int)context.ReadValue<float>();
+			int selectedWeaponIndex = key - 1;
+			if (key > availableWeapons.Count) return;
+
+			SelectWeapon(selectedWeaponIndex);
 		}
 
 		private void SelectWeapon(int selectedIndex)
 		{
+			if (availableWeapons.Count == 0) return;
+
+			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
-			_currentWeapon = availableWeapons[selectedIndex].GetComponent<Weapon>();
 		}
 
 		[PunRPC]
 		private void RPCSelectWeapon(int selectedIndex)
 		{
 			availableWeapons[_currentWeaponIndex].SetActive(false);
-			availableWeapons[selectedIndex].SetActive(true);
 			_currentWeaponIndex = selectedIndex;
+			ActivateCurrentWeapon();
+		}
+
+		private void ActivateCurrentWeapon()
+		{
+			availableWeapons[_currentWeaponIndex].SetActive(true);
+			_currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();
+			_currentWeapon.FaceMouse(_mouseDist);
 		}
 
 		public void ToggleFireEnabled(bool preventFire)
 		{
 			_preventFire = !preventFire;
+
+			if (_currentWeapon == null) return;
+
 			_currentWeapon.gameObject.SetActive(!_preventFire);
+		}
+
+		public void AddWeapon(GameObject weapon)
+		{
+			availableWeapons.Add(weapon);
+			weapon.GetComponent<Weapon>().Setup(_ammoInventory);
+			SelectWeapon(availableWeapons.Count - 1);
+		}
+
+		public void DropCurrentWeaponAction(InputAction.CallbackContext context)
+		{
+			if (!context.performed || _currentWeapon == null) return;
+
+			photonView.RPC("RPCDropCurrentWeapon", RpcTarget.All);
+		}
+
+		[PunRPC]
+		private void RPCDropCurrentWeapon()
+		{
+			_currentWeapon.GetComponent<WeaponPickup>().DropWeapon();
+			availableWeapons.Remove(_currentWeapon.gameObject);
+			if (availableWeapons.Count == 0)
+			{
+				_currentWeapon = null;
+				return;
+			}
+
+			_currentWeaponIndex = (_currentWeaponIndex - 1 + availableWeapons.Count) % availableWeapons.Count;
+			ActivateCurrentWeapon();
 		}
 	}
 }

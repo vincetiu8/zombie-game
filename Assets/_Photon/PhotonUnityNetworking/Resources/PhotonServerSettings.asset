@@ -57,7 +57,12 @@ MonoBehaviour:
   - RpcMeleeAnimation
   - RPCFireBullet
   - RPCOnDeath
+  - RPCAddWeapon
+  - RPCPickup
   - RPCSetAvailableForInteract
+  - RPCDropCurrentWeapon
+  - RPCDropWeapon
+  - RPCPickupWeapon
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

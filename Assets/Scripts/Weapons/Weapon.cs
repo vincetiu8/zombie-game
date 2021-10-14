@@ -45,7 +45,7 @@ namespace Weapons
 			if (currentAttributes.fullAuto && _isFiring) Fire();
 		}
 
-		public void Setup(AmmoInventory inventory)
+		public virtual void Setup(AmmoInventory inventory)
 		{
 			ammoInventory = inventory;
 		}

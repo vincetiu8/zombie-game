@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 3909993537624026819}
   - component: {fileID: 1201697913036177066}
   - component: {fileID: 8110468372728126296}
-  m_Layer: 3
+  - component: {fileID: 7158115841983371464}
+  - component: {fileID: 6922014065073711592}
+  m_Layer: 10
   m_Name: Pistol
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4793649891906802130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: -0.55, z: 0}
+  m_LocalPosition: {x: 0.25, y: -0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6581261222417765288}
@@ -133,6 +135,42 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!58 &7158115841983371464
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793649891906802130}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.75
+--- !u!114 &6922014065073711592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793649891906802130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0efcd33fd675f5c0db24f18dec85563c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  canvas: {fileID: 0}
+  interactDuration: 2.5
 --- !u!1 &9175378642531915954
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6581261222417765288}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

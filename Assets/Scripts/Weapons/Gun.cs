@@ -18,20 +18,24 @@ namespace Weapons
 		[Description("The transform the bullets will shoot from")] [SerializeField]
 		protected Transform firepoint;
 
-		private int _bulletsInMagazine;
+		private int           _bulletsInMagazine;
+		private GunAttributes _currentGunAttributes;
 
-		private float     _gunOffsetAdjustment;
+		private Vector2   _gunOffsetAdjustment;
 		private Coroutine _reloadCoroutine;
-
-		protected GunAttributes CurrentGunAttributes;
 
 		protected override void Start()
 		{
 			base.Start();
 			maxLevel = weaponLevels.Length;
-			CurrentGunAttributes = weaponLevels[currentLevel];
-			currentAttributes = CurrentGunAttributes;
-			_bulletsInMagazine = CurrentGunAttributes.magazineSize;
+			_currentGunAttributes = weaponLevels[currentLevel];
+			currentAttributes = _currentGunAttributes;
+			_bulletsInMagazine = _currentGunAttributes.magazineSize;
+		}
+
+		public override void Setup(AmmoInventory inventory)
+		{
+			base.Setup(inventory);
 			CalculateGunOffsetAdjustment();
 		}
 
@@ -66,10 +70,10 @@ namespace Weapons
 		// Once this coroutine finishes, the weapon is reloaded
 		private IEnumerator ReloadCoroutine()
 		{
-			yield return new WaitForSeconds(CurrentGunAttributes.reloadTime);
+			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
 
 			// Withdraw bullets from the player's inventory
-			_bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, CurrentGunAttributes.magazineSize);
+			_bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
 			_reloadCoroutine = null;
@@ -77,8 +81,8 @@ namespace Weapons
 
 		public override void Upgrade()
 		{
-			CurrentGunAttributes = weaponLevels[currentLevel];
-			currentAttributes = CurrentGunAttributes;
+			_currentGunAttributes = weaponLevels[currentLevel];
+			currentAttributes = _currentGunAttributes;
 		}
 
 		/// <summary>
@@ -88,16 +92,17 @@ namespace Weapons
 		/// </summary>
 		private void CalculateGunOffsetAdjustment()
 		{
-			_gunOffsetAdjustment = -firepoint.localPosition.y - transform.localPosition.y;
+			_gunOffsetAdjustment = -transform.localPosition;
+			_gunOffsetAdjustment.y -= firepoint.localPosition.y;
 		}
 
 		public override void FaceMouse(float distance)
 		{
 			// Gets the adjustment angle that the weaponPivot needs the rotate
 			// This lines up the weapon with the mouse properly
-			float angle = Mathf.Atan2(_gunOffsetAdjustment, distance) * Mathf.Rad2Deg;
+			float angle = Mathf.Atan2(_gunOffsetAdjustment.y, distance + _gunOffsetAdjustment.x) * Mathf.Rad2Deg;
 
-			transform.parent.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
 
 		public override string ToString()

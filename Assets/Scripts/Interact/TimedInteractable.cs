@@ -7,15 +7,15 @@ namespace Interact
 		[Header("Time Settings")] [SerializeField] [Range(0.1f, 5f)]
 		private float interactDuration;
 
-		private float _elapsedDuration;
+		private float _remainingDuration;
 
 		protected virtual void Update()
 		{
 			if (!LocallyInteracting) return;
 
-			_elapsedDuration -= Time.deltaTime;
+			_remainingDuration -= Time.deltaTime;
 
-			if (_elapsedDuration > 0) return;
+			if (_remainingDuration > 0) return;
 
 			FinishInteraction();
 		}
@@ -23,7 +23,7 @@ namespace Interact
 		public override void StartInteraction()
 		{
 			base.StartInteraction();
-			_elapsedDuration = interactDuration;
+			_remainingDuration = interactDuration;
 		}
 	}
 }
