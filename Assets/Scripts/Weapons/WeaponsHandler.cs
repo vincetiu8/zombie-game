@@ -171,6 +171,9 @@ namespace Weapons
 		public void ToggleFireEnabled(bool preventFire)
 		{
 			_preventFire = !preventFire;
+
+			if (_currentWeapon == null) return;
+
 			_currentWeapon.gameObject.SetActive(!_preventFire);
 		}
 

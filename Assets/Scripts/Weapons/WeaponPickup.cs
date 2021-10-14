@@ -19,6 +19,7 @@ namespace Weapons
 
 		protected override void FinishInteraction()
 		{
+			Debug.Log("picking up weapon");
 			photonView.RPC("RPCPickupWeapon", RpcTarget.All);
 			base.FinishInteraction();
 		}
@@ -27,7 +28,7 @@ namespace Weapons
 		private void RPCPickupWeapon(PhotonMessageInfo info)
 		{
 			int playerNumber = info.Sender.GetPlayerNumber();
-			GameObject player = GameManager.instance.playerInstances[playerNumber];
+			GameObject player = GameManager.Instance.playerInstances[playerNumber];
 			transform.parent = player.transform.Find("PlayerObject").Find("Weapons");
 			transform.localPosition = _offset;
 			transform.localRotation = Quaternion.identity;
