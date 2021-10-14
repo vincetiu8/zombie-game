@@ -1,28 +1,18 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Enemy;
-using Networking;
 using UnityEngine;
 
-namespace Interact
+public class UnlockRoom : MonoBehaviour
 {
-    public class Room : MonoBehaviour
+    // Start is called before the first frame update
+    void Start()
     {
-        private WaveSpawner _waveSpawner;
-        private Transform enemySpawnpoint;
+        
+    }
 
-        private void Start()
-        {
-            _waveSpawner = GameManager.instance.GetComponent<WaveSpawner>();
-            enemySpawnpoint = transform.Find("Enemy Spawnpoints");
-        }
-
-        public void UnlockRoom()
-        {
-            List<Transform> enemySpawnPoints = enemySpawnpoint.Cast<Transform>().ToList();
-            _waveSpawner.AddSpawnPoints(enemySpawnPoints);
-
-        }
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
