@@ -44,7 +44,6 @@ namespace Shop
 		{
             if (currentToggleVisibility == toggle) return;
 
-            Debug.Log("visibility getting toggled: " + toggle);
 			if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
 
 			_fadeCoroutine = StartCoroutine(ToggleVisibilityCoroutine(toggle));

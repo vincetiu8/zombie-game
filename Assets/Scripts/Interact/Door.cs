@@ -9,8 +9,6 @@ namespace Shop
     /// </summary>
     public class Door : Unlockable
     {
-        #region Script
-        
         // Should be the enemySpawnpoint of the room being opened
         [SerializeField] private bool connectedToSpawnRoom;
         //[SerializeField] private Transform enemySpawnpoint;
@@ -19,7 +17,6 @@ namespace Shop
 
         protected override void OnPurchase()
         {
-            Debug.Log("door");
             base.OnPurchase();
             photonView.RPC("RpcUnlockDoor", RpcTarget.All);
         }
@@ -27,20 +24,15 @@ namespace Shop
         [PunRPC]
         private void RpcUnlockDoor()
         {
-            Debug.Log("rpc unlockdoor");
             foreach(Collider2D c in GetComponents<Collider2D>()) c.enabled = false;
 
             Unlock();
-            
-            Debug.Log("adding spawnpoints");
             
             // Call each room's unlockroom (If door is connected to spawn room, it would already be unlocked)
             firstRoomToUnlock.UnlockRoom();
             if (connectedToSpawnRoom) return;
             secondRoomToUnlock.UnlockRoom();
         }
-
-        #endregion
 
         /*#region Editor
     #if UNITY_EDITOR

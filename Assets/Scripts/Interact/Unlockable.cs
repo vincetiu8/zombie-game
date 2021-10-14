@@ -35,7 +35,6 @@ namespace Shop
 
         protected override void OnPurchase()
         {
-            Debug.Log("unlockable");
             Unlock();
         }
 
