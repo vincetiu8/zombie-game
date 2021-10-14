@@ -1,5 +1,6 @@
 using System;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Shop;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Networking
 {
 	public class GameManager : MonoBehaviourPunCallbacks
 	{
-		public static GameManager instance;
+		public static GameManager Instance;
 
 		[HideInInspector] public GoldSystem   goldSystem;
 		[HideInInspector] public GameObject[] playerInstances;
@@ -16,20 +17,22 @@ namespace Networking
 		[SerializeField] private GameObject  playerPrefab;
 		[SerializeField] private Transform[] spawnpoints;
 
+		private SpectatorManager _spectatorManager;
+
 		private void Awake()
 		{
-			if (instance != null) Destroy(this);
+			if (Instance != null) Destroy(this);
 
-			instance = this;
+			Instance = this;
 			playerInstances = Array.Empty<GameObject>();
 			goldSystem = GetComponentInChildren<GoldSystem>();
+			_spectatorManager = GetComponent<SpectatorManager>();
 		}
 
 		private void Start()
-		{
-			// Player numbers start indexing at 1, need to correct for array
-			int correctedPlayerNumber = PhotonNetwork.LocalPlayer.ActorNumber - 1;
-			Vector3 spawnPosition = spawnpoints[correctedPlayerNumber].position;
+			{
+				int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
+			Vector3 spawnPosition = spawnpoints[playerNumber].position;
 			localPlayerInstance = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
 		}
 
@@ -42,9 +45,10 @@ namespace Networking
 			playerInstances[playerNumber] = player;
 		}
 
-		public GameObject GetPlayerInstance(int playerNumber)
+		public void RemovePlayerInstance(int playerNumber)
 		{
-			return playerInstances[playerNumber];
+			playerInstances[playerNumber] = null;
+			_spectatorManager.OnPlayerDeath(playerNumber);
 		}
 	}
 }

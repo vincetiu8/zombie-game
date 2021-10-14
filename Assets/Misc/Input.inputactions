@@ -368,6 +368,96 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Spectator",
+            "id": "fc1d012c-8e6b-41a0-9509-f01eca28b805",
+            "actions": [
+                {
+                    "name": "Next Player",
+                    "type": "Button",
+                    "id": "bbff7ff7-c330-4298-9704-d293de202726",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Previous Player",
+                    "type": "Button",
+                    "id": "cf9a8ee8-c471-4492-b601-1a6fc0aa74d3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fde9862c-b12b-4c12-9a30-9d8089683b52",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "Next Player",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3beab662-8d76-40cf-a40b-3122f33764a8",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "Next Player",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41319811-12fc-405f-a3f6-65069453881f",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "Next Player",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38db3dfa-05d0-4cce-82fe-94b4c47f9b78",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "Previous Player",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3f68a07-9b56-4d25-9b0e-30c8af0855e3",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "Previous Player",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "759cba02-58e1-4dff-bdb0-06a876615536",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "Previous Player",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

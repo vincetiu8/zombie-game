@@ -1,4 +1,5 @@
 using Interact;
+using Objects;
 
 namespace Input
 {

@@ -100,5 +100,13 @@ namespace Enemy
 
 			UpdateTrackingPlayer();
 		}
+
+		/// <summary>
+		///     Clears all players
+		/// </summary>
+		protected void ClearPlayers()
+		{
+			_players.Clear();
+		}
 	}
 }

@@ -64,6 +64,12 @@ namespace Enemy
 
 		private void Start()
 		{
+			if (!PhotonNetwork.IsMasterClient)
+			{
+				enabled = false;
+				return;
+			}
+
 			_state = SpawnState.Counting;
 
 			if (spawnpoints.Length == 0) Debug.LogError("No available spawnpoints");

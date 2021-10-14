@@ -22,7 +22,7 @@ namespace UI
 			// Checks this here since the pause menu may be instantiated before the player is
 			// The player input is located on the player
 			if (_playerInput == null)
-				_playerInput = GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>();
+				_playerInput = GameManager.Instance.localPlayerInstance.GetComponent<PlayerInput>();
 
 			_gamePaused = !_gamePaused;
 			string actionMap = _gamePaused ? "UI" : "Game";

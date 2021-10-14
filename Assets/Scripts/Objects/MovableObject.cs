@@ -25,7 +25,7 @@ namespace Objects
 			_isHolding = !_isHolding;
 			photonView.RPC("RPCInteract", RpcTarget.All, _isHolding);
 
-			GameObject player = GameManager.instance.localPlayerInstance;
+			GameObject player = GameManager.Instance.localPlayerInstance;
 
 			// When the colliders are disabled, it removes this from the interactable list
 			// We need to add it back so the local player can drop the item and vice versa
@@ -53,7 +53,7 @@ namespace Objects
 			SetAllCollidersStatus(!_isHolding);
 			if (_isHolding)
 			{
-				GameObject player = GameManager.instance.GetPlayerInstance(info.Sender.GetPlayerNumber());
+				GameObject player = GameManager.Instance.playerInstances[info.Sender.GetPlayerNumber()];
 				transform.SetParent(player.transform.Find("PlayerObject"));
 				return;
 			}

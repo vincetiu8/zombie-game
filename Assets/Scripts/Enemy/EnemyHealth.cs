@@ -1,4 +1,5 @@
 using Networking;
+using Objects;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Enemy
 		{
 			// It is safe to assume the local player killed the enemy
 			// Remote players would call this method locally
-			GameManager.instance.goldSystem.AddGold(goldDropAmount, PhotonNetwork.LocalPlayer.GetPlayerNumber());
+			GameManager.Instance.goldSystem.AddGold(goldDropAmount, PhotonNetwork.LocalPlayer.GetPlayerNumber());
 
 			base.OnDeath();
 		}

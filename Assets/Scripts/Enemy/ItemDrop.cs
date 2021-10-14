@@ -54,7 +54,7 @@ namespace Enemy
 			// Don't instantiate if nothing was rolled
 			if (minItem == null) return;
 
-			PhotonNetwork.Instantiate(minItem.name, transform.position, Quaternion.identity);
+			PhotonNetwork.InstantiateRoomObject(minItem.name, transform.position, Quaternion.identity);
 		}
 	}
 }

@@ -16,7 +16,7 @@ namespace Shop
 
 		protected override void OnPurchase()
 		{
-			AmmoInventory ammoInventory = GameManager.instance.localPlayerInstance.GetComponent<AmmoInventory>();
+			AmmoInventory ammoInventory = GameManager.Instance.localPlayerInstance.GetComponent<AmmoInventory>();
 			if (ammoInventory == null) return;
 
 			ammoInventory.DepositAmmo(ammoType, ammoAmount);

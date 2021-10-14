@@ -1,3 +1,4 @@
+using Objects;
 using Photon.Pun;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class AnimatedHealth : HealthController
 
 	private SpriteRenderer _spriteRenderer;
 
-	private void Start()
+	protected virtual void Start()
 	{
 		_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 	}
@@ -27,7 +28,6 @@ public class AnimatedHealth : HealthController
 	private void SetSprite()
 	{
 		int spriteIndex = Health * sprites.Length / initialHealth;
-		Debug.Log(spriteIndex);
 		_spriteRenderer.sprite = sprites[spriteIndex];
 	}
 }
