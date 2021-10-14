@@ -1,3 +1,4 @@
+using System;
 using Interact;
 using Networking;
 using UnityEngine;
@@ -33,10 +34,16 @@ namespace Shop
 				return;
 			}
 
-			if (!LocallyInteracting) ShopText.Instance.ToggleVisibility(false);
+			//if (!LocallyInteracting) ShopText.Instance.ToggleVisibility(false);
 		}
 
-		protected abstract string GetShopPrompt();
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (!other.CompareTag("Player")) return;
+            ShopText.Instance.ToggleVisibility(false);
+        }
+
+        protected abstract string GetShopPrompt();
 
 		/// <summary>
 		///     Used as the listener when player gold changes.

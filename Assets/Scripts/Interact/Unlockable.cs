@@ -12,25 +12,17 @@ namespace Shop
     public class Unlockable : Shop
     {
         [SerializeField] protected string itemName;
-        [SerializeField] protected int purchasePrice;
 
         [SerializeField] protected bool _hasSprite;
         [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] protected Sprite beforeUnlock;
         [SerializeField] protected Sprite afterUnlock;
 
-        [SerializeField] protected bool _hasCanvas;
-        [SerializeField] protected Canvas myCanvas;
-        [SerializeField] protected Text itemNameUI;
-        [SerializeField] protected Text itemPriceUI;
-
         private bool _isUnlocked;
         
         protected override void Start()
         {
             base.Start();
-            itemNameUI.text = itemName;
-            itemPriceUI.text = purchasePrice.ToString();
             
             if (!_hasSprite) return;
             spriteRenderer.sprite = beforeUnlock;
@@ -47,12 +39,6 @@ namespace Shop
             Unlock();
         }
 
-        /*public override void Interact()
-        {
-            if (!GameManager.instance.goldSystem.WithdrawPlayerGold(purchasePrice)) return;
-            EnoughMoneyInteract();
-        }*/
-        
         protected virtual void Unlock()
         {
             if (_isUnlocked) return;

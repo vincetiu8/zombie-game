@@ -12,6 +12,8 @@ namespace Shop
 		private                                    CanvasGroup _canvasGroup;
 		private                                    Coroutine   _fadeCoroutine;
 
+        private bool currentToggleVisibility;
+
 		private Text _shopText;
 
 		private void Awake()
@@ -40,10 +42,14 @@ namespace Shop
 
 		public void ToggleVisibility(bool toggle)
 		{
+            if (currentToggleVisibility == toggle) return;
+
+            Debug.Log("visibility getting toggled: " + toggle);
 			if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
 
 			_fadeCoroutine = StartCoroutine(ToggleVisibilityCoroutine(toggle));
-		}
+            currentToggleVisibility = toggle;
+        }
 
 		private IEnumerator ToggleVisibilityCoroutine(bool toggle)
 		{

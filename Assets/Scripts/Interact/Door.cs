@@ -1,17 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Enemy;
-using Networking;
 using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.UI;
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
+using Room = Interact.Room;
 
 namespace Shop
 {
@@ -22,29 +11,11 @@ namespace Shop
     {
         #region Script
         
-        //private WaveSpawner _waveSpawner;
-        
         // Should be the enemySpawnpoint of the room being opened
-        [SerializeField] private bool _enemySpawnpoint;
+        [SerializeField] private bool connectedToSpawnRoom;
         //[SerializeField] private Transform enemySpawnpoint;
-        [SerializeField] private Room roomToUnlock;
-
-        private Collider2D[] _allColList;
-        private Canvas[] _allCanvas;
-
-        protected override void Start()
-        {
-            base.Start();
-            Transform parent = transform.parent;
-            _allColList = parent.GetComponentsInChildren<Collider2D>();
-            _allCanvas = parent.GetComponentsInChildren<Canvas>();
-            //_waveSpawner = GameManager.instance.GetComponent<WaveSpawner>();
-        }
-        
-        private void SetAllCollidersStatus(bool active)
-        {
-            foreach (Collider2D colliders in _allColList) colliders.enabled = active;
-        }
+        [SerializeField] private Room firstRoomToUnlock;
+        [SerializeField] private Room secondRoomToUnlock;
 
         protected override void OnPurchase()
         {
@@ -57,43 +28,18 @@ namespace Shop
         private void RpcUnlockDoor()
         {
             Debug.Log("rpc unlockdoor");
-            SetAllCollidersStatus(false);
-            foreach (Canvas canvases in _allCanvas)
-            {
-                canvases.gameObject.SetActive(false);
-            }
+            foreach(Collider2D c in GetComponents<Collider2D>()) c.enabled = false;
+
             Unlock();
             
             Debug.Log("adding spawnpoints");
             
-            if (!_enemySpawnpoint) return;
-            // Take all the transforms of the children found in "Enemy" into a list (Enemy should already be active by default)
-            //List<Transform> enemySpawnPoints = enemySpawnpoint.Cast<Transform>().ToList();
-            //roomToUnlock.UnlockRoom();
-            //_waveSpawner.AddSpawnPoints(enemySpawnPoints);
+            // Call each room's unlockroom (If door is connected to spawn room, it would already be unlocked)
+            firstRoomToUnlock.UnlockRoom();
+            if (connectedToSpawnRoom) return;
+            secondRoomToUnlock.UnlockRoom();
         }
 
-        /*protected override void OnTriggerEnter2D(Collider2D collision)
-        {
-            base.OnTriggerEnter2D(collision);
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
-                DisplayNamePrice(true);
-        }
-
-        protected override void OnTriggerExit2D(Collider2D collision)
-        {
-            base.OnTriggerExit2D(collision);
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Players")) 
-                DisplayNamePrice(false);
-        }*/
-
-        private void DisplayNamePrice(bool doDisplay)
-        {
-            itemNameUI.gameObject.SetActive(doDisplay);
-            itemPriceUI.gameObject.SetActive(doDisplay);
-            Debug.Log("setting active: " + doDisplay);
-        }
-        
         #endregion
 
         /*#region Editor

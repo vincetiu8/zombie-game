@@ -4,7 +4,7 @@ using System.Linq;
 using Enemy;
 using Networking;
 using UnityEngine;
-/*
+
 namespace Interact
 {
     public class Room : MonoBehaviour
@@ -14,7 +14,7 @@ namespace Interact
 
         private void Start()
         {
-            _waveSpawner = GameManager.instance.GetComponent<WaveSpawner>();
+            _waveSpawner = GameManager.Instance.GetComponent<WaveSpawner>();
             enemySpawnpoint = transform.Find("Enemy Spawnpoints");
         }
 
@@ -25,4 +25,4 @@ namespace Interact
 
         }
     }
-}*/
+}
