@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 3708065426107539116}
   m_Layer: 0
   m_Name: Front Side Trigger
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -475,15 +475,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08caddd22a0ef20479bd320e3bbcaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  canvas: {fileID: 0}
+  interactDuration: 1.19
+  itemCost: 10
+  popupDelay: 1
   itemName: 
   purchasePrice: 10
+  _hasSprite: 0
   spriteRenderer: {fileID: 3556634561775521310}
   beforeUnlock: {fileID: 21300000, guid: ed519f8530451b644ba1c134d718d779, type: 3}
   afterUnlock: {fileID: 21300000, guid: 2f416ee0525499a449f06620efc51730, type: 3}
+  _hasCanvas: 0
   myCanvas: {fileID: 912956092650094790}
   itemNameUI: {fileID: 1543081647796599002}
   itemPriceUI: {fileID: 4931482228148433393}
-  enemySpawnpoint: {fileID: 0}
+  _enemySpawnpoint: 0
 --- !u!114 &3708065426107539116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +531,7 @@ GameObject:
   - component: {fileID: 4937192552266729400}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -710,7 +722,7 @@ GameObject:
   - component: {fileID: 4090298779597723470}
   m_Layer: 0
   m_Name: Back Side Trigger
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -768,15 +780,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08caddd22a0ef20479bd320e3bbcaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  canvas: {fileID: 0}
+  interactDuration: 0
+  itemCost: 0
+  popupDelay: 1
   itemName: 
   purchasePrice: 20
+  _hasSprite: 0
   spriteRenderer: {fileID: 3556634561775521310}
   beforeUnlock: {fileID: 21300000, guid: ed519f8530451b644ba1c134d718d779, type: 3}
   afterUnlock: {fileID: 21300000, guid: dcdd1dfbff8070a418c07a6604cfce52, type: 3}
+  _hasCanvas: 0
   myCanvas: {fileID: 241743828128981392}
   itemNameUI: {fileID: 3109943358646013539}
   itemPriceUI: {fileID: 5693031481255714477}
-  enemySpawnpoint: {fileID: 0}
+  _enemySpawnpoint: 0
 --- !u!114 &4090298779597723470
 MonoBehaviour:
   m_ObjectHideFlags: 0

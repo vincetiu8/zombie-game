@@ -4,6 +4,7 @@ using System.Linq;
 using Enemy;
 using Networking;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +12,8 @@ using UnityEngine.UI;
 using UnityEditor;
 #endif
 
-/*
-namespace Interact
+
+namespace Shop
 {
     /// <summary>
     ///  Used for things like Unlockable areas and the power switch
@@ -45,9 +46,10 @@ namespace Interact
             foreach (Collider2D colliders in _allColList) colliders.enabled = active;
         }
 
-        protected override void EnoughMoneyInteract()
+        protected override void OnPurchase()
         {
-            base.Interact();
+            Debug.Log("door");
+            base.OnPurchase();
             photonView.RPC("RpcUnlockDoor", RpcTarget.All);
         }
 
@@ -66,11 +68,11 @@ namespace Interact
             if (!_enemySpawnpoint) return;
             // Take all the transforms of the children found in "Enemy" into a list (Enemy should already be active by default)
             //List<Transform> enemySpawnPoints = enemySpawnpoint.Cast<Transform>().ToList();
-            roomToUnlock.UnlockRoom();
+            //roomToUnlock.UnlockRoom();
             //_waveSpawner.AddSpawnPoints(enemySpawnPoints);
         }
 
-        protected override void OnTriggerEnter2D(Collider2D collision)
+        /*protected override void OnTriggerEnter2D(Collider2D collision)
         {
             base.OnTriggerEnter2D(collision);
             if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
@@ -82,7 +84,7 @@ namespace Interact
             base.OnTriggerExit2D(collision);
             if (collision.gameObject.layer == LayerMask.NameToLayer("Players")) 
                 DisplayNamePrice(false);
-        }
+        }*/
 
         private void DisplayNamePrice(bool doDisplay)
         {
@@ -93,13 +95,13 @@ namespace Interact
         
         #endregion
 
-        #region Editor
+        /*#region Editor
     #if UNITY_EDITOR
         
         [CustomEditor(typeof(Door))]
         public class DoorEditor : Editor
         {
-            ///*
+            
             public override void OnInspectorGUI()
             {
                 //base.OnInspectorGUI();
@@ -184,7 +186,7 @@ namespace Interact
         }
         
     #endif
-        #endregion
+        #endregion*/
         
     }
-}*/
+}

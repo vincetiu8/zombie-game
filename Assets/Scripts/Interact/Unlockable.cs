@@ -4,12 +4,12 @@ using Networking;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Interact
-{/*
+namespace Shop
+{
     /// <summary>
     /// Used for things you would realistically unlock only once, such as armor, perks, weapons, etc
     /// </summary>
-    public class Unlockable : Interactable
+    public class Unlockable : Shop
     {
         [SerializeField] protected string itemName;
         [SerializeField] protected int purchasePrice;
@@ -36,17 +36,23 @@ namespace Interact
             spriteRenderer.sprite = beforeUnlock;
         }
 
-        public override void Interact()
+        protected override string GetShopPrompt()
         {
-            if (!GameManager.instance.goldSystem.WithdrawPlayerGold(purchasePrice)) return;
-            EnoughMoneyInteract();
+            return $"{itemName}?";
         }
-        
-        protected virtual void EnoughMoneyInteract()
+
+        protected override void OnPurchase()
         {
+            Debug.Log("unlockable");
             Unlock();
         }
 
+        /*public override void Interact()
+        {
+            if (!GameManager.instance.goldSystem.WithdrawPlayerGold(purchasePrice)) return;
+            EnoughMoneyInteract();
+        }*/
+        
         protected virtual void Unlock()
         {
             if (_isUnlocked) return;
@@ -68,5 +74,5 @@ namespace Interact
             spriteRenderer.sprite = beforeUnlock;
         }
   
-    }*/
+    }
 }
