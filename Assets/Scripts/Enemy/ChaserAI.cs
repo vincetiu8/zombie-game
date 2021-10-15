@@ -30,8 +30,8 @@ namespace Enemy
 
 		protected Transform TrackingPlayer;
 
-        private float _previousAngle;
-
+        private bool _canMove = true;
+        
 		protected virtual void Awake()
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
@@ -69,7 +69,8 @@ namespace Enemy
 
 		protected void SetRigidbodyAttributes(Vector2 movementDirection)
 		{
-			float angle = TransformUtils.Vector2ToDeg(movementDirection);
+            if (!_canMove) return;
+            float angle = TransformUtils.Vector2ToDeg(movementDirection);
 
 			// Smooth the angle - prevent the enemy from turning too fast
 			angle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime / turningSmoothing);
@@ -80,6 +81,11 @@ namespace Enemy
             if (_rigidbody2D.velocity.magnitude >= maxSpeed) return;
             float accountedAngle = (TransformUtils.Vector2ToDeg(transform.InverseTransformPoint(Destination)));
             _rigidbody2D.AddForce(TransformUtils.DegToVector2(angle + accountedAngle * cornerTakingAngleMultiplier) * acceleration, (ForceMode2D) ForceMode.Force);
+        }
+
+        public void DisableMovement(bool disable)
+        {
+            _canMove = !disable;
         }
 	}
 }
