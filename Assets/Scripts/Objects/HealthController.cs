@@ -34,6 +34,11 @@ namespace Objects
 			OnDeath();
 		}
 
+		public int GetHealth()
+		{
+			return Health;
+		}
+
 		[PunRPC]
 		protected virtual void RPCChangeHealth(int newHealth)
 		{

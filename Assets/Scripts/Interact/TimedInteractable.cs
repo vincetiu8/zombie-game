@@ -9,6 +9,12 @@ namespace Interact
 
 		private float _remainingDuration;
 
+		protected override void Start()
+		{
+			base.Start();
+			ResetDuration();
+		}
+
 		protected virtual void Update()
 		{
 			if (!LocallyInteracting) return;
@@ -20,10 +26,26 @@ namespace Interact
 			FinishInteraction();
 		}
 
-		public override void StartInteraction()
+		public override float GetProgress()
 		{
-			base.StartInteraction();
+			return 1 - _remainingDuration / interactDuration;
+		}
+
+		protected void ResetDuration()
+		{
 			_remainingDuration = interactDuration;
+		}
+
+		public override void CancelInteraction()
+		{
+			ResetDuration();
+			base.CancelInteraction();
+		}
+
+		protected override void FinishInteraction()
+		{
+			ResetDuration();
+			base.FinishInteraction();
 		}
 	}
 }

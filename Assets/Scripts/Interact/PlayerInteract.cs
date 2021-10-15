@@ -17,6 +17,8 @@ namespace Interact
 	/// </summary>
 	public class PlayerInteract : MonoBehaviour
 	{
+		private static readonly int ShaderTime = Shader.PropertyToID("Time");
+
 		[Header("Interactable Update Settings")] [SerializeField]
 		private float closestInteractableUpdateInterval = 0.25f;
 
@@ -24,6 +26,7 @@ namespace Interact
 		private Image interactableImage;
 
 		[SerializeField] private InteractableSpritesDict interactableSprites;
+		[SerializeField] private Gradient                interactableProgressGradient;
 
 		/// <summary>
 		///     List to keep track of how many interactable objects are in range.
@@ -45,6 +48,13 @@ namespace Interact
 
 		private void Update()
 		{
+			if (_interacting)
+			{
+				float progress = _closestInteractable.GetProgress();
+				interactableImage.color = interactableProgressGradient.Evaluate(progress);
+				return;
+			}
+
 			if (_cooldown > 0)
 			{
 				_cooldown -= Time.deltaTime;
@@ -94,6 +104,9 @@ namespace Interact
 				return;
 			}
 
+			interactableImage.enabled = true;
+			interactableImage.color = interactableProgressGradient.Evaluate(0);
+
 			// Check which object in the list is closest to the player
 			GameObject closestObject = _interactList[0];
 			float closestDistance = Vector2.Distance(closestObject.transform.position, transform.position);
@@ -107,14 +120,13 @@ namespace Interact
 
 			Interactable newClosestInteractable = closestObject.GetComponent<Interactable>();
 
+
 			if (_closestInteractable == newClosestInteractable) return;
 
-			interactableImage.enabled = true;
 			interactableImage.sprite = interactableSprites[newClosestInteractable.GetInteractableType()];
 
 			_closestInteractable = newClosestInteractable;
 		}
-
 
 		public void InteractionAction(InputAction.CallbackContext context)
 		{
@@ -152,6 +164,7 @@ namespace Interact
 			ToggleInteraction(false);
 			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
 			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
+			UpdateClosestInteractable();
 		}
 
 		private void ToggleInteraction(bool isInteracting)

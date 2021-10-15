@@ -49,6 +49,16 @@ namespace Interact
 		}
 
 		/// <summary>
+		///     Gets the current progress of the interaction.
+		/// </summary>
+		/// <returns>The current progress of the interaction</returns>
+		public virtual float GetProgress()
+		{
+			// By default, just returns no progress.
+			return 0;
+		}
+
+		/// <summary>
 		///     Callback when the player interacts with an object.
 		///     We don't pass in the player, but it can be assumed that the interacting player is the local player.
 		///     Abstract as all interactables need to respond to a start message.
