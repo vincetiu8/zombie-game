@@ -1,16 +1,29 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Weapons;
 
 namespace Interact
 {
+	[Serializable]
+	public class InteractableSpritesDict : SerializableDictionary<InteractableType, Sprite>
+	{
+	}
+
 	/// <summary>
 	///     PlayerInteract handles player triggering interactable objects.
 	/// </summary>
 	public class PlayerInteract : MonoBehaviour
 	{
-		[SerializeField] private float closestInteractableUpdateInterval = 0.25f;
+		[Header("Interactable Update Settings")] [SerializeField]
+		private float closestInteractableUpdateInterval = 0.25f;
+
+		[Header("Interactable Image Settings")] [SerializeField]
+		private Image interactableImage;
+
+		[SerializeField] private InteractableSpritesDict interactableSprites;
 
 		/// <summary>
 		///     List to keep track of how many interactable objects are in range.
@@ -75,6 +88,8 @@ namespace Interact
 
 			if (_interactList.Count == 0)
 			{
+				if (_closestInteractable != null) interactableImage.enabled = false;
+
 				_closestInteractable = null;
 				return;
 			}
@@ -94,10 +109,10 @@ namespace Interact
 
 			if (_closestInteractable == newClosestInteractable) return;
 
-			if (_closestInteractable != null) _closestInteractable.OnNotClosestInteractable();
+			interactableImage.enabled = true;
+			interactableImage.sprite = interactableSprites[newClosestInteractable.GetInteractableType()];
 
 			_closestInteractable = newClosestInteractable;
-			_closestInteractable.OnClosestInteractable();
 		}
 
 

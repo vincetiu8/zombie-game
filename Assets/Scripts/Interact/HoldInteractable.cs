@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Interact
 {
-	public abstract class HoldInteractable : IconInteractable
+	public abstract class HoldInteractable : Interactable
 	{
 		private   bool _availableForInteract;
 		protected bool LocallyInteracting;
