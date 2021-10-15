@@ -57,11 +57,6 @@ public class KnockbackController : MonoBehaviour
         
         _isStunned = stunned;
 
-        /*if (transform.CompareTag("Enemy"))
-        {
-            transform.GetComponent<ChaserAI>().DisableMovement(stunned);
-        }*/
-
         switch (transform.tag)
         {
             case "Enemy":
