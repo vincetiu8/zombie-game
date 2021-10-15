@@ -1364,6 +1364,36 @@ Transform:
   m_Father: {fileID: 11360293}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &957760622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 957760623}
+  m_Layer: 0
+  m_Name: Enemy Spawnpoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &957760623
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957760622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1078842234}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &998038555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,6 +1746,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1749200140}
+  - {fileID: 957760623}
   m_Father: {fileID: 1840390496}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1762,6 +1793,7 @@ GameObject:
   - component: {fileID: 1162648887}
   - component: {fileID: 1162648888}
   - component: {fileID: 1162648889}
+  - component: {fileID: 1162648890}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: Untagged
@@ -1956,6 +1988,21 @@ MonoBehaviour:
   m_DefaultActionMap: Spectator
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1162648890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162648884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a57cef4d3621304f8395b17f114953f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _areaManager: {fileID: 1840390496}
+  roomNameTransfroms:
+    m_keys: []
 --- !u!1001 &1249590759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2930,7 +2977,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1840390496}
-  - component: {fileID: 1840390497}
   m_Layer: 0
   m_Name: Area Manager
   m_TagString: Untagged
@@ -2955,18 +3001,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1840390497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1840390495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a57cef4d3621304f8395b17f114953f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1876090854
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Enemy;
@@ -7,32 +8,36 @@ using UnityEngine;
 
 namespace Interact
 {
+    [Serializable]
+    public class RoomDict : SerializableDictionary<string, List<Transform>>
+    {
+    }
+    
+    [ExecuteInEditMode]
     public class AreaManager  : MonoBehaviour
     {
         private WaveSpawner _waveSpawner;
-        private List<Transform> _rooms;
+        [SerializeField] private Transform _areaManager;
 
+        [SerializeField] private RoomDict roomNameTransfroms;
+        
         private void Start()
         {
+            foreach (Transform room in _areaManager) roomNameTransfroms.Add(room.name, room.Find("Enemy Spawnpoints").Cast<Transform>().ToList());
+            StartCoroutine(LateStart());
+        }
+        
+        // late start here acts like the normal start
+        private IEnumerator LateStart()
+        {
+            yield return new WaitUntil(() => Application.isPlaying);
             _waveSpawner = GameManager.Instance.GetComponent<WaveSpawner>();
-
-            // All children of the gameObject should be rooms
-            _rooms = transform.Cast<Transform>().ToList();
         }
 
         public void UnlockRoom(string roomName)
         {
-            // Find room by it's name
-            Transform room = _rooms.SingleOrDefault(spawn => spawn.name == roomName);
-            if (room == null) return;
-            
-            // Compile enemy spawnpoints into a list to add to wavespawner
-            List<Transform> enemySpawnPoints = room.Find("Enemy Spawnpoints").Cast<Transform>().ToList();
-            _waveSpawner.AddSpawnPoints(enemySpawnPoints);
-            Debug.Log("Unlocked: " + room);
-            
-            // Removes unlocked room from list so it can't be unlocked again
-            _rooms.Remove(room);
+            if (!roomNameTransfroms.ContainsKey(roomName)) return;
+            _waveSpawner.AddSpawnPoints(roomNameTransfroms[roomName]);
         }
     }
 }
