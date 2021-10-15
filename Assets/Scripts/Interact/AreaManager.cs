@@ -10,26 +10,28 @@ namespace Interact
     public class AreaManager  : MonoBehaviour
     {
         private WaveSpawner _waveSpawner;
-        //private Transform enemySpawnpoint;
         private List<Transform> _rooms;
 
         private void Start()
         {
             _waveSpawner = GameManager.Instance.GetComponent<WaveSpawner>();
 
+            // All children of the gameObject should be rooms
             _rooms = transform.Cast<Transform>().ToList();
-            
-            //enemySpawnpoint = transform.Find("Enemy Spawnpoints");
         }
 
         public void UnlockRoom(string roomName)
         {
+            // Find room by it's name
             Transform room = _rooms.SingleOrDefault(spawn => spawn.name == roomName);
             if (room == null) return;
             
-            List<Transform> enemySpawnPoints = room.Find("Enemy Spawnpoint").Cast<Transform>().ToList();
+            // Compile enemy spawnpoints into a list to add to wavespawner
+            List<Transform> enemySpawnPoints = room.Find("Enemy Spawnpoints").Cast<Transform>().ToList();
             _waveSpawner.AddSpawnPoints(enemySpawnPoints);
+            Debug.Log("Unlocked: " + room);
             
+            // Removes unlocked room from list so it can't be unlocked again
             _rooms.Remove(room);
         }
     }

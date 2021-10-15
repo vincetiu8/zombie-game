@@ -33,9 +33,7 @@ namespace Shop
 				_popupTimeRemaining -= Time.deltaTime;
 				return;
 			}
-
-			//if (!LocallyInteracting) ShopText.Instance.ToggleVisibility(false);
-		}
+        }
 
         private void OnTriggerExit2D(Collider2D other)
         {
@@ -51,6 +49,7 @@ namespace Shop
 		/// </summary>
 		private void UpdateShopStatus()
 		{
+            if (!LocallyInteracting) return;
 			SetShopStatus();
 		}
 

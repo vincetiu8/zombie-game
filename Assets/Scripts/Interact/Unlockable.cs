@@ -30,7 +30,7 @@ namespace Shop
 
         protected override string GetShopPrompt()
         {
-            return $"{itemName}?";
+            return $"Unlock {itemName}?";
         }
 
         protected override void OnPurchase()

@@ -454,18 +454,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 384131640}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &384131644 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 683231008947573120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
-    type: 3}
-  m_PrefabInstance: {fileID: 384131640}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a57cef4d3621304f8395b17f114953f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &387041324
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,7 +946,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roomToUnlock
       value: 
-      objectReference: {fileID: 384131644}
+      objectReference: {fileID: 0}
     - target: {fileID: 6895445655926193894, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: enemySpawnpoint
@@ -972,13 +960,13 @@ PrefabInstance:
     - target: {fileID: 6895445655926193894, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: firstRoomToUnlock
-      value: 
-      objectReference: {fileID: 384131644}
+      value: Room2
+      objectReference: {fileID: 0}
     - target: {fileID: 6895445655926193894, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: secondRoomToUnlock
-      value: 
-      objectReference: {fileID: 1992909951}
+      value: Room1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47eea2ed8a135d84eb76609ad8ae086a, type: 3}
 --- !u!4 &669643136 stripped
@@ -1671,7 +1659,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roomToUnlock
       value: 
-      objectReference: {fileID: 384131644}
+      objectReference: {fileID: 0}
     - target: {fileID: 6895445655926193894, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: enemySpawnpoint
@@ -1685,8 +1673,8 @@ PrefabInstance:
     - target: {fileID: 6895445655926193894, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: firstRoomToUnlock
-      value: 
-      objectReference: {fileID: 384131644}
+      value: Room1
+      objectReference: {fileID: 0}
     - target: {fileID: 6895445655926193894, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: connectedToSpawnRoom
@@ -2942,8 +2930,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1840390496}
+  - component: {fileID: 1840390497}
   m_Layer: 0
-  m_Name: Rooms
+  m_Name: Area Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2966,6 +2955,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1840390497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840390495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a57cef4d3621304f8395b17f114953f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1876090854
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,18 +3111,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61d0c9dd9fa80224e990443fc8a9eb26, type: 3}
---- !u!114 &1992909951 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 683231008947573120, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
-    type: 3}
-  m_PrefabInstance: {fileID: 1992909950}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a57cef4d3621304f8395b17f114953f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1992909952 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3235206400080896426, guid: 61d0c9dd9fa80224e990443fc8a9eb26,
@@ -3546,7 +3535,7 @@ PrefabInstance:
     - target: {fileID: 3556634561775521307, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3556634561775521311, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
@@ -3632,7 +3621,7 @@ PrefabInstance:
         type: 3}
       propertyPath: roomToUnlock
       value: 
-      objectReference: {fileID: 384131644}
+      objectReference: {fileID: 0}
     - target: {fileID: 6895445655926193894, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: enemySpawnpoint
@@ -3646,8 +3635,8 @@ PrefabInstance:
     - target: {fileID: 6895445655926193894, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: firstRoomToUnlock
-      value: 
-      objectReference: {fileID: 1992909951}
+      value: Room2
+      objectReference: {fileID: 0}
     - target: {fileID: 6895445655926193894, guid: 47eea2ed8a135d84eb76609ad8ae086a,
         type: 3}
       propertyPath: connectedToSpawnRoom
@@ -3766,7 +3755,7 @@ PrefabInstance:
     - target: {fileID: 7330685861977877044, guid: aa2d10839b7665149ada865acbb043ca,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7330685861977877045, guid: aa2d10839b7665149ada865acbb043ca,
         type: 3}

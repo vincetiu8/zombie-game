@@ -1,6 +1,6 @@
 using Photon.Pun;
 using UnityEngine;
-using Room = Interact.Room;
+using Interact;
 
 namespace Shop
 {
@@ -12,8 +12,16 @@ namespace Shop
         // Should be the enemySpawnpoint of the room being opened
         [SerializeField] private bool connectedToSpawnRoom;
         //[SerializeField] private Transform enemySpawnpoint;
-        [SerializeField] private Room firstRoomToUnlock;
-        [SerializeField] private Room secondRoomToUnlock;
+        [SerializeField] private string firstRoomToUnlock;
+        [SerializeField] private string secondRoomToUnlock;
+
+        private AreaManager _areaManager;
+
+        protected override void Start()
+        {
+            base.Start();
+            _areaManager = GameObject.Find("Area Manager").GetComponent<AreaManager>();
+        }
 
         protected override void OnPurchase()
         {
@@ -29,9 +37,9 @@ namespace Shop
             Unlock();
             
             // Call each room's unlockroom (If door is connected to spawn room, it would already be unlocked)
-            firstRoomToUnlock.UnlockRoom();
+            _areaManager.UnlockRoom(firstRoomToUnlock);
             if (connectedToSpawnRoom) return;
-            secondRoomToUnlock.UnlockRoom();
+            _areaManager.UnlockRoom(secondRoomToUnlock);
         }
 
         /*#region Editor
