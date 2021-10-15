@@ -41,8 +41,9 @@ namespace Weapons
                 correctedEnemy.GetComponent<EnemyHealth>().ChangeHealth(-currentAttributes.damage);
                 
                 if (correctedEnemy.GetComponent<KnockbackController>() == null) continue;
-                //float angle = TransformUtils.Vector2ToDeg(correctedEnemy.transform.position - transform.position);
-                //correctedEnemy.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, currentAttributes.knockback);
+                
+                float angle = TransformUtils.Vector2ToDeg(correctedEnemy.transform.position - transform.position);
+                correctedEnemy.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, currentAttributes.knockback);
                 
                 correctedEnemy.transform.GetComponent<KnockbackController>().TakeStun(3);
             }

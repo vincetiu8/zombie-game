@@ -233,7 +233,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4104
-  knockBack: 5
+  knockBack: 10
 --- !u!1 &7751290988691592679
 GameObject:
   m_ObjectHideFlags: 0
