@@ -165,6 +165,7 @@ namespace Interact
 		{
 			_interacting = false;
 			ToggleInteraction(false);
+			Debug.Log(_closestInteractable);
 			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
 			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
 			UpdateClosestInteractable();

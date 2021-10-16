@@ -33,8 +33,8 @@ namespace Objects
 			// Therefore, it is suggested to make the interactable trigger as small as possible
 			if (!_isHolding)
 			{
-				player.GetComponent<PlayerInteract>().RemoveInteractable(gameObject);
 				finishInteraction.Invoke();
+				player.GetComponent<PlayerInteract>().RemoveInteractable(gameObject);
 				return;
 			}
 
