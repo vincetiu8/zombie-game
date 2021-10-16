@@ -55,7 +55,6 @@ namespace Weapons
                 if (healthController.transform.GetComponent<KnockbackController>() == null) continue;
                 float angle = TransformUtils.Vector2ToDeg(healthController.transform.position - transform.position);
                 healthController.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, knockBack);
-                healthController.transform.GetComponent<KnockbackController>().TakeStun(1);
             }
 
 			_cooldown = damageCooldown;
