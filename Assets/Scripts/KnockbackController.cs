@@ -20,10 +20,14 @@ public class KnockbackController : MonoBehaviour
     private float _cooldown;
 
     private bool _isStunned;
+    
+    private PlayerInput    _playerInput;
+
 
     void Start()
     {
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        _playerInput = GameManager.Instance.localPlayerInstance.GetComponent<PlayerInput>();
     }
 
     public void TakeKnockBack(float angle, float amount)
@@ -63,8 +67,12 @@ public class KnockbackController : MonoBehaviour
                 transform.GetComponent<ChaserAI>().DisableMovement(stunned);
                 break;
             case "Player":
-                MiscUtils.ActionMapOptions actionMap = stunned ? MiscUtils.ActionMapOptions.InAnimation : MiscUtils.ActionMapOptions.Game;
-                MiscUtils.ToggleInput(actionMap, GameManager.instance.localPlayerInstance.GetComponent<PlayerInput>());
+                if (_isStunned)
+                {
+                    _playerInput.currentActionMap.Disable();
+                    break;
+                }
+                _playerInput.currentActionMap.Enable();
                 break;
         }
 
