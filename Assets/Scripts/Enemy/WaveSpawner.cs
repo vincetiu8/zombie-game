@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -46,7 +48,7 @@ namespace Enemy
 		private float waveDelay = 5;
 
 		[Description("The positions where enemies can spawn")] [SerializeField]
-		private Transform[] spawnpoints;
+		private List<Transform> spawnpoints;
 
 		[Header("Enemy Searching")]
 		[Description("How often the number of remaining enemies sholud be checked")]
@@ -72,7 +74,7 @@ namespace Enemy
 
 			_state = SpawnState.Counting;
 
-			if (spawnpoints.Length == 0) Debug.LogError("No available spawnpoints");
+			if (spawnpoints.Count == 0) Debug.LogError("No available spawnpoints");
 
 			_waveCountdown = waveDelay;
 		}
@@ -146,7 +148,7 @@ namespace Enemy
 		private void SpawnEnemy(Object enemy)
 		{
 			// Get a random spawnpoint
-			Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Length)];
+			Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
 
 			PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
 		}
@@ -155,5 +157,14 @@ namespace Enemy
 		{
 			return GameObject.FindGameObjectWithTag("Enemy");
 		}
+
+        public void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
+        {
+            // Only adds SpawnPoints that do not already exist to prevent accidentally adding the same points multiple times
+            foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint => !spawnpoints.Contains(addedSpawnPoint)))
+            {
+                spawnpoints.Add(addedSpawnPoint);
+            }
+        }
 	}
 }
