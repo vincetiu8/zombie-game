@@ -50,8 +50,7 @@ namespace Interact
 		{
 			if (_interacting)
 			{
-				float progress = _closestInteractable.GetProgress();
-				interactableImage.color = interactableProgressGradient.Evaluate(progress);
+				UpdateInteractableIcon();
 				return;
 			}
 
@@ -104,9 +103,6 @@ namespace Interact
 				return;
 			}
 
-			interactableImage.enabled = true;
-			interactableImage.color = interactableProgressGradient.Evaluate(0);
-
 			// Check which object in the list is closest to the player
 			GameObject closestObject = _interactList[0];
 			float closestDistance = Vector2.Distance(closestObject.transform.position, transform.position);
@@ -120,12 +116,21 @@ namespace Interact
 
 			Interactable newClosestInteractable = closestObject.GetComponent<Interactable>();
 
+			if (_closestInteractable != newClosestInteractable)
+			{
+				interactableImage.sprite = interactableSprites[newClosestInteractable.GetInteractableType()];
 
-			if (_closestInteractable == newClosestInteractable) return;
+				_closestInteractable = newClosestInteractable;
+			}
 
-			interactableImage.sprite = interactableSprites[newClosestInteractable.GetInteractableType()];
+			UpdateInteractableIcon();
+		}
 
-			_closestInteractable = newClosestInteractable;
+		private void UpdateInteractableIcon()
+		{
+			float progress = _closestInteractable.GetProgress();
+			interactableImage.enabled = progress < 0.975f;
+			interactableImage.color = interactableProgressGradient.Evaluate(progress);
 		}
 
 		public void InteractionAction(InputAction.CallbackContext context)
@@ -148,12 +153,10 @@ namespace Interact
 			if (!_interacting) return;
 
 			_closestInteractable.CancelInteraction();
-			Debug.Log("Cancelling!");
 		}
 
 		private void OnStartInteraction()
 		{
-			Debug.Log("Starting Interaction!");
 			_interacting = true;
 			ToggleInteraction(true);
 		}

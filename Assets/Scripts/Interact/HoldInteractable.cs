@@ -1,5 +1,4 @@
 using Photon.Pun;
-using UnityEngine;
 
 namespace Interact
 {
@@ -25,7 +24,6 @@ namespace Interact
 
 		public override void CancelInteraction()
 		{
-			Debug.Log(LocallyInteracting);
 			if (!LocallyInteracting) return;
 
 			FinishInteraction();

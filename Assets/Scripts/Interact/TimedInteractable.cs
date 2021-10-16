@@ -36,12 +36,6 @@ namespace Interact
 			_remainingDuration = interactDuration;
 		}
 
-		public override void CancelInteraction()
-		{
-			ResetDuration();
-			base.CancelInteraction();
-		}
-
 		protected override void FinishInteraction()
 		{
 			ResetDuration();

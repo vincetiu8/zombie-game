@@ -46,6 +46,11 @@ namespace Objects
 			photonView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
 		}
 
+		public override float GetProgress()
+		{
+			return _isHolding ? 1 : 0;
+		}
+
 		[PunRPC]
 		private void RPCInteract(bool isHolding, PhotonMessageInfo info)
 		{
