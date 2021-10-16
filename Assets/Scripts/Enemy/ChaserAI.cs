@@ -11,12 +11,8 @@ namespace Enemy
 	{
 		private static readonly int MovementSpeedProperty = Animator.StringToHash("Move Speed");
 
-		[Header("Chasing Settings")] 
-        //[SerializeField] [Range(0.1f, 2.5f)] private float movementSpeed = 1;
-        
-        [SerializeField] [Range(0.1f, 5f)]
-        private float maxSpeed = 1;
-        
+		[Header("Chasing Settings")]
+
         [SerializeField] [Range(0.1f, 5f)]
         private float acceleration = 1;
         
@@ -77,8 +73,7 @@ namespace Enemy
 
 			// Rotate the enemy towards the destination
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-            if (_rigidbody2D.velocity.magnitude >= maxSpeed) return;
+            
             float accountedAngle = (TransformUtils.Vector2ToDeg(transform.InverseTransformPoint(Destination)));
             _rigidbody2D.AddForce(TransformUtils.DegToVector2(angle + accountedAngle * cornerTakingAngleMultiplier) * acceleration, (ForceMode2D) ForceMode.Force);
         }

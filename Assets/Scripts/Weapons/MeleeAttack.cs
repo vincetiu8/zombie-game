@@ -44,8 +44,6 @@ namespace Weapons
                 
                 float angle = TransformUtils.Vector2ToDeg(correctedEnemy.transform.position - transform.position);
                 correctedEnemy.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, currentAttributes.knockback);
-                
-                correctedEnemy.transform.GetComponent<KnockbackController>().TakeStun(3);
             }
         }
 

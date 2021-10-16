@@ -233,7 +233,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4104
-  knockBack: 10
+  knockBack: 3
 --- !u!1 &7751290988691592679
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f4afd1cf8c62b44b46af4d77807511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 2
   acceleration: 2.5
   cornerTakingAngleMultiplier: 1
   turningSmoothing: 0.15

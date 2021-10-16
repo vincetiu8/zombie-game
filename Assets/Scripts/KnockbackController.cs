@@ -28,25 +28,25 @@ public class KnockbackController : MonoBehaviour
 
     public void TakeKnockBack(float angle, float amount)
     {
-        float finalSpeed = amount * knockBackMultiplier;
-        _rigidbody2D.velocity = TransformUtils.DegToVector2(angle) * finalSpeed;
+        float finalMultiplier = amount * knockBackMultiplier;    
+        _rigidbody2D.AddForce(TransformUtils.DegToVector2(angle ) * finalMultiplier, (ForceMode2D) ForceMode.Impulse);
+
     }
 
     public void TakeStun(int duration)
     {
         _cooldown += duration;
-        //StartCoroutine(ShakeObject(duration));
+        BeStunned(true);
     }
 
     private void Update()
     {
-        if (_cooldown <= 0)
+        if (_cooldown > 0)
         {
-            BeStunned(false);
+            _cooldown -= Time.deltaTime;
             return;
         }
-        _cooldown -= Time.deltaTime;
-        BeStunned(true);
+        BeStunned(false);
     }
     
     // make method, in stun, out stun controleld by bool, same bool return
