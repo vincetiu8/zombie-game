@@ -10,7 +10,7 @@ namespace Shop
     /// </summary>
     public class Door : Unlockable
     {
-        [SerializeField] string firstRoomToUnlock;
+        [SerializeField] private string firstRoomToUnlock;
         [SerializeField] private string secondRoomToUnlock;
 
         private AreaManager _areaManager;
