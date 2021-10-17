@@ -5,6 +5,13 @@ using UnityEngine.Events;
 
 namespace Interact
 {
+	public enum InteractableType
+	{
+		Pickup,
+		Repair,
+		Shop
+	}
+
 	/// <summary>
 	///     Interactable is the base class for all interactable objects.
 	///     It handles players entering and exiting the intractable trigger area.
@@ -14,6 +21,8 @@ namespace Interact
 	[RequireComponent(typeof(Collider2D))]
 	public abstract class Interactable : MonoBehaviourPun
 	{
+		[SerializeField] private InteractableType interactableType;
+
 		/// <summary>
 		///     Used to signal the start of an interaction.
 		///     Only used for hold interactions to lock the player input.
@@ -34,18 +43,20 @@ namespace Interact
 				Debug.LogError("No trigger colliders attached to interactable object, can't interact");
 		}
 
-		/// <summary>
-		///     Callback when this interactable is the closest one to the player.
-		///     Used to display icons/gui, should show something to indicate interactable exists.
-		/// </summary>
-		public abstract void OnClosestInteractable();
-
+		public InteractableType GetInteractableType()
+		{
+			return interactableType;
+		}
 
 		/// <summary>
-		///     Callback when this interactable is not the closest one to the player.
-		///     Used to remove icons/gui from when this was the closest interactable.
+		///     Gets the current progress of the interaction.
 		/// </summary>
-		public abstract void OnNotClosestInteractable();
+		/// <returns>The current progress of the interaction</returns>
+		public virtual float GetProgress()
+		{
+			// By default, just returns no progress.
+			return 0;
+		}
 
 		/// <summary>
 		///     Callback when the player interacts with an object.

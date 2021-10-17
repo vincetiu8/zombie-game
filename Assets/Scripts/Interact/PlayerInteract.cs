@@ -1,16 +1,32 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Weapons;
 
 namespace Interact
 {
+	[Serializable]
+	public class InteractableSpritesDict : SerializableDictionary<InteractableType, Sprite>
+	{
+	}
+
 	/// <summary>
 	///     PlayerInteract handles player triggering interactable objects.
 	/// </summary>
 	public class PlayerInteract : MonoBehaviour
 	{
-		[SerializeField] private float closestInteractableUpdateInterval = 0.25f;
+		private static readonly int ShaderTime = Shader.PropertyToID("Time");
+
+		[Header("Interactable Update Settings")] [SerializeField]
+		private float closestInteractableUpdateInterval = 0.25f;
+
+		[Header("Interactable Image Settings")] [SerializeField]
+		private Image interactableImage;
+
+		[SerializeField] private InteractableSpritesDict interactableSprites;
+		[SerializeField] private Gradient                interactableProgressGradient;
 
 		/// <summary>
 		///     List to keep track of how many interactable objects are in range.
@@ -32,6 +48,12 @@ namespace Interact
 
 		private void Update()
 		{
+			if (_interacting)
+			{
+				UpdateInteractableIcon();
+				return;
+			}
+
 			if (_cooldown > 0)
 			{
 				_cooldown -= Time.deltaTime;
@@ -75,6 +97,8 @@ namespace Interact
 
 			if (_interactList.Count == 0)
 			{
+				if (_closestInteractable != null) interactableImage.enabled = false;
+
 				_closestInteractable = null;
 				return;
 			}
@@ -92,14 +116,22 @@ namespace Interact
 
 			Interactable newClosestInteractable = closestObject.GetComponent<Interactable>();
 
-			if (_closestInteractable == newClosestInteractable) return;
+			if (_closestInteractable != newClosestInteractable)
+			{
+				interactableImage.sprite = interactableSprites[newClosestInteractable.GetInteractableType()];
 
-			if (_closestInteractable != null) _closestInteractable.OnNotClosestInteractable();
+				_closestInteractable = newClosestInteractable;
+			}
 
-			_closestInteractable = newClosestInteractable;
-			_closestInteractable.OnClosestInteractable();
+			UpdateInteractableIcon();
 		}
 
+		private void UpdateInteractableIcon()
+		{
+			float progress = _closestInteractable.GetProgress();
+			interactableImage.enabled = progress < 0.975f;
+			interactableImage.color = interactableProgressGradient.Evaluate(progress);
+		}
 
 		public void InteractionAction(InputAction.CallbackContext context)
 		{
@@ -121,12 +153,10 @@ namespace Interact
 			if (!_interacting) return;
 
 			_closestInteractable.CancelInteraction();
-			Debug.Log("Cancelling!");
 		}
 
 		private void OnStartInteraction()
 		{
-			Debug.Log("Starting Interaction!");
 			_interacting = true;
 			ToggleInteraction(true);
 		}
@@ -135,8 +165,10 @@ namespace Interact
 		{
 			_interacting = false;
 			ToggleInteraction(false);
+			Debug.Log(_closestInteractable);
 			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
 			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
+			UpdateClosestInteractable();
 		}
 
 		private void ToggleInteraction(bool isInteracting)

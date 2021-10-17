@@ -124,12 +124,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9641aa0f6b4667e46ba1b001fdefecdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableType: 2
+  startInteraction:
+    m_PersistentCalls:
+      m_Calls: []
   finishInteraction:
     m_PersistentCalls:
       m_Calls: []
-  canvas: {fileID: 0}
   interactDuration: 0.25
   itemCost: 10
+  popupDelay: 1
   itemName: Primary Ammo (x5)
   ammoType: 0
   ammoAmount: 5

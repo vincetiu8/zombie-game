@@ -55,7 +55,6 @@ namespace Weapons
 			amount = Mathf.Min(amount, ammoEntry.maxCapacity - ammoEntry.currentStock);
 			ammoEntry.currentStock += amount;
 			ammoInventory[type] = ammoEntry;
-			Debug.Log(ammoInventory[type]);
 			return amount;
 		}
 

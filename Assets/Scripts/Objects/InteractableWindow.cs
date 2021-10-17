@@ -49,6 +49,11 @@ namespace Objects
 			_zombiesAtWindow--;
 		}
 
+		public override float GetProgress()
+		{
+			return (float)_windowController.GetHealth() / _windowController.GetMaxHealth();
+		}
+
 		public override void StartInteraction()
 		{
 			if (_windowController.IsWindowFixed())

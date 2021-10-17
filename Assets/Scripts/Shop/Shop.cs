@@ -63,6 +63,7 @@ namespace Shop
 
 		public override void StartInteraction()
 		{
+			ResetDuration();
 			ShopText.Instance.ToggleVisibility(true);
 
 			// We only want to let the player start if they have already seen the popup and have enough money
