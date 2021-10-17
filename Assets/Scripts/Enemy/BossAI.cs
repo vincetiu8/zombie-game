@@ -15,4 +15,21 @@ public class BossAI : MonoBehaviour
     {
         
     }
+    
+    // Bosses will have a set of attacks that they will do depending on a number of factors (for now determined by just distance)
+
+    void Summon()
+    {
+        
+    }
+
+    void Melee()
+    {
+        
+    }
+
+    void StunAttack()
+    {
+        
+    }
 }
