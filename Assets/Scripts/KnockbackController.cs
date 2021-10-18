@@ -39,7 +39,9 @@ public class KnockbackController : MonoBehaviour
 
     public void TakeStun(int duration)
     {
-        _cooldown += duration;
+        // Stuns overwrites previous stun if it's duration is higher, otherwise, it is ignored (Prevents stuns from stacking)
+        if (_cooldown > duration) return;
+        _cooldown = duration;
         BeStunned(true);
     }
 

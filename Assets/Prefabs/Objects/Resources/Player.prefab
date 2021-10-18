@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fca6978e8344ef22a91f6ab5d18227d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 15
+  acceleration: 20
 --- !u!114 &1890970094835804043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1340,17 +1340,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6174202033859612344, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1, type: 3}
---- !u!4 &5606801819098502832 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5290555857044969615, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
-    type: 3}
-  m_PrefabInstance: {fileID: 334541845019643455}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &225350198778179583 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 541578500274577856, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 334541845019643455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5606801819098502832 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5290555857044969615, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
     type: 3}
   m_PrefabInstance: {fileID: 334541845019643455}
   m_PrefabAsset: {fileID: 0}
@@ -1364,7 +1369,7 @@ PrefabInstance:
     - target: {fileID: 2345202485471909834, guid: 095a40497e26818c496d8f1157ab98f4,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4345742403078963709, guid: 095a40497e26818c496d8f1157ab98f4,
         type: 3}
@@ -1482,6 +1487,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
+      propertyPath: levels.Array.data[0].knockback
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6430018366674950792, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
       propertyPath: prefixField
@@ -1581,7 +1591,7 @@ PrefabInstance:
     - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
         type: 3}
@@ -1754,6 +1764,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Name
@@ -1776,15 +1791,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d2ada47266bc9cac8c5eb6699945401, type: 3}
---- !u!4 &6454070947382795748 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 894441089126901917, guid: 0d2ada47266bc9cac8c5eb6699945401,
-    type: 3}
-  m_PrefabInstance: {fileID: 6194919242543379833}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1692985224037033131 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
+    type: 3}
+  m_PrefabInstance: {fileID: 6194919242543379833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6454070947382795748 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 894441089126901917, guid: 0d2ada47266bc9cac8c5eb6699945401,
     type: 3}
   m_PrefabInstance: {fileID: 6194919242543379833}
   m_PrefabAsset: {fileID: 0}
@@ -1795,6 +1810,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911151390933760986}
     m_Modifications:
+    - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 157646849353220134, guid: 390f9086e6e8bf4dba92d85903aef232,
         type: 3}
       propertyPath: sceneViewId

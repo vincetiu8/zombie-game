@@ -52,9 +52,10 @@ namespace Weapons
             {
                 healthController.ChangeHealth(-damage);
 
-                if (healthController.transform.GetComponent<KnockbackController>() == null) continue;
+                KnockbackController knockBackController = healthController.transform.GetComponent<KnockbackController>();
+                if (knockBackController == null) continue;
                 float angle = TransformUtils.Vector2ToDeg(healthController.transform.position - transform.position);
-                healthController.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, knockBack);
+                knockBackController.TakeKnockBack(angle, knockBack);
             }
 
 			_cooldown = damageCooldown;
