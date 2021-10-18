@@ -8,17 +8,30 @@ using Utils;
 public class BossAI : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    private IEnumerator Start()
     {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(minActionRate,maxActionRate));
+            PeformMove();
+        }
         SummonZombies(10);
     }
-    
+
+    private void PeformMove()
+    {
+        StartCoroutine(HandleSummon());
+    }
+
     [SerializeField] private Object spawnedZombie;
     [SerializeField] private float spawnRadius = 3;
 
     [SerializeField] private float summonAmount;
     [SerializeField] private float summonAmountIncrementer;
     [SerializeField] private float summonDuration;
+
+    [SerializeField] private int minActionRate;
+    [SerializeField] private int maxActionRate;
 
 
     private IEnumerator HandleSummon()
