@@ -29,14 +29,15 @@ namespace Weapons
 		private List<GameObject> availableWeapons;
 
 
-		private AmmoInventory _ammoInventory;
-		private Weapon        _currentWeapon;
-		private int           _currentWeaponIndex;
-		private float         _mouseDist;
-		private bool          _preventFire;
+		private AmmoInventory  _ammoInventory;
+		private Weapon         _currentWeapon;
+		private AnimatedHealth _animatedHealth;
+		private int            _currentWeaponIndex;
+		private float          _mouseDist;
+		private bool           _preventFire;
 
-		private void Start()
-		{
+		private void Start() {
+			_animatedHealth = GetComponent<AnimatedHealth>();
 			_ammoInventory = GetComponent<AmmoInventory>();
 			for (int i = 0; i < availableWeapons.Count; i++)
 			{
@@ -73,6 +74,7 @@ namespace Weapons
 		public void FireAction(InputAction.CallbackContext context)
 		{
 			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
+			_animatedHealth.canHeal = context.canceled;
 
 			// When the mouse is pressed down, two actions are sent: started and performed
 			// We'll use performed here to check for the press
@@ -90,6 +92,7 @@ namespace Weapons
 		public void ReloadAction(InputAction.CallbackContext context)
 		{
 			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
+			_animatedHealth.canHeal = context.canceled;
 
 			// Make sure this is only when the reload button is pressed
 			if (!context.performed) return;
@@ -126,6 +129,7 @@ namespace Weapons
 				return;
 			}
 
+
 			int scrollDirection = (int)context.ReadValue<float>();
 			int selectedWeaponIndex = _currentWeaponIndex + scrollDirection;
 			SelectWeapon(selectedWeaponIndex);
@@ -137,6 +141,7 @@ namespace Weapons
 			{
 				return;
 			}
+
 
 			int key = (int)context.ReadValue<float>();
 			int selectedWeaponIndex = key - 1;

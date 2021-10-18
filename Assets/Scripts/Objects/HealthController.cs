@@ -32,27 +32,19 @@ namespace Objects
 		}
 
 		private void Update() {
-			Debug.Log(canHeal);
-			if (this.gameObject.transform.position != position) {
-				Debug.Log("Moved");
-				canHeal = false;
-			}
 			CheckNaturalHealing();
-			position = gameObject.transform.position;
 		}
 
 		private void CheckNaturalHealing() {
-			Debug.Log(this.gameObject.tag);
+			Debug.Log(Health);
 			if (gameObject.tag != "Player" || Health >= initialHealth || !canHeal || Health <= 0 || isHealing) {
 				return;
 			}
 
-			if (Health + naturalHealAmount > initialHealth) {
-				Debug.Log("Healed Over");
+			if (Health + naturalHealAmount >= initialHealth) {
 				StartCoroutine(NaturalHealing(initialHealth-Health));
 				return;
 			}
-			Debug.Log("OK");
 			StartCoroutine(NaturalHealing(naturalHealAmount));
 		}
 
