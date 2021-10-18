@@ -11,15 +11,6 @@ namespace Objects
 	/// </summary>
 	public class HealthController : MonoBehaviourPun 
 	{
-
-		public bool canHeal;
-
-		[SerializeField] private int  naturalHealInterval;
-		[SerializeField] private int  naturalHealAmount;
-
-		private bool      isHealing;
-		private Vector3 position;
-
 		[Header("Health Settings")] [SerializeField] [Range(0, 500)]
 		protected int initialHealth;
 
@@ -28,32 +19,6 @@ namespace Objects
 		protected virtual void Awake()
 		{
 			Health = initialHealth;
-			position = gameObject.transform.position;
-		}
-
-		private void Update() {
-			CheckNaturalHealing();
-		}
-
-		private void CheckNaturalHealing() {
-			Debug.Log(Health);
-			if (gameObject.tag != "Player" || Health >= initialHealth || !canHeal || Health <= 0 || isHealing) {
-				return;
-			}
-
-			if (Health + naturalHealAmount >= initialHealth) {
-				StartCoroutine(NaturalHealing(initialHealth-Health));
-				return;
-			}
-			StartCoroutine(NaturalHealing(naturalHealAmount));
-		}
-
-		private IEnumerator NaturalHealing(int healingAmount) {
-			isHealing = true;
-			yield return new WaitForSeconds(naturalHealInterval);
-			ChangeHealth(healingAmount);
-			Debug.Log(Health);
-			isHealing = false;
 		}
 
 		public virtual void ChangeHealth(int change)
