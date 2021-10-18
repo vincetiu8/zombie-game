@@ -21,7 +21,7 @@ namespace Weapons
 
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
-			if (collision.gameObject.layer == targetLayer)
+			if ((targetLayer.value & (1 << collision.gameObject.layer)) > 0)
 			{
 				_hitTargets.Add(collision);
 			}
@@ -29,7 +29,7 @@ namespace Weapons
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
-			if (collision.gameObject.layer == targetLayer)
+			if ((targetLayer.value & (1 << collision.gameObject.layer)) > 0)
 			{
 				_hitTargets.Remove(collision);
 			}
