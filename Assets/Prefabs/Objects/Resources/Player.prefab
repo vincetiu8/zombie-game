@@ -154,7 +154,7 @@ MonoBehaviour:
   m_UseNormalMap: 1
   m_LightOrder: 1
   m_AlphaBlendOnOverlap: 1
-  m_ShadowIntensity: 0.75
+  m_ShadowIntensity: 1
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
@@ -1211,10 +1211,10 @@ MonoBehaviour:
   m_UseNormalMap: 1
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0.75
+  m_ShadowIntensity: 1
   m_ShadowVolumeIntensity: 0
-  m_PointLightInnerAngle: 90
-  m_PointLightOuterAngle: 120
+  m_PointLightInnerAngle: 60
+  m_PointLightOuterAngle: 75
   m_PointLightInnerRadius: 0
   m_PointLightOuterRadius: 5
   m_PointLightDistance: 3
