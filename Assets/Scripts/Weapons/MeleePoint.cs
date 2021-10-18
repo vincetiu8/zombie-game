@@ -10,27 +10,28 @@ namespace Weapons
 	/// </summary>
 	[RequireComponent(typeof(Collider2D))]
 	public class MeleePoint : MonoBehaviour
-	{
-		private List<Collider2D> _hitEnemies;
+    {
+        [SerializeField] private LayerMask targetLayer;
+		private List<Collider2D> _hitTargets;
 
 		private void Awake()
 		{
-			_hitEnemies = new List<Collider2D>();
+			_hitTargets = new List<Collider2D>();
 		}
 
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
-			if (collision.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+			if (collision.gameObject.layer == targetLayer)
 			{
-				_hitEnemies.Add(collision);
+				_hitTargets.Add(collision);
 			}
 		}
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
-			if (collision.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+			if (collision.gameObject.layer == targetLayer)
 			{
-				_hitEnemies.Remove(collision);
+				_hitTargets.Remove(collision);
 			}
 		}
 
@@ -38,10 +39,10 @@ namespace Weapons
 		/// Returns a list of enemies obtained from hitEnemies
 		/// with all null (dead) enemies removed
 		/// </summary>
-		public List<Collider2D> GetEnemiesInCollider()
+		public List<Collider2D> GetTargetsInCollider()
 		{
-			_hitEnemies.RemoveAll(enemy => enemy == null);
-			return _hitEnemies.ToList();
+			_hitTargets.RemoveAll(target => target == null);
+			return _hitTargets.ToList();
 		}
 	}
 }
