@@ -73,9 +73,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 549690393
+  m_SortingLayerID: -448142459
   m_SortingLayer: 4
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1098179606456428539, guid: 92aa031c64efb71d9a518e107694d2c4,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -163,13 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0efcd33fd675f5c0db24f18dec85563c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableType: 0
   startInteraction:
     m_PersistentCalls:
       m_Calls: []
   finishInteraction:
     m_PersistentCalls:
       m_Calls: []
-  canvas: {fileID: 0}
   interactDuration: 2.5
 --- !u!1 &9175378642531915954
 GameObject:
