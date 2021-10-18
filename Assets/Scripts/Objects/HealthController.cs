@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 
@@ -7,8 +9,17 @@ namespace Objects
 	///     Health is the base class for all destructible objects.
 	///     Once an object's health reaches 0, it is normally destroyed.
 	/// </summary>
-	public class HealthController : MonoBehaviourPun
+	public class HealthController : MonoBehaviourPun 
 	{
+
+		public bool canHeal;
+
+		[SerializeField] private int  naturalHealInterval;
+		[SerializeField] private int  naturalHealAmount;
+
+		private bool      isHealing;
+		private Vector3 position;
+
 		[Header("Health Settings")] [SerializeField] [Range(0, 500)]
 		protected int initialHealth;
 
@@ -17,6 +28,40 @@ namespace Objects
 		protected virtual void Awake()
 		{
 			Health = initialHealth;
+			position = gameObject.transform.position;
+		}
+
+		private void Update() {
+			Debug.Log(canHeal);
+			if (this.gameObject.transform.position != position) {
+				Debug.Log("Moved");
+				canHeal = false;
+			}
+			CheckNaturalHealing();
+			position = gameObject.transform.position;
+		}
+
+		private void CheckNaturalHealing() {
+			Debug.Log(this.gameObject.tag);
+			if (gameObject.tag != "Player" || Health >= initialHealth || !canHeal || Health <= 0 || isHealing) {
+				return;
+			}
+
+			if (Health + naturalHealAmount > initialHealth) {
+				Debug.Log("Healed Over");
+				StartCoroutine(NaturalHealing(initialHealth-Health));
+				return;
+			}
+			Debug.Log("OK");
+			StartCoroutine(NaturalHealing(naturalHealAmount));
+		}
+
+		private IEnumerator NaturalHealing(int healingAmount) {
+			isHealing = true;
+			yield return new WaitForSeconds(naturalHealInterval);
+			ChangeHealth(healingAmount);
+			Debug.Log(Health);
+			isHealing = false;
 		}
 
 		public virtual void ChangeHealth(int change)
