@@ -11,61 +11,44 @@ using Random = UnityEngine.Random;
 namespace Enemy
 {
 	/// <summary>
-	///     Represents the current state of the spawner.
-	///     Spawning: the spawner is creating enemies.
-	///     Waiting: the spawner is waiting until all enemies are dead.
-	///     Counting: the spawner is counting down the start of the next wave.
-	/// </summary>
-	public enum SpawnState
-	{
-		Spawning,
-		Waiting,
-		Counting
-	}
-
-	/// <summary>
-	///     Holds information about a wave.
-	///     This is settable in the inspector.
-	/// </summary>
-	[Serializable]
-	public struct Wave
-	{
-		public string     waveName;
-		public GameObject enemyType;
-		public int        count;
-		public float      spawnDelay;
-	}
-
-	/// <summary>
 	///     Handles spawning waves of enemies.
 	/// </summary>
 	public class WaveSpawner : MonoBehaviour
 	{
-		[Header("Wave Information")] [Description("The enemy waves")] [SerializeField]
-		private Wave[] waves;
+		[Header("Wave Information")]
+		[Tooltip("What type of wave to use")]
+		public WaveType waveTypes;
+		
+		[Tooltip("Waves spawning one enemy type")]
+		public FixedWave[] waves;
+		
+		[Tooltip("Waves containing enemies spawned at random")] 
+		public RandomWave[] randomWaves;
+		
+		[Tooltip("RandomWaves but with random enemy spawn amounts")]
+		public ChanceWave[] chanceWaves;
 
-		[Description("The time delay between waves")] [SerializeField] [Range(0, 20)]
-		private float waveDelay = 5;
-
-		[Description("The positions where enemies can spawn")] [SerializeField]
-		private List<Transform> spawnpoints;
+		[Tooltip("The time delay between waves")] [Range(0, 20)]
+		public float waveDelay = 5;
 
 		[Header("Enemy Searching")]
-		[Description("How often the number of remaining enemies sholud be checked")]
-		[SerializeField]
+		[Tooltip("How often the number of remaining enemies should be checked")]
 		[Range(0.1f, 5)]
-		private float searchIntervalAmount = 1f;
+		public float searchIntervalAmount = 1f;
 
 		private int _nextWaveIndex;
 
-		private float     _searchInterval;
+		private float _searchInterval;
 		private Coroutine _spawnCoroutine;
 
 		private SpawnState _state;
-		private float      _waveCountdown;
+		private WaveAttributeMultiplier _attributeMultiplier;
+		private float _waveCountdown;
 
 		private void Start()
 		{
+			_attributeMultiplier = GetComponent<WaveAttributeMultiplier>();
+			
 			if (!PhotonNetwork.IsMasterClient)
 			{
 				enabled = false;
@@ -74,9 +57,17 @@ namespace Enemy
 
 			_state = SpawnState.Counting;
 
-			if (spawnpoints.Count == 0) Debug.LogError("No available spawnpoints");
-
 			_waveCountdown = waveDelay;
+
+			_attributeMultiplier._fixedStatIncrementer = _attributeMultiplier.fixedStatMultiplier;
+
+			if (!_attributeMultiplier.fixedMultiplier)
+			{
+				Debug.Log("Using random multipliers");
+				return;
+			}
+
+			Debug.Log("Using fixed multipliers");
 		}
 
 		private void Update()
@@ -88,11 +79,23 @@ namespace Enemy
 
 					if (_waveCountdown > 0 || _spawnCoroutine != null) return;
 
-					_spawnCoroutine = StartCoroutine(SpawnWave(waves[_nextWaveIndex]));
-
+					switch (waveTypes)
+					{
+						case WaveType.Fixed:
+							_spawnCoroutine = StartCoroutine(SpawnWave(waves[_nextWaveIndex]));
+							break;
+						case WaveType.Random:
+							_spawnCoroutine = StartCoroutine(SpawnWave(randomWaves[_nextWaveIndex]));
+							break;
+						case WaveType.Chance:
+							_spawnCoroutine = StartCoroutine(SpawnWave(chanceWaves[_nextWaveIndex]));
+							break;
+					}
 					break;
+
 				case SpawnState.Spawning:
 					return;
+
 				case SpawnState.Waiting:
 				{
 					_searchInterval -= Time.deltaTime;
@@ -108,11 +111,11 @@ namespace Enemy
 
 					break;
 				}
+
 				default:
 					return;
 			}
 		}
-
 
 		/// <summary>
 		///     Updates the wave index and countdown
@@ -122,49 +125,115 @@ namespace Enemy
 			_state = SpawnState.Counting;
 			_waveCountdown = waveDelay;
 
+			if (_attributeMultiplier.resetStatIncrease)
+			{
+				if (_attributeMultiplier._fixedStatIncrementer > waves.Length)
+				{
+					_attributeMultiplier._fixedStatIncrementer = _attributeMultiplier.fixedStatMultiplier;
+					Debug.Log("reset fixed stats");
+				}
+			}
+
 			// In case the wave index exceeds the number of waves, we loop back to the start
-			_nextWaveIndex += 1 + waves.Length;
-			_nextWaveIndex %= waves.Length;
+			switch (waveTypes)
+			{
+				case WaveType.Fixed:
+					_nextWaveIndex += 1 + waves.Length;
+					_nextWaveIndex %= waves.Length;
+					break;
+				case WaveType.Random:
+					_nextWaveIndex += 1 + randomWaves.Length;
+					_nextWaveIndex %= randomWaves.Length;
+					break;
+				case WaveType.Chance:
+					_nextWaveIndex += 1 + chanceWaves.Length;
+					_nextWaveIndex %= chanceWaves.Length;
+					break;
+			}
 		}
 
 		/// <summary>
-		///     Spawns all enemies in a wave
+		/// Spawns all enemies in a Wave
 		/// </summary>
-		private IEnumerator SpawnWave(Wave wave)
+		private IEnumerator SpawnWave(FixedWave wave)
 		{
 			Debug.Log("Spawning wave: " + wave.waveName);
 			_state = SpawnState.Spawning;
 
-			for (int i = 0; i < wave.count; i++)
+			for (int i = 0; i < wave.enemyCount; i++)
 			{
-				SpawnEnemy(wave.enemyType);
+				wave.SpawnEnemy(wave.enemyType);
 				yield return new WaitForSeconds(wave.spawnDelay);
+			}
+
+			if (!_attributeMultiplier.fixedMultiplier)
+			{
+				_attributeMultiplier.randomStatMin += _attributeMultiplier.randomMinIncrement;
+				_attributeMultiplier.randomStatMax += _attributeMultiplier.randomMaxIncrement;
+			}
+			else
+			{
+				_attributeMultiplier._fixedStatIncrementer += _attributeMultiplier.fixedStatIncrement;
 			}
 
 			_state = SpawnState.Waiting;
 			_spawnCoroutine = null;
 		}
 
-		private void SpawnEnemy(Object enemy)
+		/// <summary>
+		/// Spawns all enemies in a RandomWave
+		/// </summary>
+		private IEnumerator SpawnWave(RandomWave wave)
 		{
-			// Get a random spawnpoint
-			Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
+			Debug.Log("Spawning wave (random): " + wave.waveName);
+			_state = SpawnState.Spawning;
+			
+			wave.SpawnEnemy(wave);
+			yield return new WaitForSeconds(wave.spawnDelay);
+			
+			if (!_attributeMultiplier.fixedMultiplier)
+			{
+				_attributeMultiplier.randomStatMin += _attributeMultiplier.randomMinIncrement;
+				_attributeMultiplier.randomStatMax += _attributeMultiplier.randomMaxIncrement;
+			}
+			else
+			{
+				_attributeMultiplier._fixedStatIncrementer += _attributeMultiplier.fixedStatIncrement;
+			}
 
-			PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
+			_state = SpawnState.Waiting;
+			_spawnCoroutine = null;
 		}
+		
+		/// <summary>
+		/// Spawns all enemies in a ChanceWave
+		/// </summary>
+		private IEnumerator SpawnWave(ChanceWave wave)
+		{
+			Debug.Log("Spawning wave (random): " + wave.waveName);
+			_state = SpawnState.Spawning;
+
+			wave.SpawnEnemy(wave);
+			yield return new WaitForSeconds(wave.spawnDelay);
+
+				if (!_attributeMultiplier.fixedMultiplier)
+			{
+				_attributeMultiplier.randomStatMin += _attributeMultiplier.randomMinIncrement;
+				_attributeMultiplier.randomStatMax += _attributeMultiplier.randomMaxIncrement;
+			}
+			else
+			{
+				_attributeMultiplier._fixedStatIncrementer += _attributeMultiplier.fixedStatIncrement;
+			}
+
+			_state = SpawnState.Waiting;
+			_spawnCoroutine = null;
+		}
+		
 
 		private static bool AreEnemiesAlive()
 		{
 			return GameObject.FindGameObjectWithTag("Enemy");
 		}
-
-        public void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
-        {
-            // Only adds SpawnPoints that do not already exist to prevent accidentally adding the same points multiple times
-            foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint => !spawnpoints.Contains(addedSpawnPoint)))
-            {
-                spawnpoints.Add(addedSpawnPoint);
-            }
-        }
 	}
 }

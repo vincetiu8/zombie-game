@@ -36,8 +36,7 @@ namespace Enemy
         [Header("Increment settings")]
         [Tooltip("How much to increment _fixedStatIncrementer by. Defaults to 1")]
         public int fixedStatIncrement = 1;
-		
-        [Header("Increment settings")]
+        
         [Tooltip("How much to increment _randomStatMin by. Defaults to 5")]
         public int randomMinIncrement = 5;
 

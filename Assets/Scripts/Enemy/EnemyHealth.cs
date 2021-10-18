@@ -24,11 +24,5 @@ namespace Enemy
 		{
 			Health *= multiplier;
 		}
-
-		// For debugging, will be removed 
-		public int GetHealth()
-		{
-			return Health;
-		}
 	}
 }

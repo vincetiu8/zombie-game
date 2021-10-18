@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Networking;
 using UnityEngine;
 using Photon.Pun;
@@ -27,24 +28,40 @@ namespace Enemy
         Random,
         Chance
     }
+    
+    /// <summary>
+    /// Base class for all waves
+    /// </summary>
+    public class Wave
+    {
+        [SerializeField] protected List<Transform> spawnpoints = new List<Transform>();
 
+        public void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
+        {
+            // Only adds SpawnPoints that do not already exist to prevent accidentally adding the same points multiple times
+            foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint => !spawnpoints.Contains(addedSpawnPoint)))
+            {
+                spawnpoints.Add(addedSpawnPoint);
+            }
+        }
+    }
+    
     /// <summary>
     ///     Holds information about a wave.
     ///     This is settable in the inspector.
     /// </summary>
     [Serializable]
-    public class FixedWave
+    public class FixedWave : Wave
     {
         public string     waveName;
         public GameObject enemyType;
         public int        enemyCount;
         public float      spawnDelay;
-        public Transform[] spawnpoints;
-        
+
         public void SpawnEnemy(GameObject enemy)
         {
             // Get a random spawnpoint
-            Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Length)];
+            Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
             
             GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
 
@@ -58,17 +75,16 @@ namespace Enemy
     ///		Contains an array of enemies to be spawned at random
     /// </summary>
     [Serializable]
-    public struct RandomWave
+    public class RandomWave : Wave
     {
         public string     waveName;
         public GameObject[] enemyTypes;
         public int        enemyCount;
         public float      spawnDelay;
-        public Transform[] spawnpoints;
-        
+
         public void SpawnEnemy(RandomWave wave)
         {
-            Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Length)];
+            Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
 
             int pickedEnemy = Random.Range(0, wave.enemyTypes.Length);
 
@@ -93,18 +109,17 @@ namespace Enemy
     /// randomly determined
     /// </summary>
     [Serializable]
-    public struct ChanceWave
+    public class ChanceWave : Wave
     {
         public string waveName;
         public GameObject[] chanceEnemies;
         [Range(1, 10)] public int enemyChanceMax;
         public int enemyCount;
         public float spawnDelay;
-        public Transform[] spawnpoints;
 
         public void SpawnEnemy(ChanceWave wave)
         {
-            Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Length)];
+            Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
             
             int enemyAmount = Random.Range(1, enemyChanceMax);
 

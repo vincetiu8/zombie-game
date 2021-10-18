@@ -7,6 +7,7 @@ TagManager:
   - Canvas
   - Enemy
   - Interactable
+  - EnemySpawnpoint
   layers:
   - Default
   - TransparentFX
