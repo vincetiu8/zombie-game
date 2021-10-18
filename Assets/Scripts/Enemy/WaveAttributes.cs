@@ -22,9 +22,9 @@ namespace Enemy
     ///     This is settable in the inspector.
     /// </summary>
     [Serializable]
-    public struct Wave
+    public class FixedWave : Wave
     {
-        public string     waveName;
+        [SerializeField] public string     waveName;
         public GameObject enemyType;
         public int        enemyCount;
         public float      spawnDelay;

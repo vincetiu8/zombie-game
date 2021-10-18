@@ -19,5 +19,16 @@ namespace Enemy
 
 			base.OnDeath();
 		}
+
+		public void ScaleHealth(int multiplier)
+		{
+			Health *= multiplier;
+		}
+
+		// For debugging, will be removed 
+		public int GetHealth()
+		{
+			return Health;
+		}
 	}
 }
