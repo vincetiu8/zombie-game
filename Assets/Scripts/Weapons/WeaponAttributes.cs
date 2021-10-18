@@ -15,6 +15,9 @@ namespace Weapons
 
 		[Description("The weapon's damage")] [Range(0, 1000)]public int damage;
 
+        [Description("How much knockback the weapon create")] [Range(0, 100)]
+        public float knockback;
+
 		[Description("The number of seconds between weapon attacks")]
 		public float fireCooldown;
 

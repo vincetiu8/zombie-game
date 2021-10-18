@@ -1,7 +1,10 @@
 using System.ComponentModel;
 using Enemy;
 using Photon.Pun;
+using UnityEditor;
 using UnityEngine;
+using Utils;
+using TransformUtils = Utils.TransformUtils;
 
 namespace Weapons
 {
@@ -33,9 +36,16 @@ namespace Weapons
 			base.Fire();
 			photonView.RPC("RpcMeleeAnimation", RpcTarget.All);
 
-			foreach (Collider2D correctedEnemy in _meleePoint.GetEnemiesInCollider())
-				correctedEnemy.GetComponent<EnemyHealth>().ChangeHealth(-currentAttributes.damage);
-		}
+            foreach (Collider2D correctedEnemy in _meleePoint.GetEnemiesInCollider())
+            {
+                correctedEnemy.GetComponent<EnemyHealth>().ChangeHealth(-currentAttributes.damage);
+                
+                if (correctedEnemy.GetComponent<KnockbackController>() == null) continue;
+                
+                float angle = TransformUtils.Vector2ToDeg(correctedEnemy.transform.position - transform.position);
+                correctedEnemy.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, currentAttributes.knockback);
+            }
+        }
 
 		[PunRPC]
 		private void RpcMeleeAnimation()

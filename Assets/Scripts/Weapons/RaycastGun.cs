@@ -43,7 +43,11 @@ namespace Weapons
 			if (healthController == null) return;
 
 			healthController.ChangeHealth(-currentAttributes.damage);
-		}
+
+            if (healthController.transform.GetComponent<KnockbackController>() == null) return;
+            
+            healthController.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, currentAttributes.knockback);
+            }
 
 		[PunRPC]
 		protected void RPCFireBullet(int x, int y)

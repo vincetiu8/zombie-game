@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: -9158953098095830167}
   - component: {fileID: -6061700734141258256}
   - component: {fileID: 9088729507219513655}
+  - component: {fileID: 5135849153950044043}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -467,7 +468,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 0.3421195
-  m_LinearDrag: 0
+  m_LinearDrag: 20
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -724,7 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 4693431101761815404}
   playerSprite: {fileID: 4693431101948605444}
-  weaponPivot: {fileID: 1911151390933760986}
+  weaponPivot: {fileID: 0}
   availableWeapons:
   - {fileID: 1692985224037033131}
   - {fileID: 4935449549853359760}
@@ -744,7 +745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fca6978e8344ef22a91f6ab5d18227d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  acceleration: 20
 --- !u!114 &1890970094835804043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -917,6 +918,19 @@ MonoBehaviour:
   - {fileID: -8122009008315846099, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
   - {fileID: 1863022367390955774, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
   - {fileID: -6121086664708760571, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
+--- !u!114 &5135849153950044043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676611098347806923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da095f14c754914f9eadbaf5a6acb72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackMultiplier: 1
 --- !u!1 &5730595962619871849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,17 +1340,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6174202033859612344, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1, type: 3}
---- !u!4 &5606801819098502832 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5290555857044969615, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
-    type: 3}
-  m_PrefabInstance: {fileID: 334541845019643455}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &225350198778179583 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 541578500274577856, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 334541845019643455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5606801819098502832 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5290555857044969615, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
     type: 3}
   m_PrefabInstance: {fileID: 334541845019643455}
   m_PrefabAsset: {fileID: 0}
@@ -1347,6 +1366,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911151390933760986}
     m_Modifications:
+    - target: {fileID: 2345202485471909834, guid: 095a40497e26818c496d8f1157ab98f4,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4345742403078963709, guid: 095a40497e26818c496d8f1157ab98f4,
         type: 3}
       propertyPath: m_RootOrder
@@ -1439,15 +1463,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 095a40497e26818c496d8f1157ab98f4, type: 3}
---- !u!4 &761666291336677343 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4345742403078963709, guid: 095a40497e26818c496d8f1157ab98f4,
-    type: 3}
-  m_PrefabInstance: {fileID: 3953833660185888290}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4935449549853359760 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8259861147277211826, guid: 095a40497e26818c496d8f1157ab98f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3953833660185888290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &761666291336677343 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4345742403078963709, guid: 095a40497e26818c496d8f1157ab98f4,
     type: 3}
   m_PrefabInstance: {fileID: 3953833660185888290}
   m_PrefabAsset: {fileID: 0}
@@ -1462,6 +1486,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
+      propertyPath: levels.Array.data[0].knockback
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6430018366674950792, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
@@ -1540,15 +1569,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622303937f0556e409efd41e73a2cd6f, type: 3}
---- !u!4 &7452028337539437896 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6665705036354136277, guid: 622303937f0556e409efd41e73a2cd6f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4317750415459712413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5124768132740305437 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9004224348638097280, guid: 622303937f0556e409efd41e73a2cd6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4317750415459712413}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7452028337539437896 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6665705036354136277, guid: 622303937f0556e409efd41e73a2cd6f,
     type: 3}
   m_PrefabInstance: {fileID: 4317750415459712413}
   m_PrefabAsset: {fileID: 0}
@@ -1559,6 +1588,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911151390933760986}
     m_Modifications:
+    - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].fireCooldown
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2249583135430024779, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
         type: 3}
       propertyPath: m_RootOrder
@@ -1725,6 +1764,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Name
@@ -1747,15 +1791,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d2ada47266bc9cac8c5eb6699945401, type: 3}
---- !u!4 &6454070947382795748 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 894441089126901917, guid: 0d2ada47266bc9cac8c5eb6699945401,
-    type: 3}
-  m_PrefabInstance: {fileID: 6194919242543379833}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1692985224037033131 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
+    type: 3}
+  m_PrefabInstance: {fileID: 6194919242543379833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6454070947382795748 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 894441089126901917, guid: 0d2ada47266bc9cac8c5eb6699945401,
     type: 3}
   m_PrefabInstance: {fileID: 6194919242543379833}
   m_PrefabAsset: {fileID: 0}
@@ -1766,6 +1810,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911151390933760986}
     m_Modifications:
+    - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 157646849353220134, guid: 390f9086e6e8bf4dba92d85903aef232,
         type: 3}
       propertyPath: sceneViewId

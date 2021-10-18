@@ -84,6 +84,7 @@ namespace Enemy
 			}
 
 			Destination = _path.corners[1];
+            Debug.DrawLine(transform.position,Destination);
 			_pathCorner = 1;
 			_updateCooldown = updateCooldown;
 		}
