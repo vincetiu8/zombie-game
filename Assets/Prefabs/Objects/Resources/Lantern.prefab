@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1036530043
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1753205982242350755, guid: 5fece51a3a6029f92a850ec8c1bdb602,
     type: 3}
@@ -100,10 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8a2fbebe80e8647b1133b1183f5a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableType: 0
+  startInteraction:
+    m_PersistentCalls:
+      m_Calls: []
   finishInteraction:
     m_PersistentCalls:
       m_Calls: []
-  canvas: {fileID: 0}
   interactDuration: 0.2
   duration: 5
 --- !u!114 &1681215358839380596
@@ -129,7 +132,7 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0
+  m_ShadowIntensity: 1
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
