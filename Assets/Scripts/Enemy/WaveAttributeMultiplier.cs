@@ -6,9 +6,6 @@ namespace Enemy
 {
     public class WaveAttributeMultiplier : MonoBehaviour
     {
-        [Tooltip("Whether or not to use RandomWave instead of Wave")]
-        public bool useRandomWaves;
-
         [Header("Enemy stat settings")]
         [Tooltip("Whether or not to increase enemy stats per wave")]
         public bool increaseStats;

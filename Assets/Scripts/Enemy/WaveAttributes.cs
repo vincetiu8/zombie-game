@@ -21,6 +21,13 @@ namespace Enemy
         Counting
     }
 
+    public enum WaveType
+    {
+        Fixed,
+        Random,
+        Chance
+    }
+
     /// <summary>
     ///     Holds information about a wave.
     ///     This is settable in the inspector.
