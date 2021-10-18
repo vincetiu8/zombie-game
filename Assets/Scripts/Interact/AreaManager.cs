@@ -6,24 +6,31 @@ using UnityEngine;
 
 namespace Interact
 {
-    public class AreaManager  : MonoBehaviour
-    {
-        private WaveSpawner _waveSpawner;
-        [SerializeField] private Transform _areaManager;
-        
-        private Dictionary<string, List<Transform>> roomNameTransfroms = new Dictionary<string, List<Transform>>();
+	public class AreaManager : MonoBehaviour
+	{
+		[SerializeField] private Transform areaTransforms;
 
-        private void Start()
-        {
-            foreach (Transform room in _areaManager) roomNameTransfroms.Add(room.name, room.Find("Enemy Spawnpoints").Cast<Transform>().ToList());
-            _waveSpawner = GameManager.Instance.GetComponent<WaveSpawner>();
-            UnlockRoom("Spawn Room");
-        }
+		private Dictionary<string, List<Transform>> _roomNameTransforms;
+		private WaveSpawner                         _waveSpawner;
 
-        public void UnlockRoom(string roomName)
-        {
-            if (!roomNameTransfroms.ContainsKey(roomName)) return;
-            _waveSpawner.AddSpawnPoints(roomNameTransfroms[roomName]);
-        }
-    }
+		private void Start()
+		{
+			_roomNameTransforms = new Dictionary<string, List<Transform>>();
+			foreach (Transform room in areaTransforms)
+			{
+				_roomNameTransforms.Add(room.name, room.Find("Enemy Spawnpoints")
+				                                       .Cast<Transform>().ToList());
+				Debug.Log(_roomNameTransforms[room.name].Count);
+			}
+
+			_waveSpawner = GameManager.Instance.GetComponent<WaveSpawner>();
+			UnlockRoom("Spawn Room");
+		}
+
+		public void UnlockRoom(string roomName)
+		{
+			if (!_roomNameTransforms.ContainsKey(roomName)) return;
+			_waveSpawner.AddSpawnPoints(_roomNameTransforms[roomName]);
+		}
+	}
 }
