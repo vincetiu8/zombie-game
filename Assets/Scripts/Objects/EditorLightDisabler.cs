@@ -14,7 +14,7 @@ namespace Objects
 		private void Start()
 		{
 			_light2D = GetComponent<Light2D>();
-			_light2D.enabled = false;
+			_light2D.intensity = 0;
 		}
 	}
 }

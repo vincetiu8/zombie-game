@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using Menus;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Shop;
@@ -8,30 +9,31 @@ namespace Networking
 {
 	public class GameManager : MonoBehaviourPunCallbacks
 	{
-		public static GameManager Instance;
-
-		[HideInInspector] public GoldSystem   goldSystem;
-		[HideInInspector] public GameObject[] playerInstances;
-		[HideInInspector] public GameObject   localPlayerInstance;
+		public static            GameManager      Instance;
+		[HideInInspector] public GoldSystem       goldSystem;
+		[HideInInspector] public GameObject       localPlayerInstance;
+		[HideInInspector] public SpectatorManager spectatorManager;
 
 		[SerializeField] private GameObject  playerPrefab;
 		[SerializeField] private Transform[] spawnpoints;
+		[SerializeField] private MenuManager menuManager;
 
-		private SpectatorManager _spectatorManager;
+		public Dictionary<int, GameObject> PlayerInstances;
+
 
 		private void Awake()
 		{
 			if (Instance != null) Destroy(this);
 
 			Instance = this;
-			playerInstances = Array.Empty<GameObject>();
+			PlayerInstances = new Dictionary<int, GameObject>();
 			goldSystem = GetComponentInChildren<GoldSystem>();
-			_spectatorManager = GetComponent<SpectatorManager>();
+			spectatorManager = GetComponent<SpectatorManager>();
 		}
 
 		private void Start()
-			{
-				int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
+		{
+			int playerNumber = PhotonNetwork.LocalPlayer.GetPlayerNumber();
 			Vector3 spawnPosition = spawnpoints[playerNumber].position;
 			localPlayerInstance = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
 		}
@@ -40,15 +42,16 @@ namespace Networking
 		{
 			if (playerNumber < 0) Debug.LogError("Attempting to add player instance with negative player number");
 
-			if (playerNumber >= playerInstances.Length) Array.Resize(ref playerInstances, playerNumber + 1);
-
-			playerInstances[playerNumber] = player;
+			PlayerInstances[playerNumber] = player;
 		}
 
 		public void RemovePlayerInstance(int playerNumber)
 		{
-			playerInstances[playerNumber] = null;
-			_spectatorManager.OnPlayerDeath(playerNumber);
+			PlayerInstances.Remove(playerNumber);
+
+			if (PlayerInstances.Count != 0) return;
+
+			menuManager.OpenMenu("death");
 		}
 	}
 }

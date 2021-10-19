@@ -21,6 +21,8 @@ namespace Objects
 
 		public virtual void ChangeHealth(int change)
 		{
+			Debug.Log("Changing health!");
+
 			// Can't directly set health because RPCChangeHealth may be overridden
 			// We want to ensure we also call it on the client to process changes
 			int newHealth = Health + change;
@@ -52,10 +54,8 @@ namespace Objects
 
 		// Called on master as only master can destroy 
 		[PunRPC]
-		protected void RPCOnDeath()
+		protected virtual void RPCOnDeath()
 		{
-			// Makes sure any on trigger exit works
-			transform.gameObject.SetActive(false);
 			PhotonNetwork.Destroy(gameObject);
 		}
 	}

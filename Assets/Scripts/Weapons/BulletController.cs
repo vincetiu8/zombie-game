@@ -1,3 +1,4 @@
+using Objects;
 using UnityEngine;
 
 namespace Weapons

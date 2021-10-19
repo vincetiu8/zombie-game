@@ -1,13 +1,13 @@
+using Menus_UI;
 using Networking;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Menus_UI
+namespace Menus
 {
 	/// <summary>
 	///     Handles opening and closing menus.
 	/// </summary>
-	// MenuManager 
 	public class MenuManager : MonoBehaviour
 	{
 		public static MenuManager instance;
@@ -34,7 +34,8 @@ namespace Menus_UI
 			foreach (Menu menu in menus)
 			{
 				menu.Toggle(menu.menuName == menuName);
-				if (menu.freezeOnToggle) _playerInput.SwitchCurrentActionMap(menu.inputToggle ? "UI" : "Game");
+				if (menu.menuName == menuName && menu.freezeOnToggle)
+					_playerInput.SwitchCurrentActionMap(menu.inputToggle ? "UI" : "Game");
 			}
 		}
 
