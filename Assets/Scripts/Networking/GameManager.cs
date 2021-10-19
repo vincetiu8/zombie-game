@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Menus;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
@@ -45,9 +46,10 @@ namespace Networking
 			PlayerInstances[playerNumber] = player;
 		}
 
-		public void RemovePlayerInstance(int playerNumber)
+		public void RemovePlayerInstance(GameObject player)
 		{
-			PlayerInstances.Remove(playerNumber);
+			KeyValuePair<int, GameObject> item = PlayerInstances.First(kvp => kvp.Value == player);
+			PlayerInstances.Remove(item.Key);
 
 			if (PlayerInstances.Count != 0) return;
 

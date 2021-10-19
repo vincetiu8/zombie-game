@@ -30,7 +30,7 @@ namespace Input
 		[PunRPC]
 		protected override void RPCInitialOnDeath(PhotonMessageInfo info)
 		{
-			GameManager.Instance.RemovePlayerInstance(info.Sender.GetPlayerNumber());
+			GameManager.Instance.RemovePlayerInstance(gameObject);
 			if (GameManager.Instance.PlayerInstances.Count == 0) cameraObject.parent = null;
 
 			base.RPCInitialOnDeath(info);
