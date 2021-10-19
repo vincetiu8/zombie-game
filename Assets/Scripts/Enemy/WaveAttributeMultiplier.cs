@@ -1,47 +1,45 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Enemy
 {
+    /// <summary>
+    /// Handles calculating and scaling enemy stats
+    /// </summary>
     public class WaveAttributeMultiplier : MonoBehaviour
     {
         [Header("Enemy stat settings")]
         [Tooltip("Whether or not to increase enemy stats per wave")]
         public bool increaseStats;
 
-        [Tooltip("Whether or not to use a fixed stat multiplier")]
+        [Tooltip("Whether or not to randomly deviate from the attribute multiplier")]
         public bool fixedMultiplier;
 
         [Tooltip("Whether or not to reset the stat increase after all waves are completed")]
         public bool resetStatIncrease;
 		
-        [Tooltip("A fixed amount enemy stats are multiplied by. Increments per wave, defaults to 1")]
-        public int fixedStatMultiplier = 1;
+        [Tooltip("The base value of _statIncrementer")]
+        public int incrementerBase = 1;
 
-        [Tooltip("The incrementing value of _fixedStatMultiplier")] [HideInInspector]
-        public int _fixedStatIncrementer;
+        [Tooltip("Incrementing value used in attribute calculations")] [HideInInspector]
+        public int statIncrementer;
 
         [Tooltip("How much to divide health/damage cacluclations by to get new stats")]
         public int fixedStatDivider;
 
         [Tooltip("A random amount enemy stats are multiplied by")]
-        private int _randomStatMultiplier;
+        private int _deviatedFixedMultiplier;
 
-        [Range(50, 99)] 
-        public int randomStatMin;
-        [Range(100, 300)] 
-        public int randomStatMax;
+        [Range(1, 5)]
+        public int randomDeviationMin;
+        [Range(1, 10)]
+        public int randomDeviationMax;
 
         [Header("Increment settings")]
         [Tooltip("How much to increment _fixedStatIncrementer by. Defaults to 1")]
         public int fixedStatIncrement = 1;
-        
-        [Tooltip("How much to increment _randomStatMin by. Defaults to 5")]
-        public int randomMinIncrement = 5;
-
-        [Tooltip("How much to increment _randomStatMax by. Defaults to 5")] 
-        public int randomMaxIncrement = 5;
 
         public void CalculateEnemyStats(GameObject enemy)
         {
@@ -53,24 +51,43 @@ namespace Enemy
 
                 if (!fixedMultiplier)
                 {
-                    // Convert to percentage
-                    _randomStatMultiplier = Random.Range(randomStatMin, randomStatMax) / 100;
+                    // Determines whether deviation will be positive or negative
+                    int deviationDecider = Random.Range(1, 3); 
+                    
+                    do
+                    {
+                        if (deviationDecider == 1)
+                        {
+                            int negativeDeviation = Random.Range(statIncrementer, randomDeviationMin + 1); 
+                            _deviatedFixedMultiplier = 1 / negativeDeviation;
+                            break;
+                        }
 
+                        if (deviationDecider == 2)
+                        {
+                            int positiveDeviation = Random.Range(statIncrementer, randomDeviationMax + 1);
+                            _deviatedFixedMultiplier = positiveDeviation;
+                            break;
+                        }
+                    } while (false);
+
+                    Debug.Log("Random multiplier is " + _deviatedFixedMultiplier);
                     // Set random stats
-                    enemyHealth.ScaleHealth(_randomStatMultiplier);
+                    enemyHealth.ScaleHealth(_deviatedFixedMultiplier);
                     Debug.Log(enemy.name + " Health: " + enemyHealth.GetHealth());
 
-                    enemyDamage.damage += _randomStatMultiplier * enemyDamage.damage;
+                    enemyDamage.damage += _deviatedFixedMultiplier * enemyDamage.damage;
                     Debug.Log(enemy.name + " Damage: " + enemyDamage.damage);
 
+                    _deviatedFixedMultiplier = 0;
                     return;
                 }
 
                 // Set fixed stats
-                enemyHealth.ChangeHealth(_fixedStatIncrementer * enemyHealth.GetHealth() / fixedStatDivider);
+                enemyHealth.ChangeHealth(statIncrementer * enemyHealth.GetHealth() / fixedStatDivider);
                 Debug.Log(enemy.name + " Health: " + enemyHealth.GetHealth());
 
-                enemyDamage.damage = _fixedStatIncrementer * enemyDamage.damage / fixedStatDivider;
+                enemyDamage.damage = statIncrementer * enemyDamage.damage / fixedStatDivider;
                 Debug.Log(enemy.name + " Damage: " + enemyDamage.damage);
             }
         }

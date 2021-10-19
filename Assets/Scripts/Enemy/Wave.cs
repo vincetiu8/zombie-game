@@ -32,11 +32,11 @@ namespace Enemy
     /// <summary>
     /// Base class for all waves
     /// </summary>
-    public class Wave
+    public abstract class Wave
     {
-        [SerializeField] protected List<Transform> spawnpoints = new List<Transform>();
+        protected static List<Transform> spawnpoints = new List<Transform>();
 
-        public void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
+        public static void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
         {
             // Only adds SpawnPoints that do not already exist to prevent accidentally adding the same points multiple times
             foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint => !spawnpoints.Contains(addedSpawnPoint)))
@@ -44,6 +44,8 @@ namespace Enemy
                 spawnpoints.Add(addedSpawnPoint);
             }
         }
+
+        public abstract void SpawnEnemy();
     }
     
     /// <summary>
@@ -57,13 +59,15 @@ namespace Enemy
         public GameObject enemyType;
         public int        enemyCount;
         public float      spawnDelay;
-
-        public void SpawnEnemy(GameObject enemy)
+        
+        /// <summary>
+        /// Spawns FixedWave enemies
+        /// </summary>
+        public override void SpawnEnemy()
         {
-            // Get a random spawnpoint
             Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
             
-            GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
+            GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemyType.name, spawnpoint.position, Quaternion.identity);
 
             WaveAttributeMultiplier attributeMultiplier = GameManager.Instance.GetComponent<WaveAttributeMultiplier>();
             attributeMultiplier.CalculateEnemyStats(spawnedEnemy);
@@ -81,18 +85,21 @@ namespace Enemy
         public GameObject[] enemyTypes;
         public int        enemyCount;
         public float      spawnDelay;
-
-        public void SpawnEnemy(RandomWave wave)
+        
+        /// <summary>
+        /// Spawns RandomWave enemies
+        /// </summary>
+        public override void SpawnEnemy()
         {
             Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
 
-            int pickedEnemy = Random.Range(0, wave.enemyTypes.Length);
-
-            foreach (GameObject enemy in wave.enemyTypes)
+            int pickedEnemy = Random.Range(0, enemyTypes.Length);
+            
+            foreach (GameObject enemy in enemyTypes)
             {
-                if (wave.enemyTypes[pickedEnemy] == true)
+                if (enemyTypes[pickedEnemy] == true)
                 {
-                    GameObject spawnedEnemy = PhotonNetwork.Instantiate(wave.enemyTypes[pickedEnemy].name,
+                    GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemyTypes[pickedEnemy].name,
                         spawnpoint.position, Quaternion.identity);
 
                     WaveAttributeMultiplier attributeMultiplier =
@@ -105,7 +112,7 @@ namespace Enemy
     }
 
     /// <summary>
-    /// Behaves similarly to RandomWave, but enemy spawn amounts are r
+    /// Behaves similarly to RandomWave, but enemy spawn amounts are
     /// randomly determined
     /// </summary>
     [Serializable]
@@ -114,17 +121,19 @@ namespace Enemy
         public string waveName;
         public GameObject[] chanceEnemies;
         [Range(1, 10)] public int enemyChanceMax;
-        public int enemyCount;
         public float spawnDelay;
-
-        public void SpawnEnemy(ChanceWave wave)
+        
+        /// <summary>
+        /// Spawns ChanceWave enemies
+        /// </summary>
+        public override void SpawnEnemy()
         {
-            Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
-            
-            int enemyAmount = Random.Range(1, enemyChanceMax);
-
-            foreach (GameObject enemy in wave.chanceEnemies)
+            foreach (GameObject enemy in chanceEnemies)
             {
+                Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
+            
+                int enemyAmount = Random.Range(1, enemyChanceMax);
+                
                 for (int i = 0; i < enemyAmount; i++)
                 {
                     GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name,

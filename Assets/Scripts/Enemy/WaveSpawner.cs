@@ -59,7 +59,7 @@ namespace Enemy
 
 			_waveCountdown = waveDelay;
 
-			_attributeMultiplier._fixedStatIncrementer = _attributeMultiplier.fixedStatMultiplier;
+			_attributeMultiplier.statIncrementer = _attributeMultiplier.incrementerBase;
 
 			if (!_attributeMultiplier.fixedMultiplier)
 			{
@@ -127,10 +127,10 @@ namespace Enemy
 
 			if (_attributeMultiplier.resetStatIncrease)
 			{
-				if (_attributeMultiplier._fixedStatIncrementer > waves.Length)
+				if (_attributeMultiplier.statIncrementer > waves.Length)
 				{
-					_attributeMultiplier._fixedStatIncrementer = _attributeMultiplier.fixedStatMultiplier;
-					Debug.Log("reset fixed stats");
+					_attributeMultiplier.statIncrementer = _attributeMultiplier.incrementerBase;
+					Debug.Log("reset incrementer");
 				}
 			}
 
@@ -162,19 +162,16 @@ namespace Enemy
 
 			for (int i = 0; i < wave.enemyCount; i++)
 			{
-				wave.SpawnEnemy(wave.enemyType);
+				wave.SpawnEnemy();
 				yield return new WaitForSeconds(wave.spawnDelay);
 			}
 
 			if (!_attributeMultiplier.fixedMultiplier)
 			{
-				_attributeMultiplier.randomStatMin += _attributeMultiplier.randomMinIncrement;
-				_attributeMultiplier.randomStatMax += _attributeMultiplier.randomMaxIncrement;
+				_attributeMultiplier.randomDeviationMin += _attributeMultiplier.fixedStatIncrement;
+				_attributeMultiplier.randomDeviationMax += _attributeMultiplier.fixedStatIncrement;
 			}
-			else
-			{
-				_attributeMultiplier._fixedStatIncrementer += _attributeMultiplier.fixedStatIncrement;
-			}
+			_attributeMultiplier.statIncrementer += _attributeMultiplier.fixedStatIncrement;
 
 			_state = SpawnState.Waiting;
 			_spawnCoroutine = null;
@@ -187,19 +184,19 @@ namespace Enemy
 		{
 			Debug.Log("Spawning wave (random): " + wave.waveName);
 			_state = SpawnState.Spawning;
-			
-			wave.SpawnEnemy(wave);
-			yield return new WaitForSeconds(wave.spawnDelay);
-			
+
+			for (int i = 0; i < wave.enemyCount; i++)
+			{
+				wave.SpawnEnemy();
+				yield return new WaitForSeconds(wave.spawnDelay);
+			}
+
 			if (!_attributeMultiplier.fixedMultiplier)
 			{
-				_attributeMultiplier.randomStatMin += _attributeMultiplier.randomMinIncrement;
-				_attributeMultiplier.randomStatMax += _attributeMultiplier.randomMaxIncrement;
+				_attributeMultiplier.randomDeviationMin += _attributeMultiplier.fixedStatIncrement;
+				_attributeMultiplier.randomDeviationMax += _attributeMultiplier.fixedStatIncrement;
 			}
-			else
-			{
-				_attributeMultiplier._fixedStatIncrementer += _attributeMultiplier.fixedStatIncrement;
-			}
+			_attributeMultiplier.statIncrementer += _attributeMultiplier.fixedStatIncrement;
 
 			_state = SpawnState.Waiting;
 			_spawnCoroutine = null;
@@ -213,24 +210,20 @@ namespace Enemy
 			Debug.Log("Spawning wave (random): " + wave.waveName);
 			_state = SpawnState.Spawning;
 
-			wave.SpawnEnemy(wave);
+			wave.SpawnEnemy();
 			yield return new WaitForSeconds(wave.spawnDelay);
 
 				if (!_attributeMultiplier.fixedMultiplier)
 			{
-				_attributeMultiplier.randomStatMin += _attributeMultiplier.randomMinIncrement;
-				_attributeMultiplier.randomStatMax += _attributeMultiplier.randomMaxIncrement;
+				_attributeMultiplier.randomDeviationMin += _attributeMultiplier.fixedStatIncrement;
+				_attributeMultiplier.randomDeviationMax += _attributeMultiplier.fixedStatIncrement;
 			}
-			else
-			{
-				_attributeMultiplier._fixedStatIncrementer += _attributeMultiplier.fixedStatIncrement;
-			}
+			_attributeMultiplier.statIncrementer += _attributeMultiplier.fixedStatIncrement;
 
 			_state = SpawnState.Waiting;
 			_spawnCoroutine = null;
 		}
 		
-
 		private static bool AreEnemiesAlive()
 		{
 			return GameObject.FindGameObjectWithTag("Enemy");
