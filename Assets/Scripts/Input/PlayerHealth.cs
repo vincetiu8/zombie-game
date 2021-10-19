@@ -12,6 +12,8 @@ namespace Input
 		[Header("Player Death Settings")] [SerializeField]
 		private Transform cameraObject;
 
+		[SerializeField] private GameObject weapons;
+
 		private PlayerInteract _playerInteract;
 
 		protected override void Start()
@@ -30,7 +32,9 @@ namespace Input
 		[PunRPC]
 		protected override void RPCInitialOnDeath(PhotonMessageInfo info)
 		{
-			GameManager.Instance.RemovePlayerInstance(gameObject);
+			GameManager.Instance.RemovePlayerInstance(photonView.Owner.GetPlayerNumber());
+			weapons.SetActive(false);
+
 			if (GameManager.Instance.PlayerInstances.Count == 0) cameraObject.parent = null;
 
 			base.RPCInitialOnDeath(info);

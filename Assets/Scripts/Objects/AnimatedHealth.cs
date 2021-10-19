@@ -63,6 +63,8 @@ namespace Objects
 		{
 			float timeRemaining = deathTime;
 			Color color = spriteRenderer.color;
+			spriteRenderer.sortingLayerID = SortingLayer.NameToID("Objects");
+			spriteRenderer.sortingOrder = 3;
 			while (timeRemaining > 0)
 			{
 				float intensity = timeRemaining / deathTime;

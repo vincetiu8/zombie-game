@@ -11,23 +11,21 @@ namespace Enemy
 	{
 		private static readonly int MovementSpeedProperty = Animator.StringToHash("Move Speed");
 
-		[Header("Chasing Settings")]
+		[Header("Chasing Settings")] [SerializeField] [Range(0.1f, 5f)]
+		private float acceleration = 1;
 
-        [SerializeField] [Range(0.1f, 5f)]
-        private float acceleration = 1;
-        
-        [SerializeField] [Description("How steeply enemy offsets the force when taking a corner")][Range(-10f, 10f)]
-        private float cornerTakingAngleMultiplier = 1;
+		[SerializeField] [Description("How steeply enemy offsets the force when taking a corner")] [Range(-10f, 10f)]
+		private float cornerTakingAngleMultiplier = 1;
 
-        [SerializeField] [Range(0.01f, 0.5f)] private float turningSmoothing = 0.1f;
+		[SerializeField] [Range(0.01f, 0.5f)] private float turningSmoothing = 0.1f;
+
+		private bool _canMove = true;
 
 		private   Rigidbody2D _rigidbody2D;
 		protected Vector2     Destination;
 
 		protected Transform TrackingPlayer;
 
-        private bool _canMove = true;
-        
 		protected virtual void Awake()
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
@@ -36,7 +34,7 @@ namespace Enemy
 		protected virtual void Start()
 		{
 			Animator animator = GetComponentInChildren<Animator>();
-			animator.SetFloat(MovementSpeedProperty, _rigidbody2D.velocity.magnitude);
+			animator.SetFloat(MovementSpeedProperty, acceleration / 2);
 		}
 
 		protected virtual void FixedUpdate()
@@ -54,7 +52,7 @@ namespace Enemy
 		}
 
 		protected Vector2 GetMovementDirection()
-        {
+		{
 			return Destination - (Vector2)transform.position;
 		}
 
@@ -65,22 +63,24 @@ namespace Enemy
 
 		protected void SetRigidbodyAttributes(Vector2 movementDirection)
 		{
-            if (!_canMove) return;
-            float angle = TransformUtils.Vector2ToDeg(movementDirection);
+			if (!_canMove) return;
+			float angle = TransformUtils.Vector2ToDeg(movementDirection);
 
 			// Smooth the angle - prevent the enemy from turning too fast
 			angle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime / turningSmoothing);
 
 			// Rotate the enemy towards the destination
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            
-            float accountedAngle = (TransformUtils.Vector2ToDeg(transform.InverseTransformPoint(Destination)));
-            _rigidbody2D.AddForce(TransformUtils.DegToVector2(angle + accountedAngle * cornerTakingAngleMultiplier) * acceleration, (ForceMode2D) ForceMode.Force);
-        }
 
-        public void DisableMovement(bool disable)
-        {
-            _canMove = !disable;
-        }
+			float accountedAngle = (TransformUtils.Vector2ToDeg(transform.InverseTransformPoint(Destination)));
+			_rigidbody2D
+				.AddForce(TransformUtils.DegToVector2(angle + accountedAngle * cornerTakingAngleMultiplier) * acceleration,
+				          (ForceMode2D)ForceMode.Force);
+		}
+
+		public void DisableMovement(bool disable)
+		{
+			_canMove = !disable;
+		}
 	}
 }
