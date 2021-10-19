@@ -18,7 +18,9 @@ namespace Enemy
 		[Header("Wave Information")]
 		[Tooltip("What type of wave to use")]
 		public WaveType waveTypes;
-		
+
+		[SerializeReference] public List<Wave> waveList;
+
 		[Tooltip("Waves spawning one enemy type")]
 		public FixedWave[] waves;
 		

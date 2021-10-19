@@ -32,6 +32,7 @@ namespace Enemy
     /// <summary>
     /// Base class for all waves
     /// </summary>
+    [Serializable]
     public abstract class Wave
     {
         protected static List<Transform> spawnpoints = new List<Transform>();
