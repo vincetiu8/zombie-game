@@ -74,7 +74,7 @@ namespace Weapons
 		public void FireAction(InputAction.CallbackContext context)
 		{
 			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
-			_animatedHealth.canHeal = context.canceled;
+			_animatedHealth.CheckNaturalHealing(context.canceled);
 
 			// When the mouse is pressed down, two actions are sent: started and performed
 			// We'll use performed here to check for the press
@@ -92,7 +92,7 @@ namespace Weapons
 		public void ReloadAction(InputAction.CallbackContext context)
 		{
 			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
-			_animatedHealth.canHeal = context.canceled;
+			_animatedHealth.CheckNaturalHealing(context.canceled);
 
 			// Make sure this is only when the reload button is pressed
 			if (!context.performed) return;

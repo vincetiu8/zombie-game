@@ -14,13 +14,10 @@ namespace Input
 
 		private AnimatedHealth _animatedHealth;
 
-		private Vector3 _previousPosition;
-
 		private void Awake() 
 		{
 			_animatedHealth = GetComponent<AnimatedHealth>();
 			_rigidbody2D = GetComponent<Rigidbody2D>();
-			_previousPosition = gameObject.transform.position;
 		}
 
 		private void FixedUpdate()
@@ -29,7 +26,7 @@ namespace Input
 		}
 
 		public void UpdateMovementDirection(InputAction.CallbackContext context) {
-			_animatedHealth.canHeal = context.canceled;
+			_animatedHealth.CheckNaturalHealing(context.canceled);
 			_movementDirection = context.ReadValue<Vector2>();
 		}
 	}
