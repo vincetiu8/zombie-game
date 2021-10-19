@@ -25,6 +25,10 @@ namespace Objects
 		[SerializeField]
 		private Behaviour[] componentsToDisableOnDeath;
 
+		[SerializeField] int naturalHealAmount;
+
+		[SerializeField] int naturalHealInterval;
+
 		protected virtual void Start()
 		{
 			spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -35,6 +39,34 @@ namespace Objects
 		{
 			base.RPCChangeHealth(newHealth);
 			SetSprite();
+		}
+
+		public bool _canHeal;
+
+		public void CheckNaturalHealing(bool canHeal) {
+			if (Health >= initialHealth || Health <= 0) return;
+
+			if (_canHeal == canHeal) return;
+
+			_canHeal = canHeal;
+
+				if (canHeal) StartCoroutine(NaturalHealing());
+		}
+
+		public IEnumerator NaturalHealing() {
+			while (_canHeal) {
+				yield return new WaitForSeconds(naturalHealInterval);
+				Debug.Log("YAY");
+				if (Health + naturalHealAmount > initialHealth) {
+					ChangeHealth((initialHealth - Health));
+					_canHeal = false;
+				}
+				else {
+					ChangeHealth(naturalHealAmount);
+				}
+
+				yield return new WaitForSeconds(naturalHealInterval);
+			}
 		}
 
 		private void SetSprite()

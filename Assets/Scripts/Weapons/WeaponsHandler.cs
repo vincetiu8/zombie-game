@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Networking;
+using Objects;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;

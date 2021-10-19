@@ -925,9 +925,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcac3aa10ef1d5e4a80d6ac795da0130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canHeal: 1
-  naturalHealInterval: 1
-  naturalHealAmount: 5
   initialHealth: 200
   sprites:
   - {fileID: 3247233815640111391, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
@@ -941,6 +938,9 @@ MonoBehaviour:
   - {fileID: 7548964018044762472}
   componentsToDisableOnDeath:
   - {fileID: 2475852923928295786}
+  naturalHealAmount: 5
+  naturalHealInterval: 1
+  _canHeal: 0
   cameraObject: {fileID: 4693431101761815406}
   weapons: {fileID: 4705562140252545668}
 --- !u!1 &5730595962619871849
@@ -1359,15 +1359,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1, type: 3}
---- !u!4 &5606801819098502832 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5290555857044969615, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
-    type: 3}
-  m_PrefabInstance: {fileID: 334541845019643455}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &225350198778179583 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 541578500274577856, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 334541845019643455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5606801819098502832 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5290555857044969615, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
     type: 3}
   m_PrefabInstance: {fileID: 334541845019643455}
   m_PrefabAsset: {fileID: 0}
