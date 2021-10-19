@@ -216,6 +216,11 @@ PrefabInstance:
       propertyPath: menuName
       value: death
       objectReference: {fileID: 0}
+    - target: {fileID: 3276857934266911518, guid: 884ab93e68c284946b4f41fd334d713d,
+        type: 3}
+      propertyPath: freezeOnToggle
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 884ab93e68c284946b4f41fd334d713d, type: 3}
 --- !u!224 &5172193196748381807 stripped

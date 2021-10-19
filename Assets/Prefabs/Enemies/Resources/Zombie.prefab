@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615aa2cac67d4e4cb70cf2e27f2e5505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 50
   damageCooldown: 0.5
   layerMask:
     serializedVersion: 2
@@ -496,6 +496,7 @@ MonoBehaviour:
   componentsToDisableIfNotMasterClient:
   - {fileID: 822240581223566717}
   - {fileID: 5681390954276889052}
+  - {fileID: 5544398766179474221}
 --- !u!195 &822240581223566717
 NavMeshAgent:
   m_ObjectHideFlags: 0

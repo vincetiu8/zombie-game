@@ -20,7 +20,6 @@ namespace Interact
 			{
 				_roomNameTransforms.Add(room.name, room.Find("Enemy Spawnpoints")
 				                                       .Cast<Transform>().ToList());
-				Debug.Log(_roomNameTransforms[room.name].Count);
 			}
 
 			_waveSpawner = GameManager.Instance.GetComponent<WaveSpawner>();

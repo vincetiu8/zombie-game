@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 000000008fc791f3310a6a8f7b31c83d
+  m_ApplyToSortingLayers: 000000008fc791f3310a6a8f7b31c83d199cc32085e349e5
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -1784,7 +1784,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldSystem: {fileID: 0}
-  playerInstances: []
   localPlayerInstance: {fileID: 0}
   playerPrefab: {fileID: 5676611098347806923, guid: 22b6fc01ed2c23789bcc7aaf1683d711,
     type: 3}
@@ -1793,6 +1792,7 @@ MonoBehaviour:
   - {fileID: 1145053833}
   - {fileID: 1876090855}
   - {fileID: 677991714}
+  menuManager: {fileID: 2067199974}
 --- !u!4 &1162648886
 Transform:
   m_ObjectHideFlags: 0
@@ -1828,7 +1828,7 @@ MonoBehaviour:
       type: 3}
     count: 4
     spawnDelay: 0
-  waveDelay: 5
+  waveDelay: 0
   spawnpoints: []
   searchIntervalAmount: 1
 --- !u!114 &1162648888

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Menus;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
-using Menus_UI;
 
 namespace Lobby
 {

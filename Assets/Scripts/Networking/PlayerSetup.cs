@@ -8,23 +8,14 @@ namespace Networking
 	/// <summary>
 	///     Disables behaviours on remote player instances
 	/// </summary>
-	public class PlayerSetup : MonoBehaviourPun, IPunInstantiateMagicCallback, IOnPhotonViewPreNetDestroy
+	public class PlayerSetup : MonoBehaviourPun, IPunInstantiateMagicCallback
 	{
 		[SerializeField] private Behaviour[] componentsToDisableIfNotMine;
 		[SerializeField] private Text        nameText;
 
-		private int _actorNumber;
-
-		public void OnPreNetDestroy(PhotonView rootView)
-		{
-			GameManager.Instance.RemovePlayerInstance(rootView.Owner.GetPlayerNumber());
-			GameManager.Instance.GetComponent<SpectatorManager>().enabled = true;
-		}
 
 		public void OnPhotonInstantiate(PhotonMessageInfo info)
 		{
-			_actorNumber = info.Sender.ActorNumber;
-			photonView.AddCallbackTarget(this);
 			GameManager.Instance.SetPlayerInstance(info.Sender.GetPlayerNumber(), gameObject);
 
 			if (photonView.IsMine) return;

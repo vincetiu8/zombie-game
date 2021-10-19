@@ -1,5 +1,5 @@
+using Objects;
 using UnityEngine;
-using Weapons;
 
 namespace Enemy
 {

@@ -1,7 +1,6 @@
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.InputSystem;
 
 namespace Networking
@@ -11,84 +10,73 @@ namespace Networking
 	{
 		private int         _currentPlayerIndex;
 		private GameManager _gameManager;
-		private bool        _playerAlive;
 		private PlayerInput _playerInput;
-
-		private void Awake()
-		{
-			_playerAlive = true;
-		}
 
 		private void Start()
 		{
 			_gameManager = GetComponent<GameManager>();
-			_currentPlayerIndex = PhotonNetwork.LocalPlayer.GetPlayerNumber();
 			_playerInput = GetComponent<PlayerInput>();
 			_playerInput.enabled = false;
+			_currentPlayerIndex = PhotonNetwork.LocalPlayer.GetPlayerNumber();
 		}
 
 		public void OnPlayerDeath(int playerIndex)
 		{
-			if (playerIndex == _currentPlayerIndex)
-			{
-				_playerAlive = false;
-				_playerInput.enabled = true;
-			}
+			if (playerIndex != PhotonNetwork.LocalPlayer.GetPlayerNumber()) return;
 
-			if (playerIndex == _currentPlayerIndex) SetNewPlayer(1);
+			_playerInput.enabled = true;
+			SetNewPlayer(1);
 		}
 
 		public void NextPlayerAction(InputAction.CallbackContext context)
 		{
-			if (_playerAlive || !context.performed) return;
+			if (!context.performed) return;
 
 			SetNewPlayer(1);
 		}
 
 		public void PreviousPlayerAction(InputAction.CallbackContext context)
 		{
-			if (_playerAlive || !context.performed) return;
+			if (!context.performed) return;
 
 			SetNewPlayer(-1);
 		}
 
 		private void SetNewPlayer(int direction)
 		{
-			int numPlayers = _gameManager.playerInstances.Length;
-			int previousPlayerIndex = _currentPlayerIndex;
-			GameObject playerInstance;
+			int numPlayers = _gameManager.PlayerInstances.Count;
 
-			// Loop until we find a suitable player
-			do
-			{
-				_currentPlayerIndex = (_currentPlayerIndex + direction + numPlayers) % numPlayers;
-				playerInstance = _gameManager.playerInstances[_currentPlayerIndex];
-				if (playerInstance != null) break;
-			} while (previousPlayerIndex != _currentPlayerIndex);
+			if (numPlayers == 0) return;
 
-			if (playerInstance == null)
+			int minDist = int.MaxValue;
+			int newPlayerNumber = _currentPlayerIndex;
+
+			foreach (int playerNumber in _gameManager.PlayerInstances.Keys)
 			{
-				Debug.Log("No suitable players found, everyone's dead");
-				return;
+				if (playerNumber == _currentPlayerIndex) continue;
+
+				int dist = (playerNumber - _currentPlayerIndex * direction - 1 + numPlayers) % numPlayers;
+				Debug.Log(dist + " " + playerNumber);
+
+				if (dist >= minDist) continue;
+
+				minDist = dist;
+				newPlayerNumber = playerNumber;
 			}
 
-			if (_currentPlayerIndex == previousPlayerIndex)
+			Debug.Log($"Viewing player {newPlayerNumber}");
+
+			if (_gameManager.PlayerInstances.TryGetValue(_currentPlayerIndex, out GameObject playerInstance))
 			{
-				Debug.Log("Only one player left, can't change");
-				return;
+				TogglePlayerComponents(playerInstance, false);
 			}
 
-			Debug.Log($"Viewing player {_currentPlayerIndex}!");
-			TogglePlayerComponents(playerInstance, true);
-			GameObject previousPlayer = _gameManager.playerInstances[previousPlayerIndex];
-			if (previousPlayer == null) return;
-			TogglePlayerComponents(previousPlayer, false);
+			TogglePlayerComponents(_gameManager.PlayerInstances[newPlayerNumber], true);
 		}
 
 		private static void TogglePlayerComponents(GameObject playerInstance, bool toggle)
 		{
 			playerInstance.GetComponentInChildren<Camera>().enabled = toggle;
-			playerInstance.GetComponentInChildren<Light2D>().enabled = toggle;
 		}
 	}
 }

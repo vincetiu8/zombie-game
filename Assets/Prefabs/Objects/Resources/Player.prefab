@@ -110,7 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1774764632265622254}
   - component: {fileID: 7548964018044762472}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Surrounding Light
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 2663675381085057091}
   - component: {fileID: 1782046593447927753}
   - component: {fileID: 4716457343510781362}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,9 +266,9 @@ GameObject:
   - component: {fileID: 4693431101761815404}
   - component: {fileID: 4693431101761815405}
   - component: {fileID: 4634652013563247011}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PlayerCamera
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -427,8 +427,8 @@ GameObject:
   - component: {fileID: -8689278816103194599}
   - component: {fileID: -9158953098095830167}
   - component: {fileID: -6061700734141258256}
-  - component: {fileID: 9088729507219513655}
   - component: {fileID: 5135849153950044043}
+  - component: {fileID: 8029321966618692236}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -900,24 +900,6 @@ MonoBehaviour:
   syncRotation: 0
   smooth: 1
   smoothingSpeed: 10
---- !u!114 &9088729507219513655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5676611098347806923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0f6b43b6002f48289d932dc11e54a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHealth: 200
-  sprites:
-  - {fileID: 3247233815640111391, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
-  - {fileID: -8122009008315846099, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
-  - {fileID: 1863022367390955774, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
-  - {fileID: -6121086664708760571, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
 --- !u!114 &5135849153950044043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -931,6 +913,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockBackMultiplier: 1
+--- !u!114 &8029321966618692236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5676611098347806923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcac3aa10ef1d5e4a80d6ac795da0130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 200
+  sprites:
+  - {fileID: 3247233815640111391, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
+  - {fileID: -8122009008315846099, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
+  - {fileID: 1863022367390955774, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
+  - {fileID: -6121086664708760571, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
+  spriteRenderer: {fileID: 1089952147184385324}
+  deathTime: 2.5
+  lights:
+  - {fileID: 7075696312697196668}
+  - {fileID: 7548964018044762472}
+  componentsToDisableOnDeath:
+  - {fileID: 2475852923928295786}
+  cameraObject: {fileID: 4693431101761815406}
 --- !u!1 &5730595962619871849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,7 +1035,7 @@ GameObject:
   - component: {fileID: 2566215615880471847}
   - component: {fileID: 5093736371253611073}
   - component: {fileID: 2874907685346968584}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: NameTag
   m_TagString: Untagged
   m_Icon: {fileID: 0}

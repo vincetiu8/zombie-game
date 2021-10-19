@@ -28,7 +28,7 @@ namespace Weapons
 		private void RPCPickupWeapon(PhotonMessageInfo info)
 		{
 			int playerNumber = info.Sender.GetPlayerNumber();
-			GameObject player = GameManager.Instance.playerInstances[playerNumber];
+			GameObject player = GameManager.Instance.PlayerInstances[playerNumber];
 			transform.parent = player.transform.Find("PlayerObject").Find("Weapons");
 			transform.localPosition = _offset;
 			transform.localRotation = Quaternion.identity;
