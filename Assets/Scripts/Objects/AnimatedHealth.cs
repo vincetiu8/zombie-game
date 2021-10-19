@@ -56,7 +56,6 @@ namespace Objects
 		public IEnumerator NaturalHealing() {
 			while (_canHeal) {
 				yield return new WaitForSeconds(naturalHealInterval);
-				Debug.Log("YAY");
 				if (Health + naturalHealAmount > initialHealth) {
 					ChangeHealth((initialHealth - Health));
 					_canHeal = false;
