@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace PlayerScripts
 {
@@ -12,7 +13,7 @@ namespace PlayerScripts
 	public class PlayerSetup : MonoBehaviourPun, IPunInstantiateMagicCallback
 	{
 		[SerializeField] private Behaviour[] componentsToDisableIfNotMine;
-		[SerializeField] private Text        nameText;
+		[SerializeField] private TextMeshProUGUI nameText;
 
 
 		public void OnPhotonInstantiate(PhotonMessageInfo info)
