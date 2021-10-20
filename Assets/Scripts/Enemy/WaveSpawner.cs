@@ -5,8 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using Photon.Pun;
 using UnityEngine;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -15,21 +13,7 @@ namespace Enemy
 	/// </summary>
 	public class WaveSpawner : MonoBehaviour
 	{
-		[Header("Wave Information")]
-		[Tooltip("What type of wave to use")]
-		public WaveType waveTypes;
-
-		[SerializeReference] public List<Wave> waveList;
-
-		[Tooltip("Waves spawning one enemy type")]
-		public FixedWave[] waves;
-		
-		[Tooltip("Waves containing enemies spawned at random")] 
-		public RandomWave[] randomWaves;
-		
-		[Tooltip("RandomWaves but with random enemy spawn amounts")]
-		public ChanceWave[] chanceWaves;
-
+		[Header("Wave Settings")]
 		[Tooltip("The time delay between waves")] [Range(0, 20)]
 		public float waveDelay = 5;
 
@@ -37,6 +21,8 @@ namespace Enemy
 		[Tooltip("How often the number of remaining enemies should be checked")]
 		[Range(0.1f, 5)]
 		public float searchIntervalAmount = 1f;
+		
+		[SerializeReference] public List<Wave> waveList;
 
 		private int _nextWaveIndex;
 
@@ -81,18 +67,16 @@ namespace Enemy
 
 					if (_waveCountdown > 0 || _spawnCoroutine != null) return;
 
-					switch (waveTypes)
+					foreach (var wave in waveList)
 					{
-						case WaveType.Fixed:
-							_spawnCoroutine = StartCoroutine(SpawnWave(waves[_nextWaveIndex]));
-							break;
-						case WaveType.Random:
-							_spawnCoroutine = StartCoroutine(SpawnWave(randomWaves[_nextWaveIndex]));
-							break;
-						case WaveType.Chance:
-							_spawnCoroutine = StartCoroutine(SpawnWave(chanceWaves[_nextWaveIndex]));
-							break;
+						if (wave is FixedWave)
+						{
+							// Error here because Wave is passed in instead of FixedWave
+							// Need a better way to do this 
+							_spawnCoroutine = StartCoroutine(SpawnWave(waveList[_nextWaveIndex]));
+						}
 					}
+					
 					break;
 
 				case SpawnState.Spawning:
@@ -129,29 +113,16 @@ namespace Enemy
 
 			if (_attributeMultiplier.resetStatIncrease)
 			{
-				if (_attributeMultiplier.statIncrementer > waves.Length)
+				if (_attributeMultiplier.statIncrementer > waveList.Count)
 				{
 					_attributeMultiplier.statIncrementer = _attributeMultiplier.incrementerBase;
 					Debug.Log("reset incrementer");
 				}
 			}
-
+			
 			// In case the wave index exceeds the number of waves, we loop back to the start
-			switch (waveTypes)
-			{
-				case WaveType.Fixed:
-					_nextWaveIndex += 1 + waves.Length;
-					_nextWaveIndex %= waves.Length;
-					break;
-				case WaveType.Random:
-					_nextWaveIndex += 1 + randomWaves.Length;
-					_nextWaveIndex %= randomWaves.Length;
-					break;
-				case WaveType.Chance:
-					_nextWaveIndex += 1 + chanceWaves.Length;
-					_nextWaveIndex %= chanceWaves.Length;
-					break;
-			}
+			_nextWaveIndex += 1 + waveList.Count;
+			_nextWaveIndex %= waveList.Count;
 		}
 
 		/// <summary>
@@ -215,7 +186,7 @@ namespace Enemy
 			wave.SpawnEnemy();
 			yield return new WaitForSeconds(wave.spawnDelay);
 
-				if (!_attributeMultiplier.fixedMultiplier)
+			if (!_attributeMultiplier.fixedMultiplier)
 			{
 				_attributeMultiplier.randomDeviationMin += _attributeMultiplier.fixedStatIncrement;
 				_attributeMultiplier.randomDeviationMax += _attributeMultiplier.fixedStatIncrement;

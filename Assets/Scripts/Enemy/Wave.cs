@@ -22,13 +22,6 @@ namespace Enemy
         Counting
     }
 
-    public enum WaveType
-    {
-        Fixed,
-        Random,
-        Chance
-    }
-    
     /// <summary>
     /// Base class for all waves
     /// </summary>
@@ -60,7 +53,7 @@ namespace Enemy
         public GameObject enemyType;
         public int        enemyCount;
         public float      spawnDelay;
-        
+
         /// <summary>
         /// Spawns FixedWave enemies
         /// </summary>
