@@ -122,7 +122,7 @@ namespace Enemy
 		}
 
 		/// <summary>
-		/// Spawns all enemies in a ChanceWave
+		/// Spawns all enemies in a wave
 		/// </summary>
 		private void SpawnWave(Wave wave)
 		{
