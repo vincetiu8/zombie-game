@@ -3,6 +3,7 @@ using Networking;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using Utils;
 
@@ -13,19 +14,45 @@ namespace Objects
 	/// </summary>
 	public class MovableObject : Interactable
 	{
-		private Collider2D[] _colList;
-		private bool         _isHolding;
+		[SerializeField] private LayerMask    preventPlace = LayerMask.NameToLayer("Obstacles");
+		private                  Collider2D[] _colList;
+		private                  int          _contacts;
+		private                  bool         _isHolding;
+
+		private NavMeshObstacle _navMeshObstacle;
+		private SpriteRenderer  _spriteRenderer;
 
 		private void Awake()
 		{
-			_colList = transform.GetComponentsInChildren<Collider2D>();
+			_navMeshObstacle = GetComponent<NavMeshObstacle>();
+			_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+			_colList = GetComponentsInChildren<Collider2D>();
+		}
+
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			if (!_isHolding || !MiscUtils.IsInLayerMask(preventPlace, other.gameObject.layer)) return;
+
+			_contacts++;
+			_spriteRenderer.color = Color.red;
+		}
+
+		private void OnTriggerExit2D(Collider2D other)
+		{
+			if (!_isHolding || !MiscUtils.IsInLayerMask(preventPlace, other.gameObject.layer)) return;
+
+			_contacts--;
+
+			if (_contacts == 0) _spriteRenderer.color = Color.white;
 		}
 
 		public override void StartInteraction()
 		{
-			_isHolding = !_isHolding;
-			startInteraction.Invoke();
-			photonView.RPC("RPCInteract", RpcTarget.All, _isHolding);
+			if (_isHolding && _contacts > 0) return;
+
+			if (!_isHolding) startInteraction.Invoke();
+
+			photonView.RPC("RPCInteract", RpcTarget.All, !_isHolding);
 
 			GameObject player = GameManager.Instance.localPlayerInstance;
 
@@ -36,12 +63,10 @@ namespace Objects
 			if (!_isHolding)
 			{
 				finishInteraction.Invoke();
-				player.GetComponent<PlayerInteract>().RemoveInteractable(gameObject);
 				return;
 			}
 
 			MiscUtils.ToggleAction(player.GetComponent<PlayerInput>(), "Movement", true);
-			player.GetComponent<PlayerInteract>().AddInteractable(gameObject);
 
 			if (photonView.IsMine) return;
 
@@ -56,8 +81,8 @@ namespace Objects
 		[PunRPC]
 		private void RPCInteract(bool isHolding, PhotonMessageInfo info)
 		{
+			SetAllCollidersStatus(_isHolding);
 			_isHolding = isHolding;
-			SetAllCollidersStatus(!_isHolding);
 			if (_isHolding)
 			{
 				GameObject player = GameManager.Instance.PlayerInstances[info.Sender.GetPlayerNumber()];
@@ -70,8 +95,32 @@ namespace Objects
 
 		private void SetAllCollidersStatus(bool active)
 		{
-			gameObject.layer = LayerMask.NameToLayer(active ? "MovingObstacle" : "Obstacles");
-			// foreach (Collider2D colliders in _colList) colliders.enabled = active;
+			_navMeshObstacle.enabled = active;
+			_spriteRenderer.sortingLayerID = SortingLayer.NameToID(active ? "Objects" : "Enemies");
+			_spriteRenderer.sortingOrder = active ? 2 : 5;
+			gameObject.layer = LayerMask.NameToLayer(active ? "Obstacles" : "MovingObstacles");
+			foreach (Collider2D collider in _colList)
+			{
+				if (active)
+				{
+					if (!collider.enabled)
+					{
+						collider.enabled = true;
+						continue;
+					}
+
+					collider.isTrigger = false;
+					continue;
+				}
+
+				if (collider.isTrigger)
+				{
+					collider.enabled = false;
+					continue;
+				}
+
+				collider.isTrigger = true;
+			}
 		}
 	}
 }

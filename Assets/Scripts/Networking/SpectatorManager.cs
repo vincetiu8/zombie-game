@@ -66,17 +66,11 @@ namespace Networking
 
 			Debug.Log($"Viewing player {newPlayerNumber}");
 
-			if (_gameManager.PlayerInstances.TryGetValue(_currentPlayerIndex, out GameObject playerInstance))
-			{
-				TogglePlayerComponents(playerInstance, false);
-			}
+			if (_gameManager.PlayerInstances.TryGetValue(_currentPlayerIndex, out GameObject oldPlayer))
+				oldPlayer.GetComponentInChildren<Camera>().enabled = false;
 
-			TogglePlayerComponents(_gameManager.PlayerInstances[newPlayerNumber], true);
-		}
-
-		private static void TogglePlayerComponents(GameObject playerInstance, bool toggle)
-		{
-			playerInstance.GetComponentInChildren<Camera>().enabled = toggle;
+			_currentPlayerIndex = newPlayerNumber;
+			_gameManager.PlayerInstances[_currentPlayerIndex].GetComponent<Camera>().enabled = true;
 		}
 	}
 }

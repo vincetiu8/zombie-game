@@ -2,6 +2,7 @@ using Interact;
 using Networking;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using PlayerScripts;
 using UnityEngine;
 
 namespace Weapons

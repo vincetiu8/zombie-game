@@ -1,9 +1,10 @@
+using Networking;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Networking
+namespace PlayerScripts
 {
 	/// <summary>
 	///     Disables behaviours on remote player instances

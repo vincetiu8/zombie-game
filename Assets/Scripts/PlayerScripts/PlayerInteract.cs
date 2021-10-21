@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Interact;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Utils;
-using Weapons;
 
-namespace Interact
+namespace PlayerScripts
 {
 	[Serializable]
 	public class InteractableSpritesDict : SerializableDictionary<InteractableType, Sprite>
@@ -67,28 +67,15 @@ namespace Interact
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			if (!other.CompareTag("Interactable")) return;
-			AddInteractable(other.gameObject);
+			_interactList.Add(other.gameObject);
+			UpdateClosestInteractable();
 		}
 
 		private void OnTriggerExit2D(Collider2D other)
 		{
 			if (!other.CompareTag("Interactable")) return;
-			RemoveInteractable(other.gameObject);
-		}
-
-		// Added when we manually need to add objects
-		// Hopefully we can remove this in the future, same as method below
-		public void AddInteractable(GameObject interactable)
-		{
-			Debug.Log("Adding " + interactable.name);
-			_interactList.Add(interactable);
-			UpdateClosestInteractable();
-		}
-
-		public void RemoveInteractable(GameObject interactable)
-		{
-			Debug.Log("Removing " + interactable.name);
-			_interactList.Remove(interactable);
+			Debug.Log(other.name);
+			_interactList.Remove(other.gameObject);
 			UpdateClosestInteractable();
 		}
 
@@ -160,16 +147,20 @@ namespace Interact
 
 		private void OnStartInteraction()
 		{
-			_interacting = true;
 			ToggleInteraction(true);
+			_interacting = true;
 		}
 
 		private void OnFinishInteraction()
 		{
-			_interacting = false;
 			ToggleInteraction(false);
-			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
-			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
+			if (_closestInteractable != null)
+			{
+				_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
+				_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
+			}
+
+			_interacting = false;
 			UpdateClosestInteractable();
 		}
 

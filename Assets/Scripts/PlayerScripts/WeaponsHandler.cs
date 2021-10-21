@@ -7,8 +7,9 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
+using Weapons;
 
-namespace Weapons
+namespace PlayerScripts
 {
 	/// <summary>
 	///     WeaponsHandler handles the usage of a player's weapons.
@@ -18,14 +19,10 @@ namespace Weapons
 	{
 		private const int MouseDistPrecision = 10;
 
-		[Description("The camera the player will see")] [SerializeField]
-		private Camera playerCamera;
+		[SerializeField] private Camera playerCamera;
 
 		[Description("The child object containing the player's sprite")] [SerializeField]
 		private Transform playerSprite;
-
-		[Description("The child object containing the player's weapons")] [SerializeField]
-		private Transform weaponPivot;
 
 		[Description("List of available weapons the player can cycle through")] [SerializeField]
 		private List<GameObject> availableWeapons;
@@ -115,7 +112,7 @@ namespace Weapons
 
 			float angle = TransformUtils.Vector2ToDeg(direction);
 
-			playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			playerSprite.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
 			// Allows the current weapon to be adjusted to face the mouse
 			if (_currentWeapon == null) return;
@@ -126,10 +123,7 @@ namespace Weapons
 
 		public void WeaponSwitchingScrollAction(InputAction.CallbackContext context)
 		{
-			if (!context.performed || _preventFire)
-			{
-				return;
-			}
+			if (!context.performed || _preventFire) return;
 
 
 			int scrollDirection = (int)context.ReadValue<float>();
@@ -139,10 +133,7 @@ namespace Weapons
 
 		public void WeaponSwitchingAction(InputAction.CallbackContext context)
 		{
-			if (!context.performed || _preventFire)
-			{
-				return;
-			}
+			if (!context.performed || _preventFire) return;
 
 
 			int key = (int)context.ReadValue<float>();

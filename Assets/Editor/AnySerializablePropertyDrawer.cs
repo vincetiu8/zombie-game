@@ -1,7 +1,6 @@
 using Enemy;
-using Interact;
+using PlayerScripts;
 using UnityEditor;
-using Weapons;
 
 namespace Editor
 {
