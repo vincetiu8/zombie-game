@@ -24,6 +24,7 @@ namespace Objects
 		public override void StartInteraction()
 		{
 			_isHolding = !_isHolding;
+			startInteraction.Invoke();
 			photonView.RPC("RPCInteract", RpcTarget.All, _isHolding);
 
 			GameObject player = GameManager.Instance.localPlayerInstance;
@@ -39,7 +40,6 @@ namespace Objects
 				return;
 			}
 
-			startInteraction.Invoke();
 			MiscUtils.ToggleAction(player.GetComponent<PlayerInput>(), "Movement", true);
 			player.GetComponent<PlayerInteract>().AddInteractable(gameObject);
 

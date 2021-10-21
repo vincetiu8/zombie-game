@@ -18,7 +18,7 @@ namespace Interact
 	/// </summary>
 	public class PlayerInteract : MonoBehaviour
 	{
-		private static readonly string[] IgnoredActions = { "Interact" };
+		private static readonly string[] IgnoredActions = { "Interact", "Mouse" };
 
 		[Header("Interactable Update Settings")] [SerializeField]
 		private float closestInteractableUpdateInterval = 0.25f;
@@ -80,12 +80,14 @@ namespace Interact
 		// Hopefully we can remove this in the future, same as method below
 		public void AddInteractable(GameObject interactable)
 		{
+			Debug.Log("Adding " + interactable.name);
 			_interactList.Add(interactable);
 			UpdateClosestInteractable();
 		}
 
 		public void RemoveInteractable(GameObject interactable)
 		{
+			Debug.Log("Removing " + interactable.name);
 			_interactList.Remove(interactable);
 			UpdateClosestInteractable();
 		}
@@ -173,7 +175,7 @@ namespace Interact
 
 		private void ToggleInteraction(bool isInteracting)
 		{
-			MiscUtils.ToggleActions(_playerInput, IgnoredActions, isInteracting);
+			MiscUtils.ToggleActions(_playerInput, IgnoredActions, !isInteracting);
 
 			// Disable / enable player weapons
 			_weaponsHandler.ToggleFireEnabled(!isInteracting);
