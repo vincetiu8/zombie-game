@@ -3,7 +3,8 @@ using Networking;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
-using Weapons;
+using UnityEngine.InputSystem;
+using Utils;
 
 namespace Objects
 {
@@ -38,8 +39,9 @@ namespace Objects
 				return;
 			}
 
+			startInteraction.Invoke();
+			MiscUtils.ToggleAction(player.GetComponent<PlayerInput>(), "Movement", true);
 			player.GetComponent<PlayerInteract>().AddInteractable(gameObject);
-			player.GetComponent<WeaponsHandler>().ToggleFireEnabled(false);
 
 			if (photonView.IsMine) return;
 

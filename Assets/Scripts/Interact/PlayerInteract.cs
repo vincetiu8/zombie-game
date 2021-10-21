@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Utils;
 using Weapons;
 
 namespace Interact
@@ -17,7 +18,7 @@ namespace Interact
 	/// </summary>
 	public class PlayerInteract : MonoBehaviour
 	{
-		private static readonly int ShaderTime = Shader.PropertyToID("Time");
+		private static readonly string[] IgnoredActions = { "Interact" };
 
 		[Header("Interactable Update Settings")] [SerializeField]
 		private float closestInteractableUpdateInterval = 0.25f;
@@ -165,7 +166,6 @@ namespace Interact
 		{
 			_interacting = false;
 			ToggleInteraction(false);
-			Debug.Log(_closestInteractable);
 			_closestInteractable.startInteraction.RemoveListener(OnStartInteraction);
 			_closestInteractable.finishInteraction.RemoveListener(OnFinishInteraction);
 			UpdateClosestInteractable();
@@ -173,18 +173,7 @@ namespace Interact
 
 		private void ToggleInteraction(bool isInteracting)
 		{
-			foreach (InputAction action in _playerInput.currentActionMap.actions)
-			{
-				if (action.name == "Interact") continue;
-
-				if (isInteracting)
-				{
-					action.Disable();
-					continue;
-				}
-
-				action.Enable();
-			}
+			MiscUtils.ToggleActions(_playerInput, IgnoredActions, isInteracting);
 
 			// Disable / enable player weapons
 			_weaponsHandler.ToggleFireEnabled(!isInteracting);
