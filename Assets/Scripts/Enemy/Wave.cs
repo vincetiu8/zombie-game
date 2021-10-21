@@ -28,18 +28,7 @@ namespace Enemy
     [Serializable]
     public abstract class Wave
     {
-        protected static List<Transform> spawnpoints = new List<Transform>();
-
-        public static void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
-        {
-            // Only adds SpawnPoints that do not already exist to prevent accidentally adding the same points multiple times
-            foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint => !spawnpoints.Contains(addedSpawnPoint)))
-            {
-                spawnpoints.Add(addedSpawnPoint);
-            }
-        }
-
-        public abstract void SpawnEnemy();
+        public abstract List<GameObject> GetEnemiesToSpawn();
     }
     
     /// <summary>
@@ -52,19 +41,19 @@ namespace Enemy
         public string     waveName;
         public GameObject enemyType;
         public int        enemyCount;
-        public float      spawnDelay;
 
-        /// <summary>
-        /// Spawns FixedWave enemies
-        /// </summary>
-        public override void SpawnEnemy()
+        public override List<GameObject> GetEnemiesToSpawn()
         {
-            Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
+            List<GameObject> enemies = new List<GameObject>();
             
-            GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemyType.name, spawnpoint.position, Quaternion.identity);
+            for (int i = 0; i < enemyCount; i++)
+            {
+                GameObject spawnedEnemy = enemyType.gameObject;
+                enemies.Add(spawnedEnemy);
+            }
 
-            WaveAttributeMultiplier attributeMultiplier = GameManager.Instance.GetComponent<WaveAttributeMultiplier>();
-            attributeMultiplier.CalculateEnemyStats(spawnedEnemy);
+            Debug.Log("Got wave: " + waveName);
+            return enemies;
         }
     }
 	
@@ -78,30 +67,27 @@ namespace Enemy
         public string     waveName;
         public GameObject[] enemyTypes;
         public int        enemyCount;
-        public float      spawnDelay;
-        
-        /// <summary>
-        /// Spawns RandomWave enemies
-        /// </summary>
-        public override void SpawnEnemy()
+
+        public override List<GameObject> GetEnemiesToSpawn()
         {
-            Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
-
-            int pickedEnemy = Random.Range(0, enemyTypes.Length);
+            List<GameObject> enemies = new List<GameObject>();
             
-            foreach (GameObject enemy in enemyTypes)
+            for (int i = 0; i < enemyCount; i++)
             {
-                if (enemyTypes[pickedEnemy] == true)
-                {
-                    GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemyTypes[pickedEnemy].name,
-                        spawnpoint.position, Quaternion.identity);
+                int pickedEnemy = Random.Range(0, enemyTypes.Length);
 
-                    WaveAttributeMultiplier attributeMultiplier =
-                        GameManager.Instance.GetComponent<WaveAttributeMultiplier>();
-                    attributeMultiplier.CalculateEnemyStats(spawnedEnemy);
-                    return;
+                foreach (GameObject enemy in enemyTypes)
+                {
+                    if (enemyTypes[pickedEnemy] == true)
+                    {
+                        GameObject spawnedEnemy = enemyTypes[pickedEnemy];
+                        enemies.Add(spawnedEnemy);
+                    }
                 }
             }
+            
+            Debug.Log("Got wave: " + waveName);
+            return enemies;
         }
     }
 
@@ -115,29 +101,24 @@ namespace Enemy
         public string waveName;
         public GameObject[] chanceEnemies;
         [Range(1, 10)] public int enemyChanceMax;
-        public float spawnDelay;
-        
-        /// <summary>
-        /// Spawns ChanceWave enemies
-        /// </summary>
-        public override void SpawnEnemy()
+
+        public override List<GameObject> GetEnemiesToSpawn()
         {
+            List<GameObject> enemies = new List<GameObject>();
+
             foreach (GameObject enemy in chanceEnemies)
             {
-                Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
-            
                 int enemyAmount = Random.Range(1, enemyChanceMax);
                 
                 for (int i = 0; i < enemyAmount; i++)
                 {
-                    GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name,
-                        spawnpoint.position, Quaternion.identity);
-
-                    WaveAttributeMultiplier attributeMultiplier =
-                        GameManager.Instance.GetComponent<WaveAttributeMultiplier>();
-                    attributeMultiplier.CalculateEnemyStats(spawnedEnemy);
+                    GameObject spawnedEnemy = enemy.gameObject;
+                    enemies.Add(spawnedEnemy);
                 }
             }
+            
+            Debug.Log("Got wave: " + waveName);
+            return enemies;
         }
     }
 

@@ -11,8 +11,8 @@ namespace Enemy
     public class WaveAttributeMultiplier : MonoBehaviour
     {
         [Header("Enemy stat settings")]
-        [Tooltip("Whether or not to increase enemy stats per wave")]
-        public bool increaseStats;
+        [Tooltip("Whether or not to increase enemy stats per wave")] [SerializeField]
+        private bool increaseStats;
 
         [Tooltip("Whether or not to randomly deviate from the attribute multiplier")]
         public bool fixedMultiplier;
@@ -36,10 +36,10 @@ namespace Enemy
         public int randomDeviationMin;
         [Range(1, 10)]
         public int randomDeviationMax;
-
+        
         [Header("Increment settings")]
         [Tooltip("How much to increment _fixedStatIncrementer by. Defaults to 1")]
-        public int fixedStatIncrement = 1;
+        public int statIncrement = 1;
 
         public void CalculateEnemyStats(GameObject enemy)
         {

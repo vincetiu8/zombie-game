@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Networking;
 using Photon.Pun;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -13,25 +15,27 @@ namespace Enemy
 	/// </summary>
 	public class WaveSpawner : MonoBehaviour
 	{
-		[Header("Wave Settings")]
-		[Tooltip("The time delay between waves")] [Range(0, 20)]
-		public float waveDelay = 5;
-
 		[Header("Enemy Searching")]
 		[Tooltip("How often the number of remaining enemies should be checked")]
-		[Range(0.1f, 5)]
-		public float searchIntervalAmount = 1f;
+		[Range(0.1f, 5)] [SerializeField]
+		private float searchIntervalAmount = 1f;
+		
+		[Header("Wave Settings")]
+		[Tooltip("The time delay between waves")] 
+		[Range(0, 20)] [SerializeField]
+		private float waveDelay = 5;
+		
+		[Tooltip("The positions where enemies can spawn")] [SerializeField]
+		private List<Transform> spawnpoints = new List<Transform>();
 		
 		[SerializeReference] public List<Wave> waveList;
 
 		private int _nextWaveIndex;
-
 		private float _searchInterval;
-		private Coroutine _spawnCoroutine;
+		private float _waveCountdown;
 
 		private SpawnState _state;
 		private WaveAttributeMultiplier _attributeMultiplier;
-		private float _waveCountdown;
 
 		private void Start()
 		{
@@ -65,17 +69,9 @@ namespace Enemy
 				case SpawnState.Counting:
 					_waveCountdown -= Time.deltaTime;
 
-					if (_waveCountdown > 0 || _spawnCoroutine != null) return;
+					if (_waveCountdown > 0) return;
 
-					foreach (var wave in waveList)
-					{
-						if (wave is FixedWave)
-						{
-							// Error here because Wave is passed in instead of FixedWave
-							// Need a better way to do this 
-							_spawnCoroutine = StartCoroutine(SpawnWave(waveList[_nextWaveIndex]));
-						}
-					}
+					SpawnWave(waveList[_nextWaveIndex]);
 					
 					break;
 
@@ -126,80 +122,42 @@ namespace Enemy
 		}
 
 		/// <summary>
-		/// Spawns all enemies in a Wave
-		/// </summary>
-		private IEnumerator SpawnWave(FixedWave wave)
-		{
-			Debug.Log("Spawning wave: " + wave.waveName);
-			_state = SpawnState.Spawning;
-
-			for (int i = 0; i < wave.enemyCount; i++)
-			{
-				wave.SpawnEnemy();
-				yield return new WaitForSeconds(wave.spawnDelay);
-			}
-
-			if (!_attributeMultiplier.fixedMultiplier)
-			{
-				_attributeMultiplier.randomDeviationMin += _attributeMultiplier.fixedStatIncrement;
-				_attributeMultiplier.randomDeviationMax += _attributeMultiplier.fixedStatIncrement;
-			}
-			_attributeMultiplier.statIncrementer += _attributeMultiplier.fixedStatIncrement;
-
-			_state = SpawnState.Waiting;
-			_spawnCoroutine = null;
-		}
-
-		/// <summary>
-		/// Spawns all enemies in a RandomWave
-		/// </summary>
-		private IEnumerator SpawnWave(RandomWave wave)
-		{
-			Debug.Log("Spawning wave (random): " + wave.waveName);
-			_state = SpawnState.Spawning;
-
-			for (int i = 0; i < wave.enemyCount; i++)
-			{
-				wave.SpawnEnemy();
-				yield return new WaitForSeconds(wave.spawnDelay);
-			}
-
-			if (!_attributeMultiplier.fixedMultiplier)
-			{
-				_attributeMultiplier.randomDeviationMin += _attributeMultiplier.fixedStatIncrement;
-				_attributeMultiplier.randomDeviationMax += _attributeMultiplier.fixedStatIncrement;
-			}
-			_attributeMultiplier.statIncrementer += _attributeMultiplier.fixedStatIncrement;
-
-			_state = SpawnState.Waiting;
-			_spawnCoroutine = null;
-		}
-		
-		/// <summary>
 		/// Spawns all enemies in a ChanceWave
 		/// </summary>
-		private IEnumerator SpawnWave(ChanceWave wave)
+		private void SpawnWave(Wave wave)
 		{
-			Debug.Log("Spawning wave (random): " + wave.waveName);
 			_state = SpawnState.Spawning;
 
-			wave.SpawnEnemy();
-			yield return new WaitForSeconds(wave.spawnDelay);
+			foreach (var enemy in wave.GetEnemiesToSpawn())
+			{
+				Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
+				GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
+				
+				_attributeMultiplier.CalculateEnemyStats(spawnedEnemy);
+			}
 
 			if (!_attributeMultiplier.fixedMultiplier)
 			{
-				_attributeMultiplier.randomDeviationMin += _attributeMultiplier.fixedStatIncrement;
-				_attributeMultiplier.randomDeviationMax += _attributeMultiplier.fixedStatIncrement;
+				_attributeMultiplier.randomDeviationMin += _attributeMultiplier.statIncrement;
+				_attributeMultiplier.randomDeviationMax += _attributeMultiplier.statIncrement;
 			}
-			_attributeMultiplier.statIncrementer += _attributeMultiplier.fixedStatIncrement;
+			_attributeMultiplier.statIncrementer += _attributeMultiplier.statIncrement;
 
 			_state = SpawnState.Waiting;
-			_spawnCoroutine = null;
 		}
 		
 		private static bool AreEnemiesAlive()
 		{
 			return GameObject.FindGameObjectWithTag("Enemy");
+		}
+
+		public  void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
+		{
+			// Only adds SpawnPoints that do not already exist to prevent accidentally adding the same points multiple times
+			foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint => !spawnpoints.Contains(addedSpawnPoint)))
+			{
+				spawnpoints.Add(addedSpawnPoint);
+			}
 		}
 	}
 }
