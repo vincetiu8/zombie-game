@@ -4,12 +4,14 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Shop;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Networking
 {
 	public class GameManager : MonoBehaviourPunCallbacks
 	{
 		public static            GameManager      Instance;
+		[HideInInspector] public UnityEvent       onAllPlayersDead;
 		[HideInInspector] public GoldSystem       goldSystem;
 		[HideInInspector] public GameObject       localPlayerInstance;
 		[HideInInspector] public SpectatorManager spectatorManager;
@@ -52,6 +54,7 @@ namespace Networking
 			if (PlayerInstances.Count != 0) return;
 
 			menuManager.OpenMenu("death");
+			onAllPlayersDead.Invoke();
 		}
 	}
 }
