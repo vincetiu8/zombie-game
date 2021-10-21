@@ -819,6 +819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closestInteractableUpdateInterval: 0.25
+  localInteractableParent: {fileID: 4693431101948605444}
   interactableImage: {fileID: 5365803459505426530}
   interactableSprites:
     m_keys: 000000000200000001000000

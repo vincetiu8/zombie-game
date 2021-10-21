@@ -134,6 +134,7 @@ MonoBehaviour:
   finishInteraction:
     m_PersistentCalls:
       m_Calls: []
+  interactDuration: 1
   preventPlace:
     serializedVersion: 2
     m_Bits: 256

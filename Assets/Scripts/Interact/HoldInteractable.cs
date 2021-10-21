@@ -7,7 +7,7 @@ namespace Interact
 		private   bool _availableForInteract;
 		protected bool LocallyInteracting;
 
-		private void Awake()
+		protected virtual void Awake()
 		{
 			_availableForInteract = true;
 		}
@@ -29,10 +29,6 @@ namespace Interact
 			FinishInteraction();
 		}
 
-		/// <summary>
-		///     Allows the player to move normally again, exception used to make sure this can only get called once to avoid repeat
-		///     problems
-		/// </summary>
 		protected virtual void FinishInteraction()
 		{
 			// Notifies the player the interaction has finished

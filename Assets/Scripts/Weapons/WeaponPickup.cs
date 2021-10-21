@@ -18,11 +18,10 @@ namespace Weapons
 			_offset = transform.localPosition;
 		}
 
-		protected override void FinishInteraction()
+		protected override void OnSuccessfulInteraction()
 		{
-			Debug.Log("picking up weapon");
 			photonView.RPC("RPCPickupWeapon", RpcTarget.All);
-			base.FinishInteraction();
+			FinishInteraction();
 		}
 
 		[PunRPC]

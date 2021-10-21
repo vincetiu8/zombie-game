@@ -166,13 +166,11 @@ namespace PlayerScripts
 			_currentWeapon.FaceMouse(_mouseDist);
 		}
 
-		public void ToggleFireEnabled(bool preventFire)
+		public void ToggleFireEnabled(bool enableFire)
 		{
-			_preventFire = !preventFire;
-
 			if (_currentWeapon == null) return;
 
-			_currentWeapon.gameObject.SetActive(!_preventFire);
+			_currentWeapon.gameObject.SetActive(enableFire);
 		}
 
 		public void AddWeapon(GameObject weapon)

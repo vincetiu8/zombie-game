@@ -5,7 +5,7 @@ namespace Interact
 	public abstract class TimedInteractable : HoldInteractable
 	{
 		[Header("Time Settings")] [SerializeField] [Range(0.1f, 5f)]
-		private float interactDuration;
+		private float interactDuration = 0.5f;
 
 		private float _remainingDuration;
 
@@ -23,7 +23,7 @@ namespace Interact
 
 			if (_remainingDuration > 0) return;
 
-			FinishInteraction();
+			OnSuccessfulInteraction();
 		}
 
 		public override float GetProgress()
@@ -31,15 +31,17 @@ namespace Interact
 			return 1 - _remainingDuration / interactDuration;
 		}
 
-		protected void ResetDuration()
-		{
-			_remainingDuration = interactDuration;
-		}
-
 		protected override void FinishInteraction()
 		{
 			ResetDuration();
 			base.FinishInteraction();
 		}
+
+		protected void ResetDuration()
+		{
+			_remainingDuration = interactDuration;
+		}
+
+		protected abstract void OnSuccessfulInteraction();
 	}
 }

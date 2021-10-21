@@ -12,18 +12,23 @@ namespace Objects
 	/// <summary>
 	///     Movable object represents an object the player can pickup and move.
 	/// </summary>
-	public class MovableObject : Interactable
+	public class MovableObject : TimedInteractable
 	{
-		[SerializeField] private LayerMask    preventPlace = LayerMask.NameToLayer("Obstacles");
-		private                  Collider2D[] _colList;
-		private                  int          _contacts;
-		private                  bool         _isHolding;
+		[Header("Movable object Settings")] [SerializeField]
+		private LayerMask preventPlace;
 
+		private readonly string[] _ignoredActions = { "Interact", "Movement", "Mouse" };
+
+		private Collider2D[] _colList;
+
+		private int             _contacts;
+		private bool            _isHolding;
 		private NavMeshObstacle _navMeshObstacle;
 		private SpriteRenderer  _spriteRenderer;
 
-		private void Awake()
+		protected override void Awake()
 		{
+			base.Awake();
 			_navMeshObstacle = GetComponent<NavMeshObstacle>();
 			_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 			_colList = GetComponentsInChildren<Collider2D>();
@@ -50,32 +55,23 @@ namespace Objects
 		{
 			if (_isHolding && _contacts > 0) return;
 
-			if (!_isHolding) startInteraction.Invoke();
+			base.StartInteraction();
+		}
 
+		protected override void OnSuccessfulInteraction()
+		{
 			photonView.RPC("RPCInteract", RpcTarget.All, !_isHolding);
 
+			FinishInteraction();
+
+			if (!_isHolding) return;
+
 			GameObject player = GameManager.Instance.localPlayerInstance;
-
-			// When the colliders are disabled, it removes this from the interactable list
-			// We need to add it back so the local player can drop the item and vice versa
-			// This also means closer objects will be interacted with instead of dropping this objects
-			// Therefore, it is suggested to make the interactable trigger as small as possible
-			if (!_isHolding)
-			{
-				finishInteraction.Invoke();
-				return;
-			}
-
-			MiscUtils.ToggleAction(player.GetComponent<PlayerInput>(), "Movement", true);
+			MiscUtils.ToggleActions(player.GetComponent<PlayerInput>(), _ignoredActions, false);
 
 			if (photonView.IsMine) return;
 
 			photonView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
-		}
-
-		public override float GetProgress()
-		{
-			return _isHolding ? 1 : 0;
 		}
 
 		[PunRPC]
@@ -95,6 +91,7 @@ namespace Objects
 
 		private void SetAllCollidersStatus(bool active)
 		{
+			gameObject.tag = active ? "Interactable" : "Untagged";
 			_navMeshObstacle.enabled = active;
 			_spriteRenderer.sortingLayerID = SortingLayer.NameToID(active ? "Objects" : "Enemies");
 			_spriteRenderer.sortingOrder = active ? 2 : 5;
