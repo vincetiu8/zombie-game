@@ -70,7 +70,8 @@ namespace Objects
 
 		private void SetAllCollidersStatus(bool active)
 		{
-			foreach (Collider2D colliders in _colList) colliders.enabled = active;
+			gameObject.layer = LayerMask.NameToLayer(active ? "MovingObstacle" : "Obstacles");
+			// foreach (Collider2D colliders in _colList) colliders.enabled = active;
 		}
 	}
 }
