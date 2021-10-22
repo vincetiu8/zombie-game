@@ -5,6 +5,7 @@ using System.Linq;
 using Networking;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Enemy
@@ -101,7 +102,7 @@ namespace Enemy
     {
         public string waveName;
         public GameObject[] chanceEnemies;
-        [Range(1, 10)] public int enemyChanceMax;
+        [Range(1, 10)] public int enemyCountMax;
 
         public override List<GameObject> GetEnemiesToSpawn()
         {
@@ -109,7 +110,7 @@ namespace Enemy
 
             foreach (GameObject enemy in chanceEnemies)
             {
-                int enemyAmount = Random.Range(1, enemyChanceMax);
+                int enemyAmount = Random.Range(1, enemyCountMax);
                 
                 for (int i = 0; i < enemyAmount; i++)
                 {

@@ -28,14 +28,14 @@ namespace Enemy
 		[Range(0, 20)] [SerializeField]
 		private float waveDelay = 5;
 		
-		[Tooltip("The positions where enemies can spawn")] [SerializeField]
+		[Tooltip("The positions where enemies can spawn")]
 		private List<Transform> spawnpoints = new List<Transform>();
+
+		[Tooltip("Settings for scaling enemy stats ")]
+		[SerializeReference] private WaveAttributeMultiplier attributeMultiplier = new WaveAttributeMultiplier(); 
 		
 		[Tooltip("List of enemy waves")]
 		[SerializeReference] public List<Wave> waveList;
-		
-		[Tooltip("Settings for scaling enemy stats ")]
-		[SerializeReference] private WaveAttributeMultiplier attributeMultiplier = new WaveAttributeMultiplier(); 
 
 		private int _nextWaveIndex;
 		private float _searchInterval;
