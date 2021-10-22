@@ -54,7 +54,6 @@ namespace Enemy
 			
 			_state = SpawnState.Counting;
 			_waveCountdown = waveDelay;
-			attributeMultiplier.SetIncrementer();
 		}
 
 		private void Update()
@@ -111,13 +110,14 @@ namespace Enemy
 		private IEnumerator SpawnWave(Wave wave)
 		{
 			_state = SpawnState.Spawning;
-
+			Debug.Log($"Got wave {wave.waveName}, spawning");
+			
 			foreach (var enemy in wave.GetEnemiesToSpawn())
 			{
 				Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
 				GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
 				
-				attributeMultiplier.CalculateEnemyStats(spawnedEnemy);
+				attributeMultiplier.MultiplyEnemyStats(spawnedEnemy);
 
 				yield return new WaitForSeconds(wave.spawnDelay);
 			}

@@ -30,6 +30,7 @@ namespace Enemy
     public abstract class Wave
     {
         public int spawnDelay;
+        public string waveName;
         public abstract List<GameObject> GetEnemiesToSpawn();
     }
     
@@ -40,9 +41,8 @@ namespace Enemy
     [Serializable]
     public class FixedWave : Wave
     {
-        public string     waveName;
         public GameObject enemyType;
-        public int        enemyCount;
+        [Range(1, 50)] public int enemyCount;
 
         public override List<GameObject> GetEnemiesToSpawn()
         {
@@ -53,8 +53,7 @@ namespace Enemy
                 GameObject spawnedEnemy = enemyType.gameObject;
                 enemies.Add(spawnedEnemy);
             }
-
-            Debug.Log($"Got wave {waveName}, spawning");
+            
             return enemies;
         }
     }
@@ -66,9 +65,8 @@ namespace Enemy
     [Serializable]
     public class RandomWave : Wave
     {
-        public string     waveName;
         public GameObject[] enemyTypes;
-        public int        enemyCount;
+        [Range(1, 50)] public int enemyCount;
 
         public override List<GameObject> GetEnemiesToSpawn()
         {
@@ -88,7 +86,6 @@ namespace Enemy
                 }
             }
             
-            Debug.Log($"Got wave {waveName}, spawning");
             return enemies;
         }
     }
@@ -100,7 +97,6 @@ namespace Enemy
     [Serializable]
     public class ChanceWave : Wave
     {
-        public string waveName;
         public GameObject[] chanceEnemies;
         [Range(1, 10)] public int enemyCountMax;
 
@@ -119,7 +115,6 @@ namespace Enemy
                 }
             }
             
-            Debug.Log($"Got wave {waveName}, spawning");
             return enemies;
         }
     }

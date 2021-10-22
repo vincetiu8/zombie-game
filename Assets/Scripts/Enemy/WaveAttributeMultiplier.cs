@@ -15,44 +15,31 @@ namespace Enemy
         [Tooltip("Whether or not to increase enemy stats per wave")] [SerializeField]
         private bool increaseStats;
 
-        [Tooltip("The base value of _statIncrementer")]
-        public int incrementerBase = 1;
-
-        [Tooltip("Incrementing value used in attribute calculations")] [HideInInspector]
-        public int statIncrementer;
+        [Tooltip("Incrementing value used in attribute calculations")] [SerializeField]
+        private int statIncrementer;
 
         [Tooltip("A random amount enemy stats are multiplied by")]
         private int _deviatedMultiplier;
-
-        [Range(1, 5)]
-        public int randomDeviationMin;
-        [Range(1, 10)]
-        public int randomDeviationMax;
         
-        [Tooltip("How much to increment statIncrementer by. Defaults to 1")]
-        public int statIncrement = 1;
+        [Range(1, 10)] [SerializeField]
+        private int randomDeviation;
+        
+        [Tooltip("How much to increment statIncrementer by. Defaults to 1")] [SerializeField]
+        private  int statIncrement = 1;
 
-        public void CalculateEnemyStats(GameObject enemy)
+        public void MultiplyEnemyStats(GameObject enemy)
         {
             if (!increaseStats) return;
             
             EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
             AnimatedCollisionDamager enemyDamage =
                 enemy.GetComponentInChildren<AnimatedCollisionDamager>();
-                
-            // Determines whether deviation will be positive or negative
-            int deviationDecider = Random.Range(1, 3); 
-                    
-            if (deviationDecider == 1)
+            
+            // Randomize multiplier
+            _deviatedMultiplier = statIncrementer + Random.Range(-randomDeviation, randomDeviation);
+            if (_deviatedMultiplier < 0)
             {
-                int negativeDeviation = Random.Range(statIncrementer, randomDeviationMin + 1); 
-                _deviatedMultiplier = 1 / negativeDeviation;
-            }
-
-            if (deviationDecider == 2)
-            {
-                int positiveDeviation = Random.Range(statIncrementer, randomDeviationMax + 1);
-                _deviatedMultiplier = positiveDeviation;
+                _deviatedMultiplier = 1 / (_deviatedMultiplier * -1);
             }
 
             Debug.Log("Random multiplier is " + _deviatedMultiplier);
@@ -68,15 +55,8 @@ namespace Enemy
         
         public void Increment()
         {
-            randomDeviationMin += statIncrement;
-            randomDeviationMax += statIncrement;
-        }
-    
-        // Cant put this in start because not a MonoBehaviour, doing so would not allow me
-        // to show in the inspector
-        public void SetIncrementer()
-        {
-            statIncrementer = incrementerBase;
+            statIncrementer += statIncrement;
+            randomDeviation += statIncrement;
         }
     }
 }

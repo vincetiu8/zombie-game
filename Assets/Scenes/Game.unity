@@ -1837,16 +1837,14 @@ MonoBehaviour:
       type: {class: WaveAttributeMultiplier, ns: Enemy, asm: Scripts}
       data:
         increaseStats: 1
-        incrementerBase: 1
-        statIncrementer: 0
-        randomDeviationMin: 2
-        randomDeviationMax: 4
+        statIncrementer: 1
+        randomDeviation: 5
         statIncrement: 1
     00000001:
       type: {class: FixedWave, ns: Enemy, asm: Scripts}
       data:
         spawnDelay: 0
-        waveName: Zombie Wave 1
+        waveName: Test FixedWave
         enemyType: {fileID: 9027714350541001172, guid: 7d178d64c618d137f9c5f4bd28cc9c2b,
           type: 3}
         enemyCount: 4
@@ -1854,7 +1852,7 @@ MonoBehaviour:
       type: {class: RandomWave, ns: Enemy, asm: Scripts}
       data:
         spawnDelay: 0
-        waveName: Zombie Wave 2
+        waveName: Test RandomWave
         enemyTypes:
         - {fileID: 1033375991706225872, guid: 33b98bd7e57d2f8b096c7f5d4f066553, type: 3}
         - {fileID: 5535407286979554175, guid: 7112de304f7592a5c932ae2c6adedc88, type: 3}
@@ -1863,7 +1861,7 @@ MonoBehaviour:
       type: {class: ChanceWave, ns: Enemy, asm: Scripts}
       data:
         spawnDelay: 0
-        waveName: Zombie Wave 3
+        waveName: Test ChanceWave
         chanceEnemies:
         - {fileID: 2771645079633643927, guid: 9db11683f240a8191bcfce149d08f748, type: 3}
         - {fileID: 1213563863869152623, guid: 7b8d5efde43a268c0baceeca6973697a, type: 3}
