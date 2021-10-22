@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Codice.Client.ChangeTrackerService;
 using Networking;
 using Photon.Pun;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Enemy
@@ -19,7 +22,7 @@ namespace Enemy
 		[Tooltip("How often the number of remaining enemies should be checked")]
 		[Range(0.1f, 5)] [SerializeField]
 		private float searchIntervalAmount = 1f;
-		
+
 		[Header("Wave Settings")]
 		[Tooltip("The time delay between waves")] 
 		[Range(0, 20)] [SerializeField]
@@ -28,38 +31,30 @@ namespace Enemy
 		[Tooltip("The positions where enemies can spawn")] [SerializeField]
 		private List<Transform> spawnpoints = new List<Transform>();
 		
+		[Tooltip("List of enemy waves")]
 		[SerializeReference] public List<Wave> waveList;
+		
+		[Tooltip("Settings for scaling enemy stats ")]
+		[SerializeReference] private WaveAttributeMultiplier attributeMultiplier = new WaveAttributeMultiplier(); 
 
 		private int _nextWaveIndex;
 		private float _searchInterval;
 		private float _waveCountdown;
 
 		private SpawnState _state;
-		private WaveAttributeMultiplier _attributeMultiplier;
+		private Coroutine _spawnCoroutine;
 
 		private void Start()
 		{
-			_attributeMultiplier = GetComponent<WaveAttributeMultiplier>();
-			
 			if (!PhotonNetwork.IsMasterClient)
 			{
 				enabled = false;
 				return;
 			}
-
+			
 			_state = SpawnState.Counting;
-
 			_waveCountdown = waveDelay;
-
-			_attributeMultiplier.statIncrementer = _attributeMultiplier.incrementerBase;
-
-			if (!_attributeMultiplier.fixedMultiplier)
-			{
-				Debug.Log("Using random multipliers");
-				return;
-			}
-
-			Debug.Log("Using fixed multipliers");
+			attributeMultiplier.SetIncrementer();
 		}
 
 		private void Update()
@@ -69,9 +64,8 @@ namespace Enemy
 				case SpawnState.Counting:
 					_waveCountdown -= Time.deltaTime;
 
-					if (_waveCountdown > 0) return;
-
-					SpawnWave(waveList[_nextWaveIndex]);
+					if (_waveCountdown > 0 || _spawnCoroutine != null) return;
+					_spawnCoroutine = StartCoroutine(SpawnWave(waveList[_nextWaveIndex]));
 					
 					break;
 
@@ -83,7 +77,6 @@ namespace Enemy
 					_searchInterval -= Time.deltaTime;
 
 					if (_searchInterval > 0) return;
-
 					_searchInterval = searchIntervalAmount;
 
 					// Don't start the countdown if there are still alive enemies
@@ -106,15 +99,6 @@ namespace Enemy
 		{
 			_state = SpawnState.Counting;
 			_waveCountdown = waveDelay;
-
-			if (_attributeMultiplier.resetStatIncrease)
-			{
-				if (_attributeMultiplier.statIncrementer > waveList.Count)
-				{
-					_attributeMultiplier.statIncrementer = _attributeMultiplier.incrementerBase;
-					Debug.Log("reset incrementer");
-				}
-			}
 			
 			// In case the wave index exceeds the number of waves, we loop back to the start
 			_nextWaveIndex += 1 + waveList.Count;
@@ -124,7 +108,7 @@ namespace Enemy
 		/// <summary>
 		/// Spawns all enemies in a wave
 		/// </summary>
-		private void SpawnWave(Wave wave)
+		private IEnumerator SpawnWave(Wave wave)
 		{
 			_state = SpawnState.Spawning;
 
@@ -133,16 +117,12 @@ namespace Enemy
 				Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
 				GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
 				
-				_attributeMultiplier.CalculateEnemyStats(spawnedEnemy);
-			}
+				attributeMultiplier.CalculateEnemyStats(spawnedEnemy);
 
-			if (!_attributeMultiplier.fixedMultiplier)
-			{
-				_attributeMultiplier.randomDeviationMin += _attributeMultiplier.statIncrement;
-				_attributeMultiplier.randomDeviationMax += _attributeMultiplier.statIncrement;
+				yield return new WaitForSeconds(wave.spawnDelay);
 			}
-			_attributeMultiplier.statIncrementer += _attributeMultiplier.statIncrement;
-
+			attributeMultiplier.Increment();
+			_spawnCoroutine = null;
 			_state = SpawnState.Waiting;
 		}
 		

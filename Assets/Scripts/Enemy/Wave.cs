@@ -28,6 +28,7 @@ namespace Enemy
     [Serializable]
     public abstract class Wave
     {
+        public int spawnDelay;
         public abstract List<GameObject> GetEnemiesToSpawn();
     }
     
@@ -52,7 +53,7 @@ namespace Enemy
                 enemies.Add(spawnedEnemy);
             }
 
-            Debug.Log("Got wave: " + waveName);
+            Debug.Log($"Got wave {waveName}, spawning");
             return enemies;
         }
     }
@@ -86,7 +87,7 @@ namespace Enemy
                 }
             }
             
-            Debug.Log("Got wave: " + waveName);
+            Debug.Log($"Got wave {waveName}, spawning");
             return enemies;
         }
     }
@@ -117,7 +118,7 @@ namespace Enemy
                 }
             }
             
-            Debug.Log("Got wave: " + waveName);
+            Debug.Log($"Got wave {waveName}, spawning");
             return enemies;
         }
     }

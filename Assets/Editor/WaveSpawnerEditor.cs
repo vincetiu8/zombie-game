@@ -25,7 +25,7 @@ namespace Editor
             {
                 spawner.waveList.Add(new ChanceWave());
             }
-            
+
             EditorUtility.SetDirty(spawner);
         }
     }
