@@ -29,8 +29,8 @@ namespace Enemy
     [Serializable]
     public abstract class Wave
     {
+	public string waveName;
         public int spawnDelay;
-        public string waveName;
         public abstract List<GameObject> GetEnemiesToSpawn();
     }
     
