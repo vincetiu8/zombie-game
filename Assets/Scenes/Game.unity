@@ -1838,7 +1838,7 @@ MonoBehaviour:
       data:
         increaseStats: 1
         statIncrementer: 1
-        randomDeviation: 5
+        randomDeviationMax: 1
         statIncrement: 1
     00000001:
       type: {class: FixedWave, ns: Enemy, asm: Scripts}
@@ -1861,11 +1861,21 @@ MonoBehaviour:
       type: {class: ChanceWave, ns: Enemy, asm: Scripts}
       data:
         spawnDelay: 0
-        waveName: Test ChanceWave
+        waveName: '>:)'
         chanceEnemies:
-        - {fileID: 2771645079633643927, guid: 9db11683f240a8191bcfce149d08f748, type: 3}
+        - {fileID: 9027714350541001172, guid: 7d178d64c618d137f9c5f4bd28cc9c2b, type: 3}
+        - {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513, type: 3}
+        - {fileID: 7007787529214575806, guid: 43ca9dbee0168f5edb1067720266f1b5, type: 3}
+        - {fileID: 1033375991706225872, guid: 33b98bd7e57d2f8b096c7f5d4f066553, type: 3}
+        - {fileID: 7007787529214575806, guid: a35276b9a20b2266c9acac3c21c9e5d2, type: 3}
+        - {fileID: 5535407286979554175, guid: 7112de304f7592a5c932ae2c6adedc88, type: 3}
+        - {fileID: 4669942735592297813, guid: 2001ce1ca55deb008b91963c1e52c17a, type: 3}
+        - {fileID: 2671141900704801435, guid: 4ce8ff5235bf04579bc0c1b81b3dfef6, type: 3}
+        - {fileID: 2730041687673105721, guid: 8d91bbe53cc9db60ab188969306d2878, type: 3}
         - {fileID: 1213563863869152623, guid: 7b8d5efde43a268c0baceeca6973697a, type: 3}
-        enemyCountMax: 4
+        - {fileID: 2771645079633643927, guid: 9db11683f240a8191bcfce149d08f748, type: 3}
+        - {fileID: 458537896214197049, guid: 356fb51399581713482ccacf9e16afe7, type: 3}
+        enemyCountMax: 3
 --- !u!114 &1162648888
 MonoBehaviour:
   m_ObjectHideFlags: 0

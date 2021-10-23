@@ -18,11 +18,8 @@ namespace Enemy
         [Tooltip("Incrementing value used in attribute calculations")] [SerializeField]
         private int statIncrementer;
 
-        [Tooltip("A random amount enemy stats are multiplied by")]
-        private int _deviatedMultiplier;
-        
-        [Range(1, 10)] [SerializeField]
-        private int randomDeviation;
+        [Range(0.1f, 1f)] [SerializeField]
+        private float randomDeviationMax;
         
         [Tooltip("How much to increment statIncrementer by. Defaults to 1")] [SerializeField]
         private  int statIncrement = 1;
@@ -34,29 +31,21 @@ namespace Enemy
             EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
             AnimatedCollisionDamager enemyDamage =
                 enemy.GetComponentInChildren<AnimatedCollisionDamager>();
-            
-            // Randomize multiplier
-            _deviatedMultiplier = statIncrementer + Random.Range(-randomDeviation, randomDeviation);
-            if (_deviatedMultiplier < 0)
-            {
-                _deviatedMultiplier = 1 / (_deviatedMultiplier * -1);
-            }
 
-            Debug.Log("Random multiplier is " + _deviatedMultiplier);
-            // Set random stats
-            enemyHealth.ScaleHealth(_deviatedMultiplier);
+            // Randomize multiplier
+            float deviatedMultiplier = statIncrementer + Random.Range(-randomDeviationMax, randomDeviationMax);
+            
+            // Set stats
+            enemyHealth.ScaleHealth(deviatedMultiplier);
             Debug.Log(enemy.name + " Health: " + enemyHealth.GetHealth());
 
-            enemyDamage.damage += _deviatedMultiplier * enemyDamage.damage;
+            enemyDamage.ScaleDamage(deviatedMultiplier);
             Debug.Log(enemy.name + " Damage: " + enemyDamage.damage);
-
-            _deviatedMultiplier = 0;
         }
         
         public void Increment()
         {
             statIncrementer += statIncrement;
-            randomDeviation += statIncrement;
         }
     }
 }

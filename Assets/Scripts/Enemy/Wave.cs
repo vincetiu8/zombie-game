@@ -41,8 +41,8 @@ namespace Enemy
     [Serializable]
     public class FixedWave : Wave
     {
-        public GameObject enemyType;
-        [Range(1, 50)] public int enemyCount;
+        [SerializeField] private GameObject enemyType;
+        [Range(1, 50)] [SerializeField] private int enemyCount;
 
         public override List<GameObject> GetEnemiesToSpawn()
         {
@@ -65,8 +65,8 @@ namespace Enemy
     [Serializable]
     public class RandomWave : Wave
     {
-        public GameObject[] enemyTypes;
-        [Range(1, 50)] public int enemyCount;
+        [SerializeField] private GameObject[] enemyTypes;
+        [Range(1, 50)]  [SerializeField] private int enemyCount;
 
         public override List<GameObject> GetEnemiesToSpawn()
         {
@@ -97,8 +97,8 @@ namespace Enemy
     [Serializable]
     public class ChanceWave : Wave
     {
-        public GameObject[] chanceEnemies;
-        [Range(1, 10)] public int enemyCountMax;
+        [SerializeField] private GameObject[] chanceEnemies;
+        [Range(1, 10)] [SerializeField] private int enemyCountMax;
 
         public override List<GameObject> GetEnemiesToSpawn()
         {
