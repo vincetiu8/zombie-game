@@ -23,8 +23,6 @@ namespace Objects
 
 		public virtual void ChangeHealth(int change)
 		{
-			Debug.Log("Changing health!");
-
 			// Can't directly set health because RPCChangeHealth may be overridden
 			// We want to ensure we also call it on the client to process changes
 			int newHealth = Health + change;
