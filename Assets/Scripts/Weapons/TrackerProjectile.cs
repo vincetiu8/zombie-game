@@ -1,3 +1,4 @@
+using Enemy;
 using UnityEngine;
 
 namespace Weapons
@@ -9,6 +10,8 @@ namespace Weapons
         [Range(0, 10)] [SerializeField] private int stunDuration;
         [Range(60, 360)] [SerializeField] private float angularAcceleration;
         [Range(0.5f, 10f)] [SerializeField] private float speed;
+
+        [HideInInspector] public NecromancerAI NecromancerAI;
 
         private Rigidbody2D _rigidbody2D;
 
@@ -36,6 +39,7 @@ namespace Weapons
             if (other.transform == target)
             {
                 other.transform.GetComponent<KnockbackController>().TakeStun(stunDuration);
+                NecromancerAI.CalledSummonZombies();
             }
             Destroy(gameObject);
         }

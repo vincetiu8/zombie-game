@@ -30,7 +30,7 @@ namespace Enemy
             bossMoves.Add(CalledStunSpell);
         }
 
-        private void CalledSummonZombies() => SummonZombies(Mathf.FloorToInt(summonAmount));
+        public void CalledSummonZombies() => SummonZombies(Mathf.FloorToInt(summonAmount));
         private void CalledStunSpell() => StartCoroutine(StunSpell(Mathf.FloorToInt(summonAmount)));
 
         protected override void OnPerformAction()
@@ -89,8 +89,8 @@ namespace Enemy
                 // Sets target
                 if (targetPlayerNO > playerTargets.Length - 1) targetPlayerNO = 0;
                 projectile.GetComponent<TrackerProjectile>().target = playerTargets[targetPlayerNO].transform;
+                projectile.GetComponent<TrackerProjectile>().NecromancerAI = transform.GetComponent<NecromancerAI>();
                 targetPlayerNO++;
-
             }
         }
 
