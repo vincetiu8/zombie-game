@@ -1818,7 +1818,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162648884}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 523e326c0b0b737449754543474c767a, type: 3}
   m_Name: 
@@ -1837,22 +1837,22 @@ MonoBehaviour:
       type: {class: WaveAttributeMultiplier, ns: Enemy, asm: Scripts}
       data:
         increaseStats: 1
-        statIncrementer: 1
+        multiplierValue: 0
         randomDeviationMax: 1
-        statIncrement: 1
+        multiplierIncrement: 1
     00000001:
       type: {class: FixedWave, ns: Enemy, asm: Scripts}
       data:
-        spawnDelay: 0
         waveName: Test FixedWave
+        spawnDelay: 0
         enemyType: {fileID: 9027714350541001172, guid: 7d178d64c618d137f9c5f4bd28cc9c2b,
           type: 3}
         enemyCount: 4
     00000002:
       type: {class: RandomWave, ns: Enemy, asm: Scripts}
       data:
-        spawnDelay: 0
         waveName: Test RandomWave
+        spawnDelay: 0
         enemyTypes:
         - {fileID: 1033375991706225872, guid: 33b98bd7e57d2f8b096c7f5d4f066553, type: 3}
         - {fileID: 5535407286979554175, guid: 7112de304f7592a5c932ae2c6adedc88, type: 3}
@@ -1860,8 +1860,8 @@ MonoBehaviour:
     00000003:
       type: {class: ChanceWave, ns: Enemy, asm: Scripts}
       data:
-        spawnDelay: 0
         waveName: '>:)'
+        spawnDelay: 0
         chanceEnemies:
         - {fileID: 9027714350541001172, guid: 7d178d64c618d137f9c5f4bd28cc9c2b, type: 3}
         - {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513, type: 3}
@@ -1875,7 +1875,7 @@ MonoBehaviour:
         - {fileID: 1213563863869152623, guid: 7b8d5efde43a268c0baceeca6973697a, type: 3}
         - {fileID: 2771645079633643927, guid: 9db11683f240a8191bcfce149d08f748, type: 3}
         - {fileID: 458537896214197049, guid: 356fb51399581713482ccacf9e16afe7, type: 3}
-        enemyCountMax: 3
+        enemyCountMax: 10
 --- !u!114 &1162648888
 MonoBehaviour:
   m_ObjectHideFlags: 0
