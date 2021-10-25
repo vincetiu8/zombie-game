@@ -13,11 +13,11 @@ namespace Input
 
 		private Rigidbody2D _rigidbody2D;
 
-		private AnimatedHealth _animatedHealth;
+		private PlayerHealth _playerHealth;
 
 		private void Awake() 
 		{
-			_animatedHealth = GetComponent<AnimatedHealth>();
+			_playerHealth = GetComponent<PlayerHealth>();
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 		}
 
@@ -27,8 +27,11 @@ namespace Input
 		}
 
 		public void UpdateMovementDirection(InputAction.CallbackContext context) {
-			_animatedHealth.CheckNaturalHealing(context.canceled);
 			_movementDirection = context.ReadValue<Vector2>();
+
+			if (_movementDirection.magnitude > 0f) {
+				_playerHealth.ResetNaturalHealing();
+			}
 		}
 	}
 }

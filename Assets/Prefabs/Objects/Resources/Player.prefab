@@ -938,11 +938,11 @@ MonoBehaviour:
   - {fileID: 7548964018044762472}
   componentsToDisableOnDeath:
   - {fileID: 2475852923928295786}
-  naturalHealAmount: 5
-  naturalHealInterval: 1
-  _canHeal: 0
+  _healDelay: 1
   cameraObject: {fileID: 4693431101761815406}
   weapons: {fileID: 4705562140252545668}
+  healAmount: 10
+  maxHealDelay: 1
 --- !u!1 &5730595962619871849
 GameObject:
   m_ObjectHideFlags: 0

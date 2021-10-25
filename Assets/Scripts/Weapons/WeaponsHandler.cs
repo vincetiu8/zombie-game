@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using Input;
 using Networking;
 using Objects;
 using Photon.Pun;
@@ -32,13 +33,13 @@ namespace Weapons
 
 		private AmmoInventory  _ammoInventory;
 		private Weapon         _currentWeapon;
-		private AnimatedHealth _animatedHealth;
+		private PlayerHealth _playerHealth;
 		private int            _currentWeaponIndex;
 		private float          _mouseDist;
 		private bool           _preventFire;
 
 		private void Start() {
-			_animatedHealth = GetComponent<AnimatedHealth>();
+			_playerHealth = GetComponent<PlayerHealth>();
 			_ammoInventory = GetComponent<AmmoInventory>();
 			for (int i = 0; i < availableWeapons.Count; i++)
 			{
@@ -75,7 +76,7 @@ namespace Weapons
 		public void FireAction(InputAction.CallbackContext context)
 		{
 			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
-			_animatedHealth.CheckNaturalHealing(context.canceled);
+			_playerHealth.ResetNaturalHealing();
 
 			// When the mouse is pressed down, two actions are sent: started and performed
 			// We'll use performed here to check for the press
@@ -93,7 +94,7 @@ namespace Weapons
 		public void ReloadAction(InputAction.CallbackContext context)
 		{
 			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
-			_animatedHealth.CheckNaturalHealing(context.canceled);
+			_playerHealth.ResetNaturalHealing();
 
 			// Make sure this is only when the reload button is pressed
 			if (!context.performed) return;
