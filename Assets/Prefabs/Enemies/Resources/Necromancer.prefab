@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431bc966a56e4b64cba2df3d8756fca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minActionRate: 5
+  maxActionRate: 10
   spawnedZombie: {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513,
     type: 3}
   spawnRadius: 3
   summonAmount: 3
   summonAmountIncrementer: 0.25
   summonDuration: 2
-  minActionRate: 5
-  maxActionRate: 10
+  stunProjectile: {fileID: 4026456415033271303, guid: 9be75f2dc80c0f14c8cb6d7131168b47,
+    type: 3}
+  delayPerSpell: 0.2
 --- !u!1001 &7899194696350207163
 PrefabInstance:
   m_ObjectHideFlags: 0

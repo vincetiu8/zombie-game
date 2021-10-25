@@ -35,7 +35,8 @@ namespace Objects
 		}
 
 		protected virtual void Update()
-		{
+        {
+            //if (HealthControllers == null) return;
 			if (!_photonView.IsMine || HealthControllers.Count == 0) return;
 
 			// Reduce cooldown by time
