@@ -16,13 +16,13 @@ namespace Enemy
         private bool increaseStats;
 
         [Tooltip("Incrementing value used in attribute calculations")] [SerializeField]
-        private int statIncrementer;
+        private int multiplierValue;
 
         [Range(0.1f, 1f)] [SerializeField]
         private float randomDeviationMax;
         
         [Tooltip("How much to increment statIncrementer by. Defaults to 1")] [SerializeField]
-        private  int statIncrement = 1;
+        private  int multiplierIncrement = 1;
 
         public void MultiplyEnemyStats(GameObject enemy)
         {
@@ -33,19 +33,16 @@ namespace Enemy
                 enemy.GetComponentInChildren<AnimatedCollisionDamager>();
 
             // Randomize multiplier
-            float deviatedMultiplier = statIncrementer + Random.Range(-randomDeviationMax, randomDeviationMax);
+            float deviatedMultiplier = multiplierValue + Random.Range(-randomDeviationMax, randomDeviationMax);
             
             // Set stats
             enemyHealth.ScaleHealth(deviatedMultiplier);
-            Debug.Log(enemy.name + " Health: " + enemyHealth.GetHealth());
-
             enemyDamage.ScaleDamage(deviatedMultiplier);
-            Debug.Log(enemy.name + " Damage: " + enemyDamage.damage);
         }
         
         public void Increment()
         {
-            statIncrementer += statIncrement;
+            multiplierValue += multiplierIncrement;
         }
     }
 }
