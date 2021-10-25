@@ -45,15 +45,12 @@ namespace Input
 		public void ResetNaturalHealing() {
 			if (Health >= initialHealth || Health <= 0) return;
 
-			_healDelay = maxHealDelay;
+			_healDelay = maxHealDelay;  
+			_carryHealth = 0;
 		}
 
 		private void Update() {
- 
-			Debug.Log(Health);
-
 			if (Health >= initialHealth || Health <= 0) return;
-
 
 			if (_healDelay > 0) {
 				_healDelay -= Time.deltaTime;
