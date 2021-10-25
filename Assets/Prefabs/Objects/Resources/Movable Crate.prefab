@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 9206374881851240513}
   - component: {fileID: 8474994737807135849}
   - component: {fileID: -3140313452772274701}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Movable Crate
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1036530043
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 98fc8467f9826564180263611886a486, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -127,7 +127,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f637a1cb58b8657429e5eaab78df780c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
+  interactableType: 0
+  startInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  interactDuration: 1
+  preventPlace:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &301593380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,4 +223,4 @@ NavMeshObstacle:
   m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
+  m_TimeToStationary: 0

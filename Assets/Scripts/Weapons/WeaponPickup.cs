@@ -2,6 +2,7 @@ using Interact;
 using Networking;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using PlayerScripts;
 using UnityEngine;
 
 namespace Weapons
@@ -17,11 +18,10 @@ namespace Weapons
 			_offset = transform.localPosition;
 		}
 
-		protected override void FinishInteraction()
+		protected override void OnSuccessfulInteraction()
 		{
-			Debug.Log("picking up weapon");
 			photonView.RPC("RPCPickupWeapon", RpcTarget.All);
-			base.FinishInteraction();
+			FinishInteraction();
 		}
 
 		[PunRPC]

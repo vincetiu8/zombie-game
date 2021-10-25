@@ -3,13 +3,13 @@ using Objects;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Input
+namespace PlayerScripts
 {
 	public class PlayerMovement : MonoBehaviour
 	{
-        [SerializeField] private float acceleration;
-        
-        private Vector2 _movementDirection;
+		[SerializeField] private float acceleration;
+
+		private Vector2 _movementDirection;
 
 		private Rigidbody2D _rigidbody2D;
 
@@ -23,7 +23,7 @@ namespace Input
 
 		private void FixedUpdate()
 		{
-            _rigidbody2D.AddForce(_movementDirection * acceleration);
+			_rigidbody2D.AddForce(_movementDirection * acceleration);
 		}
 
 		public void UpdateMovementDirection(InputAction.CallbackContext context) {

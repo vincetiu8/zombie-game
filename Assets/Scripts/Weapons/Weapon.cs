@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Photon.Pun;
+using PlayerScripts;
 using UnityEngine;
 
 namespace Weapons

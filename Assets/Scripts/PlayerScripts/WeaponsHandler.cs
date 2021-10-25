@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
-using Input;
 using Networking;
-using Objects;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
+using Weapons;
 
-namespace Weapons
+namespace PlayerScripts
 {
 	/// <summary>
 	///     WeaponsHandler handles the usage of a player's weapons.
@@ -18,27 +17,24 @@ namespace Weapons
 	{
 		private const int MouseDistPrecision = 10;
 
-		[Description("The camera the player will see")] [SerializeField]
-		private Camera playerCamera;
+		[SerializeField] private Camera playerCamera;
 
 		[Description("The child object containing the player's sprite")] [SerializeField]
 		private Transform playerSprite;
-
-		[Description("The child object containing the player's weapons")] [SerializeField]
-		private Transform weaponPivot;
 
 		[Description("List of available weapons the player can cycle through")] [SerializeField]
 		private List<GameObject> availableWeapons;
 
 
-		private AmmoInventory  _ammoInventory;
-		private Weapon         _currentWeapon;
-		private PlayerHealth _playerHealth;
-		private int            _currentWeaponIndex;
-		private float          _mouseDist;
-		private bool           _preventFire;
+		private AmmoInventory _ammoInventory;
+		private Weapon        _currentWeapon;
+		private int           _currentWeaponIndex;
+		private float         _mouseDist;
+		private PlayerHealth  _playerHealth;
+		private bool          _preventFire;
 
-		private void Start() {
+		private void Start()
+		{
 			_playerHealth = GetComponent<PlayerHealth>();
 			_ammoInventory = GetComponent<AmmoInventory>();
 			for (int i = 0; i < availableWeapons.Count; i++)
@@ -115,7 +111,7 @@ namespace Weapons
 
 			float angle = TransformUtils.Vector2ToDeg(direction);
 
-			playerSprite.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			playerSprite.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
 			// Allows the current weapon to be adjusted to face the mouse
 			if (_currentWeapon == null) return;
@@ -126,10 +122,7 @@ namespace Weapons
 
 		public void WeaponSwitchingScrollAction(InputAction.CallbackContext context)
 		{
-			if (!context.performed || _preventFire)
-			{
-				return;
-			}
+			if (!context.performed || _preventFire) return;
 
 
 			int scrollDirection = (int)context.ReadValue<float>();
@@ -139,10 +132,7 @@ namespace Weapons
 
 		public void WeaponSwitchingAction(InputAction.CallbackContext context)
 		{
-			if (!context.performed || _preventFire)
-			{
-				return;
-			}
+			if (!context.performed || _preventFire) return;
 
 
 			int key = (int)context.ReadValue<float>();
@@ -175,13 +165,11 @@ namespace Weapons
 			_currentWeapon.FaceMouse(_mouseDist);
 		}
 
-		public void ToggleFireEnabled(bool preventFire)
+		public void ToggleFireEnabled(bool enableFire)
 		{
-			_preventFire = !preventFire;
-
 			if (_currentWeapon == null) return;
 
-			_currentWeapon.gameObject.SetActive(!_preventFire);
+			_currentWeapon.gameObject.SetActive(enableFire);
 		}
 
 		public void AddWeapon(GameObject weapon)

@@ -1,8 +1,9 @@
 using System;
 using System.ComponentModel;
 using UnityEngine;
+using Weapons;
 
-namespace Weapons
+namespace PlayerScripts
 {
 	[Serializable]
 	public class AmmoDict : SerializableDictionary<AmmoType, AmmoEntry>

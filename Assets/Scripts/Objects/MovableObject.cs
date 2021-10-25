@@ -3,59 +3,89 @@ using Networking;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
-using Weapons;
+using UnityEngine.AI;
+using UnityEngine.InputSystem;
+using Utils;
 
 namespace Objects
 {
 	/// <summary>
 	///     Movable object represents an object the player can pickup and move.
 	/// </summary>
-	public class MovableObject : Interactable
+	public class MovableObject : TimedInteractable
 	{
-		private Collider2D[] _colList;
-		private bool         _isHolding;
+		[Header("Movable object Settings")] [SerializeField]
+		private LayerMask preventPlace;
 
-		private void Awake()
+		private readonly string[] _ignoredActions = { "Interact", "Movement", "Mouse" };
+
+		private Collider2D[] _colList;
+
+		private int             _contacts;
+		private bool            _isHolding;
+		private PlayerInput     _localPlayerInput;
+		private NavMeshObstacle _navMeshObstacle;
+		private SpriteRenderer  _spriteRenderer;
+
+		protected override void Awake()
 		{
-			_colList = transform.GetComponentsInChildren<Collider2D>();
+			base.Awake();
+			_navMeshObstacle = GetComponent<NavMeshObstacle>();
+			_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+			_colList = GetComponentsInChildren<Collider2D>();
+		}
+
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			if (!_isHolding || !MiscUtils.IsInLayerMask(preventPlace, other.gameObject.layer)) return;
+
+			_contacts++;
+			_spriteRenderer.color = Color.red;
+		}
+
+		private void OnTriggerExit2D(Collider2D other)
+		{
+			if (!_isHolding || !MiscUtils.IsInLayerMask(preventPlace, other.gameObject.layer)) return;
+
+			_contacts--;
+
+			if (_contacts == 0) _spriteRenderer.color = Color.white;
 		}
 
 		public override void StartInteraction()
 		{
-			_isHolding = !_isHolding;
-			photonView.RPC("RPCInteract", RpcTarget.All, _isHolding);
+			if (_isHolding && _contacts > 0) return;
 
-			GameObject player = GameManager.Instance.localPlayerInstance;
+			base.StartInteraction();
+		}
 
-			// When the colliders are disabled, it removes this from the interactable list
-			// We need to add it back so the local player can drop the item and vice versa
-			// This also means closer objects will be interacted with instead of dropping this objects
-			// Therefore, it is suggested to make the interactable trigger as small as possible
-			if (!_isHolding)
-			{
-				finishInteraction.Invoke();
-				player.GetComponent<PlayerInteract>().RemoveInteractable(gameObject);
-				return;
-			}
+		protected override void OnSuccessfulInteraction()
+		{
+			photonView.RPC("RPCInteract", RpcTarget.All, !_isHolding);
 
-			player.GetComponent<PlayerInteract>().AddInteractable(gameObject);
-			player.GetComponent<WeaponsHandler>().ToggleFireEnabled(false);
+			FinishInteraction();
+
+			if (!_isHolding) return;
+
+			DisableRotation();
 
 			if (photonView.IsMine) return;
 
 			photonView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
 		}
 
-		public override float GetProgress()
+		private void DisableRotation()
 		{
-			return _isHolding ? 1 : 0;
+			if (_localPlayerInput == null)
+				_localPlayerInput = GameManager.Instance.localPlayerInstance.GetComponent<PlayerInput>();
+			MiscUtils.ToggleActions(_localPlayerInput, _ignoredActions, false);
 		}
 
 		[PunRPC]
 		private void RPCInteract(bool isHolding, PhotonMessageInfo info)
 		{
+			SetAllCollidersStatus(_isHolding);
 			_isHolding = isHolding;
-			SetAllCollidersStatus(!_isHolding);
 			if (_isHolding)
 			{
 				GameObject player = GameManager.Instance.PlayerInstances[info.Sender.GetPlayerNumber()];
@@ -68,7 +98,33 @@ namespace Objects
 
 		private void SetAllCollidersStatus(bool active)
 		{
-			foreach (Collider2D colliders in _colList) colliders.enabled = active;
+			gameObject.tag = active ? "Interactable" : "Untagged";
+			_navMeshObstacle.enabled = active;
+			_spriteRenderer.sortingLayerID = SortingLayer.NameToID(active ? "Objects" : "Enemies");
+			_spriteRenderer.sortingOrder = active ? 2 : 5;
+			gameObject.layer = LayerMask.NameToLayer(active ? "Obstacles" : "MovingObstacles");
+			foreach (Collider2D collider in _colList)
+			{
+				if (active)
+				{
+					if (!collider.enabled)
+					{
+						collider.enabled = true;
+						continue;
+					}
+
+					collider.isTrigger = false;
+					continue;
+				}
+
+				if (collider.isTrigger)
+				{
+					collider.enabled = false;
+					continue;
+				}
+
+				collider.isTrigger = true;
+			}
 		}
 	}
 }
