@@ -39,7 +39,7 @@ namespace Objects
 
 		private void SetSprite()
 		{
-			int spriteIndex = Health * sprites.Length / initialHealth;
+			int spriteIndex = (Health * sprites.Length - 1) / initialHealth;
 			spriteRenderer.sprite = sprites[spriteIndex];
 		}
 
