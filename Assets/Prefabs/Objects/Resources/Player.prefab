@@ -2126,7 +2126,7 @@ PrefabInstance:
     - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
-      value: 5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
         type: 3}

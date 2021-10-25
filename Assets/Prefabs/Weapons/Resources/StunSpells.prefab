@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  stunDuration: 2
-  angularAcceleration: 200
+  stunDuration: 3
+  angularAcceleration: 250
   speed: 4
 --- !u!50 &4026456415033271302
 Rigidbody2D:
