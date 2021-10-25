@@ -33,5 +33,11 @@ namespace Enemy
 
 			_animator.SetBool(AttackingProperty, HealthControllers.Count > 0);
 		}
+
+		public void ScaleDamage(float scale)
+		{
+			float newDamage = damage * scale;
+			damage = (int) newDamage;
+		}
 	}
 }

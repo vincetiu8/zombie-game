@@ -44,7 +44,43 @@ Here are some useful tips when developing features.
 
 - Make things prefabs.
 - Test everything.
-	- Make sure to test network syncing too.
+    - Make sure to test network syncing too.
+
+### Custom Editors
+Custom editors are essentially user generated custom inspector panels.
+They allow for the creation of custom buttons, conditional variable toggling and so on.
+
+#### Making a Custom Editor
+- Remember to place your custom editor script in the `Editor` folder under assets, otherwise **it will not work**.
+- Derive your script from the `BaseCustomEditor` class and add the `[CustomEditor(typeof(YOURSCRIPT))]` attribute above your class. Also add a `using UnityEditor;` statement.
+- Remove the `Start()` and `Update()` methods and add the `OnInspectorGUI()` method. Thiss is where your code will go.
+- Inside the `OnInspectorGUI()` method, target your script by adding `YOURSCRIPT script = (YOURSCRIPT) target`.
+- At the end of the `OnInspectorGUI()` method you must add `EditorUtility.SetDirty()`, otherwise the changes you make in the inspector window will not save.
+- One more thing to note, the standard naming convention for custom editor scripts is amending the word "Editor" to the class/script you're targeting,
+so if you have a class called `MyClass` , the custom editor's class would be `MyClassEditor`.
+
+If you've followed all of these steps correctly, you should see your script's inspector window be nonexistent. Don't worry,
+This means you're ready to start scripting a custom editor. However, if you only want to script a part of the editor,
+add the `DrawDefaultInspector()` method.
+
+Example of a custom editor:\
+````
+using UnityEditor;
+using UnityEngine;
+
+[CustomEditor(typeof(MyClass))]
+public class MyClassEditor : BaseCustomEditor
+{
+    public override void OnInspectorGUI()
+    {
+        MyClass script = (MyClass) target;
+    
+        // Code goes here
+        
+        EditorUtility.SetDirty(script);
+    }
+}
+````
 
 ## Git related
 

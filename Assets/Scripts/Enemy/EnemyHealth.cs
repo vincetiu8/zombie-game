@@ -19,5 +19,11 @@ namespace Enemy
 
 			base.OnDeath();
 		}
+
+		public void ScaleHealth(float scale)
+		{
+			float newHealth = Health * scale;
+			Health = (int) newHealth;
+		}
 	}
 }
