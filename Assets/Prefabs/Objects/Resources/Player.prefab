@@ -938,7 +938,6 @@ MonoBehaviour:
   - {fileID: 7548964018044762472}
   componentsToDisableOnDeath:
   - {fileID: 2475852923928295786}
-  _healDelay: 1
   cameraObject: {fileID: 4693431101761815406}
   weapons: {fileID: 4705562140252545668}
   healAmount: 10

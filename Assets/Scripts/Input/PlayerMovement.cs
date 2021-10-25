@@ -29,7 +29,7 @@ namespace Input
 		public void UpdateMovementDirection(InputAction.CallbackContext context) {
 			_movementDirection = context.ReadValue<Vector2>();
 
-			if (_movementDirection.magnitude > 0f) {
+			if (_movementDirection.magnitude > 0.01f) {
 				_playerHealth.ResetNaturalHealing();
 			}
 		}

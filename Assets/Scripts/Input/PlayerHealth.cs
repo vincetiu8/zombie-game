@@ -12,20 +12,18 @@ namespace Input
 {
 	public class PlayerHealth : AnimatedHealth
 	{
-
-		public float _healDelay;
-
 		[Header("Player Death Settings")] [SerializeField]
 		private Transform cameraObject;
 
 		[SerializeField] private GameObject weapons; 
 		
+		[Header("Natural Healing Settings")]
 		[SerializeField] private int healAmount;
-
 		[SerializeField] private float maxHealDelay;
 
 		private PlayerInteract _playerInteract;
-		private float            _carryHealth;
+		private float          _carryHealth;
+		private float          _healDelay;
 
 
 		protected override void Start()
