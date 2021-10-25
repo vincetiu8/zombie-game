@@ -1,6 +1,7 @@
 using System.Collections;
 using System.ComponentModel;
 using Interact;
+using Networking;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
@@ -12,7 +13,9 @@ namespace Objects
 	/// </summary>
 	public class Lantern : TimedInteractable
 	{
-		[Header("Lantern Settings")] [Description("The duration the lantern stays on")] [SerializeField]
+		private const float DurationOnAllDead = 2;
+
+		[Header("Lantern Settings")] [Description("The duration the lantern stays on")] [SerializeField] [Range(1, 30)]
 		private float duration;
 
 		private Coroutine _fadeLightingCoroutine;
@@ -23,6 +26,7 @@ namespace Objects
 			base.Start();
 			_light2D = GetComponent<Light2D>();
 			_light2D.intensity = 0;
+			GameManager.Instance.onAllPlayersDead.AddListener(FadeOnDeath);
 		}
 
 		protected override void OnSuccessfulInteraction()
@@ -48,6 +52,15 @@ namespace Objects
 			}
 
 			_fadeLightingCoroutine = null;
+		}
+
+		private void FadeOnDeath()
+		{
+			if (_fadeLightingCoroutine != null) StopCoroutine(_fadeLightingCoroutine);
+
+			duration = DurationOnAllDead;
+
+			_fadeLightingCoroutine = StartCoroutine(FadeLightingCoroutine());
 		}
 	}
 }
