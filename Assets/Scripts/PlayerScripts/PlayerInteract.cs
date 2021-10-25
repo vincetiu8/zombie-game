@@ -18,7 +18,7 @@ namespace PlayerScripts
 	/// </summary>
 	public class PlayerInteract : MonoBehaviour
 	{
-		private static readonly string[] IgnoredActions = { "Interact", "Mouse" };
+		private static readonly string[] IgnoredActions = { "Interact" };
 
 		[Header("Interactable Update Settings")] [SerializeField]
 		private float closestInteractableUpdateInterval = 0.25f;

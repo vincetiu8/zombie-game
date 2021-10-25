@@ -23,6 +23,7 @@ namespace Objects
 
 		private int             _contacts;
 		private bool            _isHolding;
+		private PlayerInput     _localPlayerInput;
 		private NavMeshObstacle _navMeshObstacle;
 		private SpriteRenderer  _spriteRenderer;
 
@@ -66,12 +67,18 @@ namespace Objects
 
 			if (!_isHolding) return;
 
-			GameObject player = GameManager.Instance.localPlayerInstance;
-			MiscUtils.ToggleActions(player.GetComponent<PlayerInput>(), _ignoredActions, false);
+			DisableRotation();
 
 			if (photonView.IsMine) return;
 
 			photonView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
+		}
+
+		private void DisableRotation()
+		{
+			if (_localPlayerInput == null)
+				_localPlayerInput = GameManager.Instance.localPlayerInstance.GetComponent<PlayerInput>();
+			MiscUtils.ToggleActions(_localPlayerInput, _ignoredActions, false);
 		}
 
 		[PunRPC]
