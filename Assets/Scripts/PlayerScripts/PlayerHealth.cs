@@ -1,29 +1,26 @@
-using System;
-using System.Collections;
-using Interact;
 using Networking;
 using Objects;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Input
+namespace PlayerScripts
 {
 	public class PlayerHealth : AnimatedHealth
 	{
 		[Header("Player Death Settings")] [SerializeField]
 		private Transform cameraObject;
 
-		[SerializeField] private GameObject weapons; 
-		
-		[Header("Natural Healing Settings")]
-		[SerializeField] private int healAmount;
+		[SerializeField] private GameObject weapons;
+
+		[Header("Natural Healing Settings")] [SerializeField]
+		private int healAmount;
+
 		[SerializeField] private float maxHealDelay;
+		private                  float _carryHealth;
+		private                  float _healDelay;
 
 		private PlayerInteract _playerInteract;
-		private float          _carryHealth;
-		private float          _healDelay;
 
 
 		protected override void Start()
@@ -32,27 +29,12 @@ namespace Input
 			_playerInteract = GetComponent<PlayerInteract>();
 		}
 
-		// Makes it so that taking damaged also cancels current input 
-		public override void ChangeHealth(int change)
+		private void Update()
 		{
-			if (change < 0) {
-				_playerInteract.CancelInteraction();
-				ResetNaturalHealing();
-			}
-			base.ChangeHealth(change);
-		}
-
-		public void ResetNaturalHealing() {
 			if (Health >= initialHealth || Health <= 0) return;
 
-			_healDelay = maxHealDelay;  
-			_carryHealth = 0;
-		}
-
-		private void Update() {
-			if (Health >= initialHealth || Health <= 0) return;
-
-			if (_healDelay > 0) {
+			if (_healDelay > 0)
+			{
 				_healDelay -= Time.deltaTime;
 				return;
 			}
@@ -63,7 +45,26 @@ namespace Input
 			ChangeHealth(intHealth);
 
 			_carryHealth -= intHealth;
+		}
 
+		// Makes it so that taking damaged also cancels current input 
+		public override void ChangeHealth(int change)
+		{
+			if (change < 0)
+			{
+				_playerInteract.CancelInteraction();
+				ResetNaturalHealing();
+			}
+
+			base.ChangeHealth(change);
+		}
+
+		public void ResetNaturalHealing()
+		{
+			if (Health >= initialHealth || Health <= 0) return;
+
+			_healDelay = maxHealDelay;
+			_carryHealth = 0;
 		}
 
 		[PunRPC]

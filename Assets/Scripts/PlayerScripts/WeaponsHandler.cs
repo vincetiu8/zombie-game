@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
-using Input;
 using Networking;
-using Objects;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,14 +26,15 @@ namespace PlayerScripts
 		private List<GameObject> availableWeapons;
 
 
-		private AmmoInventory  _ammoInventory;
-		private Weapon         _currentWeapon;
-		private PlayerHealth _playerHealth;
-		private int            _currentWeaponIndex;
-		private float          _mouseDist;
-		private bool           _preventFire;
+		private AmmoInventory _ammoInventory;
+		private Weapon        _currentWeapon;
+		private int           _currentWeaponIndex;
+		private float         _mouseDist;
+		private PlayerHealth  _playerHealth;
+		private bool          _preventFire;
 
-		private void Start() {
+		private void Start()
+		{
 			_playerHealth = GetComponent<PlayerHealth>();
 			_ammoInventory = GetComponent<AmmoInventory>();
 			for (int i = 0; i < availableWeapons.Count; i++)
