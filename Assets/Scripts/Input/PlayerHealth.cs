@@ -37,7 +37,10 @@ namespace Input
 		// Makes it so that taking damaged also cancels current input 
 		public override void ChangeHealth(int change)
 		{
-			if (change < 0) _playerInteract.CancelInteraction();
+			if (change < 0) {
+				_playerInteract.CancelInteraction();
+				ResetNaturalHealing();
+			}
 			base.ChangeHealth(change);
 		}
 
@@ -49,6 +52,8 @@ namespace Input
 
 		private void Update() {
  
+			Debug.Log(Health);
+
 			if (Health >= initialHealth || Health <= 0) return;
 
 
