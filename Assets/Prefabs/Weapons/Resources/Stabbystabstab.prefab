@@ -140,7 +140,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 549690393
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: -5557420877203330147, guid: 92aa031c64efb71d9a518e107694d2c4,
     type: 3}
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 662938872537925858}
   - component: {fileID: 5242127807429692485}
   m_Layer: 10
-  m_Name: Stabbystab
+  m_Name: Stabbystabstab
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,6 +225,7 @@ MonoBehaviour:
   levels:
   - description: Stabbystab
     damage: 20
+    knockback: 3
     fireCooldown: 0.3
     fullAuto: 0
 --- !u!114 &6430018366674950792
@@ -256,7 +257,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9004224348638097280}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -277,11 +278,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0efcd33fd675f5c0db24f18dec85563c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableType: 0
   startInteraction:
     m_PersistentCalls:
       m_Calls: []
   finishInteraction:
     m_PersistentCalls:
       m_Calls: []
-  canvas: {fileID: 0}
   interactDuration: 0
