@@ -1,7 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Photon.Pun;
+using PlasticPipe.PlasticProtocol.Client;
+using PlayerScripts;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using Utils;
@@ -15,7 +18,8 @@ namespace Enemy
         [Description("The amount of thins spawned in per summon (applies to both zombies and the stun projectile)")]
         [SerializeField] private float summonAmount;
         [SerializeField] private float summonAmountIncrementer;
-        
+        private float _multiplierStacks = 1;
+
         [Header("Zombie spawn settings")]
         [SerializeField] private Object spawnedZombie;
         [SerializeField] private float spawnRadius = 3;
@@ -24,32 +28,45 @@ namespace Enemy
         [SerializeField] private Object stunProjectile;
         [SerializeField] private float delayPerSpell;
 
-        private float _multiplierStacks;
+        [Header("Melee AOE attack settings")] 
+        [SerializeField] private float meleeSpellDamage;
+        [SerializeField] private float meleeSpellKnockback;
+        [SerializeField] private SpriteRenderer _animationSubstitude;
+        private MeleePoint _meleePoint;
+        private Light2D _light2D;
+        
         protected override void DeclareBossMoves()
         {
-            bossMoves.Add(CalledSummonZombies);
-            bossMoves.Add(CalledStunSpell);
+            _meleePoint = GetComponentInChildren<MeleePoint>();
+            _light2D = transform.GetComponent<Light2D>();
+            
+            BossMoves.Add(new BossMove(CalledSummonZombies, 3,true));
+            BossMoves.Add(new BossMove(CalledStunSpell, 2,true));
+            BossMoves.Add(new BossMove(CalledMeleeSpell, 1,false));
         }
 
-        public void CalledSummonZombies() => SummonZombies(Mathf.FloorToInt(summonAmount * _multiplierStacks));
+        private void CalledSummonZombies() => SummonZombies(Mathf.FloorToInt(summonAmount * _multiplierStacks));
         private void CalledStunSpell() => StartCoroutine(StunSpell(Mathf.FloorToInt(summonAmount * _multiplierStacks)));
+
+        private void CalledMeleeSpell() => StartCoroutine(MeleeSpell( Mathf.RoundToInt(meleeSpellDamage * _multiplierStacks),
+            meleeSpellKnockback * _multiplierStacks));
 
         protected override void OnPerformAction()
         {
-            transform.GetComponent<Light2D>().enabled = true;
+            _light2D.enabled = true;
         }
 
         protected override void DuringPerformAction()
         {
             //transform.GetComponent<Light2D>().intensity = Mathf.MoveTowards(transform.GetComponent<Light2D>().intensity, _multiplierStacks,Time.deltaTime);
-            transform.GetComponent<Light2D>().intensity = _multiplierStacks;
+            _light2D.intensity = _multiplierStacks;
         }
 
-        protected override void FinishPeformAction()
+        protected override void FinishPerformAction()
         {
             _multiplierStacks = 1;
             summonAmount += summonAmountIncrementer;
-            transform.GetComponent<Light2D>().enabled = false;
+            _light2D.enabled = false;
         }
 
 
@@ -74,13 +91,15 @@ namespace Enemy
         
         private IEnumerator StunSpell(int amountToSpawn)
         {
-            // find closest players, by makeing a gameobject list or smth
-            // interate through list for each amount of stuns provided
-            // 
+            Collider2D[] playerTargets = ListNearbyObjects(20, "Players", true);
 
-            Collider2D[] playerTargets = ListNearbyObjects(20, "Players");
-        
-            if (playerTargets.Length == 0) yield break;
+            if (playerTargets.Length == 0)
+            {
+                Debug.Log("Players all behind walls, summoning zombies instead");
+                CalledSummonZombies();
+                yield break;
+            }
+            
             int targetPlayerNO = 0;
             float currentAngle = Random.Range(0,360);
 
@@ -94,7 +113,7 @@ namespace Enemy
             
                 currentAngle += 360 / amountToSpawn;
 
-                // Sets target
+                // Sets target for each individual stun projectile
                 if (targetPlayerNO > playerTargets.Length - 1) targetPlayerNO = 0;
                 projectile.GetComponent<TrackerProjectile>().target = playerTargets[targetPlayerNO].transform;
                 projectile.GetComponent<TrackerProjectile>().NecromancerAI = transform.GetComponent<NecromancerAI>();
@@ -102,21 +121,46 @@ namespace Enemy
             }
         }
 
-        private Collider2D[] ListNearbyObjects(int searchRadius, string layerToSearch)
+        private IEnumerator MeleeSpell(int damage, float knockback)
         {
-            LayerMask mask = LayerMask.GetMask(layerToSearch);
-            Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, searchRadius, mask);
+            Collider2D[] playerTargets = ListNearbyObjects(3 * _multiplierStacks, "Players", true);
+            
+            if (playerTargets.Length == 0)
+            {
+                Debug.Log("No players in melee range, summoning zombies instead");
+                CalledSummonZombies();
+                yield break;
+            }
 
-            // Order list by how close players are to object
-            return targets.OrderBy(
-                individualTarget => Vector2.Distance(this.transform.position, individualTarget.transform.position)).ToArray();
+            // Let the boss not collide with any zombies, and set it's speed to be faster for the lunge attack
+            gameObject.layer = LayerMask.NameToLayer("Objects");
+            transform.GetComponent<ChaserAI>().SetAcceleration(6 * _multiplierStacks);
+            _animationSubstitude.enabled = true;
+
+            yield return new WaitForSeconds(1f);
+            
+            // End lunge attack
+            transform.GetComponent<ChaserAI>().ResetAcceleration();
+            _animationSubstitude.enabled = false;
+            gameObject.layer = LayerMask.NameToLayer("Enemies");
+
+            // Hit anything in the collider (the red box the boss made)
+            foreach (Collider2D correctedPlayer in _meleePoint.GetTargetsInCollider())
+            {
+                correctedPlayer.GetComponent<PlayerHealth>().ChangeHealth(-damage);
+                
+                if (correctedPlayer.GetComponent<KnockbackController>() == null) continue;
+                
+                float angle = TransformUtils.Vector2ToDeg(correctedPlayer.transform.position - transform.position);
+                correctedPlayer.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, knockback);
+            }
         }
-        
+
         public void IncreaseStackMultiplier(float amount)
         {
             if (_multiplierStacks == 1)
             {
-                StartCoroutine(PerformAction(bossMoves[Random.Range(0,bossMoves.Count)],true));
+                MoveSelectionLogic();
             }
             _multiplierStacks += amount;
         }

@@ -14,25 +14,35 @@ namespace Enemy
 {
     public class BossAI : MonoBehaviour
     {
-
-        
-        
         [SerializeField] private float minTimeBetweenActions;
         [SerializeField] private float maxTimeBetweenActions;
-        [SerializeField] private float timeToPerformAction;
 
-        protected List<Action> bossMoves;
-        
-        private IEnumerator Start()
+        protected List<BossMove> BossMoves;
+        protected struct BossMove
         {
-            bossMoves = new List<Action>();
+            public Action MethodToCall;
+            public int CastTime;
+            public bool ImmobilizeWhilePerforming;
+            public Animation MoveAnimation;
+            public BossMove(Action methodToCall,int castTime, bool immobilizeWhilePerforming)
+            {
+                MethodToCall = methodToCall;
+                CastTime = castTime;
+                ImmobilizeWhilePerforming = immobilizeWhilePerforming;
+                MoveAnimation = null;
+            }
+
+        }
+
+        protected virtual IEnumerator Start()
+        {
+            BossMoves = new List<BossMove>();
             DeclareBossMoves();
             
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(minTimeBetweenActions,maxTimeBetweenActions));
-                Debug.Log("trying to do something");
-                StartCoroutine(PerformAction(bossMoves[Random.Range(0,bossMoves.Count)],true));
+                MoveSelectionLogic();
             }
         }
 
@@ -42,13 +52,20 @@ namespace Enemy
         /// </summary>
         protected virtual void DeclareBossMoves() { }
 
-        protected IEnumerator PerformAction(Action bossMove, bool immobilizeWhilePerforming)
+        protected virtual void MoveSelectionLogic()
+        {
+            // Very basic logic for now of just randomly choosing a move
+            BossMove move = BossMoves[Random.Range(0, BossMoves.Count)];
+            StartCoroutine(PerformAction(move.MethodToCall,move.CastTime,move.ImmobilizeWhilePerforming));
+        }
+
+        protected IEnumerator PerformAction(Action bossMove, int castTime, bool immobilizeWhilePerforming)
         {
             OnPerformAction();
             if (immobilizeWhilePerforming) transform.GetComponent<ChaserAI>().DisableMovement(true);
             
             float timePassed = 0;
-            while (timePassed < timeToPerformAction)
+            while (timePassed < castTime)
             {
                 yield return new WaitForSeconds(0.1f);
                 DuringPerformAction();
@@ -59,11 +76,42 @@ namespace Enemy
 
             new Action(bossMove)();
             transform.GetComponent<ChaserAI>().DisableMovement(false);
-            FinishPeformAction();
+            FinishPerformAction();
+        }
+        
+        /// <summary>
+        /// Get objects around caller and orders it in order of closest to farthest
+        /// </summary>
+        /// <param name="searchRadius"></param>
+        /// <param name="layerToSearch"></param>
+        /// <param name="removeTargetsBehindObstacles"> If an object is behind a wall, should it still be included in the list</param>
+        /// <returns></returns>
+        protected Collider2D[] ListNearbyObjects(float searchRadius, string layerToSearch, bool removeTargetsBehindObstacles)
+        {
+            LayerMask mask = LayerMask.GetMask(layerToSearch);
+            List<Collider2D> targets = Physics2D.OverlapCircleAll(transform.position, searchRadius, mask).ToList();
+
+            if (removeTargetsBehindObstacles)
+            {
+                foreach (Collider2D target in targets.ToList())
+                {
+                    RaycastHit2D[] hits = Physics2D.RaycastAll
+                        (transform.position, target.transform.position - transform.position, Vector2.Distance(transform.position, target.transform.position));
+                    foreach (RaycastHit2D hit in hits)
+                    {
+                        if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Obstacles")) targets.Remove(target);
+                        break;
+                    }
+                }
+            }
+            
+            // Order list by how close players are to object
+            return targets.OrderBy(
+                individualTarget => Vector2.Distance(this.transform.position, individualTarget.transform.position)).ToArray();
         }
         
         protected virtual void OnPerformAction(){}
         protected virtual void DuringPerformAction(){}
-        protected virtual void FinishPeformAction(){}
+        protected virtual void FinishPerformAction(){}
     }
 }
