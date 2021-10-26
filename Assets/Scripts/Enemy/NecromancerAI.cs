@@ -32,6 +32,8 @@ namespace Enemy
         [SerializeField] private float meleeSpellDamage;
         [SerializeField] private float meleeSpellKnockback;
         [SerializeField] private SpriteRenderer _animationSubstitude;
+        [SerializeField] private float lungeSpeed;
+        
         private MeleePoint _meleePoint;
         private Light2D _light2D;
         
@@ -45,6 +47,7 @@ namespace Enemy
             BossMoves.Add(new BossMove(CalledMeleeSpell, 1,false));
         }
 
+        // made these short methods so each move can be called easily
         private void CalledSummonZombies() => SummonZombies(Mathf.FloorToInt(summonAmount * _multiplierStacks));
         private void CalledStunSpell() => StartCoroutine(StunSpell(Mathf.FloorToInt(summonAmount * _multiplierStacks)));
 
@@ -91,7 +94,7 @@ namespace Enemy
         
         private IEnumerator StunSpell(int amountToSpawn)
         {
-            Collider2D[] playerTargets = ListNearbyObjects(20, "Players", true);
+            Collider2D[] playerTargets = ListNearbyObjects(10, "Players", true);
 
             if (playerTargets.Length == 0)
             {
@@ -134,7 +137,7 @@ namespace Enemy
 
             // Let the boss not collide with any zombies, and set it's speed to be faster for the lunge attack
             gameObject.layer = LayerMask.NameToLayer("Objects");
-            transform.GetComponent<ChaserAI>().SetAcceleration(6 * _multiplierStacks);
+            transform.GetComponent<ChaserAI>().SetAcceleration(lungeSpeed * _multiplierStacks);
             _animationSubstitude.enabled = true;
 
             yield return new WaitForSeconds(1f);
