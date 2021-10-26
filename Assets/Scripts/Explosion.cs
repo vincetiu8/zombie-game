@@ -7,6 +7,7 @@ public class Explosion : MonoBehaviourPun
 {
     private Light2D _light;
     private Animator _anim;
+
     [SerializeField] private float explosionDelay;
     private Coroutine _explosionLightingCoroutine;
     private float _explosionCountdown;
@@ -40,7 +41,7 @@ public class Explosion : MonoBehaviourPun
     
     private IEnumerator ExplosionLighting()
     {
-        float threshold = explosionDelay / 2f;
+        float threshold = explosionDelay / GetExplosionAnimLength();
         while (_light.intensity < threshold)
         {
             _light.intensity += Time.deltaTime * 3f;
@@ -48,5 +49,17 @@ public class Explosion : MonoBehaviourPun
         }
 
         _explosionLightingCoroutine = null;
+    }
+
+    private float GetExplosionAnimLength()
+    {
+        float clipLength = 0;
+        AnimationClip[] clips = _anim.runtimeAnimatorController.animationClips;
+        foreach (var clip in clips)
+        {
+            if (clip.name == "TempExplosion") clipLength = clip.length;
+        }
+
+        return clipLength;
     }
 }

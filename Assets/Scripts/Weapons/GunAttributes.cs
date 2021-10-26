@@ -12,7 +12,8 @@ namespace Weapons
 	{
 		Primary,
 		Heavy,
-		Special
+		Special,
+		Grenade
 	}
 
 	/// <summary>
