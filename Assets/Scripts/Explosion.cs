@@ -44,7 +44,7 @@ public class Explosion : MonoBehaviourPun
         float threshold = explosionDelay / GetExplosionAnimLength();
         while (_light.intensity < threshold)
         {
-            _light.intensity += Time.deltaTime * 3f;
+            _light.intensity += Time.deltaTime / explosionDelay;
             yield return null;
         }
 
