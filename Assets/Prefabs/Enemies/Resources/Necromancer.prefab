@@ -55,7 +55,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minTimeBetweenActions: 5
   maxTimeBetweenActions: 10
-  timeToPerformAction: 2
   summonAmount: 3
   summonAmountIncrementer: 0.25
   spawnedZombie: {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513,
@@ -67,6 +66,7 @@ MonoBehaviour:
   meleeSpellDamage: 100
   meleeSpellKnockback: 30
   _animationSubstitude: {fileID: 474536120018526490}
+  lungeSpeed: 6
 --- !u!1 &4777080521169503122
 GameObject:
   m_ObjectHideFlags: 0

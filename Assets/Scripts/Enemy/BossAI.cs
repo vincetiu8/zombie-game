@@ -18,7 +18,7 @@ namespace Enemy
         [SerializeField] private float maxTimeBetweenActions;
 
         protected List<BossMove> BossMoves;
-        protected struct BossMove
+        [Serializable] protected struct BossMove
         {
             public Action MethodToCall;
             public int CastTime;
@@ -59,6 +59,13 @@ namespace Enemy
             StartCoroutine(PerformAction(move.MethodToCall,move.CastTime,move.ImmobilizeWhilePerforming));
         }
 
+        /// <summary>
+        /// Every time a move is used, this is called
+        /// </summary>
+        /// <param name="bossMove"></param>
+        /// <param name="castTime"></param>
+        /// <param name="immobilizeWhilePerforming"></param>
+        /// <returns></returns>
         protected IEnumerator PerformAction(Action bossMove, int castTime, bool immobilizeWhilePerforming)
         {
             OnPerformAction();
