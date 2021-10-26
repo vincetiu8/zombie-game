@@ -24,22 +24,30 @@ namespace Enemy
         [SerializeField] private Object stunProjectile;
         [SerializeField] private float delayPerSpell;
 
+        private float _multiplierStacks;
         protected override void DeclareBossMoves()
         {
             bossMoves.Add(CalledSummonZombies);
             bossMoves.Add(CalledStunSpell);
         }
 
-        public void CalledSummonZombies() => SummonZombies(Mathf.FloorToInt(summonAmount));
-        private void CalledStunSpell() => StartCoroutine(StunSpell(Mathf.FloorToInt(summonAmount)));
+        public void CalledSummonZombies() => SummonZombies(Mathf.FloorToInt(summonAmount * _multiplierStacks));
+        private void CalledStunSpell() => StartCoroutine(StunSpell(Mathf.FloorToInt(summonAmount * _multiplierStacks)));
 
         protected override void OnPerformAction()
         {
             transform.GetComponent<Light2D>().enabled = true;
         }
 
+        protected override void DuringPerformAction()
+        {
+            //transform.GetComponent<Light2D>().intensity = Mathf.MoveTowards(transform.GetComponent<Light2D>().intensity, _multiplierStacks,Time.deltaTime);
+            transform.GetComponent<Light2D>().intensity = _multiplierStacks;
+        }
+
         protected override void FinishPeformAction()
         {
+            _multiplierStacks = 1;
             summonAmount += summonAmountIncrementer;
             transform.GetComponent<Light2D>().enabled = false;
         }
@@ -102,6 +110,15 @@ namespace Enemy
             // Order list by how close players are to object
             return targets.OrderBy(
                 individualTarget => Vector2.Distance(this.transform.position, individualTarget.transform.position)).ToArray();
+        }
+        
+        public void IncreaseStackMultiplier(float amount)
+        {
+            if (_multiplierStacks == 1)
+            {
+                StartCoroutine(PerformAction(bossMoves[Random.Range(0,bossMoves.Count)],true));
+            }
+            _multiplierStacks += amount;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Weapons
             if (other.transform == target)
             {
                 other.transform.GetComponent<KnockbackController>().TakeStun(stunDuration);
-                NecromancerAI.CalledSummonZombies();
+                NecromancerAI.IncreaseStackMultiplier(0.2f);
             }
             Destroy(gameObject);
         }
