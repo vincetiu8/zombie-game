@@ -14,7 +14,8 @@ namespace Enemy
 {
     public class BossAI : MonoBehaviour
     {
-        [Header("Base Boss AI")]
+
+        
         
         [SerializeField] private float minTimeBetweenActions;
         [SerializeField] private float maxTimeBetweenActions;
@@ -40,15 +41,20 @@ namespace Enemy
         /// since actions aren't serializable, this is my easy workaround :)
         /// </summary>
         protected virtual void DeclareBossMoves() { }
-        
-        private IEnumerator PerformAction(Action bossMove, bool immobilizeWhilePerforming)
+
+        protected IEnumerator PerformAction(Action bossMove, bool immobilizeWhilePerforming)
         {
             OnPerformAction();
-            if (immobilizeWhilePerforming)
+            if (immobilizeWhilePerforming) transform.GetComponent<ChaserAI>().DisableMovement(true);
+            
+            float timePassed = 0;
+            while (timePassed < timeToPerformAction)
             {
-                transform.GetComponent<ChaserAI>().DisableMovement(true);
-                yield return new WaitForSeconds(timeToPerformAction);
+                yield return new WaitForSeconds(0.1f);
+                DuringPerformAction();
+                timePassed += 0.1f;
             }
+            
             // Probably play an animation here
 
             new Action(bossMove)();
@@ -57,6 +63,7 @@ namespace Enemy
         }
         
         protected virtual void OnPerformAction(){}
+        protected virtual void DuringPerformAction(){}
         protected virtual void FinishPeformAction(){}
     }
 }
