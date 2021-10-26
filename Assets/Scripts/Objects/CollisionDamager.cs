@@ -20,7 +20,7 @@ namespace Objects
 		[Description("The layers the collision will affect")] [SerializeField]
 		protected LayerMask layerMask;
 
-		[SerializeField] private float knockBack;
+		[SerializeField] protected float knockBack;
 
 		private float _cooldown;
 

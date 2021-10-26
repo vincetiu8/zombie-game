@@ -155,7 +155,7 @@ MonoBehaviour:
   weaponLevels:
   - description: 
     damage: 1000
-    knockback: 20
+    knockback: 3
     fireCooldown: 0
     fullAuto: 0
     magazineSize: 10

@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Globalization;
 using Objects;
 using UnityEngine;
 using Photon.Pun;
@@ -9,22 +11,25 @@ namespace Weapons
     public class Grenade : BulletController
     {
         [Tooltip("How long until the grenade explodes")] [SerializeField]
-        private float explosionDelay = 6f;
+        private float explosionDelay = 3f;
         
-        [Tooltip("How big the grenade explosion is")] [SerializeField]
-        private float blastRadius = 2f;
+        [Tooltip("The radius in which enemies are damaged")] [SerializeField]
+        private float damageRadius; 
+
+        [Tooltip("The radius in which enemies are stunned")] [SerializeField]
+        private float stunRadius;
+
+        [Tooltip("How long enemies are stunned for")] [SerializeField]
+        private int stunLength = 5;
 
         [SerializeField] private GameObject explosionEffect;
 
         private float _explosionCountdown;
         private bool _hasExploded = false;
-        private Explode _explode;
-        private static readonly int ExplodeTrigger = Animator.StringToHash("detonate");
 
         private void Start()
         {
             _explosionCountdown = explosionDelay;
-            _explode = GetComponentInChildren<Explode>();
         }
 
         private new void Update()
@@ -37,9 +42,12 @@ namespace Weapons
 
         private void Detonate()
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, blastRadius);
+            PhotonNetwork.Instantiate(explosionEffect.name, transform.position, Quaternion.identity);
+            
+            Collider2D[] damageColliders = Physics2D.OverlapCircleAll(transform.position, damageRadius);
+            Collider2D[] stunColliders = Physics2D.OverlapCircleAll(transform.position, stunRadius);
 
-            foreach (var obj in colliders)
+            foreach (var obj in damageColliders)
             {
                 HealthController health = obj.GetComponent<HealthController>();
                 KnockbackController knockbackController = obj.gameObject.GetComponent<KnockbackController>();
@@ -49,12 +57,25 @@ namespace Weapons
                 {
                     knockbackController.TakeKnockBack(angle, knockBack);
                     health.ChangeHealth(-damage);
-                    knockbackController.TakeStun(5);
                 }
             }
 
-            StartCoroutine(_explode.ExplosionTrigger(ExplodeTrigger));
+            foreach (var obj in stunColliders)
+            {
+                KnockbackController knockbackController = obj.gameObject.GetComponent<KnockbackController>();
+                if (knockbackController != null)
+                {
+                    knockbackController.TakeStun(stunLength);
+                }
+            }
+            
             Destroy(gameObject);
+        }
+
+        public void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(transform.position, damageRadius);
+            Gizmos.DrawWireSphere(transform.position, stunRadius);
         }
     }
 }
