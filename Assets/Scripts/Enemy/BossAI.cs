@@ -42,7 +42,9 @@ namespace Enemy
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(minTimeBetweenActions,maxTimeBetweenActions));
-                MoveSelectionLogic();
+                //MoveSelectionLogic();
+                BossMove move = BossMoves[1];
+                StartCoroutine(PerformAction(move.MethodToCall,move.CastTime,move.ImmobilizeWhilePerforming));
             }
         }
 
@@ -103,15 +105,22 @@ namespace Enemy
                 foreach (Collider2D target in targets.ToList())
                 {
                     RaycastHit2D[] hits = Physics2D.RaycastAll
-                        (transform.position, target.transform.position - transform.position, Vector2.Distance(transform.position, target.transform.position));
+                    (transform.position, target.transform.position - transform.position, Vector2.Distance
+                        (transform.position, target.transform.position));
+                    Debug.Log(hits.Length);
                     foreach (RaycastHit2D hit in hits)
                     {
-                        if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Obstacles")) targets.Remove(target);
-                        break;
+                        Debug.Log(hit.transform.gameObject);
+                        if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
+                        {
+                            targets.Remove(target);
+                            Debug.Log("removed player" + target.gameObject);
+                            break;
+                        }
                     }
                 }
             }
-            
+
             // Order list by how close players are to object
             return targets.OrderBy(
                 individualTarget => Vector2.Distance(this.transform.position, individualTarget.transform.position)).ToArray();
