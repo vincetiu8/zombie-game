@@ -42,9 +42,7 @@ namespace Enemy
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(minTimeBetweenActions,maxTimeBetweenActions));
-                //MoveSelectionLogic();
-                BossMove move = BossMoves[1];
-                StartCoroutine(PerformAction(move.MethodToCall,move.CastTime,move.ImmobilizeWhilePerforming));
+                MoveSelectionLogic();
             }
         }
 
@@ -68,7 +66,7 @@ namespace Enemy
         /// <param name="castTime"></param>
         /// <param name="immobilizeWhilePerforming"></param>
         /// <returns></returns>
-        protected IEnumerator PerformAction(Action bossMove, int castTime, bool immobilizeWhilePerforming)
+        private IEnumerator PerformAction(Action bossMove, int castTime, bool immobilizeWhilePerforming)
         {
             OnPerformAction();
             if (immobilizeWhilePerforming) transform.GetComponent<ChaserAI>().DisableMovement(true);
@@ -98,31 +96,24 @@ namespace Enemy
         protected Collider2D[] ListNearbyObjects(float searchRadius, string layerToSearch, bool removeTargetsBehindObstacles)
         {
             LayerMask mask = LayerMask.GetMask(layerToSearch);
-            List<Collider2D> targets = Physics2D.OverlapCircleAll(transform.position, searchRadius, mask).ToList();
+            List<Collider2D> targetsArray = Physics2D.OverlapCircleAll(transform.position, searchRadius, mask).ToList();
 
             if (removeTargetsBehindObstacles)
-            {
-                foreach (Collider2D target in targets.ToList())
-                {
-                    RaycastHit2D[] hits = Physics2D.RaycastAll
-                    (transform.position, target.transform.position - transform.position, Vector2.Distance
-                        (transform.position, target.transform.position));
-                    Debug.Log(hits.Length);
-                    foreach (RaycastHit2D hit in hits)
-                    {
-                        Debug.Log(hit.transform.gameObject);
-                        if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
-                        {
-                            targets.Remove(target);
-                            Debug.Log("removed player" + target.gameObject);
-                            break;
-                        }
-                    }
-                }
-            }
+                // Loops through all the objects found by overlapCircleAll
+                foreach (Collider2D target in from target 
+                                                  // Create a Raycast between the boss and the target in question
+                                                  in targetsArray.ToList() let hits = Physics2D.RaycastAll
+                                              (transform.position, 
+                                                  target.transform.position - transform.position, 
+                                                  Vector2.Distance(transform.position, target.transform.position)) 
+                                              // Check if a wall is included in the array create by the Raycast (hits)
+                                              where hits.Any(hit => hit.transform.gameObject.layer == LayerMask.NameToLayer("Obstacles")) select target) 
+                    // If there is a wall found, remove object from the target list
+                    targetsArray.Remove(target);
+                // All of this is just one line btw XD
 
-            // Order list by how close players are to object
-            return targets.OrderBy(
+                // Order list by how close players are to object
+            return targetsArray.OrderBy(
                 individualTarget => Vector2.Distance(this.transform.position, individualTarget.transform.position)).ToArray();
         }
         
