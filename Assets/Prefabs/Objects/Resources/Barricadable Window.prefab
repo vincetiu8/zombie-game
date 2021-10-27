@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7609585141940009822}
   - component: {fileID: 6366464415885004960}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Player Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
