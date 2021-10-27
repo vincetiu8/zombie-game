@@ -21,15 +21,15 @@ namespace Enemy
         [Serializable] protected struct BossMove
         {
             public Action MethodToCall;
-            public int CastTime;
-            public bool ImmobilizeWhilePerforming;
-            public Animation MoveAnimation;
-            public BossMove(Action methodToCall,int castTime, bool immobilizeWhilePerforming)
+            public float castTime;
+            public bool immobilizeWhilePerforming;
+            public Animation moveAnimation;
+            public BossMove(Action methodToCall,float castTime, bool immobilizeWhilePerforming)
             {
                 MethodToCall = methodToCall;
-                CastTime = castTime;
-                ImmobilizeWhilePerforming = immobilizeWhilePerforming;
-                MoveAnimation = null;
+                this.castTime = castTime;
+                this.immobilizeWhilePerforming = immobilizeWhilePerforming;
+                moveAnimation = null;
             }
 
         }
@@ -56,7 +56,8 @@ namespace Enemy
         {
             // Very basic logic for now of just randomly choosing a move
             BossMove move = BossMoves[Random.Range(0, BossMoves.Count)];
-            StartCoroutine(PerformAction(move.MethodToCall,move.CastTime,move.ImmobilizeWhilePerforming));
+            //BossMove move = BossMoves[0];
+            StartCoroutine(PerformAction(move.MethodToCall,move.castTime,move.immobilizeWhilePerforming));
         }
         
         // move selection logic, but takes a list of possilb moves
@@ -68,7 +69,7 @@ namespace Enemy
         /// <param name="castTime"></param>
         /// <param name="immobilizeWhilePerforming"></param>
         /// <returns></returns>
-        private IEnumerator PerformAction(Action bossMove, int castTime, bool immobilizeWhilePerforming)
+        private IEnumerator PerformAction(Action bossMove, float castTime, bool immobilizeWhilePerforming)
         {
             OnPerformAction();
             if (immobilizeWhilePerforming) transform.GetComponent<ChaserAI>().DisableMovement(true);
@@ -99,6 +100,10 @@ namespace Enemy
         {
             LayerMask mask = LayerMask.GetMask(layerToSearch);
             List<Collider2D> targetsArray = Physics2D.OverlapCircleAll(transform.position, searchRadius, mask).ToList();
+            
+            // Removes boss from list if present
+            Collider2D myCollider = transform.GetComponent<Collider2D>();
+            if (targetsArray.Contains(myCollider)) targetsArray.Remove(myCollider);
 
             if (removeTargetsBehindObstacles)
                 // Loops through all the objects found by overlapCircleAll
