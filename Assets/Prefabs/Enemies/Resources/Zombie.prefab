@@ -166,6 +166,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5521888629814631402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8294787989140029467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6698ca512d86adf478231fcc297b1407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 80
+  goldDropAmount: 10
+  itemDict:
+    m_keys: 32000000
+    m_values:
+    - {fileID: 5321198504553115622, guid: e5fd326ec92d4094d804f2a8b2614005, type: 3}
 --- !u!1 &8369969181667400732
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +345,7 @@ PrefabInstance:
     - target: {fileID: 1401657052909075321, guid: 84075f2e9367d194fa1b35aa03203948,
         type: 3}
       propertyPath: m_Name
-      value: ZombieBase Variant
+      value: Zombie
       objectReference: {fileID: 0}
     - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
         type: 3}
@@ -389,8 +407,15 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3573004846255111834, guid: 84075f2e9367d194fa1b35aa03203948, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 84075f2e9367d194fa1b35aa03203948, type: 3}
+--- !u!1 &8294787989140029467 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1401657052909075321, guid: 84075f2e9367d194fa1b35aa03203948,
+    type: 3}
+  m_PrefabInstance: {fileID: 6948682674731924322}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8294787989140029465 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,

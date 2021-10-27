@@ -2,16 +2,16 @@ using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Handles explosion effects
+/// </summary>
 public class Explosion : MonoBehaviourPun
 {
     private Light2D _light;
     private Animator _anim;
-
-    [SerializeField] private float explosionDelay;
     private Coroutine _explosionLightingCoroutine;
-    private float _explosionCountdown;
-    private bool _exploded = false;
 
     private void Start()
     {
@@ -20,18 +20,8 @@ public class Explosion : MonoBehaviourPun
         _light.intensity = 0;
         _anim.SetTrigger("detonate");
         photonView.RPC("RpcExplosionLighting", RpcTarget.All);
-        _explosionCountdown = explosionDelay;
     }
 
-    private void Update()
-    {
-        _explosionCountdown -= Time.deltaTime;
-        if (_explosionCountdown > 0.1f || _exploded) return;
-        Destroy(gameObject);
-        _exploded = true;
-        
-    }
-    
     [PunRPC]
     private void RpcExplosionLighting()
     {
@@ -41,14 +31,16 @@ public class Explosion : MonoBehaviourPun
     
     private IEnumerator ExplosionLighting()
     {
-        float threshold = explosionDelay / GetExplosionAnimLength();
-        while (_light.intensity < threshold)
+        _light.intensity = 1;
+        _light.pointLightOuterRadius = 2;
+        while (_light.intensity > 0)
         {
-            _light.intensity += Time.deltaTime / explosionDelay;
+            _light.intensity -= Time.deltaTime / 2;
             yield return null;
         }
 
         _explosionLightingCoroutine = null;
+        Destroy(gameObject);
     }
 
     private float GetExplosionAnimLength()

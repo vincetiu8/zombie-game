@@ -4,14 +4,18 @@ using System.Globalization;
 using Objects;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace Weapons
 {
+    /// <summary>
+    /// Handles grenade projectile logic
+    /// </summary>
     public class Grenade : BulletController
     {
         [Tooltip("How long until the grenade explodes")] [SerializeField]
-        private float explosionDelay = 3f;
+        private float detonateDelay = 3f;
         
         [Tooltip("The radius in which enemies are damaged")] [SerializeField]
         private float damageRadius; 
@@ -24,18 +28,18 @@ namespace Weapons
 
         [SerializeField] private GameObject explosionEffect;
 
-        private float _explosionCountdown;
+        private float _detonateCountdown;
         private bool _hasExploded = false;
 
         private void Start()
         {
-            _explosionCountdown = explosionDelay;
+            _detonateCountdown = detonateDelay;
         }
 
         private new void Update()
         {
-            _explosionCountdown -= Time.deltaTime;
-            if (!(_explosionCountdown <= 0f) || _hasExploded) return;
+            _detonateCountdown -= Time.deltaTime;
+            if (!(_detonateCountdown <= 0f) || _hasExploded) return;
             Detonate();
             _hasExploded = true;
         }
@@ -55,6 +59,7 @@ namespace Weapons
 
                 if (health != null && knockbackController != null)
                 {
+                    if (obj.gameObject.CompareTag("Player")) continue;
                     knockbackController.TakeKnockBack(angle, knockBack);
                     health.ChangeHealth(-damage);
                 }
@@ -65,6 +70,7 @@ namespace Weapons
                 KnockbackController knockbackController = obj.gameObject.GetComponent<KnockbackController>();
                 if (knockbackController != null)
                 {
+                    if (obj.gameObject.CompareTag("Player")) continue;
                     knockbackController.TakeStun(stunLength);
                 }
             }
