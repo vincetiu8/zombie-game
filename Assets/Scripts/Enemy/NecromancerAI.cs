@@ -32,8 +32,11 @@ namespace Enemy
         [SerializeField] private float meleeSpellDamage;
         [SerializeField] private float meleeSpellKnockback;
         [SerializeField] private SpriteRenderer _animationSubstitude;
-        [SerializeField] private float lungeSpeed;
-        
+        [SerializeField] private float lungeSpeedPercentIncrease;
+
+        [Header("Zombie buff settings")] 
+        [SerializeField] private float buffMultiplier;
+
         private MeleePoint _meleePoint;
         private Light2D _light2D;
         
@@ -80,6 +83,7 @@ namespace Enemy
         /// <param name="amountOfObjectsToSpawn"></param>
         private void SummonZombies(int amountOfObjectsToSpawn)
         {
+            if (BuffZombies()) return;
             float currentAngle = Random.Range(0,360);
             for (int i = 0; i < amountOfObjectsToSpawn; i ++)
             {
@@ -137,7 +141,7 @@ namespace Enemy
 
             // Let the boss not collide with any zombies, and set it's speed to be faster for the lunge attack
             gameObject.layer = LayerMask.NameToLayer("Objects");
-            transform.GetComponent<ChaserAI>().SetAcceleration(lungeSpeed * _multiplierStacks);
+            transform.GetComponent<ChaserAI>().ScaleAcceleration(lungeSpeedPercentIncrease * _multiplierStacks);
             _animationSubstitude.enabled = true;
 
             yield return new WaitForSeconds(1f);
@@ -156,6 +160,33 @@ namespace Enemy
                 
                 float angle = TransformUtils.Vector2ToDeg(correctedPlayer.transform.position - transform.position);
                 correctedPlayer.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, knockback);
+            }
+        }
+
+        private bool BuffZombies()
+        {
+            Collider2D[] enemyTargets = ListNearbyObjects(4, "Enemies", false);
+
+            if (enemyTargets.Length < 8) return false;
+            
+            ScaleZombiesStats(enemyTargets, buffMultiplier * _multiplierStacks);
+            Debug.Log("Number of zombies exceeding threshold, buffing instead");
+            return true;
+        }
+
+        private void ScaleZombiesStats(Collider2D[] listOfEnemies, float multiplier)
+        {
+            foreach (Collider2D enemy in listOfEnemies)
+            {
+                enemy.GetComponent<ChaserAI>().ScaleAcceleration(multiplier);
+                enemy.GetComponent<EnemyHealth>().ScaleHealth(multiplier);
+                enemy.GetComponent<KnockbackController>().ScaleKnockback(2-multiplier);
+                enemy.GetComponentInChildren<AnimatedCollisionDamager>().ScaleDamage(multiplier);
+                
+                // Simple way to show how buff smth is for now
+                Light2D enemyLight = enemy.GetComponent<Light2D>();
+                enemyLight.enabled = true;
+                enemyLight.intensity *= multiplier;
             }
         }
 
