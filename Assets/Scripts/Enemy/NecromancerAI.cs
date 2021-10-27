@@ -166,10 +166,9 @@ namespace Enemy
 
         private bool BuffZombies()
         {
-            Collider2D[] enemyTargets = ListNearbyObjects(4, "Enemies", false);
-    
+            Collider2D[] enemyTargets = ListNearbyObjects(5, "Enemies", false);
             
-            if (enemyTargets.Length < 8) return false;
+            if (enemyTargets.Length < 5) return false;
 
             if (dontBuff)
             {
@@ -193,6 +192,7 @@ namespace Enemy
                 
                 // Simple way to show how buff smth is for now
                 Light2D enemyLight = enemy.GetComponent<Light2D>();
+                if (enemyLight == null) return;
                 enemyLight.enabled = true;
                 enemyLight.intensity *= multiplier;
             }
