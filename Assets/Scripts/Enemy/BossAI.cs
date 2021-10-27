@@ -58,6 +58,8 @@ namespace Enemy
             BossMove move = BossMoves[Random.Range(0, BossMoves.Count)];
             StartCoroutine(PerformAction(move.MethodToCall,move.CastTime,move.ImmobilizeWhilePerforming));
         }
+        
+        // move selection logic, but takes a list of possilb moves
 
         /// <summary>
         /// Every time a move is used, this is called

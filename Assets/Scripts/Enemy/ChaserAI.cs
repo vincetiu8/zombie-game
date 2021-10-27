@@ -86,9 +86,9 @@ namespace Enemy
 			_canMove = !disable;
 		}
 
-        public void SetAcceleration(float newAcceleration)
+        public void ScaleAcceleration(float scale)
         {
-            acceleration = newAcceleration;
+            acceleration *= scale;
         }
 
         public void ResetAcceleration()
