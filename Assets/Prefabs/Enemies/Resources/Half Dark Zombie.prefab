@@ -82,7 +82,7 @@ PrefabInstance:
     - target: {fileID: 6670503225502203755, guid: 26472e6850035284b8affb05cfedba4e,
         type: 3}
       propertyPath: m_Name
-      value: ZombieBase Variant
+      value: Half Dark Zombie
       objectReference: {fileID: 0}
     - target: {fileID: 8003466219601426914, guid: 26472e6850035284b8affb05cfedba4e,
         type: 3}

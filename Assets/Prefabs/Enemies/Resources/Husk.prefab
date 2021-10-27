@@ -16,7 +16,7 @@ PrefabInstance:
     - target: {fileID: 3502591947888105409, guid: 36ee8fdab16dd8342b13435a095230ad,
         type: 3}
       propertyPath: m_Name
-      value: ZombieBase Variant
+      value: Husk
       objectReference: {fileID: 0}
     - target: {fileID: 3502591947888105411, guid: 36ee8fdab16dd8342b13435a095230ad,
         type: 3}
