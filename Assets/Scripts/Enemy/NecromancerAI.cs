@@ -32,9 +32,10 @@ namespace Enemy
         [SerializeField] private float meleeSpellDamage;
         [SerializeField] private float meleeSpellKnockback;
         [SerializeField] private SpriteRenderer _animationSubstitude;
-        [SerializeField] private float lungeSpeedPercentIncrease;
+        [SerializeField] private float lungeSpeedMultiplier;
 
         [Header("Zombie buff settings")] 
+        [SerializeField] private bool dontBuff;
         [SerializeField] private float buffMultiplier;
 
         private MeleePoint _meleePoint;
@@ -47,7 +48,7 @@ namespace Enemy
             
             BossMoves.Add(new BossMove(CalledSummonZombies, 3,true));
             BossMoves.Add(new BossMove(CalledStunSpell, 2,true));
-            BossMoves.Add(new BossMove(CalledMeleeSpell, 1,false));
+            BossMoves.Add(new BossMove(CalledMeleeSpell, 0.5f,false));
         }
 
         // made these short methods so each move can be called easily
@@ -141,7 +142,7 @@ namespace Enemy
 
             // Let the boss not collide with any zombies, and set it's speed to be faster for the lunge attack
             gameObject.layer = LayerMask.NameToLayer("Objects");
-            transform.GetComponent<ChaserAI>().ScaleAcceleration(lungeSpeedPercentIncrease * _multiplierStacks);
+            transform.GetComponent<ChaserAI>().ScaleAcceleration(lungeSpeedMultiplier * _multiplierStacks);
             _animationSubstitude.enabled = true;
 
             yield return new WaitForSeconds(1f);
@@ -166,11 +167,18 @@ namespace Enemy
         private bool BuffZombies()
         {
             Collider2D[] enemyTargets = ListNearbyObjects(4, "Enemies", false);
-
+    
+            
             if (enemyTargets.Length < 8) return false;
+
+            if (dontBuff)
+            {
+                Debug.Log("BUFFING IS OFF: doing nothing");
+                return true;
+            }
             
             ScaleZombiesStats(enemyTargets, buffMultiplier * _multiplierStacks);
-            Debug.Log("Number of zombies exceeding threshold, buffing instead");
+            Debug.Log("BUFFING IS ON: Number of zombies exceeding threshold, buffing instead");
             return true;
         }
 
