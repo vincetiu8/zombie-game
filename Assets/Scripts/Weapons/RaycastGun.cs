@@ -24,7 +24,7 @@ namespace Weapons
 
 		private void Awake()
 		{
-			_layerMask = LayerMask.GetMask("Enemies", "Objects", "Obstacles", "Players");
+			_layerMask = LayerMask.GetMask("Enemies", "Objects", "Obstacles");
 		}
 
 		protected override void FireBullet(float angle)
@@ -39,7 +39,7 @@ namespace Weapons
 			endpoint *= PositionPrecision;
 			photonView.RPC("RPCFireBullet", RpcTarget.All, (int)endpoint.x, (int)endpoint.y);
 
-			if (hit.collider == null || !hit.collider.CompareTag("Enemy")) return;
+			if (hit.collider == null || !MiscUtils.IsInLayerMask(_layerMask, hit.collider.gameObject.layer)) return;
 
 			HealthController healthController = hit.collider.gameObject.GetComponent<HealthController>();
 
@@ -72,7 +72,7 @@ namespace Weapons
 			_light.intensity = 2;
 			while (_light.intensity > 0)
 			{
-				_light.intensity -= Time.deltaTime * 4;
+				_light.intensity -= Time.deltaTime * 8;
 				yield return null;
 			}
 
