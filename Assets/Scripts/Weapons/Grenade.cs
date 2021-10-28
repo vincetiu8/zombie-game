@@ -57,10 +57,10 @@ namespace Weapons
                 KnockbackController knockbackController = obj.gameObject.GetComponent<KnockbackController>();
                 float angle = TransformUtils.Vector2ToDeg(obj.transform.position - transform.position);
 
-                if (health != null && knockbackController != null)
+                if (health != null)
                 {
                     if (obj.gameObject.CompareTag("Player")) continue;
-                    knockbackController.TakeKnockBack(angle, knockBack);
+                    if (knockbackController != null) knockbackController.TakeKnockBack(angle, knockBack);
                     health.ChangeHealth(-damage);
                 }
             }

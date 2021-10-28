@@ -1,7 +1,9 @@
+using System.Collections;
 using System.ComponentModel;
 using Objects;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using Utils;
 
 namespace Weapons
@@ -18,6 +20,7 @@ namespace Weapons
 		[SerializeField] private GameObject tracerPrefab;
 
 		private LayerMask _layerMask;
+		private Coroutine _muzzleFlashCoroutine;
 
 		private void Awake()
 		{
@@ -47,7 +50,7 @@ namespace Weapons
             if (healthController.transform.GetComponent<KnockbackController>() == null) return;
             
             healthController.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, currentAttributes.knockback);
-            }
+		}
 
 		[PunRPC]
 		protected void RPCFireBullet(int x, int y)
@@ -58,6 +61,22 @@ namespace Weapons
 
 			Vector2 endpoint = new Vector2(x, y) / PositionPrecision;
 			lineRenderer.SetPosition(1, endpoint);
+			
+			if(_muzzleFlashCoroutine != null) StopCoroutine(_muzzleFlashCoroutine);
+			_muzzleFlashCoroutine = StartCoroutine(MuzzleFlash());
+		}
+
+		private IEnumerator MuzzleFlash()
+		{
+			Light2D _light = GetComponentInChildren<Light2D>();
+			_light.intensity = 2;
+			while (_light.intensity > 0)
+			{
+				_light.intensity -= Time.deltaTime * 3;
+				yield return null;
+			}
+
+			_muzzleFlashCoroutine = null;
 		}
 	}
 }

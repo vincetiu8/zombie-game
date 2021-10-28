@@ -142,7 +142,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  knockBack: 3
+  knockBack: 0
   lifetime: 0
   detonateDelay: 3
   damageRadius: 1.2
