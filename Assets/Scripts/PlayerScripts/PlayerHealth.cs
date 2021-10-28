@@ -1,8 +1,10 @@
+using System.Collections;
 using Networking;
 using Objects;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PlayerScripts
 {
@@ -23,12 +25,14 @@ namespace PlayerScripts
 		private                  float        _healDelay;
 
 		private PlayerInteract _playerInteract;
+        private PlayerInput _playerInput;
 
 		protected override void Start()
 		{
 			base.Start();
 			_playerInteract = GetComponent<PlayerInteract>();
-		}
+            _playerInput = GetComponent<PlayerInput>();
+        }
 
 		private void Update()
 		{
@@ -68,6 +72,26 @@ namespace PlayerScripts
 			_healDelay = maxHealDelay;
 			_carryHealth = 0;
 		}
+
+        /*protected override void OnDeath()
+        {
+            // let player become interactable
+            _playerInput.currentActionMap.Disable();
+            StartCoroutine(DownedTimer(10));
+        }*/
+
+        private IEnumerator DownedTimer(float downTime)
+        {
+            yield return new WaitForSeconds(downTime);
+            photonView.RPC("RPCInitialOnDeath", RpcTarget.All);
+        }
+
+        public void ReviveSucessful()
+        {
+            StopCoroutine(DownedTimer(10));
+            _playerInput.currentActionMap.Enable();
+        }
+
 
 		[PunRPC]
 		protected override void RPCInitialOnDeath(PhotonMessageInfo info)

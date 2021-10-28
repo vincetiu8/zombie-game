@@ -40,7 +40,7 @@ namespace Objects
 		private void SetSprite()
 		{
 			int spriteIndex = (Health * sprites.Length - 1) / initialHealth;
-			spriteRenderer.sprite = sprites[spriteIndex];
+//			spriteRenderer.sprite = sprites[spriteIndex];
 		}
 
 		protected override void OnDeath()
@@ -57,10 +57,10 @@ namespace Objects
 
 			foreach (Behaviour behaviour in componentsToDisableOnDeath) behaviour.enabled = false;
 
-			StartCoroutine(DeathFade());
+			//StartCoroutine(DeathFade());
 		}
 
-		private IEnumerator DeathFade()
+		/*private IEnumerator DeathFade()
 		{
 			float timeRemaining = deathTime;
 			Color color = spriteRenderer.color;
@@ -78,6 +78,6 @@ namespace Objects
 			}
 
 			RPCOnDeath();
-		}
+		}*/
 	}
 }
