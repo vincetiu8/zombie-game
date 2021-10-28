@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
 /// <summary>
-/// Handles explosion effects
+/// Handles animated explosions
 /// </summary>
+// Note: This script is unnecessary for particle based explosions as it relies on an AnimationClip
 public class Explosion : MonoBehaviourPun
 {
     private Light2D _light;
