@@ -140,6 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ba6f757a5b72e4f88c0de4a4846af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionAnimation: {fileID: 7400000, guid: b72037d1bc68b0a4ea43367268e763e9, type: 2}
+  explosionAnimTrigger: detonate
+  outerRadius: 2
+  initialIntensity: 1
 --- !u!114 &2441989456541718212
 MonoBehaviour:
   m_ObjectHideFlags: 0

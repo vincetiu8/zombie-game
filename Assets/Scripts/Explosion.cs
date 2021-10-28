@@ -2,7 +2,6 @@ using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// Handles explosion effects
@@ -12,13 +11,19 @@ public class Explosion : MonoBehaviourPun
     private Light2D _light;
     private Animator _anim;
     private Coroutine _explosionLightingCoroutine;
+    
+    [SerializeField]  private AnimationClip explosionAnimation;
+    [SerializeField] private string explosionAnimTrigger;
 
+    [SerializeField] private float outerRadius =2f;
+    [SerializeField] private float initialIntensity =1f;
+    
     private void Start()
     {
         _anim = GetComponent<Animator>();
         _light = GetComponent<Light2D>();
         _light.intensity = 0;
-        _anim.SetTrigger("detonate");
+        _anim.SetTrigger(explosionAnimTrigger);
         photonView.RPC("RpcExplosionLighting", RpcTarget.All);
     }
 
@@ -31,11 +36,11 @@ public class Explosion : MonoBehaviourPun
     
     private IEnumerator ExplosionLighting()
     {
-        _light.intensity = 1;
-        _light.pointLightOuterRadius = 2;
+        _light.intensity = initialIntensity;
+        _light.pointLightOuterRadius = outerRadius;
         while (_light.intensity > 0)
         {
-            _light.intensity -= Time.deltaTime / 2;
+            _light.intensity -= Time.deltaTime / (GetExplosionAnimLength() * 2);
             yield return null;
         }
 
@@ -49,7 +54,8 @@ public class Explosion : MonoBehaviourPun
         AnimationClip[] clips = _anim.runtimeAnimatorController.animationClips;
         foreach (var clip in clips)
         {
-            if (clip.name == "TempExplosion") clipLength = clip.length;
+            if (clip.name == explosionAnimation.name) clipLength = clip.length;
+            break;
         }
 
         return clipLength;
