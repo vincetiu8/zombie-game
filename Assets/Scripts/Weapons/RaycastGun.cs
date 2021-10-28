@@ -72,7 +72,7 @@ namespace Weapons
 			_light.intensity = 2;
 			while (_light.intensity > 0)
 			{
-				_light.intensity -= Time.deltaTime * 3;
+				_light.intensity -= Time.deltaTime * 4;
 				yield return null;
 			}
 

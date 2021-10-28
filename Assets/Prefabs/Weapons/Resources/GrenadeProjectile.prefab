@@ -102,9 +102,9 @@ Rigidbody2D:
   m_UseAutoMass: 1
   m_Mass: 0.059703704
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ddc33715113bd1842936df9b7c94e2d8, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   lifetime: 0
   detonateDelay: 3
   damageRadius: 1.2
-  stunRadius: 1.6
+  stunRadius: 1.8
   stunLength: 5
   explosionEffect: {fileID: 4774187060498220438, guid: 8ffe55012c8543745942ddbd895272f7,
     type: 3}
