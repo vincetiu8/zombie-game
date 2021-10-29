@@ -1,6 +1,9 @@
+using System;
 using Interact;
+using Networking;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PlayerScripts
 {
@@ -8,26 +11,24 @@ namespace PlayerScripts
     {
         private PlayerHealth _playerHealth;
         // Start is called before the first frame update
-        void Start()
+        protected override void Start()
         {
-            _playerHealth = GetComponent<PlayerHealth>();
+            _playerHealth = GetComponentInParent<PlayerHealth>();
+            //_playerHealth = GameManager.Instance.localPlayerInstance.GetComponent<PlayerHealth>();
+            base.Start();
             
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
         }
         
         /*public void PlayerIsDown()
         {
             photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, !toggle);
         }*/
-
+        
         protected override void OnSuccessfulInteraction()
         {
-            _playerHealth.ReviveSucessful();
+            Debug.Log("revive sucessful");
+            _playerHealth.ReviveSuccessful();
+            FinishInteraction();
         }
     }
 }

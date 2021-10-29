@@ -14,7 +14,7 @@ namespace Objects
 		[Header("Sprite Settings")] [SerializeField]
 		private Sprite[] sprites;
 
-		[SerializeField] private SpriteRenderer spriteRenderer;
+		[SerializeField] protected SpriteRenderer spriteRenderer;
 
 		[Header("Death Settings")] [SerializeField] [Range(0.5f, 5f)]
 		private float deathTime;
@@ -40,7 +40,8 @@ namespace Objects
 		private void SetSprite()
 		{
 			int spriteIndex = (Health * sprites.Length - 1) / initialHealth;
-//			spriteRenderer.sprite = sprites[spriteIndex];
+            Sprite spriteToChange = sprites[Mathf.Clamp(spriteIndex, 0, sprites.Length)];
+            spriteRenderer.sprite = spriteToChange;
 		}
 
 		protected override void OnDeath()
@@ -57,10 +58,10 @@ namespace Objects
 
 			foreach (Behaviour behaviour in componentsToDisableOnDeath) behaviour.enabled = false;
 
-			//StartCoroutine(DeathFade());
+			StartCoroutine(DeathFade());
 		}
 
-		/*private IEnumerator DeathFade()
+		private IEnumerator DeathFade()
 		{
 			float timeRemaining = deathTime;
 			Color color = spriteRenderer.color;
@@ -78,6 +79,6 @@ namespace Objects
 			}
 
 			RPCOnDeath();
-		}*/
+		}
 	}
 }

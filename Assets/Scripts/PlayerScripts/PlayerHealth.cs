@@ -13,6 +13,8 @@ namespace PlayerScripts
 		[Header("Player Death Settings")] [SerializeField]
 		private Transform cameraObject;
 
+        [SerializeField] private GameObject reviveInteract;
+
 		[SerializeField] private GameObject weapons;
 
 		[Header("Natural Healing Settings")] [SerializeField]
@@ -26,6 +28,11 @@ namespace PlayerScripts
 
 		private PlayerInteract _playerInteract;
         private PlayerInput _playerInput;
+        [SerializeField] private Sprite playerDownSprite;
+        [SerializeField] private bool playerDown;
+        
+        [SerializeField]
+        private GameObject[] objectsToDisableOnDown;
 
 		protected override void Start()
 		{
@@ -73,12 +80,12 @@ namespace PlayerScripts
 			_carryHealth = 0;
 		}
 
-        /*protected override void OnDeath()
+        protected override void OnDeath()
         {
-            // let player become interactable
-            _playerInput.currentActionMap.Disable();
-            StartCoroutine(DownedTimer(10));
-        }*/
+            //if (!photonView.IsMine) return;
+            Debug.Log("player is down");
+            photonView.RPC("RPCPlayerDown", RpcTarget.All);
+        }
 
         private IEnumerator DownedTimer(float downTime)
         {
@@ -86,10 +93,34 @@ namespace PlayerScripts
             photonView.RPC("RPCInitialOnDeath", RpcTarget.All);
         }
 
-        public void ReviveSucessful()
+        public void ReviveSuccessful()
         {
+            photonView.RPC("RPCReviveSuccessful", RpcTarget.All);
+        }
+
+
+
+        [PunRPC]
+        private void RPCReviveSuccessful()
+        {
+            Debug.Log("revive successful");
             StopCoroutine(DownedTimer(10));
+            reviveInteract.SetActive(false);
             _playerInput.currentActionMap.Enable();
+            playerDown = false;
+            foreach (GameObject gameObject in objectsToDisableOnDown) gameObject.SetActive(true);
+        }
+
+        [PunRPC]
+        private void RPCPlayerDown()
+        {
+            Debug.Log("RPC called");
+            reviveInteract.SetActive(true);
+            StartCoroutine(DownedTimer(10));
+            spriteRenderer.sprite = playerDownSprite;
+            _playerInput.currentActionMap.Disable();
+            playerDown = true;
+            foreach (GameObject gameObject in objectsToDisableOnDown) gameObject.SetActive(false);
         }
 
 

@@ -69,6 +69,8 @@ MonoBehaviour:
   - RPCPickupWeapon
   - RPCAllDead
   - RPCInitialOnDeath
+  - RPCPlayerDown
+  - RPCReviveSuccessful
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
