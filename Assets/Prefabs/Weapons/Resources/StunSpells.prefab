@@ -100,6 +100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5bf8303b4655224aa0009bb254bdd35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  damageCooldown: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  photonViewOnThisObject: 1
+  knockBack: 0
+  lifetime: 0
   target: {fileID: 0}
   stunDuration: 2
   angularAcceleration: 250
