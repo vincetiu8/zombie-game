@@ -25,8 +25,8 @@ namespace Weapons
 		protected override void OnTriggerEnter2D(Collider2D other)
 		{
 			base.OnTriggerEnter2D(other);
-            
-			// Destroy the bullet on a collision
+
+            // Destroy the bullet on a collision
 			Destroy(gameObject);
 		}
 	}

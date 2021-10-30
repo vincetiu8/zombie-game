@@ -105,7 +105,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
-  photonViewOnThisObject: 1
   knockBack: 0
   lifetime: 5
   target: {fileID: 0}
