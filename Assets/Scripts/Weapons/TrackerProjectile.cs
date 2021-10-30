@@ -15,9 +15,10 @@ namespace Weapons
 
         private Rigidbody2D _rigidbody2D;
 
-        protected virtual void Awake()
+        protected override void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            base.Start();
         }
 
         private void FixedUpdate()
