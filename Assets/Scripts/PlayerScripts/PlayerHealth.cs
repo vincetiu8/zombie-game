@@ -84,6 +84,7 @@ namespace PlayerScripts
         {
             //if (!photonView.IsMine) return;
             Debug.Log("player is down");
+            _playerInput.currentActionMap.Disable();
             photonView.RPC("RPCPlayerDown", RpcTarget.All);
         }
 
@@ -118,7 +119,7 @@ namespace PlayerScripts
             reviveInteract.SetActive(true);
             StartCoroutine(DownedTimer(10));
             spriteRenderer.sprite = playerDownSprite;
-            _playerInput.currentActionMap.Disable();
+            //_playerInput.currentActionMap.Disable();
             playerDown = true;
             foreach (GameObject gameObject in objectsToDisableOnDown) gameObject.SetActive(false);
         }
