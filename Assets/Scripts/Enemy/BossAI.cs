@@ -57,11 +57,12 @@ namespace Enemy
 
         protected virtual void MoveSelectionLogic()
         {
-            // Very basic logic for now of just randomly choosing a move
             if (_chaserAI.GetTrackingPlayer() == null) return;
-            
-            //BossMove move = BossMoves[Random.Range(0, BossMoves.Count)];
-            BossMove move = BossMoves[1];
+
+            // Very basic logic for now of just randomly choosing a move
+
+            BossMove move = BossMoves[Random.Range(0, BossMoves.Count)];
+            //BossMove move = BossMoves[1];
             StartCoroutine(PerformAction(move.MethodToCall,move.castTime,move.immobilizeWhilePerforming));
         }
         
