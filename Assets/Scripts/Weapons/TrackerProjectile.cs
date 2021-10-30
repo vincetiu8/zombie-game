@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class TrackerProjectile : MonoBehaviour
+    public class TrackerProjectile : BulletController
     // interiting from Bullet Controler doesn't work for some reason
     {
         public Transform target;
@@ -33,7 +33,7 @@ namespace Weapons
             _rigidbody2D.velocity = transform.up * speed;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        /*private void OnTriggerEnter2D(Collider2D other)
         {
             Debug.Log("hit something");
             if (other.transform == target)
@@ -42,7 +42,7 @@ namespace Weapons
                 NecromancerAI.IncreaseStackMultiplier(0.2f);
             }
             Destroy(gameObject);
-        }
+        }*/
     }
 }
 
