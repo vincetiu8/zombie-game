@@ -15,10 +15,9 @@ namespace Weapons
 
         private Rigidbody2D _rigidbody2D;
 
-        protected override void Start()
+        private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            base.Start();
         }
 
         private void FixedUpdate()
@@ -34,16 +33,15 @@ namespace Weapons
             _rigidbody2D.velocity = transform.up * speed;
         }
 
-        /*private void OnTriggerEnter2D(Collider2D other)
+        protected override void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("hit something");
             if (other.transform == target)
             {
                 other.transform.GetComponent<KnockbackController>().TakeStun(stunDuration);
                 NecromancerAI.IncreaseStackMultiplier(0.2f);
             }
-            Destroy(gameObject);
-        }*/
+            base.OnTriggerEnter2D(other);
+        }
     }
 }
 
