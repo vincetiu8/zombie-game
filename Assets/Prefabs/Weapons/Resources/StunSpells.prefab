@@ -104,10 +104,10 @@ MonoBehaviour:
   damageCooldown: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   photonViewOnThisObject: 1
   knockBack: 0
-  lifetime: 0
+  lifetime: 5
   target: {fileID: 0}
   stunDuration: 2
   angularAcceleration: 250
