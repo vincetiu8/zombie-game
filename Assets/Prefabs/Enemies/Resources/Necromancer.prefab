@@ -64,7 +64,7 @@ MonoBehaviour:
     type: 3}
   delayPerSpell: 0.5
   meleeSpellDamage: 100
-  meleeSpellKnockback: 25
+  meleeSpellKnockback: 50
   _animationSubstitude: {fileID: 474536120018526490}
   lungeSpeedMultiplier: 4
   dontBuff: 0
