@@ -34,8 +34,11 @@ namespace Enemy
 
         }
 
+        private ChaserAI _chaserAI;
+
         protected virtual IEnumerator Start()
         {
+            _chaserAI = transform.GetComponent<ChaserAI>();
             BossMoves = new List<BossMove>();
             DeclareBossMoves();
             
@@ -55,8 +58,10 @@ namespace Enemy
         protected virtual void MoveSelectionLogic()
         {
             // Very basic logic for now of just randomly choosing a move
+            if (_chaserAI.GetTrackingPlayer() == null) return;
+            
             BossMove move = BossMoves[Random.Range(0, BossMoves.Count)];
-            //BossMove move = BossMoves[0];
+            //BossMove move = BossMoves[2];
             StartCoroutine(PerformAction(move.MethodToCall,move.castTime,move.immobilizeWhilePerforming));
         }
         
@@ -72,7 +77,7 @@ namespace Enemy
         private IEnumerator PerformAction(Action bossMove, float castTime, bool immobilizeWhilePerforming)
         {
             OnPerformAction();
-            if (immobilizeWhilePerforming) transform.GetComponent<ChaserAI>().DisableMovement(true);
+            if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
             
             float timePassed = 0;
             while (timePassed < castTime)
@@ -85,7 +90,7 @@ namespace Enemy
             // Probably play an animation here
 
             new Action(bossMove)();
-            transform.GetComponent<ChaserAI>().DisableMovement(false);
+            _chaserAI.DisableMovement(false);
             FinishPerformAction();
         }
         

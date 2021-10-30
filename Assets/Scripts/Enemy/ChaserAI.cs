@@ -95,5 +95,10 @@ namespace Enemy
         {
             acceleration = _baseAcceleration;
         }
+
+        public Transform GetTrackingPlayer()
+        {
+            return TrackingPlayer;
+        }
 	}
 }
