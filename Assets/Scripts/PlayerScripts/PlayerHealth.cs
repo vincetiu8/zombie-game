@@ -35,6 +35,9 @@ namespace PlayerScripts
         [SerializeField]
         private GameObject[] objectsToDisableOnDown;
         
+        [SerializeField] private RectTransform downTimerDisplay;
+        private float _initialWidth;
+        
 
         [SerializeField] private GameObject[] childrenToChangeTagOnDeath;
         public bool CurrentlyReviving { private get; set; }
@@ -45,6 +48,7 @@ namespace PlayerScripts
 			_playerInteract = GetComponent<PlayerInteract>();
             _playerInput = GetComponent<PlayerInput>();
             _playerRevive = GetComponent<PlayerRevive>();
+            _initialWidth = downTimerDisplay.rect.width;
         }
 
 		private void Update()
@@ -104,9 +108,11 @@ namespace PlayerScripts
                     Debug.Log("currently reviving ,pausing timer");
                     continue;
                 }
-                yield return new WaitForSeconds(1);
-                timer++;
-                Debug.Log(timer);
+                timer += 0.1f;
+                downTimerDisplay.sizeDelta = new Vector2(_initialWidth * (1 - timer / downTime), downTimerDisplay.rect.height);
+
+                yield return new WaitForSeconds(0.1f);
+                //Debug.Log(timer);
             }
             photonView.RPC("RPCInitialOnDeath", RpcTarget.All);
         }
