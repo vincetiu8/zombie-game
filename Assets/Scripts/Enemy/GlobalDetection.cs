@@ -8,7 +8,7 @@ namespace Enemy
 	/// </summary>
 	public class GlobalDetection : PlayerDetector
 	{
-		private void Start()
+		public void Start()
 		{
 			ClearPlayers();
 

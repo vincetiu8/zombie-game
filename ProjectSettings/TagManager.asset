@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Interactable
   - EnemySpawnpoint
+  - DeadPlayer
   layers:
   - Default
   - TransparentFX
