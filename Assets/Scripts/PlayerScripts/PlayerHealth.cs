@@ -26,6 +26,7 @@ namespace PlayerScripts
 		private                  float        _carryHealth;
 		private                  float        _healDelay;
 
+        private PlayerRevive _playerRevive;
 		private PlayerInteract _playerInteract;
         private PlayerInput _playerInput;
         [SerializeField] private Sprite playerDownSprite;
@@ -33,6 +34,7 @@ namespace PlayerScripts
         
         [SerializeField]
         private GameObject[] objectsToDisableOnDown;
+        
 
         [SerializeField] private GameObject[] childrenToChangeTagOnDeath;
         public bool CurrentlyReviving { private get; set; }
@@ -42,6 +44,7 @@ namespace PlayerScripts
 			base.Start();
 			_playerInteract = GetComponent<PlayerInteract>();
             _playerInput = GetComponent<PlayerInput>();
+            _playerRevive = GetComponent<PlayerRevive>();
         }
 
 		private void Update()
@@ -96,11 +99,15 @@ namespace PlayerScripts
             float timer = 0;
             while (downTime > timer)
             {
-                if (CurrentlyReviving) continue;
+                if (_playerRevive.GetInteractionStatus())
+                {
+                    Debug.Log("currently reviving ,pausing timer");
+                    continue;
+                }
                 yield return new WaitForSeconds(1);
                 timer++;
+                Debug.Log(timer);
             }
-            yield return new WaitForSeconds(downTime);
             photonView.RPC("RPCInitialOnDeath", RpcTarget.All);
         }
 
@@ -143,7 +150,7 @@ namespace PlayerScripts
 			GameManager.Instance.RemovePlayerInstance(photonView.Owner.GetPlayerNumber());
 			//weapons.SetActive(false);
 
-			if (GameManager.Instance.PlayerInstances.Count == 0) cameraObject.parent = null;
+			//if (GameManager.Instance.PlayerInstances.Count == 0) cameraObject.parent = null;
 
 			base.RPCInitialOnDeath(info);
 		}

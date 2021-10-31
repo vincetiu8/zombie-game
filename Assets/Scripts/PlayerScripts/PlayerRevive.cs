@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Interact;
 using Networking;
 using Photon.Pun;
@@ -26,6 +27,11 @@ namespace PlayerScripts
             Debug.Log("revive sucessful");
             _playerHealth.ReviveSuccessful();
             FinishInteraction();
+        }
+
+        public bool GetInteractionStatus()
+        {
+            return LocallyInteracting;
         }
 
         //LocallyInteracting
