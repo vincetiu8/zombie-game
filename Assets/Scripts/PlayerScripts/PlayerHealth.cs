@@ -34,7 +34,10 @@ namespace PlayerScripts
         [SerializeField]
         private GameObject[] objectsToDisableOnDown;
 
-		protected override void Start()
+        [SerializeField] private GameObject[] childrenToChangeTagOnDeath;
+        public bool CurrentlyReviving { private get; set; }
+
+        protected override void Start()
 		{
 			base.Start();
 			_playerInteract = GetComponent<PlayerInteract>();
@@ -90,6 +93,13 @@ namespace PlayerScripts
 
         private IEnumerator DownedTimer(float downTime)
         {
+            float timer = 0;
+            while (downTime > timer)
+            {
+                if (CurrentlyReviving) continue;
+                yield return new WaitForSeconds(1);
+                timer++;
+            }
             yield return new WaitForSeconds(downTime);
             photonView.RPC("RPCInitialOnDeath", RpcTarget.All);
         }
@@ -105,11 +115,12 @@ namespace PlayerScripts
         private void RPCReviveSuccessful()
         {
             Debug.Log("revive successful");
-            StopCoroutine(DownedTimer(10));
+            StopAllCoroutines();
             reviveInteract.SetActive(false);
             _playerInput.currentActionMap.Enable();
             playerDown = false;
             foreach (GameObject gameObject in objectsToDisableOnDown) gameObject.SetActive(true);
+            _playerInput.currentActionMap.Enable();
         }
 
         [PunRPC]
@@ -117,11 +128,12 @@ namespace PlayerScripts
         {
             Debug.Log("RPC called");
             reviveInteract.SetActive(true);
-            StartCoroutine(DownedTimer(10));
+            StartCoroutine(DownedTimer(20));
             spriteRenderer.sprite = playerDownSprite;
             //_playerInput.currentActionMap.Disable();
             playerDown = true;
             foreach (GameObject gameObject in objectsToDisableOnDown) gameObject.SetActive(false);
+            _playerInput.currentActionMap.Disable();
         }
 
 
@@ -129,7 +141,7 @@ namespace PlayerScripts
 		protected override void RPCInitialOnDeath(PhotonMessageInfo info)
 		{
 			GameManager.Instance.RemovePlayerInstance(photonView.Owner.GetPlayerNumber());
-			weapons.SetActive(false);
+			//weapons.SetActive(false);
 
 			if (GameManager.Instance.PlayerInstances.Count == 0) cameraObject.parent = null;
 

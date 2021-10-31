@@ -40,8 +40,12 @@ namespace Objects
 		private void SetSprite()
 		{
 			int spriteIndex = (Health * sprites.Length - 1) / initialHealth;
-            Sprite spriteToChange = sprites[Mathf.Clamp(spriteIndex, 0, sprites.Length)];
-            spriteRenderer.sprite = spriteToChange;
+            spriteRenderer.sprite = sprites[spriteIndex];
+
+            /*Sprite spriteToChange = sprites[Mathf.Clamp(spriteIndex, 0, sprites.Length)];
+            Debug.Log(spriteIndex);
+            Debug.Log(spriteToChange);
+            spriteRenderer.sprite = spriteToChange;*/
 		}
 
 		protected override void OnDeath()

@@ -10,19 +10,16 @@ namespace PlayerScripts
     public class PlayerRevive : TimedInteractable
     {
         private PlayerHealth _playerHealth;
-        // Start is called before the first frame update
+
+        private bool _currentlyReviving;
+        
         protected override void Start()
         {
             _playerHealth = GetComponentInParent<PlayerHealth>();
             //_playerHealth = GameManager.Instance.localPlayerInstance.GetComponent<PlayerHealth>();
             base.Start();
-            
         }
         
-        /*public void PlayerIsDown()
-        {
-            photonView.RPC("RPCSetAvailableForInteract", RpcTarget.All, !toggle);
-        }*/
         
         protected override void OnSuccessfulInteraction()
         {
@@ -30,5 +27,7 @@ namespace PlayerScripts
             _playerHealth.ReviveSuccessful();
             FinishInteraction();
         }
+
+        //LocallyInteracting
     }
 }
