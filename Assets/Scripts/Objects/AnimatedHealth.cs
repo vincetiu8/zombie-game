@@ -1,6 +1,5 @@
 using System.Collections;
 using Photon.Pun;
-using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -52,16 +51,16 @@ namespace Objects
 		[PunRPC]
 		protected virtual void RPCInitialOnDeath(PhotonMessageInfo info)
 		{
+			Health = 0;
 			Collider2D[] collider2Ds = GetComponentsInChildren<Collider2D>();
 			foreach (Collider2D col in collider2Ds) col.enabled = false;
 
 			foreach (Behaviour behaviour in componentsToDisableOnDeath) behaviour.enabled = false;
 
-			Debug.Log(info.Sender.GetPlayerNumber());
-			StartCoroutine(DeathFade(info));
+			StartCoroutine(DeathFade());
 		}
 
-		private IEnumerator DeathFade(PhotonMessageInfo info)
+		private IEnumerator DeathFade()
 		{
 			float timeRemaining = deathTime;
 			Color color = spriteRenderer.color;
@@ -78,7 +77,7 @@ namespace Objects
 				yield return null;
 			}
 
-			RPCOnDeath(info);
+			RPCOnDeath();
 		}
 	}
 }

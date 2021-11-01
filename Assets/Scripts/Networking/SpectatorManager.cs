@@ -22,8 +22,6 @@ namespace Networking
 
 		public void OnPlayerDeath(int playerIndex)
 		{
-			Debug.Log(playerIndex);
-			Debug.Log(PhotonNetwork.LocalPlayer.GetPlayerNumber());
 			if (playerIndex != PhotonNetwork.LocalPlayer.GetPlayerNumber()) return;
 
 			_playerInput.enabled = true;
@@ -72,7 +70,7 @@ namespace Networking
 				oldPlayer.GetComponentInChildren<Camera>().enabled = false;
 
 			_currentPlayerIndex = newPlayerNumber;
-			_gameManager.PlayerInstances[_currentPlayerIndex].GetComponent<Camera>().enabled = true;
+			_gameManager.PlayerInstances[_currentPlayerIndex].GetComponentInChildren<Camera>().enabled = true;
 		}
 	}
 }

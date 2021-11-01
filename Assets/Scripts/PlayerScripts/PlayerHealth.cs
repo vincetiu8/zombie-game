@@ -32,7 +32,7 @@ namespace PlayerScripts
 
 		private void Update()
 		{
-			if (Health >= initialHealth || Health <= 0) return;
+			if (!photonView.IsMine || Health >= initialHealth || Health <= 0) return;
 
 			if (_healDelay > 0)
 			{
@@ -50,15 +50,15 @@ namespace PlayerScripts
 
 		public override void ChangeHealth(int change)
 		{
-			change = Mathf.Min(change, initialHealth - Health);
-			base.ChangeHealth(change);
+			int maxChange = initialHealth - Health;
+			base.ChangeHealth(change > maxChange ? maxChange : change);
 		}
 
 		[PunRPC]
 		protected override void RPCChangeHealth(int newHealth, int change)
 		{
 			base.RPCChangeHealth(newHealth, change);
-			if (change >= 0) return;
+			if (!photonView.IsMine || change >= 0) return;
 			_playerInteract.CancelInteraction();
 			ResetNaturalHealing();
 		}
@@ -80,19 +80,20 @@ namespace PlayerScripts
 			base.RPCInitialOnDeath(info);
 		}
 
-		protected override void RPCOnDeath(PhotonMessageInfo info)
+		protected override void RPCOnDeath()
 		{
 			foreach (GameObject obj in childrenToChangeTagOnDeath)
 			{
 				obj.tag = "DeadPlayer";
 			}
 
-			GameManager.Instance.spectatorManager.OnPlayerDeath(info.Sender.GetPlayerNumber());
+			GameManager.Instance.spectatorManager.OnPlayerDeath(photonView.Owner.GetPlayerNumber());
 
 			if (!photonView.IsMine) return;
-			Debug.Log("Destroying player object");
+
+			Debug.Log(photonView.IsMine);
 			GameManager.Instance.spectatorManager.enabled = true;
-			base.RPCOnDeath(info);
+			base.RPCOnDeath();
 		}
 	}
 }

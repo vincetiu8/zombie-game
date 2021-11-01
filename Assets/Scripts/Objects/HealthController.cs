@@ -23,7 +23,7 @@ namespace Objects
 		{
 			// Can't directly set health because RPCChangeHealth may be overridden
 			// We want to ensure we also call it on the client to process changes
-			int newHealth = Health + change;
+			int newHealth = Mathf.Max(Health + change, 0);
 
 			if (newHealth > 0)
 			{
@@ -42,9 +42,6 @@ namespace Objects
 		[PunRPC]
 		protected virtual void RPCChangeHealth(int newHealth, int change)
 		{
-			Debug.Log(Health);
-			Debug.Log(newHealth);
-			Debug.Log(change);
 			Health = newHealth;
 		}
 
@@ -55,7 +52,7 @@ namespace Objects
 
 		// Called on master as only master can destroy 
 		[PunRPC]
-		protected virtual void RPCOnDeath(PhotonMessageInfo info)
+		protected virtual void RPCOnDeath()
 		{
 			PhotonNetwork.Destroy(gameObject);
 		}
