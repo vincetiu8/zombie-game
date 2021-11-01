@@ -48,12 +48,12 @@ namespace Enemy
 		/// <summary>
 		///     Updates the tracking player.
 		/// </summary>
-		private void UpdateTrackingPlayer()
+        private void UpdateTrackingPlayer()
 		{
 			float minDistance = float.PositiveInfinity;
 
 			// Handle cases where player died
-			_players.RemoveAll(player => player == null);
+			_players.RemoveAll(player => player == null || player.CompareTag("DeadPlayer"));
 
 			foreach (Transform player in _players.ToList())
 			{

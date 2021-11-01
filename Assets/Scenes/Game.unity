@@ -1783,6 +1783,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef2df04681b4a10d8950d0bab8c6aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onAllPlayersDead:
+    m_PersistentCalls:
+      m_Calls: []
   goldSystem: {fileID: 0}
   localPlayerInstance: {fileID: 0}
   spectatorManager: {fileID: 0}

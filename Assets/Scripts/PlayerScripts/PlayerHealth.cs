@@ -22,8 +22,9 @@ namespace PlayerScripts
 
 		private PlayerInteract _playerInteract;
 
+        [SerializeField] private GameObject[] childrenToChangeTagOnDeath;
 
-		protected override void Start()
+        protected override void Start()
 		{
 			base.Start();
 			_playerInteract = GetComponent<PlayerInteract>();
@@ -31,7 +32,7 @@ namespace PlayerScripts
 
 		private void Update()
 		{
-			if (Health >= initialHealth || Health <= 0) return;
+            if (Health >= initialHealth || Health <= 0) return;
 
 			if (_healDelay > 0)
 			{
@@ -80,13 +81,18 @@ namespace PlayerScripts
 
 		protected override void RPCOnDeath()
 		{
-			if (photonView.IsMine)
-			{
-				GameManager.Instance.spectatorManager.enabled = true;
-				base.RPCOnDeath();
-			}
+            foreach (GameObject obj in childrenToChangeTagOnDeath)
+            {
+                obj.tag = "DeadPlayer";
+            }
 
-			GameManager.Instance.spectatorManager.OnPlayerDeath(PhotonNetwork.LocalPlayer.GetPlayerNumber());
-		}
+            GameManager.Instance.spectatorManager.OnPlayerDeath(PhotonNetwork.LocalPlayer.GetPlayerNumber());
+
+            if (!photonView.IsMine) return;
+            Debug.Log("Destroying player object");
+            GameManager.Instance.spectatorManager.enabled = true;
+            base.RPCOnDeath();
+
+        }
 	}
 }
