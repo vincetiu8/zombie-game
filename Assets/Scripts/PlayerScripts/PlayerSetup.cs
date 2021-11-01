@@ -1,8 +1,8 @@
 using Networking;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PlayerScripts
 {
@@ -11,8 +11,8 @@ namespace PlayerScripts
 	/// </summary>
 	public class PlayerSetup : MonoBehaviourPun, IPunInstantiateMagicCallback
 	{
-		[SerializeField] private Behaviour[] componentsToDisableIfNotMine;
-		[SerializeField] private Text        nameText;
+		[SerializeField] private Behaviour[]     componentsToDisableIfNotMine;
+		[SerializeField] private TextMeshProUGUI nameText;
 
 
 		public void OnPhotonInstantiate(PhotonMessageInfo info)
@@ -22,7 +22,7 @@ namespace PlayerScripts
 			if (photonView.IsMine) return;
 
 			// Will be false by default
-			nameText.gameObject.SetActive(true);
+			nameText.transform.parent.gameObject.SetActive(true);
 
 			// Sets name tag to Nickname assigned at the launcher scene
 			nameText.text = PhotonNetwork.NickName;

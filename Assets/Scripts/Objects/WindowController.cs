@@ -33,14 +33,14 @@ namespace Objects
 
 			// Update the barricade graphics
 			Health = maxHealth;
-			RPCChangeHealth(initialHealth);
+			RPCChangeHealth(initialHealth, 0);
 		}
 
 		public override void ChangeHealth(int change)
 		{
 			int newHealth = Mathf.Clamp(Health + change, 0, maxHealth);
 			if (Health == newHealth) return;
-			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
+			photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth, change);
 		}
 
 		public int GetMaxHealth()
@@ -49,7 +49,7 @@ namespace Objects
 		}
 
 		[PunRPC]
-		protected override void RPCChangeHealth(int newHealth)
+		protected override void RPCChangeHealth(int newHealth, int change)
 		{
 			int newActiveBarricade = (newHealth + _healthPerBarricade - 1) / _healthPerBarricade - 1;
 

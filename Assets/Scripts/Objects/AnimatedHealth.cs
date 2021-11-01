@@ -31,9 +31,9 @@ namespace Objects
 		}
 
 		[PunRPC]
-		protected override void RPCChangeHealth(int newHealth)
+		protected override void RPCChangeHealth(int newHealth, int change)
 		{
-			base.RPCChangeHealth(newHealth);
+			base.RPCChangeHealth(newHealth, change);
 			SetSprite();
 		}
 
@@ -51,6 +51,7 @@ namespace Objects
 		[PunRPC]
 		protected virtual void RPCInitialOnDeath(PhotonMessageInfo info)
 		{
+			Health = 0;
 			Collider2D[] collider2Ds = GetComponentsInChildren<Collider2D>();
 			foreach (Collider2D col in collider2Ds) col.enabled = false;
 

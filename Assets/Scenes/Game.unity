@@ -1840,9 +1840,9 @@ MonoBehaviour:
       type: {class: WaveAttributeMultiplier, ns: Enemy, asm: Scripts}
       data:
         increaseStats: 1
-        multiplierValue: 0
-        randomDeviationMax: 1
-        multiplierIncrement: 1
+        multiplierValue: 1
+        randomDeviationMax: 0.1
+        multiplierIncrement: 0.1
     00000001:
       type: {class: FixedWave, ns: Enemy, asm: Scripts}
       data:
@@ -2913,7 +2913,7 @@ PrefabInstance:
     - target: {fileID: 5172193196748381800, guid: 376c01be4af92f3c8bedfcc747adde48,
         type: 3}
       propertyPath: m_Name
-      value: Death Menu
+      value: Lose Menu
       objectReference: {fileID: 0}
     - target: {fileID: 5172193196748381800, guid: 376c01be4af92f3c8bedfcc747adde48,
         type: 3}

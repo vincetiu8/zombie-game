@@ -70,7 +70,7 @@ namespace Networking
 				oldPlayer.GetComponentInChildren<Camera>().enabled = false;
 
 			_currentPlayerIndex = newPlayerNumber;
-			_gameManager.PlayerInstances[_currentPlayerIndex].GetComponent<Camera>().enabled = true;
+			_gameManager.PlayerInstances[_currentPlayerIndex].GetComponentInChildren<Camera>().enabled = true;
 		}
 	}
 }
