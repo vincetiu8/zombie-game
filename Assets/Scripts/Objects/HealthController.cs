@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 
@@ -9,7 +7,7 @@ namespace Objects
 	///     Health is the base class for all destructible objects.
 	///     Once an object's health reaches 0, it is normally destroyed.
 	/// </summary>
-	public class HealthController : MonoBehaviourPun 
+	public class HealthController : MonoBehaviourPun
 	{
 		[Header("Health Settings")] [SerializeField] [Range(0, 500)]
 		protected int initialHealth;
@@ -29,7 +27,7 @@ namespace Objects
 
 			if (newHealth > 0)
 			{
-				photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth);
+				photonView.RPC("RPCChangeHealth", RpcTarget.All, newHealth, change);
 				return;
 			}
 
@@ -42,8 +40,11 @@ namespace Objects
 		}
 
 		[PunRPC]
-		protected virtual void RPCChangeHealth(int newHealth)
+		protected virtual void RPCChangeHealth(int newHealth, int change)
 		{
+			Debug.Log(Health);
+			Debug.Log(newHealth);
+			Debug.Log(change);
 			Health = newHealth;
 		}
 
@@ -54,7 +55,7 @@ namespace Objects
 
 		// Called on master as only master can destroy 
 		[PunRPC]
-		protected virtual void RPCOnDeath()
+		protected virtual void RPCOnDeath(PhotonMessageInfo info)
 		{
 			PhotonNetwork.Destroy(gameObject);
 		}

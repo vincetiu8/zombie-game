@@ -1,5 +1,6 @@
 using System.Collections;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -31,9 +32,9 @@ namespace Objects
 		}
 
 		[PunRPC]
-		protected override void RPCChangeHealth(int newHealth)
+		protected override void RPCChangeHealth(int newHealth, int change)
 		{
-			base.RPCChangeHealth(newHealth);
+			base.RPCChangeHealth(newHealth, change);
 			SetSprite();
 		}
 
@@ -56,10 +57,11 @@ namespace Objects
 
 			foreach (Behaviour behaviour in componentsToDisableOnDeath) behaviour.enabled = false;
 
-			StartCoroutine(DeathFade());
+			Debug.Log(info.Sender.GetPlayerNumber());
+			StartCoroutine(DeathFade(info));
 		}
 
-		private IEnumerator DeathFade()
+		private IEnumerator DeathFade(PhotonMessageInfo info)
 		{
 			float timeRemaining = deathTime;
 			Color color = spriteRenderer.color;
@@ -76,7 +78,7 @@ namespace Objects
 				yield return null;
 			}
 
-			RPCOnDeath();
+			RPCOnDeath(info);
 		}
 	}
 }

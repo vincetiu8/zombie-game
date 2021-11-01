@@ -22,6 +22,8 @@ namespace Networking
 
 		public void OnPlayerDeath(int playerIndex)
 		{
+			Debug.Log(playerIndex);
+			Debug.Log(PhotonNetwork.LocalPlayer.GetPlayerNumber());
 			if (playerIndex != PhotonNetwork.LocalPlayer.GetPlayerNumber()) return;
 
 			_playerInput.enabled = true;

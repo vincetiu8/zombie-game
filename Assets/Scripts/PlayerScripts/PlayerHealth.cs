@@ -17,14 +17,14 @@ namespace PlayerScripts
 		private int healAmount;
 
 		[SerializeField] private float maxHealDelay;
-		private                  float _carryHealth;
-		private                  float _healDelay;
+
+		[SerializeField] private GameObject[] childrenToChangeTagOnDeath;
+		private                  float        _carryHealth;
+		private                  float        _healDelay;
 
 		private PlayerInteract _playerInteract;
 
-        [SerializeField] private GameObject[] childrenToChangeTagOnDeath;
-
-        protected override void Start()
+		protected override void Start()
 		{
 			base.Start();
 			_playerInteract = GetComponent<PlayerInteract>();
@@ -32,7 +32,7 @@ namespace PlayerScripts
 
 		private void Update()
 		{
-            if (Health >= initialHealth || Health <= 0) return;
+			if (Health >= initialHealth || Health <= 0) return;
 
 			if (_healDelay > 0)
 			{
@@ -43,27 +43,28 @@ namespace PlayerScripts
 			_carryHealth += healAmount * Time.deltaTime;
 			int intHealth = (int)_carryHealth;
 
-			ChangeHealth(intHealth);
+			if (intHealth != 0) ChangeHealth(intHealth);
 
 			_carryHealth -= intHealth;
 		}
 
-		// Makes it so that taking damaged also cancels current input 
 		public override void ChangeHealth(int change)
 		{
-			if (change < 0)
-			{
-				_playerInteract.CancelInteraction();
-				ResetNaturalHealing();
-			}
-
+			change = Mathf.Min(change, initialHealth - Health);
 			base.ChangeHealth(change);
+		}
+
+		[PunRPC]
+		protected override void RPCChangeHealth(int newHealth, int change)
+		{
+			base.RPCChangeHealth(newHealth, change);
+			if (change >= 0) return;
+			_playerInteract.CancelInteraction();
+			ResetNaturalHealing();
 		}
 
 		public void ResetNaturalHealing()
 		{
-			if (Health >= initialHealth || Health <= 0) return;
-
 			_healDelay = maxHealDelay;
 			_carryHealth = 0;
 		}
@@ -79,20 +80,19 @@ namespace PlayerScripts
 			base.RPCInitialOnDeath(info);
 		}
 
-		protected override void RPCOnDeath()
+		protected override void RPCOnDeath(PhotonMessageInfo info)
 		{
-            foreach (GameObject obj in childrenToChangeTagOnDeath)
-            {
-                obj.tag = "DeadPlayer";
-            }
+			foreach (GameObject obj in childrenToChangeTagOnDeath)
+			{
+				obj.tag = "DeadPlayer";
+			}
 
-            GameManager.Instance.spectatorManager.OnPlayerDeath(PhotonNetwork.LocalPlayer.GetPlayerNumber());
+			GameManager.Instance.spectatorManager.OnPlayerDeath(info.Sender.GetPlayerNumber());
 
-            if (!photonView.IsMine) return;
-            Debug.Log("Destroying player object");
-            GameManager.Instance.spectatorManager.enabled = true;
-            base.RPCOnDeath();
-
-        }
+			if (!photonView.IsMine) return;
+			Debug.Log("Destroying player object");
+			GameManager.Instance.spectatorManager.enabled = true;
+			base.RPCOnDeath(info);
+		}
 	}
 }
