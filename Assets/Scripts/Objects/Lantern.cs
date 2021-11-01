@@ -56,10 +56,10 @@ namespace Objects
 
 		private void FadeOnDeath()
 		{
-			if (_fadeLightingCoroutine != null) StopCoroutine(_fadeLightingCoroutine);
+			if (_fadeLightingCoroutine == null) return;
 
+			StopCoroutine(_fadeLightingCoroutine);
 			duration = DurationOnAllDead;
-
 			_fadeLightingCoroutine = StartCoroutine(FadeLightingCoroutine());
 		}
 	}
