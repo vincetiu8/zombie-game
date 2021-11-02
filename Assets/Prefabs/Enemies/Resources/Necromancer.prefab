@@ -66,9 +66,9 @@ MonoBehaviour:
   meleeSpellDamage: 100
   meleeSpellKnockback: 50
   _animationSubstitude: {fileID: 474536120018526490}
-  lungeSpeedMultiplier: 4
+  lungeSpeedMultiplier: 5
   dontBuff: 0
-  buffMultiplier: 1.5
+  buffMultiplier: 1.25
 --- !u!1 &4777080521169503122
 GameObject:
   m_ObjectHideFlags: 0

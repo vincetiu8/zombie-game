@@ -58,12 +58,14 @@ namespace Enemy
         private void CalledMeleeSpell() => StartCoroutine(MeleeSpell( Mathf.RoundToInt(meleeSpellDamage * _multiplierStacks),
             meleeSpellKnockback * _multiplierStacks));
 
-        protected override void OnPerformAction()
+        [PunRPC]
+        protected override void RPCOnPerformAction()
         {
             _light2D.enabled = true;
         }
 
-        protected override void DuringPerformAction()
+        [PunRPC]
+        protected override void RPCDuringPerformAction()
         {
             //transform.GetComponent<Light2D>().intensity = Mathf.MoveTowards(transform.GetComponent<Light2D>().intensity, _multiplierStacks,Time.deltaTime);
             _light2D.intensity = _multiplierStacks;
@@ -73,8 +75,15 @@ namespace Enemy
         {
             _multiplierStacks = 1;
             summonAmount += summonAmountIncrementer;
+            base.FinishPerformAction();
+        }
+
+        [PunRPC]
+        protected override void RPCFinishPerformAction()
+        {
             _light2D.enabled = false;
         }
+
 
 
         /// <summary>

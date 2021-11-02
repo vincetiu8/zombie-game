@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace Enemy
 {
-    public class BossAI : MonoBehaviour
+    public class BossAI : MonoBehaviourPun
     {
         [SerializeField] private float minTimeBetweenActions;
         [SerializeField] private float maxTimeBetweenActions;
@@ -129,9 +129,23 @@ namespace Enemy
             return targetsArray.OrderBy(
                 individualTarget => Vector2.Distance(this.transform.position, individualTarget.transform.position)).ToArray();
         }
-        
-        protected virtual void OnPerformAction(){}
-        protected virtual void DuringPerformAction(){}
-        protected virtual void FinishPerformAction(){}
+
+        protected virtual void OnPerformAction()
+        {
+            photonView.RPC("RPCOnPerformAction", RpcTarget.All);
+        }
+        [PunRPC] protected virtual void RPCOnPerformAction(){}
+
+        protected virtual void DuringPerformAction()
+        {
+            photonView.RPC("RPCDuringPerformAction", RpcTarget.All);
+        }
+        [PunRPC] protected virtual void RPCDuringPerformAction(){}
+
+        protected virtual void FinishPerformAction()
+        {
+            photonView.RPC("RPCFinishPerformAction", RpcTarget.All);
+        }
+        [PunRPC] protected virtual void RPCFinishPerformAction(){}
     }
 }
