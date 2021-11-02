@@ -37,17 +37,13 @@ namespace PlayerScripts
         
         [SerializeField] private RectTransform downTimerDisplay;
         private float _initialWidth;
-        
-
-        [SerializeField] private GameObject[] childrenToChangeTagOnDeath;
-        public bool CurrentlyReviving { private get; set; }
 
         protected override void Start()
 		{
 			base.Start();
 			_playerInteract = GetComponent<PlayerInteract>();
             _playerInput = GetComponent<PlayerInput>();
-            _playerRevive = GetComponent<PlayerRevive>();
+            _playerRevive = GetComponentInChildren<PlayerRevive>();
             _initialWidth = downTimerDisplay.rect.width;
         }
 
@@ -146,6 +142,7 @@ namespace PlayerScripts
             //_playerInput.currentActionMap.Disable();
             playerDown = true;
             foreach (GameObject gameObject in objectsToDisableOnDown) gameObject.SetActive(false);
+            foreach (GameObject obj in childrenToChangeTagOnDeath) obj.tag = "DeadPlayer";
             _playerInput.currentActionMap.Disable();
         }
 
@@ -163,12 +160,7 @@ namespace PlayerScripts
 
 		protected override void RPCOnDeath()
 		{
-			foreach (GameObject obj in childrenToChangeTagOnDeath)
-			{
-				obj.tag = "DeadPlayer";
-			}
-
-			GameManager.Instance.spectatorManager.OnPlayerDeath(photonView.Owner.GetPlayerNumber());
+            GameManager.Instance.spectatorManager.OnPlayerDeath(photonView.Owner.GetPlayerNumber());
 
 			if (!photonView.IsMine) return;
 
