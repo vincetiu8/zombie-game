@@ -17,6 +17,9 @@ namespace Weapons
 		[SerializeField]
 		private float shotDistance;
 
+		[SerializeField] [Tooltip("Multiplied with deltaTime")]
+		private float muzzleFlashFadeTime;
+
 		[SerializeField] private GameObject tracerPrefab;
 
 		private LayerMask _layerMask;
@@ -72,7 +75,7 @@ namespace Weapons
 			_light.intensity = 2;
 			while (_light.intensity > 0)
 			{
-				_light.intensity -= Time.deltaTime * 8;
+				_light.intensity -= Time.deltaTime * muzzleFlashFadeTime;
 				yield return null;
 			}
 

@@ -112,6 +112,7 @@ MonoBehaviour:
     reloadTime: 1
   firepoint: {fileID: 6581261222417765288}
   shotDistance: 5
+  muzzleFlashFadeTime: 8
   tracerPrefab: {fileID: 2008120741083104990, guid: 98ac1e2b6135aedc0b5e5db844c0b611,
     type: 3}
 --- !u!114 &8110468372728126296
