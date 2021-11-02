@@ -68,7 +68,7 @@ namespace Weapons
                 if (knockbackController != null)
                 {
                     float angle = TransformUtils.Vector2ToDeg(obj.transform.position - transform.position);
-                    if (knockbackController != null) knockbackController.TakeKnockBack(angle, knockBack);
+                    knockbackController.TakeKnockBack(angle, knockBack);
                     knockbackController.TakeStun(stunLength);
                 }
             }
