@@ -11,7 +11,7 @@ namespace Weapons
 	public abstract class Gun : Weapon
 	{
 		[Description("The gun's ammo type")] [SerializeField]
-		private AmmoType ammoType;
+		protected AmmoType ammoType;
 
 		[Description("Holds the GunAttributes for the gun")] [SerializeField]
 		protected GunAttributes[] weaponLevels;
@@ -19,7 +19,7 @@ namespace Weapons
 		[Description("The transform the bullets will shoot from")] [SerializeField]
 		protected Transform firepoint;
 
-		private int           _bulletsInMagazine;
+		protected int           _bulletsInMagazine;
 		private GunAttributes _currentGunAttributes;
 
 		private Vector2   _gunOffsetAdjustment;

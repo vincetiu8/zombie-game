@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4393920864102003491}
   - component: {fileID: 4895034229198953113}
   - component: {fileID: 2394645392172882242}
-  - component: {fileID: 16889350909906651}
+  - component: {fileID: -54210235216038138}
   m_Layer: 3
   m_Name: GrenadeLauncher
   m_TagString: Untagged
@@ -138,7 +138,7 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &16889350909906651
+--- !u!114 &-54210235216038138
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6750531741507228707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf75561eeeba437dae04c13ac78dc476, type: 3}
+  m_Script: {fileID: 11500000, guid: b9e0dc8c065c39343af647e2dc176cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Grenade Launcher
@@ -163,4 +163,4 @@ MonoBehaviour:
   firepoint: {fileID: 4199299946989307126}
   bulletPrefab: {fileID: 8414336389395628705, guid: 591a0f424a657ac4db3fb60ffb43daea,
     type: 3}
-  throwForce: 0.1
+  throwForce: 0.2

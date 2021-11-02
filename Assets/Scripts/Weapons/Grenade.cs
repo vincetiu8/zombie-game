@@ -53,24 +53,22 @@ namespace Weapons
 
             foreach (var obj in damageColliders)
             {
+                if (obj.gameObject.CompareTag("Player")) continue;
                 HealthController health = obj.GetComponent<HealthController>();
-                KnockbackController knockbackController = obj.gameObject.GetComponent<KnockbackController>();
-                float angle = TransformUtils.Vector2ToDeg(obj.transform.position - transform.position);
-
                 if (health != null)
                 {
-                    if (obj.gameObject.CompareTag("Player")) continue;
-                    if (knockbackController != null) knockbackController.TakeKnockBack(angle, knockBack);
                     health.ChangeHealth(-damage);
                 }
             }
 
             foreach (var obj in stunColliders)
             {
+                if (obj.gameObject.CompareTag("Player")) continue;
                 KnockbackController knockbackController = obj.gameObject.GetComponent<KnockbackController>();
                 if (knockbackController != null)
                 {
-                    if (obj.gameObject.CompareTag("Player")) continue;
+                    float angle = TransformUtils.Vector2ToDeg(obj.transform.position - transform.position);
+                    if (knockbackController != null) knockbackController.TakeKnockBack(angle, knockBack);
                     knockbackController.TakeStun(stunLength);
                 }
             }
