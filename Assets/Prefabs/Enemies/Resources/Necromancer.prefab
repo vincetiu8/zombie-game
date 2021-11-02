@@ -55,9 +55,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minTimeBetweenActions: 5
   maxTimeBetweenActions: 10
+  BossAbilities: []
   summonAmount: 3
   summonAmountIncrementer: 0.25
-  spawnedZombie: {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513,
+  zombiePrefab: {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513,
     type: 3}
   spawnRadius: 3
   stunProjectile: {fileID: 4026456415033271303, guid: 9be75f2dc80c0f14c8cb6d7131168b47,
@@ -206,6 +207,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Speed
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431907653935465614, guid: 7d178d64c618d137f9c5f4bd28cc9c2b,
+        type: 3}
+      propertyPath: damage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2819236521236968618, guid: 7d178d64c618d137f9c5f4bd28cc9c2b,
         type: 3}

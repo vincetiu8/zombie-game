@@ -4,7 +4,6 @@ using UnityEngine;
 namespace Weapons
 {
     public class TrackerProjectile : BulletController
-    // interiting from Bullet Controler doesn't work for some reason
     {
         public Transform target;
         [Range(0, 10)] [SerializeField] private int stunDuration;

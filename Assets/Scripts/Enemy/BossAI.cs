@@ -12,62 +12,86 @@ using Random = UnityEngine.Random;
 
 namespace Enemy
 {
-    public class BossAI : MonoBehaviourPun
+    [Serializable] public struct BossAbility
+    {
+        public Action MethodToCall;
+        public Func<IEnumerator> CoroutineToCall;
+        public float castTime;
+        public bool immobilizeWhilePerforming;
+        //public Animation moveAnimation;
+        public BossAbility(Action methodToCall,float castTime, bool immobilizeWhilePerforming)
+        {
+            this.MethodToCall = methodToCall;
+            this.CoroutineToCall = null;
+            this.castTime = castTime;
+            this.immobilizeWhilePerforming = immobilizeWhilePerforming;
+            //this.moveAnimation = null;
+        }
+
+        public BossAbility(Func<IEnumerator> routineToStart, float castTime, bool immobilizeWhilePerforming)
+        {
+            //void CoroutineToMethod() => StartCoroutine(routineToStart.Invoke());
+
+            this.CoroutineToCall = routineToStart;
+            this.MethodToCall = null;
+            this.castTime = castTime;
+            this.immobilizeWhilePerforming = immobilizeWhilePerforming;
+            //this.moveAnimation = null;
+        }
+        //public abstract IEnumerator UseAbility();
+    }
+    public abstract class BossAI : MonoBehaviourPun
     {
         [SerializeField] private float minTimeBetweenActions;
         [SerializeField] private float maxTimeBetweenActions;
 
-        protected List<BossMove> BossMoves;
-        [Serializable] protected struct BossMove
-        {
-            public Action MethodToCall;
-            public float castTime;
-            public bool immobilizeWhilePerforming;
-            public Animation moveAnimation;
-            public BossMove(Action methodToCall,float castTime, bool immobilizeWhilePerforming)
-            {
-                MethodToCall = methodToCall;
-                this.castTime = castTime;
-                this.immobilizeWhilePerforming = immobilizeWhilePerforming;
-                moveAnimation = null;
-            }
+        [SerializeField] protected List<BossAbility> BossAbilities;
 
-        }
+        private float _cooldown;
 
         private ChaserAI _chaserAI;
 
-        protected virtual IEnumerator Start()
+        protected void Start()
         {
             _chaserAI = transform.GetComponent<ChaserAI>();
-            BossMoves = new List<BossMove>();
+            BossAbilities = new List<BossAbility>();
             DeclareBossMoves();
-            
-            while (true)
+        }
+
+        private void Update()
+        {
+            if (_cooldown > 0)
             {
-                yield return new WaitForSeconds(Random.Range(minTimeBetweenActions,maxTimeBetweenActions));
-                MoveSelectionLogic();
+                _cooldown -= Time.deltaTime;
+                return;
             }
+            
+            AbilitySelectionLogic();
+            _cooldown += Random.Range(minTimeBetweenActions, maxTimeBetweenActions);
         }
 
         /// <summary>
         /// Scripts that inherit from this will have their own methods they want to add to the list,
         /// since actions aren't serializable, this is my easy workaround :)
         /// </summary>
-        protected virtual void DeclareBossMoves() { }
+        protected abstract void DeclareBossMoves();
 
-        protected virtual void MoveSelectionLogic()
+        protected virtual void AbilitySelectionLogic()
         {
             if (_chaserAI.GetTrackingPlayer() == null) return;
 
             // Very basic logic for now of just randomly choosing a move
 
-            BossMove move = BossMoves[Random.Range(0, BossMoves.Count)];
+            BossAbility ability = BossAbilities[Random.Range(0, BossAbilities.Count)];
             //BossMove move = BossMoves[1];
-            StartCoroutine(PerformAction(move.MethodToCall,move.castTime,move.immobilizeWhilePerforming));
+            if (ability.MethodToCall == null)
+            {
+                StartCoroutine(PerformAction(ability.CoroutineToCall,ability.castTime,ability.immobilizeWhilePerforming));
+                return;
+            }
+            StartCoroutine(PerformAction(ability.MethodToCall,ability.castTime,ability.immobilizeWhilePerforming));
         }
         
-        // move selection logic, but takes a list of possilb moves
-
         /// <summary>
         /// Every time a move is used, this is called
         /// </summary>
@@ -91,6 +115,24 @@ namespace Enemy
             // Probably play an animation here
 
             new Action(bossMove)();
+            _chaserAI.DisableMovement(false);
+            FinishPerformAction();
+        }
+
+        private IEnumerator PerformAction(Func<IEnumerator> routine, float castTime, bool immobilizeWhilePerforming)
+        {
+            OnPerformAction();
+            if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
+            
+            float timePassed = 0;
+            while (timePassed < castTime)
+            {
+                yield return new WaitForSeconds(0.1f);
+                DuringPerformAction();
+                timePassed += 0.1f;
+            }
+            
+            StartCoroutine(routine());
             _chaserAI.DisableMovement(false);
             FinishPerformAction();
         }
@@ -134,18 +176,24 @@ namespace Enemy
         {
             photonView.RPC("RPCOnPerformAction", RpcTarget.All);
         }
-        [PunRPC] protected virtual void RPCOnPerformAction(){}
+
+        [PunRPC]
+        protected abstract void RPCOnPerformAction();
 
         protected virtual void DuringPerformAction()
         {
             photonView.RPC("RPCDuringPerformAction", RpcTarget.All);
         }
-        [PunRPC] protected virtual void RPCDuringPerformAction(){}
+
+        [PunRPC]
+        protected abstract void RPCDuringPerformAction();
 
         protected virtual void FinishPerformAction()
         {
             photonView.RPC("RPCFinishPerformAction", RpcTarget.All);
         }
-        [PunRPC] protected virtual void RPCFinishPerformAction(){}
+
+        [PunRPC]
+        protected abstract void RPCFinishPerformAction();
     }
 }
