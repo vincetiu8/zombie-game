@@ -21,11 +21,11 @@ namespace Enemy
         private float _multiplierStacks = 1;
 
         [Header("Zombie spawn settings")]
-        [SerializeField] private Object spawnedZombie;
+        [SerializeField] private GameObject zombiePrefab;
         [SerializeField] private float spawnRadius = 3;
         
         [Header("Stun projectile settings")]
-        [SerializeField] private Object stunProjectile;
+        [SerializeField] private GameObject stunProjectile;
         [SerializeField] private float delayPerSpell;
 
         [Header("Melee AOE attack settings")] 
@@ -35,7 +35,7 @@ namespace Enemy
         [SerializeField] private float lungeSpeedMultiplier;
 
         [Header("Zombie buff settings")] 
-        [SerializeField] private bool dontBuff;
+        [SerializeField] private bool buffSpawnedZombies;
         [SerializeField] private float buffMultiplier;
 
         private MeleePoint _meleePoint;
@@ -46,22 +46,22 @@ namespace Enemy
             _meleePoint = GetComponentInChildren<MeleePoint>();
             _light2D = transform.GetComponent<Light2D>();
             
-            BossMoves.Add(new BossMove(CalledSummonZombies, 3,true));
-            BossMoves.Add(new BossMove(CalledStunSpell, 2,true));
-            BossMoves.Add(new BossMove(CalledMeleeSpell, 0.5f,false));
+            BossAbilities.Add(new BossAbility(SummonZombies, 3,true));
+            BossAbilities.Add(new BossAbility(StunSpell, 2,true));
+            BossAbilities.Add(new BossAbility(MeleeSpell, 0.5f,false));
         }
 
         // made these short methods so each move can be called easily
-        private void CalledSummonZombies() => SummonZombies(Mathf.FloorToInt(summonAmount * _multiplierStacks));
-        private void CalledStunSpell() => StartCoroutine(StunSpell(Mathf.FloorToInt(summonAmount * _multiplierStacks)));
+        //private void CalledSummonZombies() {}//=> SummonZombies(Mathf.FloorToInt(summonAmount * _multiplierStacks));
+        //private void CalledStunSpell() {}//=> StartCoroutine(StunSpell());
 
-        private void CalledMeleeSpell() => StartCoroutine(MeleeSpell( Mathf.RoundToInt(meleeSpellDamage * _multiplierStacks),
-            meleeSpellKnockback * _multiplierStacks));
+        //private void CalledMeleeSpell() {}//=> StartCoroutine(MeleeSpell( ,))
 
         [PunRPC]
         protected override void RPCOnPerformAction()
         {
             _light2D.enabled = true;
+            //StartCoroutine(StunSpell());
         }
 
         [PunRPC]
@@ -91,8 +91,10 @@ namespace Enemy
         /// the correct amount of space to split them between is also calculated here.
         /// </summary>
         /// <param name="amountOfObjectsToSpawn"></param>
-        private void SummonZombies(int amountOfObjectsToSpawn)
+        private void SummonZombies()
         {
+            int amountOfObjectsToSpawn = Mathf.FloorToInt(summonAmount * _multiplierStacks);
+            
             if (BuffZombies()) return;
             float currentAngle = Random.Range(0,360);
             for (int i = 0; i < amountOfObjectsToSpawn; i ++)
@@ -101,19 +103,21 @@ namespace Enemy
                 Vector2 offsetPosition = (Vector2) transform.position + TransformUtils.DegToVector2(currentAngle) * spawnRadius;
                 currentAngle += 360 / amountOfObjectsToSpawn;
 
-                PhotonNetwork.Instantiate(spawnedZombie.name, offsetPosition, Quaternion.identity);
+                PhotonNetwork.Instantiate(zombiePrefab.name, offsetPosition, Quaternion.identity);
             }
         }
         
         
-        private IEnumerator StunSpell(int amountToSpawn)
+        private IEnumerator StunSpell()
         {
+            int amountToSpawn = Mathf.FloorToInt(summonAmount * _multiplierStacks);
+            
             Collider2D[] playerTargets = ListNearbyObjects(10, "Players", true);
 
             if (playerTargets.Length == 0)
             {
                 Debug.Log("Players all behind walls, summoning zombies instead");
-                CalledSummonZombies();
+                SummonZombies();
                 yield break;
             }
             
@@ -138,14 +142,17 @@ namespace Enemy
             }
         }
 
-        private IEnumerator MeleeSpell(int damage, float knockback)
+        private IEnumerator MeleeSpell()
         {
+            int damage = Mathf.RoundToInt(meleeSpellDamage * _multiplierStacks);
+            float knockback = meleeSpellKnockback * _multiplierStacks;
+            
             Collider2D[] playerTargets = ListNearbyObjects(3 * _multiplierStacks, "Players", true);
             
             if (playerTargets.Length == 0)
             {
                 Debug.Log("No players in melee range, summoning zombies instead");
-                CalledSummonZombies();
+                SummonZombies();
                 yield break;
             }
 
@@ -179,7 +186,7 @@ namespace Enemy
             
             if (enemyTargets.Length < 5) return false;
 
-            if (dontBuff)
+            if (!buffSpawnedZombies)
             {
                 Debug.Log("BUFFING IS OFF: doing nothing");
                 return true;
@@ -211,7 +218,7 @@ namespace Enemy
         {
             if (_multiplierStacks == 1)
             {
-                MoveSelectionLogic();
+                AbilitySelectionLogic();
             }
             _multiplierStacks += amount;
         }
