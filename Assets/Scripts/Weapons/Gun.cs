@@ -20,7 +20,7 @@ namespace Weapons
 		protected Transform firepoint;
 
 		protected int           _bulletsInMagazine;
-		private GunAttributes _currentGunAttributes;
+		protected GunAttributes _currentGunAttributes;
 
 		private Vector2   _gunOffsetAdjustment;
 		private Coroutine _reloadCoroutine;

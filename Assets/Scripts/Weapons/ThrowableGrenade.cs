@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Weapons
 {
-    
-    public class GrenadeLauncher : ProjectileLauncher
+    // Lets the throwable grenade bypass reloading
+    public class ThrowableGrenade : ProjectileLauncher
     {
         private void Update()
         {
+            _currentGunAttributes.magazineSize = ammoInventory.GetAmmo(ammoType);
             _bulletsInMagazine = ammoInventory.GetAmmo(ammoType);
         }
-
-        // Lets the grenade launcher bypass reloading
+        
         protected override void FireBullet(float angle)
         {
             base.FireBullet(angle);

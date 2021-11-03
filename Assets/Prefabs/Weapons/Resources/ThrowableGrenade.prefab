@@ -40,10 +40,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4393920864102003491}
   - component: {fileID: 4895034229198953113}
+  - component: {fileID: 8649411088491165586}
   - component: {fileID: 2394645392172882242}
-  - component: {fileID: -54210235216038138}
   m_Layer: 3
-  m_Name: GrenadeLauncher
+  m_Name: ThrowableGrenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,6 +116,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8649411088491165586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750531741507228707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e0dc8c065c39343af647e2dc176cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: Throwable Grenade
+  ammoType: 3
+  weaponLevels:
+  - description: damage is temp
+    damage: 1000
+    knockback: 2
+    fireCooldown: 0
+    fullAuto: 0
+    magazineSize: 0
+    reloadTime: 0
+  firepoint: {fileID: 4199299946989307126}
+  bulletPrefab: {fileID: 8414336389395628705, guid: 591a0f424a657ac4db3fb60ffb43daea,
+    type: 3}
+  throwForce: 0.2
 --- !u!114 &2394645392172882242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,29 +164,3 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-54210235216038138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6750531741507228707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e0dc8c065c39343af647e2dc176cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: Grenade Launcher
-  ammoType: 3
-  weaponLevels:
-  - description: 
-    damage: 1000
-    knockback: 5
-    fireCooldown: 0
-    fullAuto: 0
-    magazineSize: 2
-    reloadTime: 0
-  firepoint: {fileID: 4199299946989307126}
-  bulletPrefab: {fileID: 8414336389395628705, guid: 591a0f424a657ac4db3fb60ffb43daea,
-    type: 3}
-  throwForce: 0.2
