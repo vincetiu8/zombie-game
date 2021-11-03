@@ -34,8 +34,8 @@ namespace Enemy
 		}
 
 		protected virtual void Start()
-			{
-				_baseAcceleration = acceleration;
+        {
+            _baseAcceleration = acceleration;
 			Animator animator = GetComponentInChildren<Animator>();
 			animator.SetFloat(MovementSpeedProperty, acceleration / 2);
 		}
@@ -86,19 +86,19 @@ namespace Enemy
 			_canMove = !disable;
 		}
 
-			public void ScaleAcceleration(float scale)
-			{
-				acceleration *= scale;
-			}
+        public void ScaleAcceleration(float scale)
+        {
+            acceleration *= scale;
+        }
 
-			public void ResetAcceleration()
-			{
-				acceleration = _baseAcceleration;
-			}
+        public void ResetAcceleration()
+        {
+            acceleration = _baseAcceleration;
+        }
 
-			public Transform GetTrackingPlayer()
-			{
-				return TrackingPlayer;
-			}
+        public Transform GetTrackingPlayer()
+        {
+            return TrackingPlayer;
+        }
 	}
 }
