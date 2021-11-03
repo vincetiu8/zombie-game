@@ -16,13 +16,13 @@ namespace Enemy
     {
         [Header("Necromancer boss settings")]
         [Description("The amount of thins spawned in per summon (applies to both zombies and the stun projectile)")]
-        [SerializeField] private float summonAmount;
+        [SerializeField] public float summonAmount;
         [SerializeField] private float summonAmountIncrementer;
-        private float _multiplierStacks = 1;
+        public float multiplierStacks = 1;
 
         [Header("Zombie spawn settings")]
-        [SerializeField] private GameObject zombiePrefab;
-        [SerializeField] private float spawnRadius = 3;
+        [SerializeField] public GameObject zombiePrefab;
+        [SerializeField] public float spawnRadius = 3;
         
         [Header("Stun projectile settings")]
         [SerializeField] private GameObject stunProjectile;
@@ -46,9 +46,12 @@ namespace Enemy
             _meleePoint = GetComponentInChildren<MeleePoint>();
             _light2D = transform.GetComponent<Light2D>();
             
-            BossAbilities.Add(new BossAbility(SummonZombies, 3,true));
-            BossAbilities.Add(new BossAbility(StunSpell, 2,true));
-            BossAbilities.Add(new BossAbility(MeleeSpell, 0.5f,false));
+            //BossAbilities.Add(new BossAbility(SummonZombies, 3,true));
+            //BossAbilities.Add(new BossAbility(StunSpell, 2,true));
+            //BossAbilities.Add(new BossAbility(MeleeSpell, 0.5f,false));
+            
+            //BossAbilities.Add(new BossAbility(MeleeSpell, 0.5f,false));
+            BossAbilities.Add(new Move1(5, true, gameObject));
         }
 
         // made these short methods so each move can be called easily
@@ -67,12 +70,12 @@ namespace Enemy
 
         protected override void DuringPerformAction()
         {
-            _light2D.intensity = _multiplierStacks;
+            _light2D.intensity = multiplierStacks;
         }
 
         protected override void FinishPerformAction()
         {
-            _multiplierStacks = 1;
+            multiplierStacks = 1;
             summonAmount += summonAmountIncrementer;
             base.FinishPerformAction();
         }
@@ -93,7 +96,7 @@ namespace Enemy
         /// <param name="amountOfObjectsToSpawn"></param>
         private void SummonZombies()
         {
-            int amountOfObjectsToSpawn = Mathf.FloorToInt(summonAmount * _multiplierStacks);
+            int amountOfObjectsToSpawn = Mathf.FloorToInt(summonAmount * multiplierStacks);
             
             if (BuffZombies()) return;
             float currentAngle = Random.Range(0,360);
@@ -110,7 +113,7 @@ namespace Enemy
         
         private IEnumerator StunSpell()
         {
-            int amountToSpawn = Mathf.FloorToInt(summonAmount * _multiplierStacks);
+            int amountToSpawn = Mathf.FloorToInt(summonAmount * multiplierStacks);
             
             Collider2D[] playerTargets = ListNearbyObjects(10, "Players", true);
 
@@ -144,10 +147,10 @@ namespace Enemy
 
         private IEnumerator MeleeSpell()
         {
-            int damage = Mathf.RoundToInt(meleeSpellDamage * _multiplierStacks);
-            float knockback = meleeSpellKnockback * _multiplierStacks;
+            int damage = Mathf.RoundToInt(meleeSpellDamage * multiplierStacks);
+            float knockback = meleeSpellKnockback * multiplierStacks;
             
-            Collider2D[] playerTargets = ListNearbyObjects(3 * _multiplierStacks, "Players", true);
+            Collider2D[] playerTargets = ListNearbyObjects(3 * multiplierStacks, "Players", true);
             
             if (playerTargets.Length == 0)
             {
@@ -158,7 +161,7 @@ namespace Enemy
 
             // Let the boss not collide with any zombies, and set it's speed to be faster for the lunge attack
             gameObject.layer = LayerMask.NameToLayer("Objects");
-            transform.GetComponent<ChaserAI>().ScaleAcceleration(lungeSpeedMultiplier * _multiplierStacks);
+            transform.GetComponent<ChaserAI>().ScaleAcceleration(lungeSpeedMultiplier * multiplierStacks);
             _animationSubstitude.enabled = true;
 
             yield return new WaitForSeconds(1f);
@@ -180,47 +183,13 @@ namespace Enemy
             }
         }
 
-        private bool BuffZombies()
-        {
-            Collider2D[] enemyTargets = ListNearbyObjects(5, "Enemies", false);
-            
-            if (enemyTargets.Length < 5) return false;
-
-            if (!buffSpawnedZombies)
-            {
-                Debug.Log("BUFFING IS OFF: doing nothing");
-                return true;
-            }
-            
-            ScaleZombiesStats(enemyTargets, buffMultiplier * _multiplierStacks);
-            Debug.Log("BUFFING IS ON: Number of zombies exceeding threshold, buffing instead");
-            return true;
-        }
-
-        private void ScaleZombiesStats(Collider2D[] listOfEnemies, float multiplier)
-        {
-            foreach (Collider2D enemy in listOfEnemies)
-            {
-                enemy.GetComponent<ChaserAI>().ScaleAcceleration(multiplier);
-                enemy.GetComponent<EnemyHealth>().ScaleHealth(multiplier);
-                enemy.GetComponent<KnockbackController>().ScaleKnockback(2-multiplier);
-                enemy.GetComponentInChildren<AnimatedCollisionDamager>().ScaleDamage(multiplier);
-                
-                // Simple way to show how buff smth is for now
-                Light2D enemyLight = enemy.GetComponent<Light2D>();
-                if (enemyLight == null) return;
-                enemyLight.enabled = true;
-                enemyLight.intensity *= multiplier;
-            }
-        }
-
         public void IncreaseStackMultiplier(float amount)
         {
-            if (_multiplierStacks == 1)
+            if (multiplierStacks == 1)
             {
                 AbilitySelectionLogic();
             }
-            _multiplierStacks += amount;
+            multiplierStacks += amount;
         }
     }
 }
