@@ -181,11 +181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minTimeBetweenActions: 5
   maxTimeBetweenActions: 10
-  BossAbilities:
-  - castTime: 0
-    immobilizeWhilePerforming: 0
   summonAmount: 3
   summonAmountIncrementer: 0.25
+  multiplierStacks: 1
   zombiePrefab: {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513,
     type: 3}
   spawnRadius: 3
@@ -194,10 +192,11 @@ MonoBehaviour:
   delayPerSpell: 0.5
   meleeSpellDamage: 100
   meleeSpellKnockback: 50
-  _animationSubstitude: {fileID: 474536120018526490}
+  animationSubstitude: {fileID: 474536120018526490}
   lungeSpeedMultiplier: 5
-  buffSpawnedZombies: 0
+  buffSpawnedZombies: 1
   buffMultiplier: 1.25
+  meleePoint: {fileID: 3827015223634586803}
 --- !u!1001 &7899194696350207163
 PrefabInstance:
   m_ObjectHideFlags: 0
