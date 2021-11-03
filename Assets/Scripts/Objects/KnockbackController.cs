@@ -78,4 +78,6 @@ public class KnockbackController : MonoBehaviour
     public void ScaleKnockback(float scale)
     {
         knockBackMultiplier *= scale;
-    }}
+    }
+    
+}
