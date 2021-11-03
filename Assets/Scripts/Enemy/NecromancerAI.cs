@@ -61,13 +61,12 @@ namespace Enemy
         protected override void RPCOnPerformAction()
         {
             _light2D.enabled = true;
+            base.RPCOnPerformAction();
             //StartCoroutine(StunSpell());
         }
 
-        [PunRPC]
-        protected override void RPCDuringPerformAction()
+        protected override void DuringPerformAction()
         {
-            //transform.GetComponent<Light2D>().intensity = Mathf.MoveTowards(transform.GetComponent<Light2D>().intensity, _multiplierStacks,Time.deltaTime);
             _light2D.intensity = _multiplierStacks;
         }
 
@@ -82,6 +81,7 @@ namespace Enemy
         protected override void RPCFinishPerformAction()
         {
             _light2D.enabled = false;
+            base.RPCFinishPerformAction();
         }
 
 
