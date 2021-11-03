@@ -51,6 +51,8 @@ namespace Enemy
 
         private ChaserAI _chaserAI;
 
+        private bool _duringPerformAction;
+
         protected void Start()
         {
             _chaserAI = transform.GetComponent<ChaserAI>();
@@ -60,6 +62,8 @@ namespace Enemy
 
         private void Update()
         {
+            if (_duringPerformAction) DuringPerformAction();
+            
             if (_cooldown > 0)
             {
                 _cooldown -= Time.deltaTime;
@@ -104,14 +108,8 @@ namespace Enemy
             OnPerformAction();
             if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
             
-            float timePassed = 0;
-            while (timePassed < castTime)
-            {
-                yield return new WaitForSeconds(0.1f);
-                DuringPerformAction();
-                timePassed += 0.1f;
-            }
-            
+            yield return new WaitForSeconds(castTime);
+
             // Probably play an animation here
 
             new Action(bossMove)();
@@ -124,13 +122,7 @@ namespace Enemy
             OnPerformAction();
             if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
             
-            float timePassed = 0;
-            while (timePassed < castTime)
-            {
-                yield return new WaitForSeconds(0.1f);
-                DuringPerformAction();
-                timePassed += 0.1f;
-            }
+            yield return new WaitForSeconds(castTime);
             
             StartCoroutine(routine());
             _chaserAI.DisableMovement(false);
@@ -178,15 +170,12 @@ namespace Enemy
         }
 
         [PunRPC]
-        protected abstract void RPCOnPerformAction();
-
-        protected virtual void DuringPerformAction()
+        protected virtual void RPCOnPerformAction()
         {
-            photonView.RPC("RPCDuringPerformAction", RpcTarget.All);
+            _duringPerformAction = true;
         }
 
-        [PunRPC]
-        protected abstract void RPCDuringPerformAction();
+        protected abstract void DuringPerformAction();
 
         protected virtual void FinishPerformAction()
         {
@@ -194,6 +183,9 @@ namespace Enemy
         }
 
         [PunRPC]
-        protected abstract void RPCFinishPerformAction();
+        protected virtual void RPCFinishPerformAction()
+        {
+            _duringPerformAction = false;
+        }
     }
 }
