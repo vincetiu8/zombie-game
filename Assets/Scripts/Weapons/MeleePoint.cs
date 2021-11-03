@@ -10,8 +10,8 @@ namespace Weapons
 	/// </summary>
 	[RequireComponent(typeof(Collider2D))]
 	public class MeleePoint : MonoBehaviour
-    {
-        [SerializeField] private LayerMask targetLayer;
+    	{
+		[SerializeField] private LayerMask targetLayer;
 		private List<Collider2D> _hitTargets;
 
 		private void Awake()
