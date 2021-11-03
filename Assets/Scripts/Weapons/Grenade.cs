@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Globalization;
 using Objects;
 using UnityEngine;
 using Photon.Pun;
@@ -53,6 +50,7 @@ namespace Weapons
 
             foreach (var obj in damageColliders)
             {
+                if (obj.gameObject.CompareTag("Player")) continue;
                 HealthController health = obj.GetComponent<HealthController>();
                 if (health != null)
                 {
@@ -62,6 +60,7 @@ namespace Weapons
 
             foreach (var obj in stunColliders)
             {
+                if (obj.gameObject.CompareTag("Player")) continue;
                 KnockbackController knockbackController = obj.gameObject.GetComponent<KnockbackController>();
                 if (knockbackController != null)
                 {
