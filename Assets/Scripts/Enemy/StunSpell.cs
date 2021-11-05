@@ -9,18 +9,10 @@ namespace Enemy
 {
     [Serializable] public class StunSpell : BossAbility
     {
-        private readonly GameObject _stunProjectile;
-        private readonly float _delayPerSpell;
+        [SerializeField] private GameObject stunProjectile;
+        [SerializeField] private float delayPerSpell;
 
-        public StunSpell(float castTime, bool immobilizeWhilePerforming, GameObject referenceObject, 
-            GameObject stunProjectile, float delayPerSpell) : 
-            base(castTime, immobilizeWhilePerforming, referenceObject)
-        {
-            _stunProjectile = stunProjectile;
-            _delayPerSpell = delayPerSpell;
-        }
-
-        public override IEnumerator UseAbility()
+        protected override IEnumerator AbilityCoRoutine()
         {
             NecromancerAI necromancerAI = referenceObject.GetComponent<NecromancerAI>();
             float summonAmount = necromancerAI.summonAmount;
@@ -44,10 +36,10 @@ namespace Enemy
 
             for (int i = 0; i < amountToSpawn; i ++)
             {
-                yield return new WaitForSeconds(_delayPerSpell);
+                yield return new WaitForSeconds(delayPerSpell);
             
                 GameObject projectile =
-                    PhotonNetwork.Instantiate(_stunProjectile.name, referenceObject.transform.position, Quaternion.Euler(new Vector3(0, 
+                    PhotonNetwork.Instantiate(stunProjectile.name, referenceObject.transform.position, Quaternion.Euler(new Vector3(0, 
                         Random.Range(0f, 0f), currentAngle)));
             
                 currentAngle += 360 / amountToSpawn;
@@ -59,5 +51,26 @@ namespace Enemy
                 targetPlayerNo++;
             }
         }
+        
+        
+        [PunRPC]
+        protected override void RPCOnPerformAction()
+        {
+            _light2D.enabled = true;
+            base.RPCOnPerformAction();
+        }
+
+        protected override void DuringPerformAction()
+        {
+            _light2D.intensity = GetComponentInParent<NecromancerAI>().multiplierStacks;
+        }
+
+        [PunRPC]
+        protected override void RPCFinishPerformAction()
+        {
+            _light2D.enabled = false;
+            base.RPCFinishPerformAction();
+        }
+
     }
 }

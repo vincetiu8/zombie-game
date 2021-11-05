@@ -1,5 +1,116 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3137675459087241984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 772979021138075442}
+  - component: {fileID: 3148052725569463219}
+  - component: {fileID: 8443481176444606112}
+  - component: {fileID: 8885974662044495680}
+  - component: {fileID: 808246366913883312}
+  m_Layer: 6
+  m_Name: Abilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &772979021138075442
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137675459087241984}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1213563863869152621}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3148052725569463219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137675459087241984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a0a89d17554cb38850ab0ebe2669d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castTime: 3
+  immobilizeWhilePerforming: 1
+  zombiePrefab: {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513,
+    type: 3}
+  spawnRadius: 3
+  buffSpawnedZombies: 1
+  buffMultiplier: 1.25
+--- !u!114 &8443481176444606112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137675459087241984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 457ea885e89147ddbed2908e4b922532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castTime: 2
+  immobilizeWhilePerforming: 1
+  stunProjectile: {fileID: 4026456415033271303, guid: 9be75f2dc80c0f14c8cb6d7131168b47,
+    type: 3}
+  delayPerSpell: 0.5
+--- !u!114 &8885974662044495680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137675459087241984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea3323670f04c698af72abcf1321433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castTime: 1
+  immobilizeWhilePerforming: 0
+  meleeSpellDamage: 100
+  meleeSpellKnockback: 50
+  animationSubstitude: {fileID: 474536120018526490}
+  lungeSpeedMultiplier: 6
+  meleePoint: {fileID: 3827015223634586803}
+--- !u!114 &808246366913883312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137675459087241984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &4777080521169503122
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minTimeBetweenActions: 5
   maxTimeBetweenActions: 10
+  bossAbilitiesReference: {fileID: 772979021138075442}
+  BossAbilities: []
   summonAmount: 3
   summonAmountIncrementer: 0.25
   multiplierStacks: 1
@@ -193,7 +306,6 @@ MonoBehaviour:
   meleeSpellDamage: 100
   meleeSpellKnockback: 50
   animationSubstitude: {fileID: 474536120018526490}
-  lungeSpeedMultiplier: 5
   buffSpawnedZombies: 1
   buffMultiplier: 1.25
   meleePoint: {fileID: 3827015223634586803}

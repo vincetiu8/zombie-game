@@ -2,27 +2,101 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ICSharpCode.NRefactory.Ast;
+using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Enemy
 {
-    [Serializable] public abstract class BossAbility
+    [Serializable] public abstract class BossAbility : MonoBehaviourPun
     {
-        public float castTime;
-        public bool immobilizeWhilePerforming;
-        public GameObject referenceObject;
+        [SerializeField] private float castTime;
+        [SerializeField] private bool immobilizeWhilePerforming;
         //public Animation moveAnimation;
         
-        protected BossAbility(float castTime, bool immobilizeWhilePerforming, GameObject referenceObject)
+        protected Light2D _light2D;
+        protected ChaserAI _chaserAI;
+        private bool _duringPerformAction;
+        protected GameObject referenceObject;
+
+        /*protected BossAbility(float castTime, bool immobilizeWhilePerforming, GameObject referenceObject)
         {
             this.castTime = castTime;
             this.immobilizeWhilePerforming = immobilizeWhilePerforming;
             this.referenceObject = referenceObject;
             //this.moveAnimation = null;
+        }*/
+
+        private void Start()
+        {
+            referenceObject = transform.parent.gameObject;
+            _light2D = transform.GetComponentInParent<Light2D>();
+            _chaserAI = transform.GetComponentInParent<ChaserAI>();
         }
 
+        private void Update()
+        {
+            if (_duringPerformAction) DuringPerformAction();
+        }
+
+
         // Abilities are ALWAYS Co-routines
-        public abstract IEnumerator UseAbility();
+        protected virtual void UseAbility()
+        {
+            StartCoroutine(AbilityCoRoutine());
+        }
+
+        protected virtual IEnumerator AbilityCoRoutine()
+        {
+            return null;
+        }
+        
+        /// <summary>
+        /// Every time a move is used, this is called
+        /// </summary>
+        /// <param name="bossMove"></param>
+        /// <param name="routine"></param>
+        /// <param name="castTime"></param>
+        /// <param name="immobilizeWhilePerforming"></param>
+        /// <returns></returns>
+        public IEnumerator PerformAction()
+        {
+            OnPerformAction();
+            if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
+            
+            yield return new WaitForSeconds(castTime);
+            
+            UseAbility();
+            _chaserAI.DisableMovement(false);
+            FinishPerformAction();
+        }
+        
+        protected virtual void OnPerformAction()
+        {
+            photonView.RPC("RPCOnPerformAction", RpcTarget.All);
+        }
+
+        [PunRPC]
+        protected virtual void RPCOnPerformAction()
+        {
+            _duringPerformAction = true;
+        }
+
+        protected virtual void DuringPerformAction()
+        {
+        }
+
+        protected virtual void FinishPerformAction()
+        {
+            photonView.RPC("RPCFinishPerformAction", RpcTarget.All);
+        }
+
+        [PunRPC]
+        protected virtual void RPCFinishPerformAction()
+        {
+            _duringPerformAction = false;
+        }
         
         /// <summary>
         /// Get objects around caller and orders it in order of closest to farthest
