@@ -11,26 +11,16 @@ namespace Enemy
 {
     [Serializable] public class SummonZombies : BossAbility
     {
-        private readonly GameObject _zombiePrefab;
-        private readonly float _spawnRadius;
-        private readonly bool _buffSpawnedZombies;
-        private  readonly float _buffMultiplier;
-
-        public SummonZombies(float castTime, bool immobilizeWhilePerforming, GameObject referenceObject, 
-            GameObject zombiePrefab, float spawnRadius, bool buffSpawnedZombies, float buffMultiplier) : 
-            base(castTime, immobilizeWhilePerforming, referenceObject)
-        {
-            _zombiePrefab = zombiePrefab;
-            _spawnRadius = spawnRadius;
-            _buffSpawnedZombies = buffSpawnedZombies;
-            _buffMultiplier = buffMultiplier;
-        }
-
+        [SerializeField] private GameObject zombiePrefab;
+        [SerializeField] private float spawnRadius;
+        [SerializeField] private bool buffSpawnedZombies;
+        [SerializeField] private float buffMultiplier;
+        
         /// <summary>
         /// Spawns zombies around the current gameobject in a circle,
         /// the correct amount of space to split them between is also calculated here.
         /// </summary>
-        public override IEnumerator UseAbility()
+        protected override void UseAbility()
         {
             NecromancerAI necromancerAI = referenceObject.GetComponent<NecromancerAI>();
             float summonAmount = necromancerAI.summonAmount;
@@ -38,17 +28,17 @@ namespace Enemy
             
             int amountOfObjectsToSpawn = Mathf.FloorToInt(summonAmount * multiplierStacks);
             
-            if (BuffZombies()) yield break;
+            if (BuffZombies()) return;
             float currentAngle = Random.Range(0,360);
             for (int i = 0; i < amountOfObjectsToSpawn; i ++)
             {
                 // calculates a set amount of distance away from the object with equal intervals between points
                 Vector2 offsetPosition = (Vector2) referenceObject.transform.position 
-                                         + TransformUtils.DegToVector2(currentAngle) * _spawnRadius;
+                                         + TransformUtils.DegToVector2(currentAngle) * spawnRadius;
                 
                 currentAngle += 360 / amountOfObjectsToSpawn;
 
-                PhotonNetwork.Instantiate(_zombiePrefab.name, offsetPosition, Quaternion.identity);
+                PhotonNetwork.Instantiate(zombiePrefab.name, offsetPosition, Quaternion.identity);
             }
         }
         
@@ -62,13 +52,13 @@ namespace Enemy
             
             if (enemyTargets.Length < 5) return false;
 
-            if (!_buffSpawnedZombies)
+            if (!buffSpawnedZombies)
             {
                 Debug.Log("BUFFING IS OFF: doing nothing");
                 return true;
             }
             
-            ScaleZombiesStats(enemyTargets, _buffMultiplier * multiplierStacks);
+            ScaleZombiesStats(enemyTargets, buffMultiplier * multiplierStacks);
             Debug.Log("BUFFING IS ON: Number of zombies exceeding threshold, buffing instead");
             return true;
         }
@@ -88,6 +78,25 @@ namespace Enemy
                 enemyLight.enabled = true;
                 enemyLight.intensity *= multiplier;
             }
+        }
+        
+        [PunRPC]
+        protected override void RPCOnPerformAction()
+        {
+            _light2D.enabled = true;
+            base.RPCOnPerformAction();
+        }
+
+        protected override void DuringPerformAction()
+        {
+            _light2D.intensity = GetComponentInParent<NecromancerAI>().multiplierStacks;
+        }
+
+        [PunRPC]
+        protected override void RPCFinishPerformAction()
+        {
+            _light2D.enabled = false;
+            base.RPCFinishPerformAction();
         }
     }
 }

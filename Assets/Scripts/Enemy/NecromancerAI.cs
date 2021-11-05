@@ -17,7 +17,7 @@ namespace Enemy
         [Header("Necromancer boss settings")]
         [Description("The amount of thins spawned in per summon (applies to both zombies and the stun projectile)")]
         [SerializeField] public float summonAmount;
-        [SerializeField] private float summonAmountIncrementer;
+        [SerializeField] public float summonAmountIncrementer;
         public float multiplierStacks = 1;
 
         [Header("Zombie spawn settings")]
@@ -32,7 +32,6 @@ namespace Enemy
         [SerializeField] public float meleeSpellDamage;
         [SerializeField] public float meleeSpellKnockback;
         [SerializeField] public SpriteRenderer animationSubstitude;
-        [SerializeField] public float lungeSpeedMultiplier;
 
         [Header("Zombie buff settings")] 
         [SerializeField] public bool buffSpawnedZombies;
@@ -46,42 +45,22 @@ namespace Enemy
             meleePoint = GetComponentInChildren<MeleePoint>();
             _light2D = transform.GetComponent<Light2D>();
           
-            BossAbilities.Add(new SummonZombies(3, true, gameObject, zombiePrefab, spawnRadius, buffSpawnedZombies, buffMultiplier));
-            BossAbilities.Add(new StunSpell(2, true, gameObject, stunProjectile, delayPerSpell));
-            BossAbilities.Add(new MeleeSpell(0.5f, false, gameObject, meleeSpellDamage, meleeSpellKnockback, 
-            animationSubstitude, lungeSpeedMultiplier, meleePoint));
-        }
-
-        [PunRPC]
-        protected override void RPCOnPerformAction()
-        {
-            _light2D.enabled = true;
-            base.RPCOnPerformAction();
-        }
-
-        protected override void DuringPerformAction()
-        {
-            _light2D.intensity = multiplierStacks;
-        }
-
-        protected override void FinishPerformAction()
-        {
-            multiplierStacks = 1;
-            summonAmount += summonAmountIncrementer;
-            base.FinishPerformAction();
-        }
-
-        [PunRPC]
-        protected override void RPCFinishPerformAction()
-        {
-            _light2D.enabled = false;
-            base.RPCFinishPerformAction();
+            //BossAbilities.Add(new SummonZombies(3, true, gameObject, zombiePrefab, spawnRadius, buffSpawnedZombies, buffMultiplier));
+            //BossAbilities.Add(new StunSpell(2, true, gameObject, stunProjectile, delayPerSpell));
+            //.Add(new MeleeSpell(0.5f, false, gameObject, meleeSpellDamage, meleeSpellKnockback, animationSubstitude, lungeSpeedMultiplier, meleePoint));
         }
 
         public void IncreaseStackMultiplier(float amount)
         {
             if (multiplierStacks == 1) AbilitySelectionLogic();
             multiplierStacks += amount;
+        }
+
+        protected override void OnAbilityFinish()
+        {
+            multiplierStacks = 1;
+            summonAmount += summonAmountIncrementer;
+            base.OnAbilityFinish();
         }
     }
 }

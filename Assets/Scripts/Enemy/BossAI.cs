@@ -12,31 +12,33 @@ namespace Enemy
         [SerializeField] private float minTimeBetweenActions;
         [SerializeField] private float maxTimeBetweenActions;
 
-        [SerializeField] protected List<BossAbility> BossAbilities;
+        [SerializeField] private Component bossAbilitiesReference;
+        [SerializeField]private BossAbility[] BossAbilities;
 
         private float _cooldown;
-
         private ChaserAI _chaserAI;
 
-        private bool _duringPerformAction;
+        private bool _actionOngoing;
 
         protected void Start()
         {
-            _chaserAI = transform.GetComponent<ChaserAI>();
-            BossAbilities = new List<BossAbility>();
+            _chaserAI = transform.GetComponentInParent<ChaserAI>();
+            BossAbilities = bossAbilitiesReference.GetComponentsInChildren<BossAbility>();
             DeclareBossMoves();
+            Debug.Log(BossAbilities.Length);
         }
 
         private void Update()
         {
-            if (_duringPerformAction) DuringPerformAction();
-            
+            if (_actionOngoing) return;
+
             if (_cooldown > 0)
             {
                 _cooldown -= Time.deltaTime;
                 return;
             }
             
+            Debug.Log("trying to choose an ability");
             AbilitySelectionLogic();
             _cooldown += Random.Range(minTimeBetweenActions, maxTimeBetweenActions);
         }
@@ -53,58 +55,21 @@ namespace Enemy
 
             // Very basic logic for now of just randomly choosing a move
 
-            int abilityNo = Random.Range(0, BossAbilities.Count);
+            int abilityNo = Random.Range(0, BossAbilities.Length);
             DirectAbilityCall(abilityNo);
         }
 
         public void DirectAbilityCall(int abilityNumber)
         {
+            Debug.Log("calling ability");
             BossAbility ability = BossAbilities[abilityNumber];
-            StartCoroutine(PerformAction(ability.UseAbility(),ability.castTime,ability.immobilizeWhilePerforming));
+            _actionOngoing = true;
+            StartCoroutine(ability.PerformAction());
         }
 
-        /// <summary>
-        /// Every time a move is used, this is called
-        /// </summary>
-        /// <param name="bossMove"></param>
-        /// <param name="routine"></param>
-        /// <param name="castTime"></param>
-        /// <param name="immobilizeWhilePerforming"></param>
-        /// <returns></returns>
-        private IEnumerator PerformAction(IEnumerator routine, float castTime, bool immobilizeWhilePerforming)
+        protected virtual void OnAbilityFinish()
         {
-            OnPerformAction();
-            if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
-            
-            yield return new WaitForSeconds(castTime);
-            
-            StartCoroutine(routine);
-            _chaserAI.DisableMovement(false);
-            FinishPerformAction();
-        }
-
-        protected virtual void OnPerformAction()
-        {
-            photonView.RPC("RPCOnPerformAction", RpcTarget.All);
-        }
-
-        [PunRPC]
-        protected virtual void RPCOnPerformAction()
-        {
-            _duringPerformAction = true;
-        }
-
-        protected abstract void DuringPerformAction();
-
-        protected virtual void FinishPerformAction()
-        {
-            photonView.RPC("RPCFinishPerformAction", RpcTarget.All);
-        }
-
-        [PunRPC]
-        protected virtual void RPCFinishPerformAction()
-        {
-            _duringPerformAction = false;
+            _actionOngoing = false;
         }
     }
 }
