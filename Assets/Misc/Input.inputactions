@@ -14,6 +14,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Alt Fire",
+                    "type": "Button",
+                    "id": "bf22df7c-2d2e-4e7f-9402-581f410c2daf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Fire",
                     "type": "Button",
                     "id": "23fd9a77-d6b1-42b8-9ac8-57f4efaf8efa",
@@ -356,6 +364,17 @@
                     "processors": "",
                     "groups": "Computer",
                     "action": "Drop Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "088cdd14-6f4f-4a7b-8ace-42bc1b8fe504",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "Alt Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

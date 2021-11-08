@@ -55,13 +55,13 @@ namespace Weapons
 		///     Called when mouse is pressed or released
 		/// </summary>
 		/// <param name="toggle">Whether the mouse was pressed or released</param>
-		public void ToggleFire(bool toggle)
+		public void ToggleFire(bool toggle, bool altFire)
 		{
 			if (!currentAttributes.fullAuto)
 			{
 				// Just fires when pressed for semi auto
-				if (toggle && _fireCooldown <= 0) Fire();
-
+				if (toggle && _fireCooldown <= 0 && !altFire) Fire();
+				if (toggle && _fireCooldown <= 0 && altFire) AltFire();
 				return;
 			}
 
@@ -70,6 +70,11 @@ namespace Weapons
 		}
 
 		protected virtual void Fire()
+		{
+			_fireCooldown = currentAttributes.fireCooldown;
+		}
+
+		protected virtual void AltFire()
 		{
 			_fireCooldown = currentAttributes.fireCooldown;
 		}

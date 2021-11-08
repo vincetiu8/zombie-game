@@ -53,13 +53,31 @@ namespace Weapons
 			base.Fire();
 		}
 
+		protected override void AltFire()
+		{
+			if (_bulletsInMagazine < 1) return;
+
+			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
+
+			FireBulletsAlt();
+			
+			_bulletsInMagazine--;
+			base.AltFire();
+		}
+
 		protected virtual void FireBullets()
 		{
 			float angle = firepoint.rotation.eulerAngles.z;
-			FireBullet(angle);
+			FireBullet(angle, false);
 		}
 
-		protected abstract void FireBullet(float angle);
+		protected virtual void FireBulletsAlt()
+		{
+			float angle = firepoint.rotation.eulerAngles.z;
+			FireBullet(angle, true);
+		}
+
+		protected abstract void FireBullet(float angle, bool alt);
 
 		public override void Reload()
 		{

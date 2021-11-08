@@ -30,7 +30,7 @@ namespace Weapons
 			_layerMask = LayerMask.GetMask("Enemies", "Objects", "Obstacles");
 		}
 
-		protected override void FireBullet(float angle)
+		protected override void FireBullet(float angle, bool alt)
 		{
 			Vector2 direction = TransformUtils.DegToVector2(angle);
 			RaycastHit2D hit = Physics2D.Raycast(firepoint.position, direction, shotDistance, _layerMask);
