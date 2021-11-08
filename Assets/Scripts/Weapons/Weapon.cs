@@ -18,7 +18,7 @@ namespace Weapons
 
 		private   bool             _isFiring;
 		protected AmmoInventory    ammoInventory;
-		protected WeaponAttributes currentAttributes;
+		public WeaponAttributes currentAttributes;
 		protected int              currentLevel;
 
 		protected int maxLevel;

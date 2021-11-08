@@ -24,6 +24,9 @@ namespace Weapons
 		[Description("Whether the weapon automatically fires if the mouse is pressed")]
 		public bool fullAuto;
 
+		[Description("The Cooldown To Switch To This Weapon")] 
+		public int switchingCooldown;
+
 		public override string ToString()
 		{
 			return $"Description: {description}\n"

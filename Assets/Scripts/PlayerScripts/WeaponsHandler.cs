@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Networking;
@@ -32,6 +33,7 @@ namespace PlayerScripts
 		private float         _mouseDist;
 		private PlayerHealth  _playerHealth;
 		private bool          _preventFire;
+		private bool          isSwitching;
 
 		private void Start()
 		{
@@ -147,7 +149,19 @@ namespace PlayerScripts
 			if (availableWeapons.Count == 0) return;
 
 			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
+
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
+		}
+
+		private IEnumerator WeaponSwitchingCooldown(int selectedIndex) {
+			isSwitching = true;
+			RaycastGun raycastGun = availableWeapons[selectedIndex].GetComponent<RaycastGun>();
+			Debug.Log("Next Weapon:\n" +
+			          "Switching Cooldown: "+raycastGun.currentAttributes.switchingCooldown+"\n" +
+			          "Name: "+raycastGun.currentAttributes.description);
+			yield return new WaitForSeconds(raycastGun.currentAttributes.switchingCooldown);
+			ActivateCurrentWeapon();
+			isSwitching = false;
 		}
 
 		[PunRPC]
@@ -155,7 +169,10 @@ namespace PlayerScripts
 		{
 			availableWeapons[_currentWeaponIndex].SetActive(false);
 			_currentWeaponIndex = selectedIndex;
-			ActivateCurrentWeapon();
+			if (!isSwitching) {
+				StopCoroutine(WeaponSwitchingCooldown(selectedIndex));
+			}
+			StartCoroutine(WeaponSwitchingCooldown(selectedIndex));
 		}
 
 		private void ActivateCurrentWeapon()
