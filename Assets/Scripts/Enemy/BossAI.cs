@@ -19,6 +19,7 @@ namespace Enemy
         private ChaserAI _chaserAI;
 
         private bool _actionOngoing;
+        private BossAbility _currentAbility;
 
         protected void Start()
         {
@@ -62,13 +63,30 @@ namespace Enemy
         public void DirectAbilityCall(int abilityNumber)
         {
             Debug.Log("calling ability");
-            BossAbility ability = BossAbilities[abilityNumber];
+            _currentAbility = BossAbilities[abilityNumber];
+            
+            photonView.RPC("RPCOnPerformAction", RpcTarget.All);
             _actionOngoing = true;
-            StartCoroutine(ability.PerformAction());
+            
+            StartCoroutine(_currentAbility.PerformAction());
         }
 
-        protected virtual void OnAbilityFinish()
+
+        [PunRPC]
+        protected void RPCOnPerformAction()
         {
+            _currentAbility.OnPerformAction();
+        }
+        
+        [PunRPC]
+        protected void RPCFinishPerformAction()
+        {
+           _currentAbility.FinishPerformAction();
+        }
+
+        public virtual void OnAbilityFinish()
+        {
+            photonView.RPC("RPCFinishPerformAction", RpcTarget.All);
             _actionOngoing = false;
         }
     }
