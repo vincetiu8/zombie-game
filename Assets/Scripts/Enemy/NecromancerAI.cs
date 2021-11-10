@@ -56,7 +56,7 @@ namespace Enemy
             multiplierStacks += amount;
         }
 
-        protected override void OnAbilityFinish()
+        public override void OnAbilityFinish()
         {
             multiplierStacks = 1;
             summonAmount += summonAmountIncrementer;

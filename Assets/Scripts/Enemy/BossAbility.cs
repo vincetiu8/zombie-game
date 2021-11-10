@@ -62,42 +62,33 @@ namespace Enemy
         /// <returns></returns>
         public IEnumerator PerformAction()
         {
-            OnPerformAction();
             if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
             
             yield return new WaitForSeconds(castTime);
             
             UseAbility();
             _chaserAI.DisableMovement(false);
-            FinishPerformAction();
-        }
-        
-        protected virtual void OnPerformAction()
-        {
-            photonView.RPC("RPCOnPerformAction", RpcTarget.All);
+            
+            GetComponentInParent<BossAI>().OnAbilityFinish();
         }
 
-        [PunRPC]
-        protected virtual void RPCOnPerformAction()
+        public void OnPerformAction()
         {
+            _light2D.enabled = true;
             _duringPerformAction = true;
         }
-
+        
         protected virtual void DuringPerformAction()
         {
         }
 
-        protected virtual void FinishPerformAction()
+        public void FinishPerformAction()
         {
-            photonView.RPC("RPCFinishPerformAction", RpcTarget.All);
-        }
-
-        [PunRPC]
-        protected virtual void RPCFinishPerformAction()
-        {
+            _light2D.enabled = false;
             _duringPerformAction = false;
         }
-        
+
+
         /// <summary>
         /// Get objects around caller and orders it in order of closest to farthest
         /// </summary>
