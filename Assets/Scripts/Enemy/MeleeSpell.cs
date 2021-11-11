@@ -60,24 +60,22 @@ namespace Enemy
         }
         
         // will have differnt animations and lighting effects for each move, so not doing any inheriting here
-        /*[PunRPC]
-        protected override void RPCOnPerformAction()
+        public override void OnPerformAction()
         {
             _light2D.enabled = true;
-            base.RPCOnPerformAction();
-        }*/
+            base.OnPerformAction();
+        }
 
         protected override void DuringPerformAction()
         {
             _light2D.intensity = GetComponentInParent<NecromancerAI>().multiplierStacks;
         }
 
-        /*[PunRPC]
-        protected override void RPCFinishPerformAction()
+        public override void FinishPerformAction()
         {
             _light2D.enabled = false;
-            base.RPCFinishPerformAction();
-        }*/
+            base.FinishPerformAction();
+        }
 
     }
 }

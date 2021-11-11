@@ -1,5 +1,77 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3991076614633221559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213563863869152623}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0.5621301, g: 0.8392157, b: 0.07450981, a: 1}
+  m_Intensity: 0.5
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 8fc791f3310a6a8f000000007b31c83d199cc32085e349e5
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 1
+  m_LightOrder: 1
+  m_AlphaBlendOnOverlap: 1
+  m_ShadowIntensity: 1
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 2
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &7935138760451627531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213563863869152623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545c61cdb9d4dfd4ea986d458abf7ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minTimeBetweenActions: 5
+  maxTimeBetweenActions: 10
+  bossAbilitiesReference: {fileID: 772979021138075442}
+  BossAbilities: []
+  summonAmount: 3
+  summonAmountIncrementer: 0.25
+  multiplierStacks: 1
+  zombiePrefab: {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513,
+    type: 3}
+  spawnRadius: 3
+  stunProjectile: {fileID: 4026456415033271303, guid: 9be75f2dc80c0f14c8cb6d7131168b47,
+    type: 3}
+  delayPerSpell: 0.5
+  meleeSpellDamage: 100
+  meleeSpellKnockback: 50
+  animationSubstitude: {fileID: 474536120018526490}
+  buffSpawnedZombies: 1
+  buffMultiplier: 1.25
+  meleePoint: {fileID: 3827015223634586803}
 --- !u!1 &3137675459087241984
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,78 +309,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3991076614633221559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213563863869152623}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_LightType: 3
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 0.5621301, g: 0.8392157, b: 0.07450981, a: 1}
-  m_Intensity: 0.5
-  m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 8fc791f3310a6a8f000000007b31c83d199cc32085e349e5
-  m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 1
-  m_LightOrder: 1
-  m_AlphaBlendOnOverlap: 1
-  m_ShadowIntensity: 1
-  m_ShadowVolumeIntensity: 0
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 2
-  m_PointLightDistance: 3
-  m_PointLightQuality: 1
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &7935138760451627531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213563863869152623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 545c61cdb9d4dfd4ea986d458abf7ec1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minTimeBetweenActions: 5
-  maxTimeBetweenActions: 10
-  bossAbilitiesReference: {fileID: 772979021138075442}
-  BossAbilities: []
-  summonAmount: 3
-  summonAmountIncrementer: 0.25
-  multiplierStacks: 1
-  zombiePrefab: {fileID: 5062193737778163055, guid: 07c237c41acc598b0be9485c1f377513,
-    type: 3}
-  spawnRadius: 3
-  stunProjectile: {fileID: 4026456415033271303, guid: 9be75f2dc80c0f14c8cb6d7131168b47,
-    type: 3}
-  delayPerSpell: 0.5
-  meleeSpellDamage: 100
-  meleeSpellKnockback: 50
-  animationSubstitude: {fileID: 474536120018526490}
-  buffSpawnedZombies: 1
-  buffMultiplier: 1.25
-  meleePoint: {fileID: 3827015223634586803}
 --- !u!1001 &7899194696350207163
 PrefabInstance:
   m_ObjectHideFlags: 0
