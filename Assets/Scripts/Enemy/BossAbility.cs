@@ -23,8 +23,8 @@ namespace Enemy
         private void Start()
         {
             referenceObject = transform.parent.gameObject;
-            _light2D = transform.GetComponentInParent<Light2D>();
-            _chaserAI = transform.GetComponentInParent<ChaserAI>();
+            _light2D = GetComponentInParent<Light2D>();
+            _chaserAI = GetComponentInParent<ChaserAI>();
         }
 
         private void Update()
