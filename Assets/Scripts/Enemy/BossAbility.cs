@@ -20,14 +20,6 @@ namespace Enemy
         private bool _duringPerformAction;
         protected GameObject referenceObject;
 
-        /*protected BossAbility(float castTime, bool immobilizeWhilePerforming, GameObject referenceObject)
-        {
-            this.castTime = castTime;
-            this.immobilizeWhilePerforming = immobilizeWhilePerforming;
-            this.referenceObject = referenceObject;
-            //this.moveAnimation = null;
-        }*/
-
         private void Start()
         {
             referenceObject = transform.parent.gameObject;
@@ -40,8 +32,6 @@ namespace Enemy
             if (_duringPerformAction) DuringPerformAction();
         }
 
-
-        // Abilities are ALWAYS Co-routines
         protected virtual void UseAbility()
         {
             StartCoroutine(AbilityCoroutine());
