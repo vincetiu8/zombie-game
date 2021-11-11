@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -25,7 +23,6 @@ namespace Enemy
         {
             _chaserAI = transform.GetComponentInParent<ChaserAI>();
             BossAbilities = bossAbilitiesReference.GetComponentsInChildren<BossAbility>();
-            DeclareBossMoves();
             Debug.Log(BossAbilities.Length);
         }
 
@@ -43,12 +40,6 @@ namespace Enemy
             AbilitySelectionLogic();
             _cooldown += Random.Range(minTimeBetweenActions, maxTimeBetweenActions);
         }
-
-        /// <summary>
-        /// Scripts that inherit from this will have their own methods they want to add to the list,
-        /// since actions aren't serializable, this is my easy workaround :)
-        /// </summary>
-        protected abstract void DeclareBossMoves();
 
         protected virtual void AbilitySelectionLogic()
         {

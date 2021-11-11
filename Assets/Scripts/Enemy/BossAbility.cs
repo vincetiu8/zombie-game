@@ -72,9 +72,8 @@ namespace Enemy
             GetComponentInParent<BossAI>().OnAbilityFinish();
         }
 
-        public void OnPerformAction()
+        public virtual void OnPerformAction()
         {
-            _light2D.enabled = true;
             _duringPerformAction = true;
         }
         
@@ -82,9 +81,8 @@ namespace Enemy
         {
         }
 
-        public void FinishPerformAction()
+        public virtual void FinishPerformAction()
         {
-            _light2D.enabled = false;
             _duringPerformAction = false;
         }
 
