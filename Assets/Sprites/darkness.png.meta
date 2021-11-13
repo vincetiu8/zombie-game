@@ -232,8 +232,8 @@ TextureImporter:
       physicsShape:
       - - {x: -64, y: -64}
         - {x: -64, y: 20}
-        - {x: -55, y: 20}
-        - {x: -55, y: -64}
+        - {x: -59, y: 20}
+        - {x: -59, y: -64}
       tessellationDetail: 0
       bones: []
       spriteID: 784cfb96a0814df50800000000000000
@@ -257,8 +257,8 @@ TextureImporter:
       physicsShape:
       - - {x: -64, y: -20}
         - {x: -64, y: 64}
-        - {x: -55, y: 64}
-        - {x: -55, y: -20}
+        - {x: -59, y: 64}
+        - {x: -59, y: -20}
       tessellationDetail: 0
       bones: []
       spriteID: 67501d6430a8d9390800000000000000
