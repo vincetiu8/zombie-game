@@ -1038,6 +1038,7 @@ MonoBehaviour:
   - {fileID: 8105208831145279700}
   - {fileID: 4705562140252545668}
   - {fileID: 3723955915124096840}
+  playerRevive: {fileID: 8552538627188111111}
   playerDownSprite: {fileID: -738929849089178748, guid: 0246d79ac60b897b6836ef7b5186b0c7,
     type: 3}
   playerDown: 0

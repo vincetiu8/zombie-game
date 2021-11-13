@@ -26,7 +26,7 @@ namespace PlayerScripts
 		private                  float        _carryHealth;
 		private                  float        _healDelay;
 
-        private PlayerRevive _playerRevive;
+        [SerializeField] private PlayerRevive playerRevive;
 		private PlayerInteract _playerInteract;
         private PlayerInput _playerInput;
         [SerializeField] private Sprite playerDownSprite;
@@ -43,7 +43,7 @@ namespace PlayerScripts
 			base.Start();
 			_playerInteract = GetComponent<PlayerInteract>();
             _playerInput = GetComponent<PlayerInput>();
-            _playerRevive = GetComponentInChildren<PlayerRevive>();
+            Debug.Log(playerRevive);
             _initialWidth = downTimerDisplay.rect.width;
         }
 
@@ -99,7 +99,7 @@ namespace PlayerScripts
             float timer = 0;
             while (downTime > timer)
             {
-                if (_playerRevive.GetInteractionStatus())
+                if (playerRevive.GetInteractionStatus())
                 {
                     Debug.Log("currently reviving ,pausing timer");
                     continue;
