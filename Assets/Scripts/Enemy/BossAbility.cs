@@ -44,10 +44,10 @@ namespace Enemy
         // Abilities are ALWAYS Co-routines
         protected virtual void UseAbility()
         {
-            StartCoroutine(AbilityCoRoutine());
+            StartCoroutine(AbilityCoroutine());
         }
 
-        protected virtual IEnumerator AbilityCoRoutine()
+        protected virtual IEnumerator AbilityCoroutine()
         {
             return null;
         }
@@ -60,6 +60,7 @@ namespace Enemy
         /// <param name="castTime"></param>
         /// <param name="immobilizeWhilePerforming"></param>
         /// <returns></returns>
+        // Gets called by the master client only
         public IEnumerator PerformAction()
         {
             if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
@@ -72,6 +73,7 @@ namespace Enemy
             GetComponentInParent<BossAI>().OnAbilityFinish();
         }
 
+        // Gets called in a RPC
         public virtual void OnPerformAction()
         {
             _duringPerformAction = true;
@@ -81,48 +83,10 @@ namespace Enemy
         {
         }
 
+        // Gets called in a RPC
         public virtual void FinishPerformAction()
         {
             _duringPerformAction = false;
-        }
-
-
-        /// <summary>
-        /// Get objects around caller and orders it in order of closest to farthest
-        /// </summary>
-        /// <param name="searchRadius"></param>
-        /// <param name="layerToSearch"></param>
-        /// <param name="removeTargetsBehindObstacles"> If an object is behind a wall, should it still be included in the list</param>
-        /// <returns></returns>
-        protected Collider2D[] ListNearbyObjects(float searchRadius, string layerToSearch, bool removeTargetsBehindObstacles)
-        {
-            LayerMask mask = LayerMask.GetMask(layerToSearch);
-            List<Collider2D> targetsArray = Physics2D.OverlapCircleAll(referenceObject.transform.position, searchRadius, 
-            mask).ToList();
-            
-            // Removes boss from list if present
-            Collider2D myCollider = referenceObject.GetComponent<Collider2D>();
-            if (targetsArray.Contains(myCollider)) targetsArray.Remove(myCollider);
-
-            if (removeTargetsBehindObstacles)
-                // Loops through all the objects found by overlapCircleAll
-                foreach (Collider2D target in from target 
-                                                  // Create a Raycast between the boss and the target in question
-                                                  in targetsArray.ToList() let hits = Physics2D.RaycastAll
-                                              (referenceObject.transform.position, 
-                                                  target.transform.position - referenceObject.transform.position, 
-                                                  Vector2.Distance(referenceObject.transform.position, target.transform
-                                                  .position)) 
-                                              // Check if a wall is included in the array create by the Raycast (hits)
-                                              where hits.Any(hit => hit.transform.gameObject.layer == LayerMask.NameToLayer("Obstacles")) select target) 
-                    // If there is a wall found, remove object from the target list
-                    targetsArray.Remove(target);
-            // All of this is just one line btw XD
-
-            // Order list by how close players are to object
-            return targetsArray.OrderBy(
-                individualTarget => Vector2.Distance(referenceObject.transform.position, individualTarget.transform.position))
-                .ToArray();
         }
     }
 }

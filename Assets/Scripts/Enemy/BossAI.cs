@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,20 +15,22 @@ namespace Enemy
         [SerializeField]private BossAbility[] BossAbilities;
 
         private float _cooldown;
-        private ChaserAI _chaserAI;
+        protected ChaserAI _chaserAI;
 
         private bool _actionOngoing;
         private BossAbility _currentAbility;
+        private PhotonView _photonView;
 
-        protected void Start()
+        protected virtual void Start()
         {
+            _photonView = GetComponentInParent<PhotonView>();
             _chaserAI = transform.GetComponentInParent<ChaserAI>();
             BossAbilities = bossAbilitiesReference.GetComponentsInChildren<BossAbility>();
-            Debug.Log(BossAbilities.Length);
         }
 
         private void Update()
         {
+            if (!photonView.IsMine) return;
             if (_actionOngoing) return;
 
             if (_cooldown > 0)
@@ -36,7 +39,7 @@ namespace Enemy
                 return;
             }
             
-            Debug.Log("trying to choose an ability");
+            Debug.Log("cooldown over, trying to choose an ability");
             AbilitySelectionLogic();
             _cooldown += Random.Range(minTimeBetweenActions, maxTimeBetweenActions);
         }
@@ -53,7 +56,7 @@ namespace Enemy
 
         public void DirectAbilityCall(int abilityNumber)
         {
-            Debug.Log("calling ability");
+            Debug.Log("calling ability" + BossAbilities[abilityNumber]);
             _currentAbility = BossAbilities[abilityNumber];
             
             photonView.RPC("RPCOnPerformAction", RpcTarget.All);
@@ -62,15 +65,21 @@ namespace Enemy
             StartCoroutine(_currentAbility.PerformAction());
         }
 
+        public void DirectAbilityCall(List<int> abilityNumbers)
+        {
+            int abilityNo = Random.Range(0, abilityNumbers.Count);
+            DirectAbilityCall(abilityNo);
+        }
+
 
         [PunRPC]
-        protected void RPCOnPerformAction()
+        protected virtual void RPCOnPerformAction()
         {
             _currentAbility.OnPerformAction();
         }
         
         [PunRPC]
-        protected void RPCFinishPerformAction()
+        protected virtual void RPCFinishPerformAction()
         {
            _currentAbility.FinishPerformAction();
         }
