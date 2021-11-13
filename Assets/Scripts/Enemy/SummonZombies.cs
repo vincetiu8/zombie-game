@@ -48,7 +48,7 @@ namespace Enemy
             float multiplierStacks = necromancerAI.multiplierStacks;
 
 
-            Collider2D[] enemyTargets = ListNearbyObjects(5, "Enemies", false);
+            Collider2D[] enemyTargets = MiscUtils.ListNearbyObjects(5, "Enemies", false, referenceObject);
             
             if (enemyTargets.Length < 5) return false;
 
@@ -80,21 +80,9 @@ namespace Enemy
             }
         }
 
-        public override void OnPerformAction()
-        {
-            _light2D.enabled = true;
-            base.OnPerformAction();
-        }
-
         protected override void DuringPerformAction()
         {
             _light2D.intensity = GetComponentInParent<NecromancerAI>().multiplierStacks;
-        }
-
-        public override void FinishPerformAction()
-        {
-            _light2D.enabled = false;
-            base.FinishPerformAction();
         }
     }
 }

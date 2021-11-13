@@ -2,6 +2,7 @@
 using System.Collections;
 using Photon.Pun;
 using UnityEngine;
+using Utils;
 using Weapons;
 using Random = UnityEngine.Random;
 
@@ -12,7 +13,7 @@ namespace Enemy
         [SerializeField] private GameObject stunProjectile;
         [SerializeField] private float delayPerSpell;
 
-        protected override IEnumerator AbilityCoRoutine()
+        protected override IEnumerator AbilityCoroutine()
         {
             NecromancerAI necromancerAI = referenceObject.GetComponent<NecromancerAI>();
             float summonAmount = necromancerAI.summonAmount;
@@ -21,15 +22,7 @@ namespace Enemy
             
             int amountToSpawn = Mathf.FloorToInt(summonAmount * multiplierStacks);
             
-            Collider2D[] playerTargets = ListNearbyObjects(10, "Players", true);
-
-            if (playerTargets.Length == 0)
-            {
-                Debug.Log("Players all behind walls, summoning zombies instead");
-                necromancerAI.DirectAbilityCall(0);
-                //SummonZombies();
-                yield break;
-            }
+            Collider2D[] playerTargets = MiscUtils.ListNearbyObjects(10, "Players", true, referenceObject);
             
             int targetPlayerNo = 0;
             float currentAngle = Random.Range(0,360);
@@ -52,23 +45,9 @@ namespace Enemy
             }
         }
         
-        
-        public override void OnPerformAction()
-        {
-            _light2D.enabled = true;
-            base.OnPerformAction();
-        }
-
         protected override void DuringPerformAction()
         {
             _light2D.intensity = GetComponentInParent<NecromancerAI>().multiplierStacks;
         }
-
-        public override void FinishPerformAction()
-        {
-            _light2D.enabled = false;
-            base.FinishPerformAction();
-        }
-
     }
 }
