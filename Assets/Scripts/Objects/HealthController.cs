@@ -12,7 +12,7 @@ namespace Objects
 		[Header("Health Settings")] [SerializeField] [Range(0, 500)]
 		protected int initialHealth;
 
-		protected int Health;
+		[SerializeField]protected int Health;
 
 		protected virtual void Awake()
 		{

@@ -2,6 +2,7 @@ using Networking;
 using Objects;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using PlayerScripts;
 using UnityEngine;
 
 namespace Enemy
@@ -19,7 +20,7 @@ namespace Enemy
 
 			base.OnDeath();
 		}
-
+        
 		public void ScaleHealth(float scale)
 		{
 			float newHealth = Health * scale;

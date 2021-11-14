@@ -14,7 +14,7 @@ namespace Objects
 		[Header("Sprite Settings")] [SerializeField]
 		private Sprite[] sprites;
 
-		[SerializeField] private SpriteRenderer spriteRenderer;
+		[SerializeField] protected SpriteRenderer spriteRenderer;
 
 		[Header("Death Settings")] [SerializeField] [Range(0.5f, 5f)]
 		private float deathTime;
@@ -40,7 +40,12 @@ namespace Objects
 		private void SetSprite()
 		{
 			int spriteIndex = (Health * sprites.Length - 1) / initialHealth;
-			spriteRenderer.sprite = sprites[spriteIndex];
+            spriteRenderer.sprite = sprites[spriteIndex];
+
+            /*Sprite spriteToChange = sprites[Mathf.Clamp(spriteIndex, 0, sprites.Length)];
+            Debug.Log(spriteIndex);
+            Debug.Log(spriteToChange);
+            spriteRenderer.sprite = spriteToChange;*/
 		}
 
 		protected override void OnDeath()
