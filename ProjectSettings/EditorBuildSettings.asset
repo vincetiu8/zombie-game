@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Launcher.unity
     guid: 41185bed55eb7af4cb5ce3a7f8502518
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Farm Map.unity
     guid: 9a5a002e0f189624589c0d9f8645bec4
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: e68d52a1331b7a942b13b1ef79190bc0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: b4e23ac1a9f97474fbe6f40c06dcc6b7,
       type: 2}
