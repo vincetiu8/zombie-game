@@ -80,7 +80,7 @@ namespace Enemy
             }
         }
 
-        protected override void DuringPerformAction()
+        protected override void DuringPerformActionClient()
         {
             _light2D.intensity = GetComponentInParent<NecromancerAI>().multiplierStacks;
         }

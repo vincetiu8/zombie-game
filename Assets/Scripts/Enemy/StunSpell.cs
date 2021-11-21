@@ -13,16 +13,18 @@ namespace Enemy
         [SerializeField] private GameObject stunProjectile;
         [SerializeField] private float delayPerSpell;
 
-        protected override IEnumerator AbilityCoroutine()
+        public override IEnumerator AbilityCoroutine()
         {
             NecromancerAI necromancerAI = referenceObject.GetComponent<NecromancerAI>();
             float summonAmount = necromancerAI.summonAmount;
             float multiplierStacks = necromancerAI.multiplierStacks;
-            
-            
+
             int amountToSpawn = Mathf.FloorToInt(summonAmount * multiplierStacks);
             
+            Debug.Log(referenceObject);
             Collider2D[] playerTargets = MiscUtils.ListNearbyObjects(10, "Players", true, referenceObject);
+
+            Debug.Log(playerTargets);
             
             int targetPlayerNo = 0;
             float currentAngle = Random.Range(0,360);
@@ -40,12 +42,15 @@ namespace Enemy
                 // Sets target for each individual stun projectile
                 if (targetPlayerNo > playerTargets.Length - 1) targetPlayerNo = 0;
                 projectile.GetComponent<TrackerProjectile>().target = playerTargets[targetPlayerNo].transform;
+
+                Debug.Log(playerTargets[targetPlayerNo].transform);
+                
                 projectile.GetComponent<TrackerProjectile>().NecromancerAI = referenceObject.transform.GetComponent<NecromancerAI>();
                 targetPlayerNo++;
             }
         }
         
-        protected override void DuringPerformAction()
+        protected override void DuringPerformActionClient()
         {
             _light2D.intensity = GetComponentInParent<NecromancerAI>().multiplierStacks;
         }

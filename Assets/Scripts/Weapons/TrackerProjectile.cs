@@ -1,4 +1,5 @@
 using Enemy;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Weapons
@@ -9,14 +10,17 @@ namespace Weapons
         [Range(0, 10)] [SerializeField] private int stunDuration;
         [Range(60, 360)] [SerializeField] private float angularAcceleration;
         [Range(0.5f, 10f)] [SerializeField] private float speed;
-
+        
         [HideInInspector] public NecromancerAI NecromancerAI;
 
+        private PhotonView _photonView;
+        
         private Rigidbody2D _rigidbody2D;
 
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            _photonView = GetComponent<PhotonView>();
         }
 
         private void FixedUpdate()

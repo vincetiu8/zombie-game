@@ -29,15 +29,14 @@ namespace Enemy
 
         private void Update()
         {
-            if (_duringPerformAction) DuringPerformAction();
+            if (_duringPerformAction) DuringPerformActionClient();
         }
 
-        protected virtual void UseAbility()
         {
             StartCoroutine(AbilityCoroutine());
         }
 
-        protected virtual IEnumerator AbilityCoroutine()
+        //protected virtual IEnumerator AbilityCoroutine()
         {
             return null;
         }
@@ -51,30 +50,32 @@ namespace Enemy
         /// <param name="immobilizeWhilePerforming"></param>
         /// <returns></returns>
         // Gets called by the master client only
-        public IEnumerator PerformAction()
+        public IEnumerator PerformActionMaster()
         {
             if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
             
             yield return new WaitForSeconds(castTime);
             
-            UseAbility();
             _chaserAI.DisableMovement(false);
             
             GetComponentInParent<BossAI>().OnAbilityFinish();
         }
 
-        // Gets called in a RPC
-        public virtual void OnPerformAction()
+        public void OnPerformActionClient()
         {
             _duringPerformAction = true;
+            StartCoroutine(AbilityCoroutine());
         }
         
-        protected virtual void DuringPerformAction()
+        // Gets called in a RPC
+        protected abstract IEnumerator AbilityCoroutine();
+
+        protected virtual void DuringPerformActionClient()
         {
         }
 
         // Gets called in a RPC
-        public virtual void FinishPerformAction()
+        public virtual void FinishPerformActionClient()
         {
             _duringPerformAction = false;
         }
