@@ -2,6 +2,7 @@ using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Handles animated explosions
@@ -18,12 +19,14 @@ public class Explosion : MonoBehaviourPun
 
     [SerializeField] private float outerRadius =2f;
     [SerializeField] private float initialIntensity =1f;
+    [SerializeField] private float explosionAnimLengthMultiplier;
     
     private void Start()
     {
         _anim = GetComponent<Animator>();
         _light = GetComponent<Light2D>();
         _light.intensity = 0;
+        _anim.SetFloat("explosionLen", explosionAnimLengthMultiplier);
         _anim.SetTrigger(explosionAnimTrigger);
         photonView.RPC("RpcExplosionLighting", RpcTarget.All);
     }

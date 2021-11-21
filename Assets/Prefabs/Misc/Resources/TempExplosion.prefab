@@ -144,6 +144,7 @@ MonoBehaviour:
   explosionAnimTrigger: detonate
   outerRadius: 2
   initialIntensity: 1
+  explosionAnimLength: 3
 --- !u!114 &2441989456541718212
 MonoBehaviour:
   m_ObjectHideFlags: 0
