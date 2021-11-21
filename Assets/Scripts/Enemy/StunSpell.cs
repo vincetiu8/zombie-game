@@ -13,7 +13,7 @@ namespace Enemy
         [SerializeField] private GameObject stunProjectile;
         [SerializeField] private float delayPerSpell;
 
-        public override IEnumerator AbilityCoroutine()
+        protected override IEnumerator AbilityCoroutine()
         {
             NecromancerAI necromancerAI = referenceObject.GetComponent<NecromancerAI>();
             float summonAmount = necromancerAI.summonAmount;

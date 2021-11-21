@@ -20,7 +20,7 @@ namespace Enemy
         /// Spawns zombies around the current gameobject in a circle,
         /// the correct amount of space to split them between is also calculated here.
         /// </summary>
-        protected override void UseAbility()
+        protected override IEnumerator AbilityCoroutine()
         {
             NecromancerAI necromancerAI = referenceObject.GetComponent<NecromancerAI>();
             float summonAmount = necromancerAI.summonAmount;
@@ -28,7 +28,7 @@ namespace Enemy
             
             int amountOfObjectsToSpawn = Mathf.FloorToInt(summonAmount * multiplierStacks);
             
-            if (BuffZombies()) return;
+            if (BuffZombies()) yield break;
             float currentAngle = Random.Range(0,360);
             for (int i = 0; i < amountOfObjectsToSpawn; i ++)
             {
