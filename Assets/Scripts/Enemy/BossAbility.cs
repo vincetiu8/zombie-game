@@ -47,6 +47,7 @@ namespace Enemy
             
             yield return new WaitForSeconds(castTime);
             
+            StartCoroutine(AbilityCoroutine());
             _chaserAI.DisableMovement(false);
             
             GetComponentInParent<BossAI>().OnAbilityFinish();
@@ -55,7 +56,6 @@ namespace Enemy
         public void OnPerformActionClient()
         {
             _duringPerformAction = true;
-            StartCoroutine(AbilityCoroutine());
         }
         
         // Gets called in a RPC
