@@ -49,17 +49,17 @@ namespace Enemy
         }
 
         [PunRPC]
-        protected override void RPCOnPerformAction()
+        protected override void RPCOnPerformAction(int abilityNumber)
         {
             _light2D.enabled = true;
-            base.RPCOnPerformAction();
+            base.RPCOnPerformAction(abilityNumber);
         }
 
         [PunRPC]
-        protected override void RPCFinishPerformAction()
+        protected override void RPCFinishPerformAction(int abilityNumber)
         {
             _light2D.enabled = false;
-            base.RPCFinishPerformAction();
+            base.RPCFinishPerformAction(abilityNumber);
         }
 
 

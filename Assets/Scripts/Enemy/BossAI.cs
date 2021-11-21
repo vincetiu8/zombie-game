@@ -18,7 +18,7 @@ namespace Enemy
         protected ChaserAI _chaserAI;
 
         private bool _actionOngoing;
-        private BossAbility _currentAbility;
+        private int _currentAbilityNumber;
         private PhotonView _photonView;
 
         protected virtual void Start()
@@ -30,8 +30,7 @@ namespace Enemy
 
         private void Update()
         {
-            if (!photonView.IsMine) return;
-            if (_actionOngoing) return;
+            if (!photonView.IsMine || _actionOngoing) return;
 
             if (_cooldown > 0)
             {
@@ -54,15 +53,16 @@ namespace Enemy
             DirectAbilityCall(abilityNo);
         }
 
+        // Only gets run by the master client
         public void DirectAbilityCall(int abilityNumber)
         {
-            Debug.Log("calling ability" + BossAbilities[abilityNumber]);
-            _currentAbility = BossAbilities[abilityNumber];
+            _currentAbilityNumber = abilityNumber;
+            Debug.Log("calling ability" + BossAbilities[_currentAbilityNumber]);
             
-            photonView.RPC("RPCOnPerformAction", RpcTarget.All);
+            photonView.RPC("RPCOnPerformAction", RpcTarget.All, _currentAbilityNumber);
             _actionOngoing = true;
             
-            StartCoroutine(_currentAbility.PerformAction());
+            StartCoroutine(BossAbilities[_currentAbilityNumber].PerformActionMaster());
         }
 
         public void DirectAbilityCall(List<int> abilityNumbers)
@@ -73,20 +73,20 @@ namespace Enemy
 
 
         [PunRPC]
-        protected virtual void RPCOnPerformAction()
+        protected virtual void RPCOnPerformAction(int abilityNumber)
         {
-            _currentAbility.OnPerformAction();
+            BossAbilities[abilityNumber].OnPerformActionClient();
         }
         
         [PunRPC]
-        protected virtual void RPCFinishPerformAction()
+        protected virtual void RPCFinishPerformAction(int abilityNumber)
         {
-           _currentAbility.FinishPerformAction();
+            BossAbilities[abilityNumber].FinishPerformActionClient();
         }
 
         public virtual void OnAbilityFinish()
         {
-            photonView.RPC("RPCFinishPerformAction", RpcTarget.All);
+            photonView.RPC("RPCFinishPerformAction", RpcTarget.All, _currentAbilityNumber);
             _actionOngoing = false;
         }
     }

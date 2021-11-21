@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: -3225967057318531449}
   - component: {fileID: -2845144202245942745}
   - component: {fileID: 9185484223651907512}
+  - component: {fileID: 2819032253303249079}
+  - component: {fileID: -2504760014983618381}
   m_Layer: 10
   m_Name: StunSpells
   m_TagString: Untagged
@@ -208,7 +210,39 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -2504760014983618381}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &2819032253303249079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026456415033271303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a088e2403a72ec12b491e529cb8e928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncPosition: 1
+  positionPrecision: 5
+  syncRotation: 1
+  smooth: 0
+  smoothingSpeed: 10
+--- !u!114 &-2504760014983618381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026456415033271303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a799013d30649f1a7e063b0d3b740f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkedComponents:
+  - {fileID: 2819032253303249079}
