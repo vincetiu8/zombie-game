@@ -32,15 +32,6 @@ namespace Enemy
             if (_duringPerformAction) DuringPerformActionClient();
         }
 
-        {
-            StartCoroutine(AbilityCoroutine());
-        }
-
-        //protected virtual IEnumerator AbilityCoroutine()
-        {
-            return null;
-        }
-        
         /// <summary>
         /// Every time a move is used, this is called
         /// </summary>
