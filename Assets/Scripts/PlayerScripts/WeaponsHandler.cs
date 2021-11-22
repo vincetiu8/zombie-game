@@ -159,12 +159,23 @@ namespace PlayerScripts
 			availableWeapons[_currentWeaponIndex].SetActive(false);
 			_currentWeaponIndex = selectedIndex;
 			if (!isSwitching) {
-				StopCoroutine(_currentWeapon.WeaponSwitchingCooldown(selectedIndex));
+				StopCoroutine(WeaponSwitchingCooldown(selectedIndex));
 			}
-			StartCoroutine(_currentWeapon.WeaponSwitchingCooldown(selectedIndex));
+			StartCoroutine(WeaponSwitchingCooldown(selectedIndex));
 		}
 
-		public void ActivateCurrentWeapon()
+		public IEnumerator WeaponSwitchingCooldown(int selectedIndex) {
+			isSwitching = true;
+			RaycastGun raycastGun = availableWeapons[selectedIndex].GetComponent<RaycastGun>();
+			Debug.Log("Next Weapon:\n" +
+			          "Switching Cooldown: "+raycastGun.currentAttributes.switchingCooldown+"\n" +
+			          "Name: "+raycastGun.currentAttributes.description);
+			yield return new WaitForSeconds(raycastGun.currentAttributes.switchingCooldown);
+			ActivateCurrentWeapon();
+			isSwitching = false;
+		}
+
+		private void ActivateCurrentWeapon()
 		{
 			availableWeapons[_currentWeaponIndex].SetActive(true);
 			_currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();
