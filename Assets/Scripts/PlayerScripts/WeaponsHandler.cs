@@ -81,13 +81,13 @@ namespace PlayerScripts
 			// We'll use performed here to check for the press
 			if (context.performed)
 			{
-				_currentWeapon.ToggleFire(true, false);
+				_currentWeapon.ToggleFire(true);
 				return;
 			}
 
 			// Cancelled indicates the mouse was released
 			// This is mainly to cancel
-			if (context.canceled) _currentWeapon.ToggleFire(false, false);
+			if (context.canceled) _currentWeapon.ToggleFire(false);
 		}
 
 		public void AltFireAction(InputAction.CallbackContext context)
@@ -97,10 +97,10 @@ namespace PlayerScripts
 
 			if (context.performed)
 			{
-				_currentWeapon.ToggleFire(true, true);
+				_currentWeapon.ToggleAltFire(true);
 				return;
 			}
-			if (context.canceled) _currentWeapon.ToggleFire(false, true);
+			if (context.canceled) _currentWeapon.ToggleAltFire(false);
 		}
 
 		public void ReloadAction(InputAction.CallbackContext context)
