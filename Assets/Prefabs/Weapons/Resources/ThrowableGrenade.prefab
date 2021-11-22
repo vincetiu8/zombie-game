@@ -125,17 +125,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6750531741507228707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e0dc8c065c39343af647e2dc176cef, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ffa889c79543fa46975d1fdbd3827eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: Throwable Grenade
+  weaponName: 
+  currentAttributes:
+    description: temp damage
+    damage: 0
+    knockback: 0
+    fireCooldown: 0
+    fullAuto: 0
+    switchingCooldown: 0
   ammoType: 3
   weaponLevels:
-  - description: damage is temp
+  - description: temp damage
     damage: 1000
     knockback: 2
     fireCooldown: 0
     fullAuto: 0
+    switchingCooldown: 0
     magazineSize: 0
     reloadTime: 0
   firepoint: {fileID: 4199299946989307126}
