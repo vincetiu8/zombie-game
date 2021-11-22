@@ -143,10 +143,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   knockBack: 0
-  lifetime: 0
-  detonateDelay: 3
-  damageRadius: 1.2
-  stunRadius: 1.8
+  lifetime: 3
+  damageRadius: 1.8
   stunLength: 5
   explosionEffect: {fileID: 4774187060498220438, guid: 8ffe55012c8543745942ddbd895272f7,
     type: 3}
