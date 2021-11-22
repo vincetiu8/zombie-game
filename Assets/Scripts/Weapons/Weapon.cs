@@ -1,3 +1,4 @@
+using System.Collections;
 using System.ComponentModel;
 using Photon.Pun;
 using PlayerScripts;
@@ -15,10 +16,9 @@ namespace Weapons
 		protected string weaponName;
 
 		private float _fireCooldown;
-
 		private   bool             _isFiring;
 		protected AmmoInventory    ammoInventory;
-		protected WeaponAttributes currentAttributes;
+		public    WeaponAttributes currentAttributes;
 		protected int              currentLevel;
 
 		protected int maxLevel;

@@ -1432,8 +1432,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6174202033859612344, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
         type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
+    - target: {fileID: 6174202033859612344, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
+        type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174202033859612344, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].switchingCooldown
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1, type: 3}
@@ -1458,8 +1468,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2345202485471909834, guid: 095a40497e26818c496d8f1157ab98f4,
         type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
+    - target: {fileID: 2345202485471909834, guid: 095a40497e26818c496d8f1157ab98f4,
+        type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345202485471909834, guid: 095a40497e26818c496d8f1157ab98f4,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].switchingCooldown
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4345742403078963709, guid: 095a40497e26818c496d8f1157ab98f4,
         type: 3}
@@ -1579,8 +1599,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
+    - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
       propertyPath: levels.Array.data[0].knockback
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
+      propertyPath: levels.Array.data[0].switchingCooldown
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6430018366674950792, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
@@ -1659,15 +1689,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622303937f0556e409efd41e73a2cd6f, type: 3}
---- !u!4 &7452028337539437896 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6665705036354136277, guid: 622303937f0556e409efd41e73a2cd6f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4317750415459712413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5124768132740305437 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9004224348638097280, guid: 622303937f0556e409efd41e73a2cd6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4317750415459712413}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7452028337539437896 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6665705036354136277, guid: 622303937f0556e409efd41e73a2cd6f,
     type: 3}
   m_PrefabInstance: {fileID: 4317750415459712413}
   m_PrefabAsset: {fileID: 0}
@@ -1680,6 +1710,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
         type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
+    - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
+        type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
       value: 0.5
       objectReference: {fileID: 0}
@@ -1687,6 +1722,11 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponLevels.Array.data[0].fireCooldown
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].switchingCooldown
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2249583135430024779, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
         type: 3}
@@ -1780,15 +1820,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d11cc4e2ac4f8c9a086a58e21d6c3541, type: 3}
---- !u!4 &2589968605247088456 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2249583135430024779, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
-    type: 3}
-  m_PrefabInstance: {fileID: 4380161064813115651}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7862912192708304391 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5897421599171798788, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
+    type: 3}
+  m_PrefabInstance: {fileID: 4380161064813115651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2589968605247088456 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2249583135430024779, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
     type: 3}
   m_PrefabInstance: {fileID: 4380161064813115651}
   m_PrefabAsset: {fileID: 0}
@@ -1856,8 +1896,58 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[1].damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[1].knockback
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[1].reloadTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[1].description
+      value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[1].fireCooldown
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[1].magazineSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].switchingCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].weaponSwitchingCooldown
+      value: 119
       objectReference: {fileID: 0}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
@@ -1902,8 +1992,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
         type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
+    - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
+        type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].switchingCooldown
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 157646849353220134, guid: 390f9086e6e8bf4dba92d85903aef232,
         type: 3}
