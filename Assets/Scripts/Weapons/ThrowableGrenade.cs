@@ -8,6 +8,9 @@ namespace Weapons
     // Lets the throwable grenade bypass reloading
     public class ThrowableGrenade : ProjectileLauncher
     {
+        [Tooltip("How much to multiply throw force by when using alt-fire")]
+        [SerializeField] private float altFireForceMultiplier;
+        
         private void Update()
         {
             _currentGunAttributes.magazineSize = ammoInventory.GetAmmo(ammoType);
@@ -22,9 +25,7 @@ namespace Weapons
 
         protected override void AltFireAction(GameObject bulletClone, float angle)
         {
-            Vector2 direction = TransformUtils.DegToVector2(angle);
-            bulletClone.GetComponent<Rigidbody2D>().AddForce(direction * (throwForce * 2), ForceMode2D.Impulse);
-            bulletClone.GetComponent<BulletController>().damage = currentAttributes.damage;
+            SetBulletAttributes(bulletClone, angle, altFireForceMultiplier);
         }
     }
 }

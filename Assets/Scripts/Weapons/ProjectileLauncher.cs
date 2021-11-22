@@ -28,15 +28,20 @@ namespace Weapons
 
 		protected virtual void DefaultFireAction(GameObject bulletClone, float angle)
 		{
-			// Set the bullet's attributes
-			Vector2 direction = TransformUtils.DegToVector2(angle);
-			bulletClone.GetComponent<Rigidbody2D>().AddForce(direction * throwForce, ForceMode2D.Impulse);
-			bulletClone.GetComponent<BulletController>().damage = currentAttributes.damage;
+			SetBulletAttributes(bulletClone, angle, 1);
 		}
 
 		protected virtual void AltFireAction(GameObject bulletClone, float angle)
 		{
 			
+		}
+
+		protected virtual void SetBulletAttributes(GameObject bulletClone, float angle, float forceMultiplier)
+		{
+			// Set the bullet's attributes
+			Vector2 direction = TransformUtils.DegToVector2(angle);
+			bulletClone.GetComponent<Rigidbody2D>().AddForce(direction * (throwForce * forceMultiplier), ForceMode2D.Impulse);
+			bulletClone.GetComponent<BulletController>().damage = currentAttributes.damage;
 		}
 	}
 }
