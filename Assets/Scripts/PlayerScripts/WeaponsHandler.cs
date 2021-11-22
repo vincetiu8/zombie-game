@@ -24,7 +24,7 @@ namespace PlayerScripts
 		private Transform playerSprite;
 
 		[Description("List of available weapons the player can cycle through")] [SerializeField]
-		private List<GameObject> availableWeapons;
+		public List<GameObject> availableWeapons;
 
 
 		private AmmoInventory _ammoInventory;
@@ -153,29 +153,18 @@ namespace PlayerScripts
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
 		}
 
-		private IEnumerator WeaponSwitchingCooldown(int selectedIndex) {
-			isSwitching = true;
-			RaycastGun raycastGun = availableWeapons[selectedIndex].GetComponent<RaycastGun>();
-			Debug.Log("Next Weapon:\n" +
-			          "Switching Cooldown: "+raycastGun.currentAttributes.switchingCooldown+"\n" +
-			          "Name: "+raycastGun.currentAttributes.description);
-			yield return new WaitForSeconds(raycastGun.currentAttributes.switchingCooldown);
-			ActivateCurrentWeapon();
-			isSwitching = false;
-		}
-
 		[PunRPC]
 		private void RPCSelectWeapon(int selectedIndex)
 		{
 			availableWeapons[_currentWeaponIndex].SetActive(false);
 			_currentWeaponIndex = selectedIndex;
 			if (!isSwitching) {
-				StopCoroutine(WeaponSwitchingCooldown(selectedIndex));
+				StopCoroutine(_currentWeapon.WeaponSwitchingCooldown(selectedIndex));
 			}
-			StartCoroutine(WeaponSwitchingCooldown(selectedIndex));
+			StartCoroutine(_currentWeapon.WeaponSwitchingCooldown(selectedIndex));
 		}
 
-		private void ActivateCurrentWeapon()
+		public void ActivateCurrentWeapon()
 		{
 			availableWeapons[_currentWeaponIndex].SetActive(true);
 			_currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();

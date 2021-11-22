@@ -1,3 +1,4 @@
+using System.Collections;
 using System.ComponentModel;
 using Photon.Pun;
 using PlayerScripts;
@@ -15,11 +16,14 @@ namespace Weapons
 		protected string weaponName;
 
 		private float _fireCooldown;
+		private bool isSwitching;
 
 		private   bool             _isFiring;
 		protected AmmoInventory    ammoInventory;
-		public WeaponAttributes currentAttributes;
+		public    WeaponAttributes currentAttributes;
 		protected int              currentLevel;
+		private   WeaponsHandler   _weaponsHandler;
+		[SerializeField] private   GameObject       Player;
 
 		protected int maxLevel;
 
@@ -28,6 +32,7 @@ namespace Weapons
 		{
 			currentLevel = 0;
 			maxLevel = 0;
+			_weaponsHandler = Player.GetComponent<WeaponsHandler>();
 		}
 
 		private void Update()
@@ -92,6 +97,17 @@ namespace Weapons
 		/// <param name="distance">The distance from the cursor to the object</param>
 		public virtual void FaceMouse(float distance)
 		{
+		}
+
+		public IEnumerator WeaponSwitchingCooldown(int selectedIndex) {
+			isSwitching = true;
+			RaycastGun raycastGun = _weaponsHandler.availableWeapons[selectedIndex].GetComponent<RaycastGun>();
+			Debug.Log("Next Weapon:\n" +
+			          "Switching Cooldown: "+raycastGun.currentAttributes.switchingCooldown+"\n" +
+			          "Name: "+raycastGun.currentAttributes.description);
+			yield return new WaitForSeconds(raycastGun.currentAttributes.switchingCooldown);
+			_weaponsHandler.ActivateCurrentWeapon();
+			isSwitching = false;
 		}
 	}
 }

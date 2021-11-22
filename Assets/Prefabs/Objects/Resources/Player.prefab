@@ -1432,6 +1432,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6174202033859612344, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
         type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
+    - target: {fileID: 6174202033859612344, guid: 8db6c4a1dd127cd15b5bf9276ec8a1e1,
+        type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
       value: 5
       objectReference: {fileID: 0}
@@ -1461,6 +1466,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911151390933760986}
     m_Modifications:
+    - target: {fileID: 2345202485471909834, guid: 095a40497e26818c496d8f1157ab98f4,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
     - target: {fileID: 2345202485471909834, guid: 095a40497e26818c496d8f1157ab98f4,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
@@ -1589,6 +1599,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
+    - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
       propertyPath: levels.Array.data[0].knockback
       value: 3
       objectReference: {fileID: 0}
@@ -1693,6 +1708,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911151390933760986}
     m_Modifications:
+    - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
     - target: {fileID: 287359002653837436, guid: d11cc4e2ac4f8c9a086a58e21d6c3541,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
@@ -1876,6 +1896,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
       propertyPath: weaponLevels.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1965,6 +1990,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911151390933760986}
     m_Modifications:
+    - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5676611098347806923}
     - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
