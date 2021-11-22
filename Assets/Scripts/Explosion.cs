@@ -21,7 +21,7 @@ public class Explosion : MonoBehaviourPun
     [SerializeField] private float initialIntensity =1f;
     [SerializeField] private float explosionAnimLengthMultiplier;
     
-    private void Start()
+    private void Awake()
     {
         _anim = GetComponent<Animator>();
         _light = GetComponent<Light2D>();
@@ -44,24 +44,11 @@ public class Explosion : MonoBehaviourPun
         _light.pointLightOuterRadius = outerRadius;
         while (_light.intensity > 0)
         {
-            _light.intensity -= Time.deltaTime / (GetExplosionAnimLength() * 2);
+            _light.intensity -= Time.deltaTime / (explosionAnimLengthMultiplier * (float)1.5);
             yield return null;
         }
 
         _explosionLightingCoroutine = null;
         Destroy(gameObject);
-    }
-
-    private float GetExplosionAnimLength()
-    {
-        float clipLength = 0;
-        AnimationClip[] clips = _anim.runtimeAnimatorController.animationClips;
-        foreach (var clip in clips)
-        {
-            if (clip.name == explosionAnimation.name) clipLength = clip.length;
-            break;
-        }
-
-        return clipLength;
     }
 }
