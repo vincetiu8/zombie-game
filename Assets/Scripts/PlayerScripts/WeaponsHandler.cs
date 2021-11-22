@@ -24,7 +24,7 @@ namespace PlayerScripts
 		private Transform playerSprite;
 
 		[Description("List of available weapons the player can cycle through")] [SerializeField]
-		public List<GameObject> availableWeapons;
+		private List<GameObject> availableWeapons;
 
 
 		private AmmoInventory _ammoInventory;
@@ -158,19 +158,19 @@ namespace PlayerScripts
 		{
 			availableWeapons[_currentWeaponIndex].SetActive(false);
 			_currentWeaponIndex = selectedIndex;
+			Coroutine SwitchingWeapon = StartCoroutine(WeaponSwitchingCooldown(selectedIndex));
 			if (!isSwitching) {
-				StopCoroutine(WeaponSwitchingCooldown(selectedIndex));
+				StopCoroutine(SwitchingWeapon);
 			}
-			StartCoroutine(WeaponSwitchingCooldown(selectedIndex));
 		}
 
 		public IEnumerator WeaponSwitchingCooldown(int selectedIndex) {
 			isSwitching = true;
-			RaycastGun raycastGun = availableWeapons[selectedIndex].GetComponent<RaycastGun>();
+			Weapon weapon = availableWeapons[selectedIndex].GetComponent<Weapon>();
 			Debug.Log("Next Weapon:\n" +
-			          "Switching Cooldown: "+raycastGun.currentAttributes.switchingCooldown+"\n" +
-			          "Name: "+raycastGun.currentAttributes.description);
-			yield return new WaitForSeconds(raycastGun.currentAttributes.switchingCooldown);
+			          "Switching Cooldown: "+weapon.currentAttributes.switchingCooldown+"\n" +
+			          "Name: "+weapon.currentAttributes.description);
+			yield return new WaitForSeconds(weapon.currentAttributes.switchingCooldown);
 			ActivateCurrentWeapon();
 			isSwitching = false;
 		}
