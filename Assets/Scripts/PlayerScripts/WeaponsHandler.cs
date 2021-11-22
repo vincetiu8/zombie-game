@@ -34,7 +34,7 @@ namespace PlayerScripts
 		private PlayerHealth  _playerHealth;
 		private bool          _preventFire;
 		private bool          isSwitching;
-		private Coroutine     SwitchingWeapon;
+		private Coroutine     _switchingWeapon;
 
 		private void Start()
 		{
@@ -153,11 +153,11 @@ namespace PlayerScripts
 
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
 
-			if (SwitchingWeapon != null) {
-				StopCoroutine(SwitchingWeapon);
+			if (_switchingWeapon != null) {
+				StopCoroutine(_switchingWeapon);
 			}
 
-			SwitchingWeapon = StartCoroutine(WeaponSwitchingCooldown(selectedIndex));
+			_switchingWeapon = StartCoroutine(WeaponSwitchingCooldown(selectedIndex));
 		}
 
 		[PunRPC]
