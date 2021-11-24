@@ -90,6 +90,19 @@ namespace PlayerScripts
 			if (context.canceled) _currentWeapon.ToggleFire(false);
 		}
 
+		public void AltFireAction(InputAction.CallbackContext context)
+		{
+			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
+			_playerHealth.ResetNaturalHealing();
+
+			if (context.performed)
+			{
+				_currentWeapon.ToggleAltFire(true);
+				return;
+			}
+			if (context.canceled) _currentWeapon.ToggleAltFire(false);
+		}
+
 		public void ReloadAction(InputAction.CallbackContext context)
 		{
 			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;

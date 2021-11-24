@@ -61,7 +61,19 @@ namespace Weapons
 			{
 				// Just fires when pressed for semi auto
 				if (toggle && _fireCooldown <= 0) Fire();
+				return;
+			}
 
+			// Toggles firing for full auto weapons
+			_isFiring = toggle;
+		}
+		
+		public void ToggleAltFire(bool toggle)
+		{
+			if (!currentAttributes.fullAuto)
+			{
+				// Just fires when pressed for semi auto
+				if (toggle && _fireCooldown <= 0) AltFire();
 				return;
 			}
 
@@ -70,6 +82,11 @@ namespace Weapons
 		}
 
 		protected virtual void Fire()
+		{
+			_fireCooldown = currentAttributes.fireCooldown;
+		}
+
+		protected virtual void AltFire()
 		{
 			_fireCooldown = currentAttributes.fireCooldown;
 		}

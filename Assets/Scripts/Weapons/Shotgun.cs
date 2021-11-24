@@ -13,7 +13,7 @@ namespace Weapons
 			for (int i = 0; i < pelletAmount; i++)
 			{
 				float firingAngle = direction + Random.Range(-spraySpread, spraySpread);
-				FireBullet(firingAngle);
+				FireBullet(firingAngle, false);
 			}
 		}
 	}

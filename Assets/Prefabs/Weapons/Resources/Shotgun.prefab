@@ -17,12 +17,14 @@ MonoBehaviour:
   weaponLevels:
   - description: Shotgun
     damage: 10
+    knockback: 0
     fireCooldown: 0.5
     fullAuto: 0
     magazineSize: 6
     reloadTime: 1.5
   firepoint: {fileID: 3020623202904377558}
   shotDistance: 2
+  muzzleFlashFadeTime: 8
   tracerPrefab: {fileID: 2008120741083104990, guid: 98ac1e2b6135aedc0b5e5db844c0b611,
     type: 3}
   pelletAmount: 15

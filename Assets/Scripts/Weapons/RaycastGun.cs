@@ -1,7 +1,9 @@
+using System.Collections;
 using System.ComponentModel;
 using Objects;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using Utils;
 
 namespace Weapons
@@ -15,16 +17,20 @@ namespace Weapons
 		[SerializeField]
 		private float shotDistance;
 
+		[SerializeField] [Tooltip("Multiplied with deltaTime")]
+		private float muzzleFlashFadeTime;
+
 		[SerializeField] private GameObject tracerPrefab;
 
 		private LayerMask _layerMask;
+		private Coroutine _muzzleFlashCoroutine;
 
 		private void Awake()
 		{
-			_layerMask = LayerMask.GetMask("Enemies", "Objects", "Obstacles", "Players");
+			_layerMask = LayerMask.GetMask("Enemies", "Objects", "Obstacles");
 		}
 
-		protected override void FireBullet(float angle)
+		protected override void FireBullet(float angle, bool alt)
 		{
 			Vector2 direction = TransformUtils.DegToVector2(angle);
 			RaycastHit2D hit = Physics2D.Raycast(firepoint.position, direction, shotDistance, _layerMask);
@@ -36,7 +42,7 @@ namespace Weapons
 			endpoint *= PositionPrecision;
 			photonView.RPC("RPCFireBullet", RpcTarget.All, (int)endpoint.x, (int)endpoint.y);
 
-			if (hit.collider == null || !hit.collider.CompareTag("Enemy")) return;
+			if (hit.collider == null || !MiscUtils.IsInLayerMask(_layerMask, hit.collider.gameObject.layer)) return;
 
 			HealthController healthController = hit.collider.gameObject.GetComponent<HealthController>();
 
@@ -47,7 +53,7 @@ namespace Weapons
             if (healthController.transform.GetComponent<KnockbackController>() == null) return;
             
             healthController.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, currentAttributes.knockback);
-            }
+		}
 
 		[PunRPC]
 		protected void RPCFireBullet(int x, int y)
@@ -58,6 +64,22 @@ namespace Weapons
 
 			Vector2 endpoint = new Vector2(x, y) / PositionPrecision;
 			lineRenderer.SetPosition(1, endpoint);
+			
+			if(_muzzleFlashCoroutine != null) StopCoroutine(_muzzleFlashCoroutine);
+			_muzzleFlashCoroutine = StartCoroutine(MuzzleFlash());
+		}
+
+		private IEnumerator MuzzleFlash()
+		{
+			Light2D _light = GetComponentInChildren<Light2D>();
+			_light.intensity = 2;
+			while (_light.intensity > 0)
+			{
+				_light.intensity -= Time.deltaTime * muzzleFlashFadeTime;
+				yield return null;
+			}
+
+			_muzzleFlashCoroutine = null;
 		}
 	}
 }
