@@ -102,7 +102,6 @@ namespace Objects
 			_navMeshObstacle.enabled = active;
 			_spriteRenderer.sortingLayerID = SortingLayer.NameToID(active ? "Objects" : "Enemies");
 			_spriteRenderer.sortingOrder = active ? 2 : 5;
-			gameObject.layer = LayerMask.NameToLayer(active ? "Obstacles" : "MovingObstacles");
 			foreach (Collider2D collider in _colList)
 			{
 				if (active)

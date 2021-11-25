@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5875673407374414691}
   m_Layer: 10
   m_Name: Special Ammo Drop
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1036530043
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -6058229231348979346, guid: fddb5385a0f4479f5bd5a03f1a2ef0bb,
     type: 3}
@@ -114,6 +114,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4a9266ecd205e47ba7983af8012e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableType: 0
+  startInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+  finishInteraction:
+    m_PersistentCalls:
+      m_Calls: []
   ammoType: 2
   dropAmount: 0
   minAmt: 2

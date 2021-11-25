@@ -1,31 +1,37 @@
-using System.ComponentModel;
-using Photon.Pun;
+using PlayerScripts;
 using UnityEngine;
-using Utils;
 
 namespace Weapons
 {
-    // Lets the throwable grenade bypass reloading
-    public class ThrowableGrenade : ProjectileLauncher
-    {
-        [Tooltip("How much to multiply throw force by when using alt-fire")]
-        [SerializeField] private float altFireForceMultiplier;
-        
-        private void Update()
-        {
-            _currentGunAttributes.magazineSize = ammoInventory.GetAmmo(ammoType);
-            _bulletsInMagazine = ammoInventory.GetAmmo(ammoType);
-        }
-        
-        protected override void FireBullet(float angle, bool alt)
-        {
-            ammoInventory.WithdrawAmmo(ammoType, 1);
-            base.FireBullet(angle, alt);
-        }
+	// Lets the throwable grenade bypass reloading
+	public class ThrowableGrenade : ProjectileLauncher
+	{
+		[Tooltip("How much to multiply throw force by when using alt-fire")] [SerializeField]
+		private float altFireForceMultiplier;
 
-        protected override void AltFireAction(GameObject bulletClone, float angle)
-        {
-            SetBulletAttributes(bulletClone, angle, altFireForceMultiplier);
-        }
-    }
+		private void OnEnable()
+		{
+			// Handles instantiation of grenade
+			if (ammoInventory == null) return;
+
+			_bulletsInMagazine = ammoInventory.GetAmmo(ammoType);
+		}
+
+		public override void Setup(AmmoInventory inventory)
+		{
+			base.Setup(inventory);
+			OnEnable();
+		}
+
+		protected override void FireBullet(float angle, bool alt)
+		{
+			ammoInventory.WithdrawAmmo(ammoType, 1);
+			base.FireBullet(angle, alt);
+		}
+
+		protected override void AltFireAction(GameObject bulletClone, float angle)
+		{
+			SetBulletAttributes(bulletClone, angle, altFireForceMultiplier);
+		}
+	}
 }
