@@ -88,21 +88,29 @@ namespace PlayerScripts
 
 			if (_interactList.Count == 0)
 			{
-				if (_closestInteractable != null) interactableImage.enabled = false;
-
-				_closestInteractable = null;
+				DisableInteractableIcon();
 				return;
 			}
 
 			// Check which object in the list is closest to the player
-			GameObject closestObject = null;
+			Interactable closestInteractable = null;
 			float closestDistance = Mathf.Infinity;
 			foreach (GameObject obj in _interactList)
 			{
+				Interactable interactable = obj.GetComponent<Interactable>();
+
+				if (interactable == null)
+				{
+					Debug.LogWarning("No Interactable component attached to gameobject tagged as interactable");
+					return;
+				}
+
+				HoldInteractable holdInteractable = interactable as HoldInteractable;
+				if (holdInteractable != null && !holdInteractable.availableForInteract) continue;
+
 				// Give priority to interactables the player is currently holding
 				if (obj.transform.parent == localInteractableParent)
 				{
-					closestObject = obj;
 					_interacting = true;
 					break;
 				}
@@ -111,19 +119,23 @@ namespace PlayerScripts
 				    closestDistance)
 					continue;
 				closestDistance = Vector2.Distance(obj.transform.position, transform.position);
-				closestObject = obj;
+				closestInteractable = interactable;
 			}
 
-			_weaponsHandler.ToggleFireEnabled(!_interacting);
+			if (closestInteractable == null)
+			{
+				DisableInteractableIcon();
+				return;
+			}
 
-			Interactable newClosestInteractable = closestObject.GetComponent<Interactable>();
+			if (_weaponsHandler != null) _weaponsHandler.ToggleFireEnabled(!_interacting);
 
-			if (_closestInteractable != newClosestInteractable)
+			if (_closestInteractable != closestInteractable)
 			{
 				if (_closestInteractable == null) interactableImage.enabled = true;
 
-				interactableImage.sprite = interactableSprites[newClosestInteractable.GetInteractableType()];
-				_closestInteractable = newClosestInteractable;
+				interactableImage.sprite = interactableSprites[closestInteractable.GetInteractableType()];
+				_closestInteractable = closestInteractable;
 			}
 
 			UpdateInteractableIcon();
@@ -133,6 +145,12 @@ namespace PlayerScripts
 		{
 			float progress = _closestInteractable.GetProgress();
 			interactableImage.color = interactableProgressGradient.Evaluate(progress);
+		}
+
+		private void DisableInteractableIcon()
+		{
+			if (_closestInteractable != null) interactableImage.enabled = false;
+			_closestInteractable = null;
 		}
 
 		public void InteractionAction(InputAction.CallbackContext context)

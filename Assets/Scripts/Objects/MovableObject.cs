@@ -27,9 +27,8 @@ namespace Objects
 		private NavMeshObstacle _navMeshObstacle;
 		private SpriteRenderer  _spriteRenderer;
 
-		protected override void Awake()
+		protected void Awake()
 		{
-			base.Awake();
 			_navMeshObstacle = GetComponent<NavMeshObstacle>();
 			_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 			_colList = GetComponentsInChildren<Collider2D>();

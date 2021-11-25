@@ -4,17 +4,18 @@ namespace Interact
 {
 	public abstract class HoldInteractable : Interactable
 	{
-		private   bool _availableForInteract;
+		public    bool availableForInteract;
 		protected bool LocallyInteracting;
 
-		protected virtual void Awake()
+		protected override void Start()
 		{
-			_availableForInteract = true;
+			base.Start();
+			RPCSetAvailableForInteract(true);
 		}
 
 		public override void StartInteraction()
 		{
-			if (!_availableForInteract) return;
+			if (!availableForInteract) return;
 
 			// Notifies the player the interaction has started
 			startInteraction.Invoke();
@@ -31,10 +32,10 @@ namespace Interact
 
 		protected virtual void FinishInteraction()
 		{
+			ToggleInteraction(false);
+
 			// Notifies the player the interaction has finished
 			finishInteraction.Invoke();
-
-			ToggleInteraction(false);
 		}
 
 		private void ToggleInteraction(bool toggle)
@@ -44,9 +45,9 @@ namespace Interact
 		}
 
 		[PunRPC]
-		protected void RPCSetAvailableForInteract(bool availableForInteract)
+		protected virtual void RPCSetAvailableForInteract(bool available)
 		{
-			_availableForInteract = availableForInteract;
+			availableForInteract = available;
 		}
 	}
 }
