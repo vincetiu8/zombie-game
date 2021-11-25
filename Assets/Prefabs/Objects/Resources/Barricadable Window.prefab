@@ -271,6 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d901bf0007cddd14f81db6f4a42180d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePopup: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
+    type: 3}
   initialHealth: 0
   barricadeGraphics: {fileID: 4149290357387999076}
   maxHealth: 200

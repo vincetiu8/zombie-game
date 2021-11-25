@@ -30,6 +30,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2566143490575769965, guid: 0246d79ac60b897b6836ef7b5186b0c7,
         type: 3}
+    - target: {fileID: 6014569981011666284, guid: d52dd8f2c2b7c4244a656a6124b97dd7,
+        type: 3}
+      propertyPath: damagePopup
+      value: 
+      objectReference: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
+        type: 3}
     - target: {fileID: 8187114024881987725, guid: d52dd8f2c2b7c4244a656a6124b97dd7,
         type: 3}
       propertyPath: m_RootOrder

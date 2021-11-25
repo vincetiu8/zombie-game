@@ -90,5 +90,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8360161228296898057, guid: 0246d79ac60b897b6836ef7b5186b0c7,
         type: 3}
+    - target: {fileID: 9111925557917907592, guid: 26472e6850035284b8affb05cfedba4e,
+        type: 3}
+      propertyPath: damagePopup
+      value: 
+      objectReference: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26472e6850035284b8affb05cfedba4e, type: 3}
