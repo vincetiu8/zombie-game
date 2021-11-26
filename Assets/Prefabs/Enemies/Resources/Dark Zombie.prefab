@@ -84,5 +84,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark Zombie
       objectReference: {fileID: 0}
+    - target: {fileID: 8607524782746418784, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
+        type: 3}
+      propertyPath: damagePopup
+      value: 
+      objectReference: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6, type: 3}

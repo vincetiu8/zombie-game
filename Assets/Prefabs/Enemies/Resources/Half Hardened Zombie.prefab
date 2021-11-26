@@ -78,6 +78,12 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.65234375
       objectReference: {fileID: 0}
+    - target: {fileID: 3582527501524757045, guid: 8e31d83ed3da0f445a24dfbf36824d0d,
+        type: 3}
+      propertyPath: damagePopup
+      value: 
+      objectReference: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
+        type: 3}
     - target: {fileID: 5019920250135654424, guid: 8e31d83ed3da0f445a24dfbf36824d0d,
         type: 3}
       propertyPath: sceneViewId

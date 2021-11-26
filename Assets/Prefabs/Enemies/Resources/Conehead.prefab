@@ -88,5 +88,11 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 7550681663679162495, guid: d37182470c126854d8d2fc5ceed9a168,
+        type: 3}
+      propertyPath: damagePopup
+      value: 
+      objectReference: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d37182470c126854d8d2fc5ceed9a168, type: 3}

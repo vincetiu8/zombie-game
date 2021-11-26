@@ -552,6 +552,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3573004846255111834, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: damagePopup
+      value: 
+      objectReference: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
+        type: 3}
     - target: {fileID: 5010320473898853559, guid: 84075f2e9367d194fa1b35aa03203948,
         type: 3}
       propertyPath: sceneViewId

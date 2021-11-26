@@ -7,8 +7,10 @@ namespace Objects
 	///     Health is the base class for all destructible objects.
 	///     Once an object's health reaches 0, it is normally destroyed.
 	/// </summary>
-	public class HealthController : MonoBehaviourPun
+	public class HealthController : MonoBehaviourPun 
 	{
+		[SerializeField] private Transform damagePopup;
+
 		[Header("Health Settings")] [SerializeField] [Range(0, 500)]
 		protected int initialHealth;
 
@@ -43,6 +45,7 @@ namespace Objects
 		protected virtual void RPCChangeHealth(int newHealth, int change)
 		{
 			Health = newHealth;
+			DamagePopup.Create(damagePopup, gameObject.transform.position, change);
 		}
 
 		protected virtual void OnDeath()

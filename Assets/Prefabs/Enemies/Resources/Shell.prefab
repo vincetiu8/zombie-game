@@ -7,6 +7,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 839963683316917755, guid: 979c39bc1269e0841afcce7cf56abe1e,
+        type: 3}
+      propertyPath: damagePopup
+      value: 
+      objectReference: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
+        type: 3}
     - target: {fileID: 1931534748640142993, guid: 979c39bc1269e0841afcce7cf56abe1e,
         type: 3}
       propertyPath: m_Sprite
