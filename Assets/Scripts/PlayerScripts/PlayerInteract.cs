@@ -69,6 +69,7 @@ namespace PlayerScripts
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			if (!other.CompareTag("Interactable")) return;
+			if (_interactList.Contains(other.gameObject)) return;
 			_interactList.Add(other.gameObject);
 			UpdateClosestInteractable();
 		}
@@ -76,6 +77,7 @@ namespace PlayerScripts
 		private void OnTriggerExit2D(Collider2D other)
 		{
 			if (!other.CompareTag("Interactable")) return;
+
 			_interactList.Remove(other.gameObject);
 			UpdateClosestInteractable();
 		}
@@ -106,12 +108,13 @@ namespace PlayerScripts
 				}
 
 				HoldInteractable holdInteractable = interactable as HoldInteractable;
-				if (holdInteractable != null && !holdInteractable.availableForInteract) continue;
+				if (holdInteractable != null && !holdInteractable.AbleToInteract()) continue;
 
 				// Give priority to interactables the player is currently holding
 				if (obj.transform.parent == localInteractableParent)
 				{
 					_interacting = true;
+					closestInteractable = interactable;
 					break;
 				}
 

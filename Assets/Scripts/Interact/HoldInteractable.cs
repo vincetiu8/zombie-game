@@ -4,7 +4,7 @@ namespace Interact
 {
 	public abstract class HoldInteractable : Interactable
 	{
-		public    bool availableForInteract;
+		protected bool AvailableForInteract;
 		protected bool LocallyInteracting;
 
 		protected override void Start()
@@ -15,7 +15,7 @@ namespace Interact
 
 		public override void StartInteraction()
 		{
-			if (!availableForInteract) return;
+			if (!AvailableForInteract) return;
 
 			// Notifies the player the interaction has started
 			startInteraction.Invoke();
@@ -47,7 +47,12 @@ namespace Interact
 		[PunRPC]
 		protected virtual void RPCSetAvailableForInteract(bool available)
 		{
-			availableForInteract = available;
+			AvailableForInteract = available;
+		}
+
+		public bool AbleToInteract()
+		{
+			return AvailableForInteract || LocallyInteracting;
 		}
 	}
 }

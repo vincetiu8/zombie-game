@@ -11,8 +11,9 @@ namespace Shop
 		[SerializeField] [Range(0.5f, 5f)] private float       fadeSpeed;
 		private                                    CanvasGroup _canvasGroup;
 		private                                    Coroutine   _fadeCoroutine;
+		private                                    Text        _shopText;
 
-		private Text _shopText;
+		private bool _textActive;
 
 		private void Awake()
 		{
@@ -40,9 +41,11 @@ namespace Shop
 
 		public void ToggleVisibility(bool toggle)
 		{
+			Debug.Log(toggle);
 			if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
 
 			_fadeCoroutine = StartCoroutine(ToggleVisibilityCoroutine(toggle));
+			_textActive = toggle;
 		}
 
 		private IEnumerator ToggleVisibilityCoroutine(bool toggle)

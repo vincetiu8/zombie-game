@@ -73,7 +73,7 @@ namespace Objects
 		[PunRPC]
 		protected override void RPCSetAvailableForInteract(bool available)
 		{
-			availableForInteract = available && !_windowController.IsWindowFixed();
+			AvailableForInteract = available && !_windowController.IsWindowFixed();
 		}
 	}
 }

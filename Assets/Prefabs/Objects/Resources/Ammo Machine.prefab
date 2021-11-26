@@ -131,7 +131,7 @@ MonoBehaviour:
   finishInteraction:
     m_PersistentCalls:
       m_Calls: []
-  interactDuration: 0.25
+  interactDuration: 1
   itemCost: 10
   popupDelay: 1
   itemName: Primary Ammo (x5)
