@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7330685861977877046}
   - component: {fileID: 7330685861903143323}
   - component: {fileID: -2455776681908347383}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Ammo Machine
   m_TagString: Interactable
   m_Icon: {fileID: 0}

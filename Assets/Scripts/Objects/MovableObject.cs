@@ -36,6 +36,7 @@ namespace Objects
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
+			Debug.Log(other.gameObject.name);
 			if (!_isHolding || !MiscUtils.IsInLayerMask(preventPlace, other.gameObject.layer)) return;
 
 			_contacts++;
