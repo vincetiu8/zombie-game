@@ -138,7 +138,7 @@ MonoBehaviour:
   interactDuration: 1
   preventPlace:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 8448
 --- !u!114 &301593380
 MonoBehaviour:
   m_ObjectHideFlags: 0

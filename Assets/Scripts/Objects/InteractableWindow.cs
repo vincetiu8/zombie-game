@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Interact;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Objects
@@ -19,8 +20,8 @@ namespace Objects
 
 		protected override void Start()
 		{
-			base.Start();
 			_windowController = GetComponentInChildren<WindowController>();
+			base.Start();
 		}
 
 		private void Update()
@@ -32,7 +33,9 @@ namespace Objects
 			_windowController.ChangeHealth(intHealth);
 			_carryHealth -= intHealth;
 
-			if (_windowController.IsWindowFixed()) FinishInteraction();
+			if (!_windowController.IsWindowFixed()) return;
+
+			FinishInteraction();
 		}
 
 		protected void OnTriggerEnter2D(Collider2D other)
@@ -65,6 +68,12 @@ namespace Objects
 			_carryHealth = 0;
 
 			base.StartInteraction();
+		}
+
+		[PunRPC]
+		protected override void RPCSetAvailableForInteract(bool available)
+		{
+			AvailableForInteract = available && !_windowController.IsWindowFixed();
 		}
 	}
 }

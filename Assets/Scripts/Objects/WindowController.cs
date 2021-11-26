@@ -64,7 +64,7 @@ namespace Objects
 
 		public bool IsWindowFixed()
 		{
-			return (Health == maxHealth);
+			return Health == maxHealth;
 		}
 	}
 }

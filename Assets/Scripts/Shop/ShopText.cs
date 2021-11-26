@@ -11,8 +11,7 @@ namespace Shop
 		[SerializeField] [Range(0.5f, 5f)] private float       fadeSpeed;
 		private                                    CanvasGroup _canvasGroup;
 		private                                    Coroutine   _fadeCoroutine;
-
-            private Text _shopText;
+		private                                    Text        _shopText;
 
 		private void Awake()
 		{
@@ -43,7 +42,7 @@ namespace Shop
 			if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
 
 			_fadeCoroutine = StartCoroutine(ToggleVisibilityCoroutine(toggle));
-        }
+		}
 
 		private IEnumerator ToggleVisibilityCoroutine(bool toggle)
 		{
@@ -56,6 +55,7 @@ namespace Shop
 				yield return null;
 			}
 
+			_canvasGroup.alpha = target;
 			_fadeCoroutine = null;
 		}
 	}

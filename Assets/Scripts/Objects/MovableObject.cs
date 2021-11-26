@@ -27,9 +27,8 @@ namespace Objects
 		private NavMeshObstacle _navMeshObstacle;
 		private SpriteRenderer  _spriteRenderer;
 
-		protected override void Awake()
+		protected void Awake()
 		{
-			base.Awake();
 			_navMeshObstacle = GetComponent<NavMeshObstacle>();
 			_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 			_colList = GetComponentsInChildren<Collider2D>();
@@ -102,7 +101,6 @@ namespace Objects
 			_navMeshObstacle.enabled = active;
 			_spriteRenderer.sortingLayerID = SortingLayer.NameToID(active ? "Objects" : "Enemies");
 			_spriteRenderer.sortingOrder = active ? 2 : 5;
-			gameObject.layer = LayerMask.NameToLayer(active ? "Obstacles" : "MovingObstacles");
 			foreach (Collider2D collider in _colList)
 			{
 				if (active)

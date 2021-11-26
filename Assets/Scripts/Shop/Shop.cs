@@ -13,8 +13,9 @@ namespace Shop
 		private int itemCost;
 
 		[SerializeField] [Range(0.1f, 2f)] private float popupDelay = 1f;
+		private                                    bool  _popupActive;
 
-		private float _popupTimeRemaining;
+		private float _popupTime;
 
 		protected override void Start()
 		{
@@ -27,17 +28,21 @@ namespace Shop
 		{
 			base.Update();
 
-			if (_popupTimeRemaining > 0)
+			if (!_popupActive) return;
+
+			if (_popupTime > 0)
 			{
-				_popupTimeRemaining -= Time.deltaTime;
+				_popupTime -= Time.deltaTime;
 				return;
 			}
+
+			ToggleText(false);
 		}
 
 		private void OnTriggerExit2D(Collider2D other)
 		{
 			if (!other.CompareTag("Player")) return;
-			ShopText.Instance.ToggleVisibility(false);
+			ToggleText(false);
 		}
 
 		protected abstract string GetShopPrompt();
@@ -60,18 +65,24 @@ namespace Shop
 			return canBuy;
 		}
 
+		private void ToggleText(bool toggle)
+		{
+			_popupActive = toggle;
+			ShopText.Instance.ToggleVisibility(toggle);
+		}
+
 		public override void StartInteraction()
 		{
 			ResetDuration();
-			ShopText.Instance.ToggleVisibility(true);
+			ToggleText(true);
 
 			// We only want to let the player start if they have already seen the popup and have enough money
-			if (SetShopStatus() && _popupTimeRemaining > 0)
+			if (SetShopStatus() && _popupTime > 0)
 			{
 				base.StartInteraction();
 			}
 
-			_popupTimeRemaining = popupDelay;
+			_popupTime = popupDelay;
 		}
 
 		protected override void OnSuccessfulInteraction()
@@ -81,8 +92,9 @@ namespace Shop
 				OnPurchase();
 			}
 
-			_popupTimeRemaining = popupDelay;
-			if (!SetShopStatus()) ShopText.Instance.ToggleVisibility(false);
+			Debug.Log("Success");
+			_popupTime = popupDelay;
+			if (!SetShopStatus()) ToggleText(false);
 			FinishInteraction();
 		}
 
