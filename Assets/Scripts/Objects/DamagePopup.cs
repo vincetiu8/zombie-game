@@ -26,10 +26,17 @@ namespace Objects {
 		}
 
 		public void Setup(int damageAmount) {
-			_textMeshPro.SetText(damageAmount.ToString());
+			
 			if (damageAmount > 0) {
 				_color=Color.green;
+				_textMeshPro.SetText("+"+damageAmount.ToString());
 			}
+			else {
+				_color=Color.red;
+				_textMeshPro.SetText(damageAmount.ToString());
+			}
+
+
 
 			_textMeshPro.color = _color;
 		}
