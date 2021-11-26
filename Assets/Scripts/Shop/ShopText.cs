@@ -13,8 +13,6 @@ namespace Shop
 		private                                    Coroutine   _fadeCoroutine;
 		private                                    Text        _shopText;
 
-		private bool _textActive;
-
 		private void Awake()
 		{
 			if (Instance != null)
@@ -41,11 +39,9 @@ namespace Shop
 
 		public void ToggleVisibility(bool toggle)
 		{
-			Debug.Log(toggle);
 			if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
 
 			_fadeCoroutine = StartCoroutine(ToggleVisibilityCoroutine(toggle));
-			_textActive = toggle;
 		}
 
 		private IEnumerator ToggleVisibilityCoroutine(bool toggle)
@@ -59,6 +55,7 @@ namespace Shop
 				yield return null;
 			}
 
+			_canvasGroup.alpha = target;
 			_fadeCoroutine = null;
 		}
 	}
