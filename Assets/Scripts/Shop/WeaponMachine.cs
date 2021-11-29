@@ -28,7 +28,7 @@ namespace Shop
             }
             
             boughtWeapon.SetActive(false);
-            handler.AddWeapon(weaponPrefab);
+            handler.AddWeapon(boughtWeapon);
         }
     }
 }
