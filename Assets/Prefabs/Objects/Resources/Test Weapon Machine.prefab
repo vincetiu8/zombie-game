@@ -159,7 +159,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   interactDuration: 2
-  itemCost: 2
+  itemCost: 1
   popupDelay: 1
   itemName: Buy Pistol (x1)
   weaponPrefab: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,

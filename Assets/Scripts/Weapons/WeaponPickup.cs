@@ -9,7 +9,7 @@ namespace Weapons
 {
 	public class WeaponPickup : TimedInteractable
 	{
-		private Vector3        _offset;
+		private Vector3        _offset = new Vector3(0.4f, -0.55f, 0);
 		private WeaponsHandler _weaponsHandler;
 
 		protected override void Start()
@@ -41,6 +41,11 @@ namespace Weapons
 
 			_weaponsHandler = player.GetComponent<WeaponsHandler>();
 			_weaponsHandler.AddWeapon(gameObject);
+		}
+		
+		public void PickupWeapon()
+		{
+			photonView.RPC("RPCPickupWeapon", RpcTarget.All);
 		}
 
 		public void DropWeapon()

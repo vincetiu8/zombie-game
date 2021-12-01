@@ -108,6 +108,13 @@ MonoBehaviour:
     fullAuto: 0
     switchingCooldown: 0
   weaponName: Pistol
+  currentAttributes:
+    description: 
+    damage: 0
+    knockback: 0
+    fireCooldown: 0
+    fullAuto: 0
+    switchingCooldown: 0
   ammoType: 0
   weaponLevels:
   - description: Pistol
