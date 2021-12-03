@@ -226,7 +226,9 @@ namespace PlayerScripts
 		{
 			availableWeapons.Add(weapon);
 			weapon.GetComponent<Weapon>().Setup(_ammoInventory);
-			SelectWeapon(availableWeapons.Count - 1);
+			int selectedIndex = 0;
+			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
+			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
 		}
 
 		public void DropCurrentWeaponAction(InputAction.CallbackContext context)

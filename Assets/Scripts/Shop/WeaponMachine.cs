@@ -16,6 +16,7 @@ namespace Shop
         {
             GameObject boughtWeapon = PhotonNetwork.Instantiate(weaponPrefab.name, GameManager.Instance.localPlayerInstance.transform.position, Quaternion.identity);
             WeaponPickup weaponPickup = boughtWeapon.GetComponent<WeaponPickup>();
+            boughtWeapon.SetActive(false);
             weaponPickup.PickupWeapon();
         }
     }
