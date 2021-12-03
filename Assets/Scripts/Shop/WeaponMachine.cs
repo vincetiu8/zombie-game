@@ -14,10 +14,17 @@ namespace Shop
 
         protected override void OnPurchase()
         {
+            WeaponsHandler handler = GameManager.Instance.localPlayerInstance.GetComponent<WeaponsHandler>();
             GameObject boughtWeapon = PhotonNetwork.Instantiate(weaponPrefab.name, GameManager.Instance.localPlayerInstance.transform.position, Quaternion.identity);
             WeaponPickup weaponPickup = boughtWeapon.GetComponent<WeaponPickup>();
             boughtWeapon.SetActive(false);
-            weaponPickup.PickupWeapon();
+
+            if (!handler.CheckForDuplicates(boughtWeapon))
+            {
+                weaponPickup.PickupWeapon();
+                return;
+            }
+            Destroy(boughtWeapon);
         }
     }
 }

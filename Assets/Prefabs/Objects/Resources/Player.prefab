@@ -2100,7 +2100,7 @@ PrefabInstance:
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Name
-      value: Pistol
+      value: Pistol(Clone)
       objectReference: {fileID: 0}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}

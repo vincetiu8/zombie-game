@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Networking;
 using Photon.Pun;
+using PlasticPipe.PlasticProtocol.Messages;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
@@ -224,14 +225,28 @@ namespace PlayerScripts
 
 		public void AddWeapon(GameObject weapon)
 		{
-			//todo: check for weapon duplicates
-			
 			availableWeapons.Add(weapon);
 			weapon.GetComponent<Weapon>().Setup(_ammoInventory);
 			// Initialized selectedIndex here because using SelectWeapon causes issues with 2 weapons becoming active at once
 			int selectedIndex = 0;
 			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
+		}
+
+		public bool CheckForDuplicates(GameObject weapon)
+		{
+			bool isDuplicate = false;
+			foreach (GameObject availableWeapon in availableWeapons)
+			{
+				if (availableWeapon.name == weapon.name)
+				{
+					Debug.Log("Duplicate weapon detected, canceling AddWeapon");
+					isDuplicate = true;
+					break;
+				}
+			}
+
+			return isDuplicate;
 		}
 
 		public void DropCurrentWeaponAction(InputAction.CallbackContext context)
