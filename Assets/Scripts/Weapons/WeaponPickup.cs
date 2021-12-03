@@ -35,12 +35,13 @@ namespace Weapons
 			GetComponent<Collider2D>().enabled = false;
 			foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
 			{
-				spriteRenderer.sortingLayerID = SortingLayer.NameToID("Actors");
+				spriteRenderer.sortingLayerID = SortingLayer.NameToID("Players");
 				spriteRenderer.sortingOrder = 2;
 			}
 
 			_weaponsHandler = player.GetComponent<WeaponsHandler>();
 			_weaponsHandler.AddWeapon(gameObject);
+			gameObject.SetActive(false);
 		}
 		
 		public void PickupWeapon()

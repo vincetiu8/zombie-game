@@ -224,8 +224,11 @@ namespace PlayerScripts
 
 		public void AddWeapon(GameObject weapon)
 		{
+			//todo: check for weapon duplicates
+			
 			availableWeapons.Add(weapon);
 			weapon.GetComponent<Weapon>().Setup(_ammoInventory);
+			// Initialized selectedIndex here because using SelectWeapon causes issues with 2 weapons becoming active at once
 			int selectedIndex = 0;
 			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
