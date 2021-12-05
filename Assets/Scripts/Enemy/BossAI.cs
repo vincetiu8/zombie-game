@@ -19,7 +19,7 @@ namespace Enemy
 
         private bool _actionOngoing;
         private int _currentAbilityNumber;
-        private PhotonView _photonView;
+        private PhotonView _photonView; 
 
         protected virtual void Start()
         {
