@@ -2017,7 +2017,7 @@ MonoBehaviour:
       data:
         waveName: Necromancer boss
         spawnDelay: 0
-        enemyType: {fileID: 1213563863869152623, guid: 7b8d5efde43a268c0baceeca6973697a,
+        enemyType: {fileID: 576556583066682385, guid: 7b8d5efde43a268c0baceeca6973697a,
           type: 3}
         enemyCount: 1
     00000002:
@@ -2175,6 +2175,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 44d9156b-2271-4f65-af23-e73e8ccbc4e2
     m_ActionName: Game/Drop Weapon[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bf22df7c-2d2e-4e7f-9402-581f410c2daf
+    m_ActionName: Game/Alt Fire[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Spectator
