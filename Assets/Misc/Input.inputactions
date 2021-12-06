@@ -100,6 +100,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Testing",
+                    "type": "Button",
+                    "id": "97c93cd4-7cc6-4cab-96ca-1e4df01e3c55",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -375,6 +383,17 @@
                     "processors": "",
                     "groups": "Computer",
                     "action": "Alt Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1efe5b8e-d857-4bf6-b2ac-bc8474448f43",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Testing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
