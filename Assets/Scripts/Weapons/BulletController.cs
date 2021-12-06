@@ -26,7 +26,7 @@ namespace Weapons
 		{
 			base.OnTriggerEnter2D(other);
 
-			// Destroy the bullet on a collision
+            // Destroy the bullet on a collision
 			Destroy(gameObject);
 		}
 	}

@@ -1691,15 +1691,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 095a40497e26818c496d8f1157ab98f4, type: 3}
---- !u!4 &761666291336677343 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4345742403078963709, guid: 095a40497e26818c496d8f1157ab98f4,
-    type: 3}
-  m_PrefabInstance: {fileID: 3953833660185888290}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4935449549853359760 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8259861147277211826, guid: 095a40497e26818c496d8f1157ab98f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3953833660185888290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &761666291336677343 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4345742403078963709, guid: 095a40497e26818c496d8f1157ab98f4,
     type: 3}
   m_PrefabInstance: {fileID: 3953833660185888290}
   m_PrefabAsset: {fileID: 0}
@@ -1714,6 +1714,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966718255524894617, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
+      propertyPath: targetLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
@@ -1807,15 +1812,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622303937f0556e409efd41e73a2cd6f, type: 3}
---- !u!1 &5124768132740305437 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9004224348638097280, guid: 622303937f0556e409efd41e73a2cd6f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4317750415459712413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7452028337539437896 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6665705036354136277, guid: 622303937f0556e409efd41e73a2cd6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4317750415459712413}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5124768132740305437 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9004224348638097280, guid: 622303937f0556e409efd41e73a2cd6f,
     type: 3}
   m_PrefabInstance: {fileID: 4317750415459712413}
   m_PrefabAsset: {fileID: 0}
@@ -2121,7 +2126,7 @@ PrefabInstance:
     - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].knockback
-      value: 5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: -449475245135285884, guid: 390f9086e6e8bf4dba92d85903aef232,
         type: 3}

@@ -36,7 +36,7 @@ namespace Weapons
 			base.Fire();
 			photonView.RPC("RpcMeleeAnimation", RpcTarget.All);
 
-            foreach (Collider2D correctedEnemy in _meleePoint.GetEnemiesInCollider())
+            foreach (Collider2D correctedEnemy in _meleePoint.GetTargetsInCollider())
             {
                 correctedEnemy.GetComponent<EnemyHealth>().ChangeHealth(-currentAttributes.damage);
                 

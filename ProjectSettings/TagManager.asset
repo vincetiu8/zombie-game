@@ -23,6 +23,8 @@ TagManager:
   - Objects
   - Weapons
   - Barricades
+  - MovingObstacles
+  - Players and Walls
   - Darkness
   - 
   - 
