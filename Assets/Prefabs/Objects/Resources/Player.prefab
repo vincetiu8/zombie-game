@@ -206,6 +206,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -1740,6 +1741,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6465889314189245430, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6665705036354136277, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
       propertyPath: m_RootOrder
@@ -1795,6 +1801,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7086116456801213003, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9004224348638097280, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
       propertyPath: m_Name
@@ -1802,8 +1813,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9004224348638097280, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004224348638097280, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622303937f0556e409efd41e73a2cd6f, type: 3}
