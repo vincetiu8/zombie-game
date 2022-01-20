@@ -40,10 +40,10 @@ namespace PlayerScripts
 				return;
 			}
 
-			_carryHealth += healAmount * Time.deltaTime;
+			_carryHealth += Time.deltaTime;
 			int intHealth = (int)_carryHealth;
 
-			if (intHealth != 0) ChangeHealth(intHealth);
+			if (intHealth != 0) ChangeHealth(intHealth * healAmount);
 
 			_carryHealth -= intHealth;
 		}
