@@ -1,15 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using Codice.Client.ChangeTrackerService;
-using Networking;
 using Photon.Pun;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -20,29 +13,28 @@ namespace Enemy
 	{
 		[Header("Enemy Searching")]
 		[Tooltip("How often the number of remaining enemies should be checked")]
-		[Range(0.1f, 5)] [SerializeField]
+		[Range(0.1f, 5)]
+		[SerializeField]
 		private float searchIntervalAmount = 1f;
 
-		[Header("Wave Settings")]
-		[Tooltip("The time delay between waves")] 
-		[Range(0, 20)] [SerializeField]
+		[Header("Wave Settings")] [Tooltip("The time delay between waves")] [Range(0, 20)] [SerializeField]
 		private float waveDelay = 5;
-		
+
+		[Tooltip("Settings for scaling enemy stats ")] [SerializeReference]
+		private WaveAttributeMultiplier attributeMultiplier = new WaveAttributeMultiplier();
+
+		[Tooltip("List of enemy waves")] [SerializeReference]
+		public List<Wave> waveList;
+
 		[Tooltip("The positions where enemies can spawn")]
-		private List<Transform> spawnpoints = new List<Transform>();
+		private readonly List<Transform> _spawnpoints = new List<Transform>();
 
-		[Tooltip("Settings for scaling enemy stats ")]
-		[SerializeReference] private WaveAttributeMultiplier attributeMultiplier = new WaveAttributeMultiplier(); 
-		
-		[Tooltip("List of enemy waves")]
-		[SerializeReference] public List<Wave> waveList;
-
-		private int _nextWaveIndex;
-		private float _searchInterval;
-		private float _waveCountdown;
+		private int       _nextWaveIndex;
+		private float     _searchInterval;
+		private Coroutine _spawnCoroutine;
 
 		private SpawnState _state;
-		private Coroutine _spawnCoroutine;
+		private float      _waveCountdown;
 
 		private void Start()
 		{
@@ -51,7 +43,7 @@ namespace Enemy
 				enabled = false;
 				return;
 			}
-			
+
 			_state = SpawnState.Counting;
 			_waveCountdown = waveDelay;
 		}
@@ -65,7 +57,7 @@ namespace Enemy
 
 					if (_waveCountdown > 0 || _spawnCoroutine != null) return;
 					_spawnCoroutine = StartCoroutine(SpawnWave(waveList[_nextWaveIndex]));
-					
+
 					break;
 
 				case SpawnState.Spawning:
@@ -98,7 +90,7 @@ namespace Enemy
 		{
 			_state = SpawnState.Counting;
 			_waveCountdown = waveDelay;
-			
+
 			// In case the wave index exceeds the number of waves, we loop back to the start
 			_nextWaveIndex += 1 + waveList.Count;
 			_nextWaveIndex %= waveList.Count;
@@ -111,32 +103,36 @@ namespace Enemy
 		{
 			_state = SpawnState.Spawning;
 			Debug.Log($"Got wave {wave.waveName}, spawning");
-			
-			foreach (var enemy in wave.GetEnemiesToSpawn())
+
+			foreach (GameObject enemy in wave.GetEnemiesToSpawn())
 			{
-				Transform spawnpoint = spawnpoints[Random.Range(0, spawnpoints.Count)];
-				GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
-				
+				Transform spawnpoint = _spawnpoints[Random.Range(0, _spawnpoints.Count)];
+				GameObject spawnedEnemy =
+					PhotonNetwork.Instantiate(enemy.name, spawnpoint.position, Quaternion.identity);
+
 				attributeMultiplier.MultiplyEnemyStats(spawnedEnemy);
 
 				yield return new WaitForSeconds(wave.spawnDelay);
 			}
+
 			attributeMultiplier.Increment();
 			_spawnCoroutine = null;
 			_state = SpawnState.Waiting;
 		}
-		
+
 		private static bool AreEnemiesAlive()
 		{
 			return GameObject.FindGameObjectWithTag("Enemy");
 		}
 
-		public  void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
+		public void AddSpawnPoints(IEnumerable<Transform> additionalSpawnPoints)
 		{
 			// Only adds SpawnPoints that do not already exist to prevent accidentally adding the same points multiple times
-			foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint => !spawnpoints.Contains(addedSpawnPoint)))
+			foreach (Transform addedSpawnPoint in additionalSpawnPoints.Where(addedSpawnPoint =>
+				                                                                  !_spawnpoints
+					                                                                  .Contains(addedSpawnPoint)))
 			{
-				spawnpoints.Add(addedSpawnPoint);
+				_spawnpoints.Add(addedSpawnPoint);
 			}
 		}
 	}
