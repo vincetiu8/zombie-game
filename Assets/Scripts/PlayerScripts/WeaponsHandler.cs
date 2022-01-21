@@ -236,7 +236,10 @@ namespace PlayerScripts
 		[PunRPC]
 		private void RPCDropCurrentWeapon()
 		{
-			_currentWeapon.GetComponent<WeaponPickup>().DropWeapon();
+			WeaponPickup weaponPickup = _currentWeapon.GetComponent<WeaponPickup>();
+			if (weaponPickup == null) return; // Weapon is grenade or something undroppable
+
+			weaponPickup.DropWeapon();
 			availableWeapons.Remove(_currentWeapon.gameObject);
 			if (availableWeapons.Count == 0)
 			{
