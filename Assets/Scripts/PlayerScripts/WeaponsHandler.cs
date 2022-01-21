@@ -114,7 +114,7 @@ namespace PlayerScripts
 
 		public void ReloadAction(InputAction.CallbackContext context)
 		{
-			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
+			if (CanFire()) return;
 			_playerHealth.ResetNaturalHealing();
 
 			// Make sure this is only when the reload button is pressed

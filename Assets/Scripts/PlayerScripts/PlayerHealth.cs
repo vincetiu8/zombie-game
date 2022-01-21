@@ -19,20 +19,22 @@ namespace PlayerScripts
 		[SerializeField] private float maxHealDelay;
 
 		[SerializeField] private GameObject[] childrenToChangeTagOnDeath;
-		private                  float        _carryHealth;
-		private                  float        _healDelay;
 
+		private float          _carryHealth;
+		private bool           _enableNaturalHealing;
+		private float          _healDelay;
 		private PlayerInteract _playerInteract;
 
 		protected override void Start()
 		{
 			base.Start();
 			_playerInteract = GetComponent<PlayerInteract>();
+			_enableNaturalHealing = true;
 		}
 
 		private void Update()
 		{
-			if (!photonView.IsMine || Health >= initialHealth || Health <= 0) return;
+			if (!photonView.IsMine || !_enableNaturalHealing || Health >= initialHealth || Health <= 0) return;
 
 			if (_healDelay > 0)
 			{
@@ -61,6 +63,11 @@ namespace PlayerScripts
 			if (!photonView.IsMine || change >= 0) return;
 			_playerInteract.CancelInteraction();
 			ResetNaturalHealing();
+		}
+
+		public void ToggleNaturalHealing(bool toggle)
+		{
+			_enableNaturalHealing = toggle;
 		}
 
 		public void ResetNaturalHealing()
