@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Networking;
 using Photon.Pun;
 using UnityEngine;
@@ -11,8 +10,7 @@ namespace UI
 	/// </summary>
 	public class PauseMenu : MonoBehaviour
 	{
-		[Header("Pause Menu Objects")] [Description("The UI with the pause menu")] [SerializeField]
-		private GameObject pauseMenuUI;
+		[SerializeField] private bool enablePausing;
 
 		private bool        _gamePaused;
 		private PlayerInput _playerInput;
@@ -27,11 +25,13 @@ namespace UI
 			_gamePaused = !_gamePaused;
 			string actionMap = _gamePaused ? "UI" : "Game";
 			_playerInput.SwitchCurrentActionMap(actionMap);
-			pauseMenuUI.SetActive(_gamePaused);
+			gameObject.SetActive(_gamePaused);
 		}
 
 		private void PauseAction(InputAction.CallbackContext context)
 		{
+			if (!enablePausing) return;
+
 			if (context.performed) PauseMenuToggle();
 		}
 
