@@ -185,7 +185,6 @@ GameObject:
   - component: {fileID: 5737561027745860989}
   - component: {fileID: 6430018366674950792}
   - component: {fileID: 662938872537925858}
-  - component: {fileID: 5242127807429692485}
   m_Layer: 10
   m_Name: Stabbystabstab
   m_TagString: Interactable
@@ -221,6 +220,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6c02cdbac81b84cb5dcebe3e5eac60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAttributes:
+    description: 
+    damage: 0
+    knockback: 0
+    fireCooldown: 0
+    fullAuto: 0
+    switchingCooldown: 0
   weaponName: MeleeWeapon
   levels:
   - description: Stabbystab
@@ -228,6 +234,7 @@ MonoBehaviour:
     knockback: 3
     fireCooldown: 0.3
     fullAuto: 0
+    switchingCooldown: 0
 --- !u!114 &6430018366674950792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,23 +273,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.75
---- !u!114 &5242127807429692485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9004224348638097280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0efcd33fd675f5c0db24f18dec85563c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactableType: 0
-  startInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-  finishInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-  interactDuration: 0
