@@ -107,20 +107,20 @@ namespace PlayerScripts
 			if (context.canceled) _currentWeapon.ToggleAltFire(false);
 		}
 
-		private bool CanFire()
-		{
-			return photonView.IsMine && _currentWeapon != null && _currentWeapon.enabled && !_preventFire;
-		}
-
 		public void ReloadAction(InputAction.CallbackContext context)
 		{
-			if (CanFire()) return;
+			if (!CanFire()) return;
 			_playerHealth.ResetNaturalHealing();
 
 			// Make sure this is only when the reload button is pressed
 			if (!context.performed) return;
 
 			_currentWeapon.Reload();
+		}
+
+		private bool CanFire()
+		{
+			return photonView.IsMine && _currentWeapon != null && _currentWeapon.enabled && !_preventFire;
 		}
 
 		// Makes the player face the mouse
