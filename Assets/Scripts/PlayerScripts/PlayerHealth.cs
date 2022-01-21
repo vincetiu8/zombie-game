@@ -98,7 +98,6 @@ namespace PlayerScripts
 
 			if (!photonView.IsMine) return;
 
-			Debug.Log(photonView.IsMine);
 			GameManager.Instance.spectatorManager.enabled = true;
 			base.RPCOnDeath();
 		}

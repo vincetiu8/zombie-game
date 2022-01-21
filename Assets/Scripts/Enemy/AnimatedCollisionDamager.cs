@@ -22,6 +22,7 @@ namespace Enemy
 
 			if (_animator == null) return;
 
+			Debug.Break();
 			_animator.SetBool(AttackingProperty, HealthControllers.Count > 0);
 		}
 
@@ -37,7 +38,7 @@ namespace Enemy
 		public void ScaleDamage(float scale)
 		{
 			float newDamage = damage * scale;
-			damage = (int) newDamage;
+			damage = (int)newDamage;
 		}
 	}
 }

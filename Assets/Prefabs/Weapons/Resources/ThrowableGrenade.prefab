@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4199299946989307126}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4895034229198953113}
   - component: {fileID: 8649411088491165586}
   - component: {fileID: 2394645392172882242}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: ThrowableGrenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ffa889c79543fa46975d1fdbd3827eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: 
   currentAttributes:
     description: temp damage
     damage: 0
@@ -136,6 +135,7 @@ MonoBehaviour:
     fireCooldown: 0
     fullAuto: 0
     switchingCooldown: 0
+  weaponName: 
   ammoType: 3
   weaponLevels:
   - description: temp damage

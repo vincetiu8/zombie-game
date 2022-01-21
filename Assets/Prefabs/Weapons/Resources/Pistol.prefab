@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1201697913036177066}
   - component: {fileID: 8110468372728126296}
   - component: {fileID: 7158115841983371464}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Pistol
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6581261222417765288}
   - component: {fileID: 5466930436199702587}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

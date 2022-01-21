@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1821228304949575301}
   - component: {fileID: 4966718255524894617}
   - component: {fileID: 4065469881926488048}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: MeleePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 4371919063578969868}
   - component: {fileID: 7953324660163104635}
   - component: {fileID: 8753486403994033469}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 5737561027745860989}
   - component: {fileID: 6430018366674950792}
   - component: {fileID: 662938872537925858}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Stabbystabstab
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -221,10 +221,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAttributes:
-    description: 
-    damage: 0
-    knockback: 0
-    fireCooldown: 0
+    description: Knife
+    damage: 20
+    knockback: 10
+    fireCooldown: 0.5
     fullAuto: 0
     switchingCooldown: 0
   weaponName: MeleeWeapon
@@ -234,7 +234,7 @@ MonoBehaviour:
     knockback: 3
     fireCooldown: 0.3
     fullAuto: 0
-    switchingCooldown: 0
+    switchingCooldown: 7
 --- !u!114 &6430018366674950792
 MonoBehaviour:
   m_ObjectHideFlags: 0

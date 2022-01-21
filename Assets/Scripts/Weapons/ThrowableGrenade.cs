@@ -14,7 +14,7 @@ namespace Weapons
 			// Handles instantiation of grenade
 			if (AmmoInventory == null) return;
 
-			_bulletsInMagazine = AmmoInventory.GetAmmo(ammoType);
+			BulletsInMagazine = AmmoInventory.GetAmmo(ammoType);
 		}
 
 		public override void Setup(AmmoInventory inventory)
