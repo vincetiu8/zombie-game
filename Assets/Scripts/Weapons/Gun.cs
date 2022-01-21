@@ -25,11 +25,11 @@ namespace Weapons
 		private Vector2   _gunOffsetAdjustment;
 		private Coroutine _reloadCoroutine;
 
-		protected override void Start()
+		protected override void Awake()
 		{
-			base.Start();
-			maxLevel = weaponLevels.Length;
-			_currentGunAttributes = weaponLevels[currentLevel];
+			base.Awake();
+			MaxLevel = weaponLevels.Length;
+			_currentGunAttributes = weaponLevels[CurrentLevel];
 			currentAttributes = _currentGunAttributes;
 			_bulletsInMagazine = _currentGunAttributes.magazineSize;
 		}
@@ -60,7 +60,7 @@ namespace Weapons
 			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
 
 			FireBulletsAlt();
-			
+
 			_bulletsInMagazine--;
 			base.AltFire();
 		}
@@ -92,7 +92,7 @@ namespace Weapons
 			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
 
 			// Withdraw bullets from the player's inventory
-			_bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
+			_bulletsInMagazine = AmmoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
 			_reloadCoroutine = null;
@@ -100,7 +100,7 @@ namespace Weapons
 
 		public override void Upgrade()
 		{
-			_currentGunAttributes = weaponLevels[currentLevel];
+			_currentGunAttributes = weaponLevels[CurrentLevel];
 			currentAttributes = _currentGunAttributes;
 		}
 
@@ -126,7 +126,7 @@ namespace Weapons
 
 		public override string ToString()
 		{
-			return $"{weaponName} Level {currentLevel} Stats:\n{currentAttributes}";
+			return $"{weaponName} Level {CurrentLevel} Stats:\n{currentAttributes}";
 		}
 	}
 }

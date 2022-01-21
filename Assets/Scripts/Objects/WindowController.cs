@@ -59,6 +59,7 @@ namespace Objects
 			for (int i = min + 1; i <= max; i++) _barricades[i].SetActive(newActiveBarricade > _activeBarricade);
 
 			_activeBarricade = newActiveBarricade;
+			SpawnHealthPopup(newHealth - Health);
 			Health = newHealth;
 		}
 

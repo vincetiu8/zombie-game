@@ -1,4 +1,3 @@
-using System.Collections;
 using System.ComponentModel;
 using Photon.Pun;
 using PlayerScripts;
@@ -12,22 +11,23 @@ namespace Weapons
 	/// </summary>
 	public abstract class Weapon : MonoBehaviourPun
 	{
+		public WeaponAttributes currentAttributes;
+
 		[Description("The weapon's name")] [SerializeField]
 		protected string weaponName;
 
 		private float _fireCooldown;
-		private   bool             _isFiring;
-		protected AmmoInventory    ammoInventory;
-		public    WeaponAttributes currentAttributes;
-		protected int              currentLevel;
+		private bool  _isFiring;
 
-		protected int maxLevel;
+		protected AmmoInventory AmmoInventory;
+		protected int           CurrentLevel;
+		protected int           MaxLevel;
 
 		// Should be overridden to set maxLevel
-		protected virtual void Start()
+		protected virtual void Awake()
 		{
-			currentLevel = 0;
-			maxLevel = 0;
+			CurrentLevel = 0;
+			MaxLevel = 0;
 		}
 
 		private void Update()
@@ -48,7 +48,7 @@ namespace Weapons
 
 		public virtual void Setup(AmmoInventory inventory)
 		{
-			ammoInventory = inventory;
+			AmmoInventory = inventory;
 		}
 
 		/// <summary>
@@ -67,7 +67,7 @@ namespace Weapons
 			// Toggles firing for full auto weapons
 			_isFiring = toggle;
 		}
-		
+
 		public void ToggleAltFire(bool toggle)
 		{
 			if (!currentAttributes.fullAuto)
@@ -98,9 +98,9 @@ namespace Weapons
 		public virtual void Upgrade()
 		{
 			// Block upgrading the weapon if there are no more levels left to unlock
-			if (currentLevel > maxLevel - 2) return;
+			if (CurrentLevel > MaxLevel - 2) return;
 
-			currentLevel++;
+			CurrentLevel++;
 		}
 
 		/// <summary>

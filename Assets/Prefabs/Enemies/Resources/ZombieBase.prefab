@@ -261,9 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a987ea837b1a4bb39191fda9ee4d82d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePopup: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
-    type: 3}
   initialHealth: 80
+  damagePopupObject: {fileID: 1740622571343689664, guid: 75fc013bba420ec4287582a465e3f7fa,
+    type: 3}
   goldDropAmount: 10
 --- !u!114 &5922302237531640250
 MonoBehaviour:

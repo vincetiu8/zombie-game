@@ -10,15 +10,14 @@ namespace Networking
 {
 	public class GameManager : MonoBehaviourPunCallbacks
 	{
-		public static            GameManager      Instance;
-		[HideInInspector] public UnityEvent       onAllPlayersDead;
-		[HideInInspector] public GoldSystem       goldSystem;
-		[HideInInspector] public GameObject       localPlayerInstance;
-		[HideInInspector] public SpectatorManager spectatorManager;
-
-		[SerializeField] private GameObject  playerPrefab;
-		[SerializeField] private Transform[] spawnpoints;
-		[SerializeField] private MenuManager menuManager;
+		public static             GameManager      Instance;
+		[HideInInspector] public  UnityEvent       onAllPlayersDead;
+		[HideInInspector] public  GoldSystem       goldSystem;
+		[HideInInspector] public  GameObject       localPlayerInstance;
+		[HideInInspector] public  SpectatorManager spectatorManager;
+		[SerializeField]  private GameObject       playerPrefab;
+		[SerializeField]  private Transform[]      spawnpoints;
+		[SerializeField]  private MenuManager      menuManager;
 
 		public Dictionary<int, GameObject> PlayerInstances;
 

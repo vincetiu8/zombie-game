@@ -20,11 +20,11 @@ namespace Weapons
 		private Animator   _animator;
 		private MeleePoint _meleePoint;
 
-		protected override void Start()
+		protected override void Awake()
 		{
-			base.Start();
-			maxLevel = levels.Length;
-			currentAttributes = levels[currentLevel];
+			base.Awake();
+			MaxLevel = levels.Length;
+			currentAttributes = levels[CurrentLevel];
 			_meleePoint = GetComponentInChildren<MeleePoint>();
 			_animator = GetComponentInChildren<Animator>();
 		}

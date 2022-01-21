@@ -964,9 +964,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcac3aa10ef1d5e4a80d6ac795da0130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePopup: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
-    type: 3}
   initialHealth: 200
+  damagePopupObject: {fileID: 1740622571343689664, guid: 75fc013bba420ec4287582a465e3f7fa,
+    type: 3}
   sprites:
   - {fileID: 3247233815640111391, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}
   - {fileID: -8122009008315846099, guid: 0246d79ac60b897b6836ef7b5186b0c7, type: 3}

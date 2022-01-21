@@ -200,7 +200,6 @@ MonoBehaviour:
   finishInteraction:
     m_PersistentCalls:
       m_Calls: []
-  availableForInteract: 0
   barricadeFixRate: 50
 --- !u!114 &2762703297160124035
 MonoBehaviour:
@@ -214,9 +213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d901bf0007cddd14f81db6f4a42180d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePopup: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
-    type: 3}
   initialHealth: 0
+  damagePopupObject: {fileID: 1740622571343689664, guid: 75fc013bba420ec4287582a465e3f7fa,
+    type: 3}
   barricadeGraphics: {fileID: 4149290357387999076}
   maxHealth: 200
 --- !u!114 &2520550576081584813

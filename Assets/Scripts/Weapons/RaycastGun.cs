@@ -23,11 +23,14 @@ namespace Weapons
 		[SerializeField] private GameObject tracerPrefab;
 
 		private LayerMask _layerMask;
+		private Light2D   _light2D;
 		private Coroutine _muzzleFlashCoroutine;
 
-		private void Awake()
+		protected override void Awake()
 		{
+			base.Awake();
 			_layerMask = LayerMask.GetMask("Enemies", "Objects", "Obstacles");
+			_light2D = GetComponentInChildren<Light2D>();
 		}
 
 		protected override void FireBullet(float angle, bool alt)
@@ -50,9 +53,10 @@ namespace Weapons
 
 			healthController.ChangeHealth(-currentAttributes.damage);
 
-            if (healthController.transform.GetComponent<KnockbackController>() == null) return;
-            
-            healthController.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, currentAttributes.knockback);
+			if (healthController.transform.GetComponent<KnockbackController>() == null) return;
+
+			healthController.transform.GetComponent<KnockbackController>()
+			                .TakeKnockBack(angle, currentAttributes.knockback);
 		}
 
 		[PunRPC]
@@ -64,18 +68,17 @@ namespace Weapons
 
 			Vector2 endpoint = new Vector2(x, y) / PositionPrecision;
 			lineRenderer.SetPosition(1, endpoint);
-			
-			if(_muzzleFlashCoroutine != null) StopCoroutine(_muzzleFlashCoroutine);
+
+			if (_muzzleFlashCoroutine != null) StopCoroutine(_muzzleFlashCoroutine);
 			_muzzleFlashCoroutine = StartCoroutine(MuzzleFlash());
 		}
 
 		private IEnumerator MuzzleFlash()
 		{
-			Light2D _light = GetComponentInChildren<Light2D>();
-			_light.intensity = 2;
-			while (_light.intensity > 0)
+			_light2D.intensity = 2;
+			while (_light2D.intensity > 0)
 			{
-				_light.intensity -= Time.deltaTime * muzzleFlashFadeTime;
+				_light2D.intensity -= Time.deltaTime * muzzleFlashFadeTime;
 				yield return null;
 			}
 
