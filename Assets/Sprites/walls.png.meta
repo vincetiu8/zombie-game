@@ -74,6 +74,9 @@ TextureImporter:
   - first:
       213: -2025498520911094271
     second: walls_23
+  - first:
+      213: -156255788768204352
+    second: walls_24
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -780,7 +783,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -788,6 +791,27 @@ TextureImporter:
       bones: []
       spriteID: 10ed308a3dbf3e3e0800000000000000
       internalID: -2025498520911094271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walls_24
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c96f50203ed4ddf0800000000000000
+      internalID: -156255788768204352
       vertices: []
       indices: 
       edges: []
