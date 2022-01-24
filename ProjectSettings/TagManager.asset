@@ -52,11 +52,11 @@ TagManager:
   - name: Objects
     uniqueID: 1036530043
     locked: 0
-  - name: Enemies
-    uniqueID: 549690393
-    locked: 0
   - name: Obstacles
     uniqueID: 2406091313
+    locked: 0
+  - name: Enemies
+    uniqueID: 549690393
     locked: 0
   - name: Players
     uniqueID: 3846824837
