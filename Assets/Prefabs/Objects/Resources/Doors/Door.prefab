@@ -87,12 +87,8 @@ MonoBehaviour:
       m_Calls: []
   interactDuration: 1
   itemCost: 10
-  popupDelay: 1
   itemName: Door
-  _hasSprite: 1
-  spriteRenderer: {fileID: 0}
-  beforeUnlock: {fileID: 21300000, guid: ed519f8530451b644ba1c134d718d779, type: 3}
-  afterUnlock: {fileID: 21300000, guid: 2f416ee0525499a449f06620efc51730, type: 3}
+  popupDelay: 1
   firstRoomToUnlock: 
   secondRoomToUnlock: 
 --- !u!114 &1484598512732383201
@@ -231,9 +227,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1036530043
+  m_SortingLayer: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 407731285908506765, guid: c31f359a1d67cc6739fef406d959536c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
