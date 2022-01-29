@@ -1,5 +1,4 @@
 using Objects;
-using UnityEngine;
 
 namespace Enemy
 {
@@ -22,7 +21,6 @@ namespace Enemy
 
 			if (_animator == null) return;
 
-			Debug.Break();
 			_animator.SetBool(AttackingProperty, HealthControllers.Count > 0);
 		}
 
