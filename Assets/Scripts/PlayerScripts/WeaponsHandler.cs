@@ -186,10 +186,10 @@ namespace PlayerScripts
 
 			if (_weaponSwitchingCoroutine != null) StopCoroutine(_weaponSwitchingCoroutine);
 
-			_weaponSwitchingCoroutine = StartCoroutine(WeaponSwitchingCooldown(selectedIndex));
+			_weaponSwitchingCoroutine = StartCoroutine(WeaponSwitchingCooldown());
 		}
 
-		private IEnumerator WeaponSwitchingCooldown(int selectedIndex)
+		private IEnumerator WeaponSwitchingCooldown()
 		{
 			GameObject currentWeapon = availableWeapons[_currentWeaponIndex];
 			currentWeapon.SetActive(true);
@@ -228,7 +228,7 @@ namespace PlayerScripts
 
 		public void DropCurrentWeaponAction(InputAction.CallbackContext context)
 		{
-			if (!context.performed || _currentWeapon == null) return;
+			if (!context.performed || _currentWeapon == null || !_currentWeapon.enabled) return;
 
 			photonView.RPC("RPCDropCurrentWeapon", RpcTarget.All);
 		}
