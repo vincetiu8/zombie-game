@@ -169,7 +169,7 @@ namespace PlayerScripts
 
 		private void SelectWeapon(int selectedIndex)
 		{
-			if (availableWeapons.Count == 0) return;
+			if (availableWeapons.Count == 0 || selectedIndex == _currentWeaponIndex) return;
 
 			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
 
