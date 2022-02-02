@@ -37,11 +37,13 @@ namespace UI
 
 		public void QuitFromPauseMenu()
 		{
-			PhotonNetwork.LeaveRoom();
+			PhotonNetwork.Disconnect();
+			PhotonNetwork.LoadLevel(0);
 		}
 
 		public void QuitGameFromPauseMenu()
 		{
+			QuitFromPauseMenu();
 			Application.Quit();
 		}
 	}

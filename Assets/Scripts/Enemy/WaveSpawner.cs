@@ -38,14 +38,12 @@ namespace Enemy
 
 		private void Start()
 		{
-			if (!PhotonNetwork.IsMasterClient)
-			{
-				enabled = false;
-				return;
-			}
-
 			_state = SpawnState.Counting;
 			_waveCountdown = waveDelay;
+
+			if (PhotonNetwork.IsMasterClient) return;
+
+			enabled = false;
 		}
 
 		private void Update()
