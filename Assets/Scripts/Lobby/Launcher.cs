@@ -23,6 +23,7 @@ namespace Lobby
 		[SerializeField] private Transform  playerListContent;
 		[SerializeField] private GameObject playerListItemPrefab;
 		[SerializeField] private GameObject startGameButton;
+		[SerializeField] private GameObject errorRoomText;
 
 		private bool _loadingRoom;
 
@@ -79,9 +80,15 @@ namespace Lobby
 
 		public override void OnCreateRoomFailed(short returnCode, string message)
 		{
-			errorText.text = "Room Creation Failed: " + message;
-			Debug.LogError("Room Creation Failed: " + message);
-			MenuManager.instance.OpenMenu("error");
+			Debug.Log($"Unable to create room: {message}");
+
+			Debug.Log(returnCode);
+
+			if (returnCode != 32766) return;
+
+			// Room name taken
+			MenuManager.instance.OpenMenu("createroom");
+			errorRoomText.SetActive(true);
 		}
 
 		public override void OnLeftRoom()
@@ -115,6 +122,7 @@ namespace Lobby
 				return;
 			}
 
+			Debug.Log($"Attempting to create room with name {roomNameInputField.text}");
 			PhotonNetwork.CreateRoom(roomNameInputField.text);
 			MenuManager.instance.OpenMenu("loading");
 		}
