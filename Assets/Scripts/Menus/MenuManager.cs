@@ -22,7 +22,7 @@ namespace Menus
 
 		private void Start()
 		{
-			if (_playerInput == null)
+			if (_playerInput == null && GameManager.Instance != null)
 			{
 				// Still causes an error in main menu, that's fine
 				_playerInput = GameManager.Instance.localPlayerInstance.GetComponent<PlayerInput>();
