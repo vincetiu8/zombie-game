@@ -24,9 +24,12 @@ namespace Lobby
 		[SerializeField] private GameObject playerListItemPrefab;
 		[SerializeField] private GameObject startGameButton;
 
+		private bool _loadingRoom;
+
 		private void Awake()
 		{
 			instance = this;
+			_loadingRoom = false;
 		}
 
 		private void Start()
@@ -118,6 +121,8 @@ namespace Lobby
 
 		public void StartGame()
 		{
+			if (_loadingRoom) return;
+			_loadingRoom = true;
 			PhotonNetwork.LoadLevel(1);
 		}
 
