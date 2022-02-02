@@ -8,6 +8,9 @@ namespace PlayerScripts
 {
 	public class PlayerMovement : MonoBehaviour
 	{
+
+		public float dashTime;
+
 		[SerializeField] private float       acceleration;
 		[SerializeField] private float       startDashTime;
 		[SerializeField] private float       dashSpeed;
@@ -17,9 +20,6 @@ namespace PlayerScripts
 		private Rigidbody2D _rigidbody2D;
 
 		private PlayerHealth _playerHealth;
-
-		private float       dashTime;
-
 
 		private void Awake() {
 			_playerHealth = GetComponent<PlayerHealth>();
