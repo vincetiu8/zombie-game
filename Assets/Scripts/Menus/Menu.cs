@@ -15,7 +15,7 @@ namespace Menus
 		public bool freezeOnToggle;
 
 		// This variable is solely for toggling input
-		[HideInInspector] public bool inputToggle = false;
+		[HideInInspector] public bool inputToggle;
 
 		public virtual void Toggle(bool active)
 		{
