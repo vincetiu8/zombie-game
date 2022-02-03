@@ -98,15 +98,26 @@ namespace Lobby
 
 		public override void OnRoomListUpdate(List<RoomInfo> roomList)
 		{
-			foreach (Transform trans in roomListContent)
-			{
-				Destroy(trans.gameObject);
-			}
+			Debug.Log("Updating rooms...");
 
 			foreach (RoomInfo room in roomList)
 			{
-				if (room.RemovedFromList) continue;
-				Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().Setup(room);
+				bool found = false;
+				foreach (Transform trans in roomListContent)
+				{
+					RoomListItem transRoom = trans.GetComponent<RoomListItem>();
+					if (transRoom.RoomInfo.Name != room.Name) continue;
+
+					if (room.RemovedFromList) Destroy(trans);
+
+					found = true;
+					break;
+				}
+
+				if (room.RemovedFromList || found) continue;
+
+				GameObject roomInstance = Instantiate(roomListItemPrefab, roomListContent);
+				roomInstance.GetComponent<RoomListItem>().Setup(room);
 			}
 		}
 
