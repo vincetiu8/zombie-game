@@ -199,7 +199,10 @@ namespace PlayerScripts
 			SpriteRenderer[] weaponSprites = currentWeapon.GetComponentsInChildren<SpriteRenderer>();
 			foreach (SpriteRenderer spriteRenderer in weaponSprites) spriteRenderer.color = _semiTransparent;
 
-			yield return new WaitForSeconds(_currentWeapon.currentAttributes.switchingCooldown);
+			float cooldown = _currentWeapon.currentAttributes.switchingCooldown;
+			Debug.Log(cooldown);
+
+			yield return new WaitForSeconds(cooldown);
 
 			foreach (SpriteRenderer spriteRenderer in weaponSprites) spriteRenderer.color = Color.white;
 
@@ -247,9 +250,8 @@ namespace PlayerScripts
 				return;
 			}
 
-			_currentWeaponIndex = (_currentWeaponIndex - 1 + availableWeapons.Count) % availableWeapons.Count;
-			_currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();
-			ActivateCurrentWeapon();
+			int newWeaponIndex = (_currentWeaponIndex - 1 + availableWeapons.Count) % availableWeapons.Count;
+			RPCSelectWeapon(newWeaponIndex);
 		}
 	}
 }
