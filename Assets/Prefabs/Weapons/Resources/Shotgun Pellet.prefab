@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6698922713236457672}
   - component: {fileID: 5773430297063856871}
   - component: {fileID: 5994643520050380532}
-  m_Layer: 9
+  m_Layer: 3
   m_Name: Shotgun Pellet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1036530043
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 698664279297640794, guid: 92aa031c64efb71d9a518e107694d2c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -125,6 +125,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  knockBack: 0
   lifetime: 0.3
 --- !u!114 &6698922713236457672
 MonoBehaviour:

@@ -92,7 +92,6 @@ namespace Shop
 				OnPurchase();
 			}
 
-			Debug.Log("Success");
 			_popupTime = popupDelay;
 			if (!SetShopStatus()) ToggleText(false);
 			FinishInteraction();

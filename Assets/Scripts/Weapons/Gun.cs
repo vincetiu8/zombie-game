@@ -19,19 +19,19 @@ namespace Weapons
 		[Description("The transform the bullets will shoot from")] [SerializeField]
 		protected Transform firepoint;
 
-		protected int           _bulletsInMagazine;
-		protected GunAttributes _currentGunAttributes;
+		private GunAttributes _currentGunAttributes;
+		private Vector2       _gunOffsetAdjustment;
+		private Coroutine     _reloadCoroutine;
 
-		private Vector2   _gunOffsetAdjustment;
-		private Coroutine _reloadCoroutine;
+		protected int BulletsInMagazine;
 
-		protected override void Start()
+		protected override void Awake()
 		{
-			base.Start();
-			maxLevel = weaponLevels.Length;
-			_currentGunAttributes = weaponLevels[currentLevel];
+			base.Awake();
+			MaxLevel = weaponLevels.Length;
+			_currentGunAttributes = weaponLevels[CurrentLevel];
 			currentAttributes = _currentGunAttributes;
-			_bulletsInMagazine = _currentGunAttributes.magazineSize;
+			BulletsInMagazine = _currentGunAttributes.magazineSize;
 		}
 
 		public override void Setup(AmmoInventory inventory)
@@ -42,26 +42,26 @@ namespace Weapons
 
 		protected override void Fire()
 		{
-			if (_bulletsInMagazine < 1) return;
+			if (BulletsInMagazine < 1) return;
 
 			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
 
 			FireBullets();
 
 			// Remove a bullet from the magazine
-			_bulletsInMagazine--;
+			BulletsInMagazine--;
 			base.Fire();
 		}
 
 		protected override void AltFire()
 		{
-			if (_bulletsInMagazine < 1) return;
+			if (BulletsInMagazine < 1) return;
 
 			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
 
 			FireBulletsAlt();
-			
-			_bulletsInMagazine--;
+
+			BulletsInMagazine--;
 			base.AltFire();
 		}
 
@@ -92,7 +92,7 @@ namespace Weapons
 			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
 
 			// Withdraw bullets from the player's inventory
-			_bulletsInMagazine = ammoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
+			BulletsInMagazine = AmmoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
 			_reloadCoroutine = null;
@@ -100,7 +100,7 @@ namespace Weapons
 
 		public override void Upgrade()
 		{
-			_currentGunAttributes = weaponLevels[currentLevel];
+			_currentGunAttributes = weaponLevels[CurrentLevel];
 			currentAttributes = _currentGunAttributes;
 		}
 
@@ -126,7 +126,7 @@ namespace Weapons
 
 		public override string ToString()
 		{
-			return $"{weaponName} Level {currentLevel} Stats:\n{currentAttributes}";
+			return $"{weaponName} Level {CurrentLevel} Stats:\n{currentAttributes}";
 		}
 	}
 }

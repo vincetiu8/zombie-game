@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Menus_UI
+namespace Menus
 {
 	/// <summary>
 	///     Handles each menu.
@@ -15,9 +15,9 @@ namespace Menus_UI
 		public bool freezeOnToggle;
 
 		// This variable is solely for toggling input
-		[HideInInspector] public bool inputToggle = false;
+		[HideInInspector] public bool inputToggle;
 
-		public void Toggle(bool active)
+		public virtual void Toggle(bool active)
 		{
 			gameObject.SetActive(active);
 			inputToggle = !inputToggle;

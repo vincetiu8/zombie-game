@@ -16,7 +16,7 @@ namespace Enemy
 		[Tooltip("Incrementing value used in attribute calculations")] [SerializeField] [Range(0.5f, 1.5f)]
 		private float multiplierValue = 1;
 
-		[SerializeField] [Range(0.1f, 1f)] private float randomDeviationMax;
+		[SerializeField] [Range(0.1f, 1f)] private float randomDeviation;
 
 		[Tooltip("How much to increment statIncrementer by. Defaults to 1")] [SerializeField] [Range(0f, 1f)]
 		private float multiplierIncrement = 0.1f;
@@ -30,7 +30,7 @@ namespace Enemy
 				enemy.GetComponentInChildren<AnimatedCollisionDamager>();
 
 			// Randomize multiplier
-			float deviatedMultiplier = multiplierValue + Random.Range(-randomDeviationMax, randomDeviationMax);
+			float deviatedMultiplier = multiplierValue + Random.Range(-randomDeviation, randomDeviation);
 
 			// Set stats
 			enemyHealth.ScaleHealth(deviatedMultiplier);
@@ -39,6 +39,8 @@ namespace Enemy
 
 		public void Increment()
 		{
+			if (!increaseStats) return;
+
 			multiplierValue += multiplierIncrement;
 		}
 	}

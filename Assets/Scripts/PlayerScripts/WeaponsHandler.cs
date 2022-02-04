@@ -33,11 +33,14 @@ namespace PlayerScripts
 		private float         _mouseDist;
 		private PlayerHealth  _playerHealth;
 		private bool          _preventFire;
-		private bool          isSwitching;
-		private Coroutine     _switchingWeapon;
+		private Color         _semiTransparent;
+		private Coroutine     _weaponSwitchingCoroutine;
 
 		private void Start()
 		{
+			_semiTransparent = new Color(1f, 1f, 1f, 0.5f);
+			_preventFire = false;
+
 			_playerHealth = GetComponent<PlayerHealth>();
 			_ammoInventory = GetComponent<AmmoInventory>();
 			for (int i = 0; i < availableWeapons.Count; i++)
@@ -74,7 +77,7 @@ namespace PlayerScripts
 
 		public void FireAction(InputAction.CallbackContext context)
 		{
-			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
+			if (!CanFire()) return;
 			_playerHealth.ResetNaturalHealing();
 
 			// When the mouse is pressed down, two actions are sent: started and performed
@@ -92,7 +95,7 @@ namespace PlayerScripts
 
 		public void AltFireAction(InputAction.CallbackContext context)
 		{
-			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
+			if (!CanFire()) return;
 			_playerHealth.ResetNaturalHealing();
 
 			if (context.performed)
@@ -100,18 +103,24 @@ namespace PlayerScripts
 				_currentWeapon.ToggleAltFire(true);
 				return;
 			}
+
 			if (context.canceled) _currentWeapon.ToggleAltFire(false);
 		}
 
 		public void ReloadAction(InputAction.CallbackContext context)
 		{
-			if (!photonView.IsMine || _currentWeapon == null || _preventFire) return;
+			if (!CanFire()) return;
 			_playerHealth.ResetNaturalHealing();
 
 			// Make sure this is only when the reload button is pressed
 			if (!context.performed) return;
 
 			_currentWeapon.Reload();
+		}
+
+		private bool CanFire()
+		{
+			return photonView.IsMine && _currentWeapon != null && _currentWeapon.enabled && !_preventFire;
 		}
 
 		// Makes the player face the mouse
@@ -160,38 +169,49 @@ namespace PlayerScripts
 
 		private void SelectWeapon(int selectedIndex)
 		{
-			if (availableWeapons.Count == 0) return;
+			if (availableWeapons.Count == 0 || selectedIndex == _currentWeaponIndex) return;
 
 			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
 
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
-
-			if (_switchingWeapon != null) {
-				StopCoroutine(_switchingWeapon);
-			}
-
-			_switchingWeapon = StartCoroutine(WeaponSwitchingCooldown(selectedIndex));
 		}
 
 		[PunRPC]
-		private void RPCSelectWeapon(int selectedIndex) {
-			availableWeapons[_currentWeaponIndex].SetActive(false);
+		private void RPCSelectWeapon(int selectedIndex)
+		{
+			GameObject previousWeapon = availableWeapons[_currentWeaponIndex];
+			previousWeapon.SetActive(false);
+
 			_currentWeaponIndex = selectedIndex;
+
+			if (_weaponSwitchingCoroutine != null) StopCoroutine(_weaponSwitchingCoroutine);
+
+			_weaponSwitchingCoroutine = StartCoroutine(WeaponSwitchingCooldown());
 		}
 
-		public IEnumerator WeaponSwitchingCooldown(int selectedIndex) {
-			Weapon weapon = availableWeapons[selectedIndex].GetComponent<Weapon>();
-			Debug.Log("Next Weapon:\n" +
-			          "Switching Cooldown: "+weapon.currentAttributes.switchingCooldown+"\n" +
-			          "Name: "+weapon.currentAttributes.description);
-			yield return new WaitForSeconds(weapon.currentAttributes.switchingCooldown);
+		private IEnumerator WeaponSwitchingCooldown()
+		{
+			GameObject currentWeapon = availableWeapons[_currentWeaponIndex];
+			currentWeapon.SetActive(true);
+			_currentWeapon = currentWeapon.GetComponent<Weapon>();
+			_currentWeapon.enabled = false;
+
+			SpriteRenderer[] weaponSprites = currentWeapon.GetComponentsInChildren<SpriteRenderer>();
+			foreach (SpriteRenderer spriteRenderer in weaponSprites) spriteRenderer.color = _semiTransparent;
+
+			float cooldown = _currentWeapon.currentAttributes.switchingCooldown;
+			Debug.Log(cooldown);
+
+			yield return new WaitForSeconds(cooldown);
+
+			foreach (SpriteRenderer spriteRenderer in weaponSprites) spriteRenderer.color = Color.white;
+
 			ActivateCurrentWeapon();
 		}
 
 		private void ActivateCurrentWeapon()
 		{
-			availableWeapons[_currentWeaponIndex].SetActive(true);
-			_currentWeapon = availableWeapons[_currentWeaponIndex].GetComponent<Weapon>();
+			_currentWeapon.enabled = true;
 			_currentWeapon.FaceMouse(_mouseDist);
 		}
 
@@ -211,7 +231,7 @@ namespace PlayerScripts
 
 		public void DropCurrentWeaponAction(InputAction.CallbackContext context)
 		{
-			if (!context.performed || _currentWeapon == null) return;
+			if (!context.performed || _currentWeapon == null || !_currentWeapon.enabled) return;
 
 			photonView.RPC("RPCDropCurrentWeapon", RpcTarget.All);
 		}
@@ -219,7 +239,10 @@ namespace PlayerScripts
 		[PunRPC]
 		private void RPCDropCurrentWeapon()
 		{
-			_currentWeapon.GetComponent<WeaponPickup>().DropWeapon();
+			WeaponPickup weaponPickup = _currentWeapon.GetComponent<WeaponPickup>();
+			if (weaponPickup == null) return; // Weapon is grenade or something undroppable
+
+			weaponPickup.DropWeapon();
 			availableWeapons.Remove(_currentWeapon.gameObject);
 			if (availableWeapons.Count == 0)
 			{
@@ -227,8 +250,8 @@ namespace PlayerScripts
 				return;
 			}
 
-			_currentWeaponIndex = (_currentWeaponIndex - 1 + availableWeapons.Count) % availableWeapons.Count;
-			ActivateCurrentWeapon();
+			int newWeaponIndex = (_currentWeaponIndex - 1 + availableWeapons.Count) % availableWeapons.Count;
+			RPCSelectWeapon(newWeaponIndex);
 		}
 	}
 }

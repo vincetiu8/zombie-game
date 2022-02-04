@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using Enemy;
 using Menus;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 using Shop;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,15 +12,15 @@ namespace Networking
 {
 	public class GameManager : MonoBehaviourPunCallbacks
 	{
-		public static            GameManager      Instance;
-		[HideInInspector] public UnityEvent       onAllPlayersDead;
-		[HideInInspector] public GoldSystem       goldSystem;
-		[HideInInspector] public GameObject       localPlayerInstance;
-		[HideInInspector] public SpectatorManager spectatorManager;
-
-		[SerializeField] private GameObject  playerPrefab;
-		[SerializeField] private Transform[] spawnpoints;
-		[SerializeField] private MenuManager menuManager;
+		public static             GameManager      Instance;
+		[HideInInspector] public  UnityEvent       onAllPlayersDead;
+		[HideInInspector] public  GoldSystem       goldSystem;
+		[HideInInspector] public  GameObject       localPlayerInstance;
+		[HideInInspector] public  SpectatorManager spectatorManager;
+		[SerializeField]  private GameObject       playerPrefab;
+		[SerializeField]  private Transform[]      spawnpoints;
+		[SerializeField]  private MenuManager      menuManager;
+		private                   WaveSpawner      _waveSpawner;
 
 		public Dictionary<int, GameObject> PlayerInstances;
 
@@ -31,6 +33,7 @@ namespace Networking
 			PlayerInstances = new Dictionary<int, GameObject>();
 			goldSystem = GetComponentInChildren<GoldSystem>();
 			spectatorManager = GetComponent<SpectatorManager>();
+			_waveSpawner = GetComponent<WaveSpawner>();
 		}
 
 		private void Start()
@@ -55,6 +58,15 @@ namespace Networking
 
 			menuManager.OpenMenu("death");
 			onAllPlayersDead.Invoke();
+		}
+
+		public override void OnMasterClientSwitched(Player newMasterClient)
+		{
+			base.OnMasterClientSwitched(newMasterClient);
+
+			if (!newMasterClient.IsLocal) return;
+
+			_waveSpawner.enabled = true;
 		}
 	}
 }

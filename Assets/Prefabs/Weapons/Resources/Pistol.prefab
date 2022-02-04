@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1201697913036177066}
   - component: {fileID: 8110468372728126296}
   - component: {fileID: 7158115841983371464}
-  - component: {fileID: 6922014065073711592}
-  m_Layer: 10
+  - component: {fileID: 4739228514238955150}
+  m_Layer: 11
   m_Name: Pistol
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -100,6 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b826ae0a6a40466297bb0bb5a836391b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAttributes:
+    description: 
+    damage: 0
+    knockback: 0
+    fireCooldown: 0
+    fullAuto: 0
+    switchingCooldown: 0
   weaponName: Pistol
   ammoType: 0
   weaponLevels:
@@ -108,6 +115,7 @@ MonoBehaviour:
     knockback: 0
     fireCooldown: 0.15
     fullAuto: 0
+    switchingCooldown: 0
     magazineSize: 10
     reloadTime: 1
   firepoint: {fileID: 6581261222417765288}
@@ -153,7 +161,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.75
---- !u!114 &6922014065073711592
+--- !u!114 &4739228514238955150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +170,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4793649891906802130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0efcd33fd675f5c0db24f18dec85563c, type: 3}
+  m_Script: {fileID: 11500000, guid: 372313a1197d6f86e8d05df06295135b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactableType: 0
@@ -172,7 +180,7 @@ MonoBehaviour:
   finishInteraction:
     m_PersistentCalls:
       m_Calls: []
-  interactDuration: 2.5
+  interactDuration: 0.5
 --- !u!1 &9175378642531915954
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6581261222417765288}
   - component: {fileID: 5466930436199702587}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

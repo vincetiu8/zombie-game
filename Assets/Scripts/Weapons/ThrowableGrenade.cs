@@ -12,9 +12,9 @@ namespace Weapons
 		private void OnEnable()
 		{
 			// Handles instantiation of grenade
-			if (ammoInventory == null) return;
+			if (AmmoInventory == null) return;
 
-			_bulletsInMagazine = ammoInventory.GetAmmo(ammoType);
+			BulletsInMagazine = AmmoInventory.GetAmmo(ammoType);
 		}
 
 		public override void Setup(AmmoInventory inventory)
@@ -25,7 +25,7 @@ namespace Weapons
 
 		protected override void FireBullet(float angle, bool alt)
 		{
-			ammoInventory.WithdrawAmmo(ammoType, 1);
+			AmmoInventory.WithdrawAmmo(ammoType, 1);
 			base.FireBullet(angle, alt);
 		}
 

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using UnityEngine;
 
 namespace Weapons
 {
@@ -35,10 +36,10 @@ namespace Weapons
 	[Serializable]
 	public class GunAttributes : WeaponAttributes
 	{
-		[Description("The number of bullets that can be in the gun at once")]
+		[Description("The number of bullets that can be in the gun at once")] [Range(0, 200)]
 		public int magazineSize;
 
-		[Description("The time the gun takes to reload")]
+		[Description("The time the gun takes to reload")] [Range(0, 2.5f)]
 		public float reloadTime;
 
 		public override string ToString()

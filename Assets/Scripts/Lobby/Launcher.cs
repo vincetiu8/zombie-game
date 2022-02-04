@@ -23,10 +23,14 @@ namespace Lobby
 		[SerializeField] private Transform  playerListContent;
 		[SerializeField] private GameObject playerListItemPrefab;
 		[SerializeField] private GameObject startGameButton;
+		[SerializeField] private GameObject errorRoomText;
+
+		private bool _loadingRoom;
 
 		private void Awake()
 		{
 			instance = this;
+			_loadingRoom = false;
 		}
 
 		private void Start()
@@ -76,9 +80,15 @@ namespace Lobby
 
 		public override void OnCreateRoomFailed(short returnCode, string message)
 		{
-			errorText.text = "Room Creation Failed: " + message;
-			Debug.LogError("Room Creation Failed: " + message);
-			MenuManager.instance.OpenMenu("error");
+			Debug.Log($"Unable to create room: {message}");
+
+			Debug.Log(returnCode);
+
+			if (returnCode != 32766) return;
+
+			// Room name taken
+			MenuManager.instance.OpenMenu("createroom");
+			errorRoomText.SetActive(true);
 		}
 
 		public override void OnLeftRoom()
@@ -88,15 +98,26 @@ namespace Lobby
 
 		public override void OnRoomListUpdate(List<RoomInfo> roomList)
 		{
-			foreach (Transform trans in roomListContent)
-			{
-				Destroy(trans.gameObject);
-			}
+			Debug.Log("Updating rooms...");
 
 			foreach (RoomInfo room in roomList)
 			{
-				if (room.RemovedFromList) continue;
-				Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().Setup(room);
+				bool found = false;
+				foreach (Transform trans in roomListContent)
+				{
+					RoomListItem transRoom = trans.GetComponent<RoomListItem>();
+					if (transRoom.RoomInfo.Name != room.Name) continue;
+
+					if (room.RemovedFromList) Destroy(trans);
+
+					found = true;
+					break;
+				}
+
+				if (room.RemovedFromList || found) continue;
+
+				GameObject roomInstance = Instantiate(roomListItemPrefab, roomListContent);
+				roomInstance.GetComponent<RoomListItem>().Setup(room);
 			}
 		}
 
@@ -112,12 +133,15 @@ namespace Lobby
 				return;
 			}
 
+			Debug.Log($"Attempting to create room with name {roomNameInputField.text}");
 			PhotonNetwork.CreateRoom(roomNameInputField.text);
 			MenuManager.instance.OpenMenu("loading");
 		}
 
 		public void StartGame()
 		{
+			if (_loadingRoom) return;
+			_loadingRoom = true;
 			PhotonNetwork.LoadLevel(1);
 		}
 
