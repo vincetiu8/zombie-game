@@ -56,7 +56,6 @@ namespace PlayerScripts
 			amount = Mathf.Min(amount, ammoEntry.maxCapacity - ammoEntry.currentStock);
 			ammoEntry.currentStock += amount;
 			ammoInventory[type] = ammoEntry;
-			Debug.Log($"Depositing {amount} {type} ammo, now have {ammoInventory[type].currentStock}");
 			return amount;
 		}
 
@@ -72,7 +71,6 @@ namespace PlayerScripts
 			amount = Mathf.Min(amount, ammoEntry.currentStock);
 			ammoEntry.currentStock -= amount;
 			ammoInventory[type] = ammoEntry;
-			Debug.Log($"Withdrawing {amount} {type} ammo, now have {ammoInventory[type].currentStock} left");
 			return amount;
 		}
 	}
