@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1888875983
-  m_SortingLayer: 5
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 1101055783613669029, guid: c31f359a1d67cc6739fef406d959536c,
     type: 3}
@@ -200,7 +200,8 @@ MonoBehaviour:
   finishInteraction:
     m_PersistentCalls:
       m_Calls: []
-  barricadeFixRate: 50
+  barricadeFixAmount: 20
+  barricadeFixInterval: 1
 --- !u!114 &2762703297160124035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,7 +342,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1888875983
-  m_SortingLayer: 5
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 1101055783613669029, guid: c31f359a1d67cc6739fef406d959536c,
     type: 3}
