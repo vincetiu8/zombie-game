@@ -189,17 +189,17 @@ NavMeshAgent:
   m_GameObject: {fileID: 1401657052909075321}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.75
+  m_Radius: 0.5
   m_Speed: 1
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 25
   m_AngularSpeed: 0
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.25
-  m_BaseOffset: 0.625
+  m_Height: 1
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &2369763184298625905
@@ -282,7 +282,7 @@ MonoBehaviour:
   itemDict:
     m_keys: 32000000
     m_values:
-    - {fileID: 5321198504553115622, guid: e5fd326ec92d4094d804f2a8b2614005, type: 3}
+    - {fileID: 985225966911329096, guid: 17dfd792a87240751968da02eb3e7bf8, type: 3}
 --- !u!1 &5569271406524503031
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +357,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 549690393
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -502,7 +502,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 549690393
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -584,7 +584,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 549690393
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -92,7 +92,8 @@ namespace Weapons
 			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
 
 			// Withdraw bullets from the player's inventory
-			BulletsInMagazine = AmmoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
+			BulletsInMagazine +=
+				AmmoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize - BulletsInMagazine);
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
 			_reloadCoroutine = null;
