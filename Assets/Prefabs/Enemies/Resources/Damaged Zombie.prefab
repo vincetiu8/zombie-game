@@ -33,6 +33,11 @@ PrefabInstance:
       propertyPath: damageCooldown
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 2546518225014728398, guid: 23e42241e8cc5d947962ec2bbf483934,
+        type: 3}
+      propertyPath: itemDict.m_keys.Array.data[0]
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2659509428941697221, guid: 23e42241e8cc5d947962ec2bbf483934,
         type: 3}
       propertyPath: m_Sprite
