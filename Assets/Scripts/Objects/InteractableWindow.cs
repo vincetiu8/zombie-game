@@ -10,11 +10,13 @@ namespace Objects
 	/// </summary>
 	public class InteractableWindow : HoldInteractable
 	{
-		[Description("How fast health is restored to the barricade per second ")] [SerializeField] [Range(10, 100)]
-		private int barricadeFixRate;
+		[Description("How much health is restored to the barricade per update")] [SerializeField] [Range(10, 100)]
+		private int barricadeFixAmount;
 
-		private float _carryHealth;
+		[Description("How often health is restored to the barricade")] [SerializeField] [Range(0.5f, 5f)]
+		private float barricadeFixInterval;
 
+		private float            _fixDelay;
 		private WindowController _windowController;
 		private int              _zombiesAtWindow;
 
@@ -28,10 +30,13 @@ namespace Objects
 		{
 			if (!LocallyInteracting || _zombiesAtWindow > 0) return;
 
-			_carryHealth += barricadeFixRate * Time.deltaTime;
-			int intHealth = (int)_carryHealth;
-			_windowController.ChangeHealth(intHealth);
-			_carryHealth -= intHealth;
+			_fixDelay -= Time.deltaTime;
+
+			if (_fixDelay <= 0)
+			{
+				_windowController.ChangeHealth(barricadeFixAmount);
+				_fixDelay = barricadeFixInterval;
+			}
 
 			if (!_windowController.IsWindowFixed()) return;
 
@@ -65,7 +70,7 @@ namespace Objects
 				return;
 			}
 
-			_carryHealth = 0;
+			_fixDelay = barricadeFixInterval;
 
 			base.StartInteraction();
 		}

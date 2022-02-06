@@ -44,7 +44,11 @@ namespace Weapons
 		{
 			if (BulletsInMagazine < 1) return;
 
-			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
+			if (_reloadCoroutine != null)
+			{
+				StopCoroutine(_reloadCoroutine);
+				_reloadCoroutine = null;
+			}
 
 			FireBullets();
 
@@ -57,7 +61,11 @@ namespace Weapons
 		{
 			if (BulletsInMagazine < 1) return;
 
-			if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
+			if (_reloadCoroutine != null)
+			{
+				StopCoroutine(_reloadCoroutine);
+				_reloadCoroutine = null;
+			}
 
 			FireBulletsAlt();
 
@@ -92,7 +100,9 @@ namespace Weapons
 			yield return new WaitForSeconds(_currentGunAttributes.reloadTime);
 
 			// Withdraw bullets from the player's inventory
-			BulletsInMagazine = AmmoInventory.WithdrawAmmo(ammoType, _currentGunAttributes.magazineSize);
+			int maxBulletsToRetrieve = _currentGunAttributes.magazineSize - BulletsInMagazine;
+			int retrievedBullets = AmmoInventory.WithdrawAmmo(ammoType, maxBulletsToRetrieve);
+			BulletsInMagazine += retrievedBullets;
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
 			_reloadCoroutine = null;

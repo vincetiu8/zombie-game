@@ -838,7 +838,7 @@ MonoBehaviour:
     m_keys: 00000000010000000200000003000000
     m_values:
     - maxCapacity: 100
-      currentStock: 0
+      currentStock: 20
     - maxCapacity: 50
       currentStock: 0
     - maxCapacity: 25
@@ -1060,7 +1060,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -448142459
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -6121086664708760571, guid: 0246d79ac60b897b6836ef7b5186b0c7,
     type: 3}
@@ -1730,8 +1730,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}
+      propertyPath: levels.Array.data[0].fireCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737561027745860989, guid: 622303937f0556e409efd41e73a2cd6f,
+        type: 3}
       propertyPath: levels.Array.data[0].switchingCooldown
-      value: 7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6430018366674950792, guid: 622303937f0556e409efd41e73a2cd6f,
         type: 3}

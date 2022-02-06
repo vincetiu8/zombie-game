@@ -12,6 +12,8 @@ namespace Shop
 		[Header("Shop Settings")] [SerializeField]
 		private int itemCost;
 
+		[SerializeField] protected string itemName;
+
 		[SerializeField] [Range(0.1f, 2f)] private float popupDelay = 1f;
 		private                                    bool  _popupActive;
 
