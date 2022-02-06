@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1036530043
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7,
     type: 3}
@@ -160,8 +160,8 @@ MonoBehaviour:
       m_Calls: []
   interactDuration: 2
   itemCost: 1
+  itemName: Pistol
   popupDelay: 1
-  itemName: Buy Pistol (x1)
   weaponPrefab: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
     type: 3}
 --- !u!114 &2476439181127352723

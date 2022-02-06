@@ -59,12 +59,18 @@ namespace Shop
 			SetShopStatus();
 		}
 
-		private bool SetShopStatus()
+		protected virtual bool SetShopStatus()
 		{
-			int gold = GameManager.Instance.goldSystem.GetPlayerGold();
-			bool canBuy = gold >= itemCost;
+			bool canBuy = CanBuy();
 			ShopText.Instance.SetText(GetShopPrompt() + $" ({itemCost})", canBuy ? Color.white : Color.red);
 			return canBuy;
+		}
+
+		protected virtual bool CanBuy()
+		{
+			int gold = GameManager.Instance.goldSystem.GetPlayerGold();
+
+			return gold >= itemCost;
 		}
 
 		private void ToggleText(bool toggle)
@@ -81,6 +87,8 @@ namespace Shop
 			// We only want to let the player start if they have already seen the popup and have enough money
 			if (SetShopStatus() && _popupTime > 0)
 			{
+				Debug.Log("starting purchase interaction");
+
 				base.StartInteraction();
 			}
 

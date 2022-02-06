@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Networking;
 using Photon.Pun;
-using PlasticPipe.PlasticProtocol.Messages;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
@@ -227,26 +227,14 @@ namespace PlayerScripts
 		{
 			availableWeapons.Add(weapon);
 			weapon.GetComponent<Weapon>().Setup(_ammoInventory);
-			// Initialized selectedIndex here because using SelectWeapon causes issues with 2 weapons becoming active at once
-			int selectedIndex = 0;
-			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
-			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
+			SelectWeapon(availableWeapons.Count - 1);
 		}
 
-		public bool CheckForDuplicates(GameObject weapon)
+		public bool CheckIfWeaponAlreadyExists(GameObject weaponToCheck)
 		{
-			bool isDuplicate = false;
-			foreach (GameObject availableWeapon in availableWeapons)
-			{
-				if (availableWeapon.name == weapon.name)
-				{
-					Debug.Log("Duplicate weapon detected, canceling AddWeapon");
-					isDuplicate = true;
-					break;
-				}
-			}
-
-			return isDuplicate;
+			string nameToCheck = weaponToCheck.GetComponent<Weapon>().weaponName;
+			return availableWeapons.Any(availableWeapon => availableWeapon.GetComponent<Weapon>().weaponName
+			                                               == nameToCheck);
 		}
 
 		public void DropCurrentWeaponAction(InputAction.CallbackContext context)
