@@ -68,6 +68,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8101326686158321518, guid: 92aa031c64efb71d9a518e107694d2c4,
         type: 3}
+    - target: {fileID: 4739228514238955150, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: offset.x
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Name
@@ -117,13 +122,13 @@ MonoBehaviour:
   ammoType: 1
   weaponLevels:
   - description: Shotgun
-    damage: 10
-    knockback: 0
+    damage: 5
+    knockback: 0.1
     fireCooldown: 0.5
     fullAuto: 0
-    switchingCooldown: 0
+    switchingCooldown: 1
     magazineSize: 6
-    reloadTime: 1.5
+    reloadTime: 2
   firepoint: {fileID: 3020623202904377558}
   shotDistance: 2
   muzzleFlashFadeTime: 8

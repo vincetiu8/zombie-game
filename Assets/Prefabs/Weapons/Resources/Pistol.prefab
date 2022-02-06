@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -448142459
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 1098179606456428539, guid: 92aa031c64efb71d9a518e107694d2c4,
     type: 3}
@@ -108,23 +108,16 @@ MonoBehaviour:
     fullAuto: 0
     switchingCooldown: 0
   weaponName: Pistol
-  currentAttributes:
-    description: 
-    damage: 0
-    knockback: 0
-    fireCooldown: 0
-    fullAuto: 0
-    switchingCooldown: 0
   ammoType: 0
   weaponLevels:
   - description: Pistol
     damage: 20
-    knockback: 0
+    knockback: 0.1
     fireCooldown: 0.15
     fullAuto: 0
-    switchingCooldown: 0
+    switchingCooldown: 0.4
     magazineSize: 10
-    reloadTime: 1
+    reloadTime: 0.75
   firepoint: {fileID: 6581261222417765288}
   shotDistance: 5
   muzzleFlashFadeTime: 8
@@ -188,6 +181,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   interactDuration: 0.5
+  offset: {x: 0.4, y: -0.55, z: 0}
 --- !u!1 &9175378642531915954
 GameObject:
   m_ObjectHideFlags: 0

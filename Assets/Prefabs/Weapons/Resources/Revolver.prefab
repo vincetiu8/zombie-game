@@ -74,6 +74,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
+      propertyPath: ammoType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
       propertyPath: weaponName
       value: Revolver
       objectReference: {fileID: 0}
@@ -85,7 +90,12 @@ PrefabInstance:
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].damage
-      value: 50
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
@@ -107,12 +117,27 @@ PrefabInstance:
       propertyPath: weaponLevels.Array.data[0].magazineSize
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].switchingCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3909993537624026819, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2912464402848211330, guid: 92aa031c64efb71d9a518e107694d2c4,
         type: 3}
+    - target: {fileID: 4739228514238955150, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: offset.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739228514238955150, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: offset.y
+      value: -0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Name

@@ -94,6 +94,21 @@ PrefabInstance:
       propertyPath: damage
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 7301006269183977424, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_Height
+      value: 0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 7301006269183977424, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7301006269183977424, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.33
+      objectReference: {fileID: 0}
     - target: {fileID: 8252235614178204829, guid: 84075f2e9367d194fa1b35aa03203948,
         type: 3}
       propertyPath: m_Sprite
