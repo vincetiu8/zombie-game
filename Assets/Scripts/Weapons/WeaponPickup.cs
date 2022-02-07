@@ -9,13 +9,19 @@ namespace Weapons
 {
 	public class WeaponPickup : TimedInteractable
 	{
-		private Vector3        _offset;
-		private WeaponsHandler _weaponsHandler;
+		[SerializeField] private Vector3 offset = new Vector3(0.4f, -0.55f, 0);
 
 		protected override void Start()
 		{
 			base.Start();
-			_offset = transform.localPosition;
+			offset = transform.localPosition;
+		}
+
+		public override void StartInteraction()
+		{
+			if (GameManager.Instance.localPlayerInstance.GetComponent<WeaponsHandler>().CheckIfWeaponAlreadyExists
+				    (gameObject)) return;
+			base.StartInteraction();
 		}
 
 		protected override void OnSuccessfulInteraction()
@@ -30,17 +36,22 @@ namespace Weapons
 			int playerNumber = info.Sender.GetPlayerNumber();
 			GameObject player = GameManager.Instance.PlayerInstances[playerNumber];
 			transform.parent = player.transform.Find("PlayerObject").Find("Weapons");
-			transform.localPosition = _offset;
+			transform.localPosition = offset;
 			transform.localRotation = Quaternion.identity;
 			GetComponent<Collider2D>().enabled = false;
 			foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
 			{
-				spriteRenderer.sortingLayerID = SortingLayer.NameToID("Actors");
+				spriteRenderer.sortingLayerID = SortingLayer.NameToID("Players");
 				spriteRenderer.sortingOrder = 2;
 			}
 
-			_weaponsHandler = player.GetComponent<WeaponsHandler>();
-			_weaponsHandler.AddWeapon(gameObject);
+			player.GetComponent<WeaponsHandler>().AddWeapon(gameObject);
+			gameObject.SetActive(false);
+		}
+
+		public void PickupWeapon()
+		{
+			photonView.RPC("RPCPickupWeapon", RpcTarget.All);
 		}
 
 		public void DropWeapon()

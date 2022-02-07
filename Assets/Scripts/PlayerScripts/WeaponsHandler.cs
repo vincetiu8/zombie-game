@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Networking;
 using Photon.Pun;
 using UnityEngine;
@@ -227,6 +228,13 @@ namespace PlayerScripts
 			availableWeapons.Add(weapon);
 			weapon.GetComponent<Weapon>().Setup(_ammoInventory);
 			SelectWeapon(availableWeapons.Count - 1);
+		}
+
+		public bool CheckIfWeaponAlreadyExists(GameObject weaponToCheck)
+		{
+			string nameToCheck = weaponToCheck.GetComponent<Weapon>().weaponName;
+			return availableWeapons.Any(availableWeapon => availableWeapon.GetComponent<Weapon>().weaponName
+			                                               == nameToCheck);
 		}
 
 		public void DropCurrentWeaponAction(InputAction.CallbackContext context)

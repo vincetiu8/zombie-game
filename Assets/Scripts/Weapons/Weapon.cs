@@ -13,8 +13,7 @@ namespace Weapons
 	{
 		public WeaponAttributes currentAttributes;
 
-		[Description("The weapon's name")] [SerializeField]
-		protected string weaponName;
+		[Description("The weapon's name")] public string weaponName;
 
 		private float _fireCooldown;
 		private bool  _isFiring;

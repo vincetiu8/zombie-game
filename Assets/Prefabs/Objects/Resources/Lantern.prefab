@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 6766820911072154073}
   - component: {fileID: 2660454062995276161}
   - component: {fileID: 1507492924109249858}
-  m_Layer: 10
+  - component: {fileID: 9067329941502074142}
+  m_Layer: 8
   m_Name: Lantern
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1036530043
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1753205982242350755, guid: 5fece51a3a6029f92a850ec8c1bdb602,
     type: 3}
@@ -200,3 +201,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!208 &9067329941502074142
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435641262588721846}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.4, y: 0.4, z: 0.4}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

@@ -80,7 +80,12 @@ PrefabInstance:
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: weaponLevels.Array.data[0].damage
-      value: 80
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].knockback
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
@@ -102,12 +107,22 @@ PrefabInstance:
       propertyPath: weaponLevels.Array.data[0].magazineSize
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1201697913036177066, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: weaponLevels.Array.data[0].switchingCooldown
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3909993537624026819, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 853742892412031643, guid: 92aa031c64efb71d9a518e107694d2c4,
         type: 3}
+    - target: {fileID: 4739228514238955150, guid: 0d2ada47266bc9cac8c5eb6699945401,
+        type: 3}
+      propertyPath: offset.x
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4793649891906802130, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
       propertyPath: m_Name
