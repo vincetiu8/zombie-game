@@ -4,6 +4,7 @@ using Menus;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 namespace Lobby
@@ -155,6 +156,18 @@ namespace Lobby
 		{
 			PhotonNetwork.JoinRoom(info.Name);
 			MenuManager.instance.OpenMenu("loading");
+		}
+
+		public void Quit()
+		{
+			// save any game data here
+#if UNITY_EDITOR
+			// Application.Quit() does not work in the editor so
+			// UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+			EditorApplication.isPlaying = false;
+#else
+			Application.Quit();
+#endif
 		}
 	}
 }
