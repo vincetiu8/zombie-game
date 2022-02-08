@@ -1,6 +1,9 @@
 using System.ComponentModel;
 using Interact;
+using Networking;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
+using Shop;
 using UnityEngine;
 
 namespace Objects
@@ -67,6 +70,7 @@ namespace Objects
 			if (_windowController.IsWindowFixed())
 			{
 				FinishInteraction();
+				GameManager.Instance.GetComponent<GoldSystem>().AddGold(10, PhotonNetwork.LocalPlayer.GetPlayerNumber());
 				return;
 			}
 
