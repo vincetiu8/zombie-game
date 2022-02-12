@@ -19,6 +19,9 @@ namespace Objects
 		[Description("How often health is restored to the barricade")] [SerializeField] [Range(0.5f, 5f)]
 		private float barricadeFixInterval;
 
+		[Description("How much gold to give the player when window is fixed")] [SerializeField] [Range(1, 50)]
+		private int fixGoldAmount;
+
 		private float            _fixDelay;
 		private WindowController _windowController;
 		private int              _zombiesAtWindow;
@@ -42,7 +45,7 @@ namespace Objects
 			}
 
 			if (!_windowController.IsWindowFixed()) return;
-
+			GameManager.Instance.goldSystem.AddGold(fixGoldAmount, PhotonNetwork.LocalPlayer.GetPlayerNumber());
 			FinishInteraction();
 		}
 
@@ -70,7 +73,6 @@ namespace Objects
 			if (_windowController.IsWindowFixed())
 			{
 				FinishInteraction();
-				GameManager.Instance.GetComponent<GoldSystem>().AddGold(10, PhotonNetwork.LocalPlayer.GetPlayerNumber());
 				return;
 			}
 
