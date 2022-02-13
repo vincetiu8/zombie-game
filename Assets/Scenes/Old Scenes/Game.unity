@@ -2076,7 +2076,7 @@ MonoBehaviour:
       data:
         waveName: Necromancer boss
         spawnDelay: 0
-        enemyType: {fileID: 576556583066682385, guid: 7b8d5efde43a268c0baceeca6973697a,
+        enemyType: {fileID: 5488986701287607635, guid: 3f5b779abf22d7941a01ddcb41eb5cde,
           type: 3}
         enemyCount: 1
     00000002:

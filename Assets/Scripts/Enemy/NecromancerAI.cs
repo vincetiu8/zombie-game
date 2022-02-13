@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Photon.Pun;
@@ -11,7 +12,9 @@ namespace Enemy
     {
         [Header("Necromancer boss settings")]
         [Description("The amount of thins spawned in per summon (applies to both zombies and the stun projectile)")]
-        [SerializeField] public float summonAmount;
+        [SerializeField]
+        public float summonAmount;
+
         [SerializeField] public float summonAmountIncrementer;
         public float multiplierStacks = 1;
         private Light2D _light2D;
@@ -21,7 +24,7 @@ namespace Enemy
             base.Start();
             _light2D = transform.GetComponent<Light2D>();
         }
-        
+
         public void IncreaseStackMultiplier(float amount)
         {
             if (multiplierStacks == 1) AbilitySelectionLogic();
@@ -36,16 +39,17 @@ namespace Enemy
             List<int> possibleMoves = new List<int> {0};
 
             if (MiscUtils.CheckForObjectsInRadius(10, "Players", true, transform.gameObject)) possibleMoves.Add(1);
-            if (MiscUtils.CheckForObjectsInRadius(3 * multiplierStacks, "Players", true, transform.gameObject)) possibleMoves.Add(2);
-            
+            if (MiscUtils.CheckForObjectsInRadius(4 * multiplierStacks, "Players", true, transform.gameObject))
+                possibleMoves.Add(2);
+
             DirectAbilityCall(possibleMoves);
         }
 
-        public override void OnAbilityFinish()
+        protected override void BossAbility_OnAbilityFinish(object sender, EventArgs e)
         {
             multiplierStacks = 1;
             summonAmount += summonAmountIncrementer;
-            base.OnAbilityFinish();
+            base.BossAbility_OnAbilityFinish(sender, e);
         }
 
         [PunRPC]
@@ -61,7 +65,5 @@ namespace Enemy
             _light2D.enabled = false;
             base.RPCFinishPerformAction(abilityNumber);
         }
-
-
     }
 }

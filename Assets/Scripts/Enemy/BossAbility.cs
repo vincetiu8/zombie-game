@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using ICSharpCode.NRefactory.Ast;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Enemy
 {
-    [Serializable] public abstract class BossAbility : MonoBehaviourPun
+    [Serializable]
+    public abstract class BossAbility : MonoBehaviourPun
     {
         [SerializeField] private float castTime;
         [SerializeField] private bool immobilizeWhilePerforming;
-        //public Animation moveAnimation;
-        
-        protected Light2D _light2D;
         protected ChaserAI _chaserAI;
+
         private bool _duringPerformAction;
+        //public Animation moveAnimation;
+
+        protected Light2D _light2D;
         protected GameObject referenceObject;
 
         private void Start()
@@ -32,6 +31,8 @@ namespace Enemy
             if (_duringPerformAction) DuringPerformActionClient();
         }
 
+        public event EventHandler OnAbilityFinish;
+
         /// <summary>
         /// Every time a move is used, this is called
         /// </summary>
@@ -44,20 +45,21 @@ namespace Enemy
         public IEnumerator PerformActionMaster()
         {
             if (immobilizeWhilePerforming) _chaserAI.DisableMovement(true);
-            
+
             yield return new WaitForSeconds(castTime);
-            
+
             StartCoroutine(AbilityCoroutine());
             _chaserAI.DisableMovement(false);
-            
-            GetComponentInParent<BossAI>().OnAbilityFinish();
+
+            //GetComponentInParent<BossAI>().OnAbilityFinish();
+            OnAbilityFinish?.Invoke(this, EventArgs.Empty);
         }
 
         public void OnPerformActionClient()
         {
             _duringPerformAction = true;
         }
-        
+
         // Gets called in a RPC
         protected abstract IEnumerator AbilityCoroutine();
 
