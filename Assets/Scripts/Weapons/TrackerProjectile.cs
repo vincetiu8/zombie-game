@@ -1,5 +1,4 @@
 using System;
-using Enemy;
 using Photon.Pun;
 using UnityEngine;
 
@@ -12,10 +11,7 @@ namespace Weapons
         [Range(60, 360)] [SerializeField] private float angularAcceleration;
         [Range(0.5f, 10f)] [SerializeField] private float speed;
 
-        [HideInInspector] public NecromancerAI NecromancerAI;
-
         private PhotonView _photonView;
-
         private Rigidbody2D _rigidbody2D;
 
         private void Start()
@@ -48,7 +44,10 @@ namespace Weapons
             if (other.transform == target)
             {
                 other.transform.GetComponent<KnockbackController>().TakeStun(stunDuration);
-                NecromancerAI.IncreaseStackMultiplier(0.2f);
+
+                OnPlayerHit?.Invoke(this, EventArgs.Empty);
+
+                //NecromancerAI.IncreaseStackMultiplier(0.2f);
             }
 
             base.OnTriggerEnter2D(other);

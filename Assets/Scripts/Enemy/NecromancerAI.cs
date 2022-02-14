@@ -25,10 +25,11 @@ namespace Enemy
             _light2D = transform.GetComponent<Light2D>();
         }
 
-        public void IncreaseStackMultiplier(float amount)
+        // Resets attack cooldown when called while boss not currently using an ability, increases the multiplier if called during an ability
+        public void IncreaseStackMultiplier(object sender, EventArgs e)
         {
             if (multiplierStacks == 1) AbilitySelectionLogic();
-            multiplierStacks += amount;
+            multiplierStacks += summonAmountIncrementer;
         }
 
         protected override void AbilitySelectionLogic()

@@ -51,7 +51,6 @@ namespace Enemy
             StartCoroutine(AbilityCoroutine());
             _chaserAI.DisableMovement(false);
 
-            //GetComponentInParent<BossAI>().OnAbilityFinish();
             OnAbilityFinish?.Invoke(this, EventArgs.Empty);
         }
 
