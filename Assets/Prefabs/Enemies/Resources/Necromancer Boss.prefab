@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 549690393
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: -9093006258709163888, guid: 0246d79ac60b897b6836ef7b5186b0c7,
     type: 3}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castTime: 3
   immobilizeWhilePerforming: 1
-  zombiePrefab: {fileID: 6927649112921695316, guid: 021e2d16677d6e64a9c3425c035e61c9,
+  zombiePrefab: {fileID: 8294787989140029467, guid: e094bcf6d0f7e5043a09c75036fd109e,
     type: 3}
   spawnRadius: 3
   buffSpawnedZombies: 1
@@ -376,9 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a987ea837b1a4bb39191fda9ee4d82d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePopup: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
-    type: 3}
   initialHealth: 80
+  damagePopupObject: {fileID: 0}
   goldDropAmount: 10
 --- !u!114 &968095225691285392
 MonoBehaviour:
@@ -584,7 +583,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 549690393
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: -9093006258709163888, guid: 0246d79ac60b897b6836ef7b5186b0c7,
     type: 3}
@@ -667,7 +666,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 549690393
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -8723097446489545334, guid: 519ae0be3075f86d8b6dcb0fc552d0a9,
     type: 3}
@@ -828,7 +827,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 549690393
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: -5523502552944629637, guid: 0246d79ac60b897b6836ef7b5186b0c7,
     type: 3}
