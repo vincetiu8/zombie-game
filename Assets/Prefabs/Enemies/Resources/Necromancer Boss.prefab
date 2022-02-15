@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castTime: 3
   immobilizeWhilePerforming: 1
-  zombiePrefab: {fileID: 8294787989140029467, guid: e094bcf6d0f7e5043a09c75036fd109e,
+  zombiePrefab: {fileID: 2976410785209475096, guid: 979c39bc1269e0841afcce7cf56abe1e,
     type: 3}
   spawnRadius: 3
   buffSpawnedZombies: 1
@@ -400,7 +400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 80
-  damagePopupObject: {fileID: 0}
+  damagePopupObject: {fileID: 1740622571343689664, guid: 75fc013bba420ec4287582a465e3f7fa,
+    type: 3}
   goldDropAmount: 10
 --- !u!114 &968095225691285392
 MonoBehaviour:
