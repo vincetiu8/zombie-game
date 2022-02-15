@@ -71,7 +71,9 @@ namespace Enemy
         public void DirectAbilityCall(List<int> abilityNumbers)
         {
             int abilityNo = Random.Range(0, abilityNumbers.Count);
+
             DirectAbilityCall(abilityNo);
+            //DirectAbilityCall(2);
         }
 
 

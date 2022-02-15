@@ -43,6 +43,7 @@ namespace Enemy
             if (MiscUtils.CheckForObjectsInRadius(4 * multiplierStacks, "Players", true, transform.gameObject))
                 possibleMoves.Add(2);
 
+
             DirectAbilityCall(possibleMoves);
         }
 

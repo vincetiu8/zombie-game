@@ -8,7 +8,8 @@ using Weapons;
 
 namespace Enemy
 {
-    [Serializable] public class MeleeSpell : BossAbility
+    [Serializable]
+    public class MeleeSpell : BossAbility
     {
         [SerializeField] private float meleeSpellDamage;
         [SerializeField] private float meleeSpellKnockback;
@@ -20,38 +21,47 @@ namespace Enemy
         {
             NecromancerAI necromancerAI = referenceObject.GetComponent<NecromancerAI>();
             float multiplierStacks = necromancerAI.multiplierStacks;
-            
-            
+
+
             int damage = Mathf.RoundToInt(meleeSpellDamage * multiplierStacks);
             float knockback = meleeSpellKnockback * multiplierStacks;
 
             // Let the boss not collide with any zombies, and set it's speed to be faster for the lunge attack
             referenceObject.layer = LayerMask.NameToLayer("Objects");
-            referenceObject.transform.GetComponent<ChaserAI>().ScaleAcceleration(lungeSpeedMultiplier * multiplierStacks);
-            animationSubstitute.enabled = true;
+            referenceObject.transform.GetComponent<ChaserAI>()
+                .ScaleAcceleration(lungeSpeedMultiplier * multiplierStacks);
+            photonView.RPC("RPCPlayAttackAnimation", RpcTarget.All, true);
 
             yield return new WaitForSeconds(1f);
-            
+
             // End lunge attack
             referenceObject.transform.GetComponent<ChaserAI>().ResetAcceleration();
-            animationSubstitute.enabled = false;
+            photonView.RPC("RPCPlayAttackAnimation", RpcTarget.All, false);
             referenceObject.layer = LayerMask.NameToLayer("Enemies");
 
             // Hit anything in the collider (the red box the boss made)
             foreach (Collider2D correctedPlayer in meleePoint.GetTargetsInCollider())
             {
                 correctedPlayer.GetComponent<PlayerHealth>().ChangeHealth(-damage);
-                
+
                 if (correctedPlayer.GetComponent<KnockbackController>() == null) continue;
-                
-                float angle = TransformUtils.Vector2ToDeg(correctedPlayer.transform.position - referenceObject.transform.position);
+
+                float angle =
+                    TransformUtils.Vector2ToDeg(correctedPlayer.transform.position -
+                                                referenceObject.transform.position);
                 correctedPlayer.transform.GetComponent<KnockbackController>().TakeKnockBack(angle, knockback);
             }
         }
-        
+
         protected override void DuringPerformActionClient()
         {
             _light2D.intensity = GetComponentInParent<NecromancerAI>().multiplierStacks;
+        }
+
+        [PunRPC]
+        private void RPCPlayAttackAnimation(bool show)
+        {
+            animationSubstitute.enabled = show;
         }
     }
 }
