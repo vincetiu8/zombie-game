@@ -2,30 +2,21 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
-using UnityEngine.AI;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace UnityEditor.AI
 {
     public class NavMeshAssetManager : ScriptableSingleton<NavMeshAssetManager>
     {
-        internal struct AsyncBakeOperation
-        {
-            public NavMeshSurface surface;
-            public NavMeshData bakeData;
-            public AsyncOperation bakeOperation;
-        }
-
         List<AsyncBakeOperation> m_BakeOperations = new List<AsyncBakeOperation>();
-        internal List<AsyncBakeOperation> GetBakeOperations() { return m_BakeOperations; }
-
-        struct SavedPrefabNavMeshData
-        {
-            public NavMeshSurface surface;
-            public NavMeshData navMeshData;
-        }
 
         List<SavedPrefabNavMeshData> m_PrefabNavMeshDataAssets = new List<SavedPrefabNavMeshData>();
+
+        internal List<AsyncBakeOperation> GetBakeOperations()
+        {
+            return m_BakeOperations;
+        }
 
         static string GetAndEnsureTargetPath(NavMeshSurface surface)
         {
@@ -35,19 +26,21 @@ namespace UnityEditor.AI
             var targetPath = "Assets";
             if (!string.IsNullOrEmpty(activeScenePath))
             {
-                targetPath = Path.Combine(Path.GetDirectoryName(activeScenePath), Path.GetFileNameWithoutExtension(activeScenePath));
+                targetPath = Path.Combine(Path.GetDirectoryName(activeScenePath),
+                    Path.GetFileNameWithoutExtension(activeScenePath));
             }
             else
             {
                 var prefabStage = PrefabStageUtility.GetPrefabStage(surface.gameObject);
                 var isPartOfPrefab = prefabStage != null && prefabStage.IsPartOfPrefabContents(surface.gameObject);
-                if (isPartOfPrefab && !string.IsNullOrEmpty(prefabStage.prefabAssetPath))
+                if (isPartOfPrefab && !string.IsNullOrEmpty(prefabStage.assetPath))
                 {
-                    var prefabDirectoryName = Path.GetDirectoryName(prefabStage.prefabAssetPath);
+                    string prefabDirectoryName = Path.GetDirectoryName(prefabStage.assetPath);
                     if (!string.IsNullOrEmpty(prefabDirectoryName))
                         targetPath = prefabDirectoryName;
                 }
             }
+
             if (!Directory.Exists(targetPath))
                 Directory.CreateDirectory(targetPath);
             return targetPath;
@@ -99,7 +92,7 @@ namespace UnityEditor.AI
                 AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(assetToDelete));
         }
 
-        public void StartBakingSurfaces(UnityEngine.Object[] surfaces)
+        public void StartBakingSurfaces(Object[] surfaces)
         {
             // Remove first to avoid double registration of the callback
             EditorApplication.update -= UpdateAsyncBuildOperations;
@@ -150,6 +143,7 @@ namespace UnityEditor.AI
                     EditorSceneManager.MarkSceneDirty(surface.gameObject.scene);
                 }
             }
+
             m_BakeOperations.RemoveAll(o => o.bakeOperation == null || o.bakeOperation.isDone);
             if (m_BakeOperations.Count == 0)
                 EditorApplication.update -= UpdateAsyncBuildOperations;
@@ -172,7 +166,7 @@ namespace UnityEditor.AI
             return false;
         }
 
-        public void ClearSurfaces(UnityEngine.Object[] surfaces)
+        public void ClearSurfaces(Object[] surfaces)
         {
             foreach (NavMeshSurface s in surfaces)
                 ClearSurface(s);
@@ -208,12 +202,16 @@ namespace UnityEditor.AI
             }
 
             var isDataOwner = true;
-            if (PrefabUtility.IsPartOfPrefabInstance(surfaceToStore) && !PrefabUtility.IsPartOfModelPrefab(surfaceToStore))
+            if (PrefabUtility.IsPartOfPrefabInstance(surfaceToStore) &&
+                !PrefabUtility.IsPartOfModelPrefab(surfaceToStore))
             {
-                var basePrefabSurface = PrefabUtility.GetCorrespondingObjectFromSource(surfaceToStore) as NavMeshSurface;
+                var basePrefabSurface =
+                    PrefabUtility.GetCorrespondingObjectFromSource(surfaceToStore) as NavMeshSurface;
                 isDataOwner = basePrefabSurface == null || surfaceToStore.navMeshData != basePrefabSurface.navMeshData;
             }
-            m_PrefabNavMeshDataAssets.Add(new SavedPrefabNavMeshData { surface = surfaceToStore, navMeshData = isDataOwner ? surfaceToStore.navMeshData : null });
+
+            m_PrefabNavMeshDataAssets.Add(new SavedPrefabNavMeshData
+                {surface = surfaceToStore, navMeshData = isDataOwner ? surfaceToStore.navMeshData : null});
         }
 
         bool IsCurrentPrefabNavMeshDataStored(NavMeshSurface surface)
@@ -300,7 +298,8 @@ namespace UnityEditor.AI
                     {
                         //Debug.LogFormat("The surface {0} from the prefab was storing the original navmesh data and now will be forgotten", surfaceInPrefab);
 
-                        var baseSurface = PrefabUtility.GetCorrespondingObjectFromSource(surfaceInPrefab) as NavMeshSurface;
+                        var baseSurface =
+                            PrefabUtility.GetCorrespondingObjectFromSource(surfaceInPrefab) as NavMeshSurface;
                         if (baseSurface == null || surfaceInPrefab.navMeshData != baseSurface.navMeshData)
                         {
                             var assetPath = AssetDatabase.GetAssetPath(surfaceInPrefab.navMeshData);
@@ -320,6 +319,19 @@ namespace UnityEditor.AI
                 PrefabStage.prefabSaving -= DeleteStoredNavMeshDataAssetsForOwnedSurfaces;
                 PrefabStage.prefabStageClosing -= ForgetUnsavedNavMeshDataChanges;
             }
+        }
+
+        internal struct AsyncBakeOperation
+        {
+            public NavMeshSurface surface;
+            public NavMeshData bakeData;
+            public AsyncOperation bakeOperation;
+        }
+
+        struct SavedPrefabNavMeshData
+        {
+            public NavMeshSurface surface;
+            public NavMeshData navMeshData;
         }
     }
 }

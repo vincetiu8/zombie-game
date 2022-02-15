@@ -71,6 +71,10 @@ MonoBehaviour:
   - RPCInitialOnDeath
   - RpcExplosionLighting
   - ToggleUnlock
+  - RPCFinishPerformAction
+  - RPCOnPerformAction
+  - RPCOnPlayerStun
+  - RPCPlayAttackAnimation
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
