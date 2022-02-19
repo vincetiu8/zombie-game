@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Networking;
 using Photon.Pun;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
@@ -11,6 +13,11 @@ using Weapons;
 
 namespace PlayerScripts
 {
+	[Serializable]
+	public class AmmoSpriteDict : SerializableDictionary<AmmoType, Sprite>
+	{
+	}
+
 	/// <summary>
 	///     WeaponsHandler handles the usage of a player's weapons.
 	/// </summary>
@@ -27,6 +34,8 @@ namespace PlayerScripts
 		[Description("List of available weapons the player can cycle through")] [SerializeField]
 		private List<GameObject> availableWeapons;
 
+		[SerializeField] private AmmoSpriteDict    _ammoSpriteDict;
+		private                  CounterController _ammoCounter;
 
 		private AmmoInventory _ammoInventory;
 		private Weapon        _currentWeapon;
@@ -39,6 +48,7 @@ namespace PlayerScripts
 
 		private void Start()
 		{
+			_ammoCounter = GameManager.Instance.ammoCounter;
 			_semiTransparent = new Color(1f, 1f, 1f, 0.5f);
 			_preventFire = false;
 
@@ -46,11 +56,14 @@ namespace PlayerScripts
 			_ammoInventory = GetComponent<AmmoInventory>();
 			for (int i = 0; i < availableWeapons.Count; i++)
 			{
-				availableWeapons[i].GetComponent<Weapon>().Setup(_ammoInventory);
+				Weapon weapon = availableWeapons[i].GetComponent<Weapon>();
+				weapon.onAmmoChanged.AddListener(UpdateLocalPlayerAmmoUI);
+				weapon.Setup(_ammoInventory);
 				availableWeapons[i].SetActive(i == 0);
 			}
 
 			_currentWeapon = availableWeapons[0].GetComponent<Weapon>();
+			UpdateLocalPlayerAmmoUIImage();
 		}
 
 		public bool Serialize(byte[] data, ref int offset)
@@ -175,6 +188,8 @@ namespace PlayerScripts
 			selectedIndex = (selectedIndex + availableWeapons.Count) % availableWeapons.Count;
 
 			photonView.RPC("RPCSelectWeapon", RpcTarget.All, selectedIndex);
+
+			UpdateLocalPlayerAmmoUIImage();
 		}
 
 		[PunRPC]
@@ -226,6 +241,7 @@ namespace PlayerScripts
 		public void AddWeapon(GameObject weapon)
 		{
 			availableWeapons.Add(weapon);
+			_currentWeapon.onAmmoChanged.AddListener(UpdateLocalPlayerAmmoUI);
 			weapon.GetComponent<Weapon>().Setup(_ammoInventory);
 			SelectWeapon(availableWeapons.Count - 1);
 		}
@@ -251,6 +267,7 @@ namespace PlayerScripts
 			if (weaponPickup == null) return; // Weapon is grenade or something undroppable
 
 			weaponPickup.DropWeapon();
+			_currentWeapon.onAmmoChanged.RemoveListener(UpdateLocalPlayerAmmoUI);
 			availableWeapons.Remove(_currentWeapon.gameObject);
 			if (availableWeapons.Count == 0)
 			{
@@ -260,6 +277,26 @@ namespace PlayerScripts
 
 			int newWeaponIndex = (_currentWeaponIndex - 1 + availableWeapons.Count) % availableWeapons.Count;
 			RPCSelectWeapon(newWeaponIndex);
+		}
+
+		private void UpdateLocalPlayerAmmoUIImage()
+		{
+			Gun gunController = _currentWeapon.GetComponent<Gun>();
+			GameManager.Instance.ammoCounter.gameObject.SetActive(gunController != null);
+			if (gunController == null) return;
+
+			_ammoCounter.SetSprite(_ammoSpriteDict[gunController.GetAmmoType()]);
+			UpdateLocalPlayerAmmoUI();
+		}
+
+		private void UpdateLocalPlayerAmmoUI()
+		{
+			Gun gunController = _currentWeapon.GetComponent<Gun>();
+			if (gunController == null) return;
+
+			int bulletsInMagazine = gunController.GetBulletsInMagazine();
+			int bulletsInInventory = _ammoInventory.GetAmmo(gunController.GetAmmoType());
+			_ammoCounter.SetText($"{bulletsInMagazine}/{bulletsInInventory}");
 		}
 	}
 }

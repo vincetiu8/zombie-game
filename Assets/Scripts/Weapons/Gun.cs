@@ -54,6 +54,7 @@ namespace Weapons
 
 			// Remove a bullet from the magazine
 			BulletsInMagazine--;
+			onAmmoChanged.Invoke();
 			base.Fire();
 		}
 
@@ -70,6 +71,7 @@ namespace Weapons
 			FireBulletsAlt();
 
 			BulletsInMagazine--;
+			onAmmoChanged.Invoke();
 			base.AltFire();
 		}
 
@@ -103,6 +105,7 @@ namespace Weapons
 			int maxBulletsToRetrieve = _currentGunAttributes.magazineSize - BulletsInMagazine;
 			int retrievedBullets = AmmoInventory.WithdrawAmmo(ammoType, maxBulletsToRetrieve);
 			BulletsInMagazine += retrievedBullets;
+			onAmmoChanged.Invoke();
 
 			// Make sure to set _reloadCoroutine to null so the player can reload again after
 			_reloadCoroutine = null;
@@ -137,6 +140,16 @@ namespace Weapons
 		public override string ToString()
 		{
 			return $"{weaponName} Level {CurrentLevel} Stats:\n{currentAttributes}";
+		}
+
+		public AmmoType GetAmmoType()
+		{
+			return ammoType;
+		}
+
+		public int GetBulletsInMagazine()
+		{
+			return BulletsInMagazine;
 		}
 	}
 }

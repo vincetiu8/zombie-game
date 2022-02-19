@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Networking;
+using Objects;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
@@ -12,7 +14,9 @@ namespace Shop
 	/// </summary>
 	public class GoldSystem : MonoBehaviourPunCallbacks
 	{
-		public UnityEvent playerGoldChanged;
+		[HideInInspector] public UnityEvent playerGoldChanged;
+
+		[SerializeField] private GameObject goldChangePopup;
 
 		// Dictionary that contains all the players and the gold they have
 		// Makes it easier to display all player's gold on the UI as well
@@ -45,6 +49,8 @@ namespace Shop
 		{
 			// Loop through all players and add gold
 			foreach (Player player in PhotonNetwork.PlayerList) RPCAddPlayerGold(goldAmount, player.GetPlayerNumber());
+
+			UpdateLocalPlayerGoldUI(goldAmount);
 		}
 
 		/// <summary>
@@ -88,6 +94,8 @@ namespace Shop
 			_playerGoldAmounts[playerNumber] += goldAmount;
 			playerGoldChanged.Invoke();
 			Debug.Log($"Added {goldAmount} gold to player {playerNumber}");
+
+			if (playerNumber == PhotonNetwork.LocalPlayer.GetPlayerNumber()) UpdateLocalPlayerGoldUI(goldAmount);
 		}
 
 		/// <summary>
@@ -112,6 +120,8 @@ namespace Shop
 			}
 
 			photonView.RPC("RPCWithdrawGold", RpcTarget.All, goldAmount);
+
+			UpdateLocalPlayerGoldUI(goldAmount);
 			return true;
 		}
 
@@ -162,6 +172,19 @@ namespace Shop
 			if (otherPlayer.IsInactive) return;
 
 			_playerGoldAmounts[otherPlayer.GetPlayerNumber()] = 0;
+		}
+
+		private void UpdateLocalPlayerGoldUI(int change)
+		{
+			GameManager.Instance.goldCounter.SetText(_playerGoldAmounts[PhotonNetwork.LocalPlayer.GetPlayerNumber()]
+				                                         .ToString());
+
+			GameObject popupInstance = Instantiate(goldChangePopup, GameManager.Instance.localPlayerInstance
+			                                                                   .transform.position,
+			                                       Quaternion.identity);
+
+			GoldPopup goldPopup = popupInstance.GetComponent<GoldPopup>();
+			goldPopup.Setup(change);
 		}
 	}
 }

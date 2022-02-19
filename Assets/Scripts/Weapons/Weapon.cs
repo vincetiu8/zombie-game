@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Photon.Pun;
 using PlayerScripts;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Weapons
 {
@@ -12,6 +13,7 @@ namespace Weapons
 	public abstract class Weapon : MonoBehaviourPun
 	{
 		public WeaponAttributes currentAttributes;
+		public UnityEvent       onAmmoChanged;
 
 		[Description("The weapon's name")] public string weaponName;
 
