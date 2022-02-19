@@ -94,6 +94,12 @@ PrefabInstance:
       propertyPath: acceleration
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5521888629814631402, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: itemDict.m_values.Array.data[0]
+      value: 
+      objectReference: {fileID: 6927649112921695316, guid: 021e2d16677d6e64a9c3425c035e61c9,
+        type: 3}
     - target: {fileID: 5750815610460450546, guid: 84075f2e9367d194fa1b35aa03203948,
         type: 3}
       propertyPath: damage

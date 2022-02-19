@@ -113,4 +113,17 @@ namespace Enemy
 			return enemies;
 		}
 	}
+	
+	/// <summary>
+	/// ;)
+	/// </summary>
+	[Serializable]
+	public class PainWave : Wave
+	{
+		public override List<GameObject> GetEnemiesToSpawn()
+		{
+			throw new NotImplementedException();
+			// It's coming...
+		}
+	}
 }
