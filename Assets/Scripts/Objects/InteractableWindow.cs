@@ -1,6 +1,9 @@
 using System.ComponentModel;
 using Interact;
+using Networking;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
+using Shop;
 using UnityEngine;
 
 namespace Objects
@@ -15,6 +18,9 @@ namespace Objects
 
 		[Description("How often health is restored to the barricade")] [SerializeField] [Range(0.5f, 5f)]
 		private float barricadeFixInterval;
+
+		[Description("How much gold to give the player when window is fixed")] [SerializeField] [Range(1, 50)]
+		private int fixGoldAmount;
 
 		private float            _fixDelay;
 		private WindowController _windowController;
@@ -39,7 +45,7 @@ namespace Objects
 			}
 
 			if (!_windowController.IsWindowFixed()) return;
-
+			GameManager.Instance.goldSystem.AddGold(fixGoldAmount, PhotonNetwork.LocalPlayer.GetPlayerNumber());
 			FinishInteraction();
 		}
 

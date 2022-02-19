@@ -1,94 +1,130 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2960961122466889182
+--- !u!1001 &6729731969514518370
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 245997282358191181, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008537828977429787, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
+    - target: {fileID: 1277361521769476567, guid: 84075f2e9367d194fa1b35aa03203948,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 8360161228296898057, guid: 0246d79ac60b897b6836ef7b5186b0c7,
         type: 3}
-    - target: {fileID: 1590210252748820455, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
+    - target: {fileID: 1277361521769476567, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075321, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_Name
+      value: Dark Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1401657052909075323, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934976669709554179, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8360161228296898057, guid: 0246d79ac60b897b6836ef7b5186b0c7,
+        type: 3}
+    - target: {fileID: 1934976669709554179, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369763184298625905, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: acceleration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521888629814631402, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: itemDict.m_values.Array.data[0]
+      value: 
+      objectReference: {fileID: 6927649112921695316, guid: 021e2d16677d6e64a9c3425c035e61c9,
+        type: 3}
+    - target: {fileID: 5750815610460450546, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: damage
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750815610460450546, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: knockBack
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750815610460450546, guid: 84075f2e9367d194fa1b35aa03203948,
+        type: 3}
+      propertyPath: damageCooldown
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252235614178204829, guid: 84075f2e9367d194fa1b35aa03203948,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2629594186054255048, guid: 0246d79ac60b897b6836ef7b5186b0c7,
         type: 3}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
+    - target: {fileID: 8252235614178204829, guid: 84075f2e9367d194fa1b35aa03203948,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalRotation.w
+      propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486721, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166098027185486723, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: m_Name
-      value: Dark Zombie
-      objectReference: {fileID: 0}
-    - target: {fileID: 8607524782746418784, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6,
-        type: 3}
-      propertyPath: damagePopup
-      value: 
-      objectReference: {fileID: 4670201172782857151, guid: 75fc013bba420ec4287582a465e3f7fa,
-        type: 3}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5858b2bc0cfa5aa4aaf471b3eb3584b6, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 84075f2e9367d194fa1b35aa03203948, type: 3}
