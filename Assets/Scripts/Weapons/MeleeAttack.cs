@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using Enemy;
+using Objects;
 using Photon.Pun;
 using UnityEngine;
 using Utils;
