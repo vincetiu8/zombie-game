@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Events;
 using Weapons;
 
 namespace PlayerScripts
@@ -12,6 +13,8 @@ namespace PlayerScripts
 
 	public class AmmoInventory : MonoBehaviour
 	{
+		public UnityEvent onAmmoUpdated;
+
 		[Description("The player's ammo inventory")] [SerializeField]
 		private AmmoDict ammoInventory;
 
@@ -54,8 +57,10 @@ namespace PlayerScripts
 		{
 			AmmoEntry ammoEntry = ammoInventory[type];
 			amount = Mathf.Min(amount, ammoEntry.maxCapacity - ammoEntry.currentStock);
+			if (amount == 0) return 0;
 			ammoEntry.currentStock += amount;
 			ammoInventory[type] = ammoEntry;
+			onAmmoUpdated.Invoke();
 			return amount;
 		}
 
@@ -69,8 +74,10 @@ namespace PlayerScripts
 		{
 			AmmoEntry ammoEntry = ammoInventory[type];
 			amount = Mathf.Min(amount, ammoEntry.currentStock);
+			if (amount == 0) return 0;
 			ammoEntry.currentStock -= amount;
 			ammoInventory[type] = ammoEntry;
+			onAmmoUpdated.Invoke();
 			return amount;
 		}
 	}

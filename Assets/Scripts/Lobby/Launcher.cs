@@ -12,12 +12,11 @@ namespace Lobby
 	// Launcher handles connecting to rooms and loading the game
 	public class Launcher : MonoBehaviourPunCallbacks
 	{
-		public static Launcher instance;
+		public static Launcher Instance;
 
 		[Header("UI Objects")] [SerializeField]
 		private TMP_InputField roomNameInputField;
 
-		[SerializeField] private TMP_Text   errorText;
 		[SerializeField] private TMP_Text   roomNameText;
 		[SerializeField] private Transform  roomListContent;
 		[SerializeField] private GameObject roomListItemPrefab;
@@ -26,11 +25,16 @@ namespace Lobby
 		[SerializeField] private GameObject startGameButton;
 		[SerializeField] private GameObject errorRoomText;
 
+		[SerializeField] private MenuController titleMenu;
+		[SerializeField] private MenuController roomMenu;
+		[SerializeField] private MenuController createRoomMenu;
+		[SerializeField] private MenuController loadingMenu;
+
 		private bool _loadingRoom;
 
 		private void Awake()
 		{
-			instance = this;
+			Instance = this;
 			_loadingRoom = false;
 		}
 
@@ -49,14 +53,14 @@ namespace Lobby
 
 		public override void OnJoinedLobby()
 		{
-			MenuManager.instance.OpenMenu("title");
+			MenuManager.Instance.OpenMenu(titleMenu);
 			Debug.Log("Joined Lobby");
 			PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
 		}
 
 		public override void OnJoinedRoom()
 		{
-			MenuManager.instance.OpenMenu("roommenu");
+			MenuManager.Instance.OpenMenu(roomMenu);
 			roomNameText.text = PhotonNetwork.CurrentRoom.Name;
 
 			Player[] players = PhotonNetwork.PlayerList;
@@ -88,13 +92,13 @@ namespace Lobby
 			if (returnCode != 32766) return;
 
 			// Room name taken
-			MenuManager.instance.OpenMenu("createroom");
+			MenuManager.Instance.OpenMenu(createRoomMenu);
 			errorRoomText.SetActive(true);
 		}
 
 		public override void OnLeftRoom()
 		{
-			MenuManager.instance.OpenMenu("title");
+			MenuManager.Instance.OpenMenu(titleMenu);
 		}
 
 		public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -136,7 +140,7 @@ namespace Lobby
 
 			Debug.Log($"Attempting to create room with name {roomNameInputField.text}");
 			PhotonNetwork.CreateRoom(roomNameInputField.text);
-			MenuManager.instance.OpenMenu("loading");
+			MenuManager.Instance.OpenMenu(loadingMenu);
 		}
 
 		public void StartGame()
@@ -149,13 +153,13 @@ namespace Lobby
 		public void LeaveRoom()
 		{
 			PhotonNetwork.LeaveRoom();
-			MenuManager.instance.OpenMenu("loading");
+			MenuManager.Instance.OpenMenu(loadingMenu);
 		}
 
 		public void JoinRoom(RoomInfo info)
 		{
 			PhotonNetwork.JoinRoom(info.Name);
-			MenuManager.instance.OpenMenu("loading");
+			MenuManager.Instance.OpenMenu(loadingMenu);
 		}
 
 		public void Quit()

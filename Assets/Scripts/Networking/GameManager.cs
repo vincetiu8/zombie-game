@@ -23,9 +23,9 @@ namespace Networking
 		[HideInInspector] public GameObject       localPlayerInstance;
 		[HideInInspector] public SpectatorManager spectatorManager;
 
-		[SerializeField] private GameObject  playerPrefab;
-		[SerializeField] private Transform[] spawnpoints;
-		[SerializeField] private MenuManager menuManager;
+		[SerializeField] private GameObject     playerPrefab;
+		[SerializeField] private Transform[]    spawnpoints;
+		[SerializeField] private MenuController deathMenu;
 
 		private WaveSpawner _waveSpawner;
 
@@ -62,7 +62,7 @@ namespace Networking
 
 			if (PlayerInstances.Count != 0) return;
 
-			menuManager.OpenMenu("death");
+			MenuManager.Instance.OpenMenu(deathMenu);
 			onAllPlayersDead.Invoke();
 		}
 

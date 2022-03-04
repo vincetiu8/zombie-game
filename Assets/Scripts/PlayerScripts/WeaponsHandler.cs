@@ -34,8 +34,9 @@ namespace PlayerScripts
 		[Description("List of available weapons the player can cycle through")] [SerializeField]
 		private List<GameObject> availableWeapons;
 
-		[SerializeField] private AmmoSpriteDict    _ammoSpriteDict;
-		private                  CounterController _ammoCounter;
+		[SerializeField] private AmmoSpriteDict ammoSpriteDict;
+
+		private CounterController _ammoCounter;
 
 		private AmmoInventory _ammoInventory;
 		private Weapon        _currentWeapon;
@@ -54,6 +55,8 @@ namespace PlayerScripts
 
 			_playerHealth = GetComponent<PlayerHealth>();
 			_ammoInventory = GetComponent<AmmoInventory>();
+			_ammoInventory.onAmmoUpdated.AddListener(UpdateLocalPlayerAmmoUI);
+
 			for (int i = 0; i < availableWeapons.Count; i++)
 			{
 				Weapon weapon = availableWeapons[i].GetComponent<Weapon>();
@@ -285,7 +288,7 @@ namespace PlayerScripts
 			GameManager.Instance.ammoCounter.gameObject.SetActive(gunController != null);
 			if (gunController == null) return;
 
-			_ammoCounter.SetSprite(_ammoSpriteDict[gunController.GetAmmoType()]);
+			_ammoCounter.SetSprite(ammoSpriteDict[gunController.GetAmmoType()]);
 			UpdateLocalPlayerAmmoUI();
 		}
 
