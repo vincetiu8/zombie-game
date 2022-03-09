@@ -33,7 +33,7 @@ namespace PlayerScripts
 			if (dashTime > 0) {
 				dashTime -= Time.deltaTime;
 				_textDisplay.GetComponent<Text>().text = Mathf.Round(dashTime).ToString();
-			}
+			}                          
 		}
 
 		public void UpdateMovementDirection(InputAction.CallbackContext context)
