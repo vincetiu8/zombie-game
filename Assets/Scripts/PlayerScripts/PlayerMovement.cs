@@ -45,7 +45,7 @@ namespace PlayerScripts
 
 		public void Dash(InputAction.CallbackContext context) {
 			if (context.canceled) {
-				return;
+				return;                    
 			}
 
 			if (dashTime <= 0) {
