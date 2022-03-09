@@ -11,7 +11,8 @@
                     "id": "da539230-6b9e-4f61-8f5e-41188dd93125",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Alt Fire",
@@ -19,7 +20,8 @@
                     "id": "bf22df7c-2d2e-4e7f-9402-581f410c2daf",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Fire",
@@ -27,7 +29,8 @@
                     "id": "23fd9a77-d6b1-42b8-9ac8-57f4efaf8efa",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Mouse",
@@ -35,7 +38,8 @@
                     "id": "c30ccb0a-aa59-4db8-a8c5-9302db2225b1",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Reload",
@@ -43,7 +47,8 @@
                     "id": "2c93b75c-851c-4bae-bdf1-928d018d7fee",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Interact",
@@ -51,7 +56,8 @@
                     "id": "fef1fff4-bec9-4533-bb48-14f0d94df9aa",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Debug Add Gold",
@@ -59,7 +65,8 @@
                     "id": "ccc33e1a-3796-475f-a352-db1a12b2f567",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Debug Withdraw Gold",
@@ -67,7 +74,8 @@
                     "id": "d192f15c-0f6a-4c97-8d30-c22829c2f589",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Debug Get Gold",
@@ -75,7 +83,8 @@
                     "id": "0d43e97a-c586-466a-aec0-c54b5789d4b1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Weapon Switching Scroll",
@@ -83,7 +92,8 @@
                     "id": "d3ed478d-6ec1-4528-bec3-8d7a7c46a7f0",
                     "expectedControlType": "Axis",
                     "processors": "Clamp(min=-1,max=1)",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Weapon Switching",
@@ -91,7 +101,8 @@
                     "id": "62c29ec4-9e74-4899-99b7-34ccfdd47976",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Drop Weapon",
@@ -99,7 +110,17 @@
                     "id": "44d9156b-2271-4f65-af23-e73e8ccbc4e2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "404cbdbe-28f6-461b-b85c-8fe7303b7bd4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -377,6 +398,17 @@
                     "action": "Alt Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa979975-fc36-45b3-9c93-d999edb779b6",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -390,7 +422,8 @@
                     "id": "11ec32c9-e59d-4f0d-8afd-e243bd620d2c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -417,7 +450,8 @@
                     "id": "bbff7ff7-c330-4298-9704-d293de202726",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Previous Player",
@@ -425,7 +459,8 @@
                     "id": "cf9a8ee8-c471-4492-b601-1a6fc0aa74d3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
