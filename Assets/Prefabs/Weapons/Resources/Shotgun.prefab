@@ -66,7 +66,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8101326686158321518, guid: 92aa031c64efb71d9a518e107694d2c4,
+      objectReference: {fileID: 853742892412031643, guid: 92aa031c64efb71d9a518e107694d2c4,
         type: 3}
     - target: {fileID: 4739228514238955150, guid: 0d2ada47266bc9cac8c5eb6699945401,
         type: 3}
@@ -118,6 +118,9 @@ MonoBehaviour:
     fireCooldown: 0
     fullAuto: 0
     switchingCooldown: 0
+  onAmmoChanged:
+    m_PersistentCalls:
+      m_Calls: []
   weaponName: Shotgun
   ammoType: 1
   weaponLevels:
