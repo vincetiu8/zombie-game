@@ -889,6 +889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 20
+  invulnerableTime: 1
   startDashTime: 5
   dashSpeed: 300
   _textDisplay: {fileID: 8233412321151854417}
@@ -1087,7 +1088,6 @@ MonoBehaviour:
   lights:
   - {fileID: 7075696312697196668}
   - {fileID: 7548964018044762472}
-  _timer: {fileID: 8233412321151854417}
   componentsToDisableOnDeath:
   - {fileID: 2475852923928295786}
   cameraObject: {fileID: 3582465092054937797}
@@ -1100,6 +1100,7 @@ MonoBehaviour:
   - {fileID: 8105208831145279700}
   - {fileID: 4705562140252545668}
   - {fileID: 3723955915124096840}
+  _invulnerable: 0
 --- !u!1 &5730595962619871849
 GameObject:
   m_ObjectHideFlags: 0

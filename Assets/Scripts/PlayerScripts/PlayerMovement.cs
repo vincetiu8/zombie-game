@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -16,6 +17,9 @@ namespace PlayerScripts
 
 		private float dashTime;
 
+		private Coroutine invulnerableCoroutine;
+
+		[SerializeField] private int        invulnerableTime; 
 		[SerializeField] private float      startDashTime;
 		[SerializeField] private float      dashSpeed;
 		[SerializeField] private GameObject _textDisplay;
@@ -49,9 +53,16 @@ namespace PlayerScripts
 			}
 
 			if (dashTime <= 0) {
+				invulnerableCoroutine = StartCoroutine(invunerabilityDash());
 				_rigidbody2D.AddForce(_movementDirection * dashSpeed);
 				dashTime = startDashTime;
 			}
+		}
+
+		private IEnumerator invunerabilityDash() {
+			_playerHealth._invulnerable = true;
+			yield return new WaitForSeconds(invulnerableTime);
+			_playerHealth._invulnerable = false;
 		}
 	}
 }

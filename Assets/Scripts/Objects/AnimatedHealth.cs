@@ -20,7 +20,6 @@ namespace Objects
 		private float deathTime;
 
 		[SerializeField] private Light2D[]  lights;
-		[SerializeField] private GameObject _timer;
 
 		[Tooltip("All colliders in children are disabled automatically. Add additional components here.")]
 		[SerializeField]
@@ -45,9 +44,6 @@ namespace Objects
 		}
 
 		protected override void OnDeath() {
-			if (_timer != null) {
-				Destroy(_timer);
-			}
 			photonView.RPC("RPCInitialOnDeath", RpcTarget.All);
 		}
 
