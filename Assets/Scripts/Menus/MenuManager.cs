@@ -9,8 +9,7 @@ namespace Menus
 	{
 		public static MenuManager Instance;
 
-		[SerializeField] private MenuController[] menus;
-		[SerializeField] private MenuController   initialMenu;
+		[SerializeField] private MenuController initialMenu;
 
 		private MenuController _currentMenu;
 

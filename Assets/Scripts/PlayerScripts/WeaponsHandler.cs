@@ -200,6 +200,7 @@ namespace PlayerScripts
 		{
 			GameObject previousWeapon = availableWeapons[_currentWeaponIndex];
 			previousWeapon.SetActive(false);
+			previousWeapon.GetComponent<Weapon>().onAmmoChanged.RemoveListener(UpdateLocalPlayerAmmoUI);
 
 			_currentWeaponIndex = selectedIndex;
 
@@ -212,6 +213,7 @@ namespace PlayerScripts
 		{
 			GameObject currentWeapon = availableWeapons[_currentWeaponIndex];
 			currentWeapon.SetActive(true);
+			currentWeapon.GetComponent<Weapon>().onAmmoChanged.AddListener(UpdateLocalPlayerAmmoUI);
 			_currentWeapon = currentWeapon.GetComponent<Weapon>();
 			_currentWeapon.enabled = false;
 

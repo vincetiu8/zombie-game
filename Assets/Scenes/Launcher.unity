@@ -302,7 +302,7 @@ PrefabInstance:
     - target: {fileID: 1779187630194480875, guid: 56d7eb2862562cb40a7501fcb3948467,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1779187630194480875, guid: 56d7eb2862562cb40a7501fcb3948467,
         type: 3}
@@ -6082,13 +6082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c503d10202fc364099bc29dedb65435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menus:
-  - {fileID: 2037972234}
-  - {fileID: 520157952}
-  - {fileID: 645285602}
-  - {fileID: 1917619824}
-  - {fileID: 660748791}
-  - {fileID: 98340298}
   initialMenu: {fileID: 2037972234}
 --- !u!850595691 &2128749688
 LightingSettings:
