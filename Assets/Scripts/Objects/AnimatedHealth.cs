@@ -19,7 +19,7 @@ namespace Objects
 		[Header("Death Settings")] [SerializeField] [Range(0.5f, 5f)]
 		private float deathTime;
 
-		[SerializeField] private Light2D[] lights;
+		[SerializeField] private Light2D[]  lights;
 
 		[Tooltip("All colliders in children are disabled automatically. Add additional components here.")]
 		[SerializeField]
@@ -43,8 +43,7 @@ namespace Objects
 			spriteRenderer.sprite = sprites[spriteIndex];
 		}
 
-		protected override void OnDeath()
-		{
+		protected override void OnDeath() {
 			photonView.RPC("RPCInitialOnDeath", RpcTarget.All);
 		}
 

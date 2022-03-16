@@ -19,6 +19,7 @@ namespace PlayerScripts
 		[SerializeField] private float maxHealDelay;
 
 		[SerializeField] private GameObject[] childrenToChangeTagOnDeath;
+		public                   bool         _invulnerable =false;
 
 		private float          _carryHealth;
 		private bool           _enableNaturalHealing;
@@ -52,8 +53,10 @@ namespace PlayerScripts
 
 		public override void ChangeHealth(int change)
 		{
-			int maxChange = initialHealth - Health;
-			base.ChangeHealth(change > maxChange ? maxChange : change);
+			if (_invulnerable == false) {
+				int maxChange = initialHealth - Health;
+				base.ChangeHealth(change > maxChange ? maxChange : change);
+			}
 		}
 
 		[PunRPC]
