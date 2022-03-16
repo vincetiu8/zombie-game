@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1910789372790776592}
   - component: {fileID: 1910789372790776595}
   - component: {fileID: 1910789372790776598}
-  - component: {fileID: 3276857934266911518}
   m_Layer: 5
   m_Name: Base Pause Menu
   m_TagString: Untagged
@@ -91,22 +90,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a5d766487e205419fd38584a20c892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenuUI: {fileID: 0}
---- !u!114 &3276857934266911518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1910789372790776597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 462cf0baac97aee46a7ec45a3ef7a2fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuName: pause
-  freezeOnToggle: 1
-  inputToggle: 0
+  menus: []
+  initialMenu: {fileID: 0}
+  enablePausing: 0
+  pauseMenuController: {fileID: 0}
 --- !u!1 &1910789373094401311
 GameObject:
   m_ObjectHideFlags: 0

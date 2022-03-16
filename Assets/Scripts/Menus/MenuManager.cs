@@ -1,6 +1,4 @@
-using Networking;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Menus
 {
@@ -9,38 +7,29 @@ namespace Menus
 	/// </summary>
 	public class MenuManager : MonoBehaviour
 	{
-		public static MenuManager instance;
+		public static MenuManager Instance;
 
-		[SerializeField] private Menu[]      menus;
-		private                  PlayerInput _playerInput;
+		[SerializeField] private MenuController initialMenu;
+
+		private MenuController _currentMenu;
 
 		private void Awake()
 		{
-			instance = this;
+			Instance = this;
 		}
 
 		private void Start()
 		{
-			if (_playerInput == null && GameManager.Instance != null)
-			{
-				// Still causes an error in main menu, that's fine
-				_playerInput = GameManager.Instance.localPlayerInstance.GetComponent<PlayerInput>();
-			}
+			OpenMenu(initialMenu);
 		}
 
-		public void OpenMenu(string menuName)
+		public void OpenMenu(MenuController menuControllerToOpen)
 		{
-			foreach (Menu menu in menus)
-			{
-				menu.Toggle(menu.menuName == menuName);
-				if (menu.menuName == menuName && menu.freezeOnToggle)
-					_playerInput.SwitchCurrentActionMap(menu.inputToggle ? "UI" : "Game");
-			}
-		}
+			if (_currentMenu != null) _currentMenu.Toggle(false);
 
-		public void OpenMenu(Menu menu)
-		{
-			OpenMenu(menu.menuName);
+			_currentMenu = menuControllerToOpen;
+
+			if (_currentMenu != null) _currentMenu.Toggle(true);
 		}
 	}
 }

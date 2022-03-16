@@ -759,6 +759,12 @@ MonoBehaviour:
   availableWeapons:
   - {fileID: 1692985224037033131}
   - {fileID: 5124768132740305437}
+  ammoSpriteDict:
+    m_keys: 000000000100000002000000
+    m_values:
+    - {fileID: 2853566114444752598, guid: fddb5385a0f4479f5bd5a03f1a2ef0bb, type: 3}
+    - {fileID: -6741822026156145403, guid: fddb5385a0f4479f5bd5a03f1a2ef0bb, type: 3}
+    - {fileID: -6058229231348979346, guid: fddb5385a0f4479f5bd5a03f1a2ef0bb, type: 3}
 --- !u!114 &5989146994798338574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,6 +830,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd794169ec741e696a5d531c94c3bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onAmmoUpdated:
+    m_PersistentCalls:
+      m_Calls: []
   ammoInventory:
     m_keys: 00000000010000000200000003000000
     m_values:

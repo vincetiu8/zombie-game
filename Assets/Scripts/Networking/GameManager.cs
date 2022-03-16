@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using Shop;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,18 +13,23 @@ namespace Networking
 {
 	public class GameManager : MonoBehaviourPunCallbacks
 	{
-		public static             GameManager      Instance;
-		[HideInInspector] public  UnityEvent       onAllPlayersDead;
-		[HideInInspector] public  GoldSystem       goldSystem;
-		[HideInInspector] public  GameObject       localPlayerInstance;
-		[HideInInspector] public  SpectatorManager spectatorManager;
-		[SerializeField]  private GameObject       playerPrefab;
-		[SerializeField]  private Transform[]      spawnpoints;
-		[SerializeField]  private MenuManager      menuManager;
-		private                   WaveSpawner      _waveSpawner;
+		public static GameManager Instance;
+
+		public CounterController ammoCounter;
+		public CounterController goldCounter;
+
+		[HideInInspector] public UnityEvent       onAllPlayersDead;
+		[HideInInspector] public GoldSystem       goldSystem;
+		[HideInInspector] public GameObject       localPlayerInstance;
+		[HideInInspector] public SpectatorManager spectatorManager;
+
+		[SerializeField] private GameObject     playerPrefab;
+		[SerializeField] private Transform[]    spawnpoints;
+		[SerializeField] private MenuController deathMenu;
+
+		private WaveSpawner _waveSpawner;
 
 		public Dictionary<int, GameObject> PlayerInstances;
-
 
 		private void Awake()
 		{
@@ -56,7 +62,7 @@ namespace Networking
 
 			if (PlayerInstances.Count != 0) return;
 
-			menuManager.OpenMenu("death");
+			MenuManager.Instance.OpenMenu(deathMenu);
 			onAllPlayersDead.Invoke();
 		}
 

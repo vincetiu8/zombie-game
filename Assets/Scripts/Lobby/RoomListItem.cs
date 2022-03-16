@@ -17,7 +17,7 @@ namespace Lobby
 
 		public void OnClick()
 		{
-			Launcher.instance.JoinRoom(RoomInfo);
+			Launcher.Instance.JoinRoom(RoomInfo);
 		}
 	}
 }
